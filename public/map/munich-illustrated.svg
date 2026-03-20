@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#191513"/>
+
+  <!-- Munich outline -->
+  <path d="M200 150 C250 100, 400 80, 550 120 C620 140, 680 200, 650 300 C630 380, 580 450, 500 480 C400 510, 300 490, 220 440 C160 400, 140 300, 160 220 C170 180, 185 160, 200 150Z"
+        fill="#523113" fill-opacity="0.3" stroke="#e4d6c5" stroke-width="1.5" stroke-opacity="0.3"/>
+
+  <!-- Isar river -->
+  <path d="M380 80 C390 150, 410 200, 400 260 C390 320, 405 380, 395 440 C390 480, 385 520, 390 580"
+        fill="none" stroke="#223a7b" stroke-width="4" stroke-opacity="0.6" stroke-linecap="round"/>
+
+  <!-- Bar locations -->
+  <circle cx="320" cy="200" r="8" fill="#f39200" opacity="0.8"/>
+  <circle cx="450" cy="180" r="8" fill="#bd256e" opacity="0.8"/>
+  <circle cx="350" cy="300" r="8" fill="#223a7b" opacity="0.8"/>
+  <circle cx="500" cy="280" r="8" fill="#1a4620" opacity="0.8"/>
+  <circle cx="280" cy="350" r="8" fill="#f39200" opacity="0.8"/>
+  <circle cx="480" cy="380" r="8" fill="#bd256e" opacity="0.8"/>
+
+  <!-- Center brandmark (4-point star) -->
+  <path d="M400 260 L408 290 L400 320 L392 290Z" fill="#f39200" opacity="0.9"/>
+  <path d="M370 290 L400 282 L430 290 L400 298Z" fill="#f39200" opacity="0.9"/>
+
+  <!-- Caption -->
+  <text x="400" y="560" text-anchor="middle" fill="#e4d6c5" font-size="14" opacity="0.5" font-family="sans-serif">
+    MUNICH · COCKTAIL X FESTIVAL MAP
+  </text>
+</svg>
