@@ -38,7 +38,7 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[160px] h-[210px] md:w-[220px] md:h-[280px] lg:w-[260px] lg:h-[330px]"
+        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[140px] h-[185px] md:w-[190px] md:h-[250px] lg:w-[220px] lg:h-[290px] opacity-70"
       >
         <AnimatePresence mode="popLayout">
           <motion.div
