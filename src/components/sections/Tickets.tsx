@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import ShopifyBuyButton from "@/components/ui/ShopifyBuyButton";
 
 const features = [
   "Access to 50+ participating bars",
@@ -58,9 +59,11 @@ export default function Tickets() {
             ))}
           </ul>
 
-          <button className="btn-primary w-full text-center">
-            {t("buyNow")}
-          </button>
+          <ShopifyBuyButton
+            productId="passport"
+            buttonText={t("buyNow")}
+            className="w-full text-center"
+          />
         </motion.div>
       </div>
     </section>

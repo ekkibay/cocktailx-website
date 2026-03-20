@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
+import ShopifyBuyButton from "@/components/ui/ShopifyBuyButton";
 
 const products = [
   {
+    productId: "passport",
     name: { de: "Festival Passport", en: "Festival Passport" },
     price: 15,
     image: "📖",
@@ -14,6 +16,7 @@ const products = [
     },
   },
   {
+    productId: "tshirt",
     name: { de: "T-Shirt", en: "T-Shirt" },
     price: 39,
     image: "👕",
@@ -23,6 +26,7 @@ const products = [
     },
   },
   {
+    productId: "giftcard",
     name: { de: "Geschenkkarte", en: "Gift Card" },
     price: 15,
     image: "🎁",
@@ -99,9 +103,11 @@ export default function ShopPage() {
                   <span className="text-2xl font-display text-tangerine">
                     &euro;{product.price}
                   </span>
-                  <button className="btn-primary text-sm">
-                    {locale === "de" ? "In den Warenkorb" : "Add to Cart"}
-                  </button>
+                  <ShopifyBuyButton
+                    productId={product.productId}
+                    buttonText={locale === "de" ? "In den Warenkorb" : "Add to Cart"}
+                    className="text-sm"
+                  />
                 </div>
               </div>
             </motion.div>
