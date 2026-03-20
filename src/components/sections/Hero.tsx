@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -22,6 +22,20 @@ export default function Hero() {
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+  }, []);
+
+  const [daysLeft, setDaysLeft] = useState(0);
+
+  useEffect(() => {
+    function calcDays() {
+      const now = new Date().getTime();
+      const festivalDate = new Date("2026-05-13T19:00:00+02:00").getTime();
+      const diff = festivalDate - now;
+      return diff > 0 ? Math.floor(diff / (1000 * 60 * 60 * 24)) : 0;
+    }
+    setDaysLeft(calcDays());
+    const interval = setInterval(() => setDaysLeft(calcDays()), 60000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -63,6 +77,7 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-4">
+        {/* Badge */}
         <motion.span
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,33 +87,66 @@ export default function Hero() {
           {t("subtitle")}
         </motion.span>
 
+        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-10 md:mb-14 text-6xl md:text-8xl lg:text-[10rem] font-display text-bone"
+          className="mb-4 md:mb-6 text-6xl md:text-8xl lg:text-[10rem] font-display text-bone"
         >
           {t("title")}
         </motion.h1>
 
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mb-8 md:mb-10 max-w-xl text-base md:text-lg font-body text-bone/70 leading-relaxed"
+        >
+          {t("subheadline")}
+        </motion.p>
+
+        {/* Countdown label */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="mb-2 text-sm md:text-base font-body text-bone/50 uppercase tracking-wider"
+        >
+          {t("countdownLabel", { days: daysLeft })}
+        </motion.p>
+
+        {/* Countdown */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mb-12 md:mb-16"
+          className="mb-8 md:mb-10"
         >
           <Countdown onTick={nextSlide} />
         </motion.div>
 
+        {/* CTA */}
         <motion.a
           href="#tickets"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="btn-primary text-xl md:text-2xl"
+          className="btn-primary text-lg md:text-xl"
         >
           {t("cta")}
         </motion.a>
+
+        {/* Trust line */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
+          className="mt-4 text-xs md:text-sm font-body text-bone/40 tracking-wider"
+        >
+          {t("trustLine")}
+        </motion.p>
       </div>
 
       {/* Scroll indicator */}
