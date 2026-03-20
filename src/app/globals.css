@@ -6,19 +6,26 @@
    Font-face declarations
    ------------------------------------------------ */
 @font-face {
-  font-family: "Rousseau Deco Bold";
-  src: url("/fonts/RousseauDecoBold.woff2") format("woff2"),
-    url("/fonts/RousseauDecoBold.woff") format("woff");
-  font-weight: 700;
+  font-family: "RousseauDeco";
+  src: url("/fonts/RousseauDeco.woff2") format("woff2"),
+    url("/fonts/RousseauDeco.woff") format("woff");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Geist Thin";
-  src: url("/fonts/GeistThin.woff2") format("woff2"),
-    url("/fonts/GeistThin.woff") format("woff");
+  font-family: "Geist";
+  src: url("/fonts/Geist-Thin.woff2") format("woff2");
   font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Bold.woff2") format("woff2");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -46,15 +53,15 @@
    ------------------------------------------------ */
 @layer components {
   .btn-primary {
-    @apply inline-block bg-tangerine text-licorice font-display rounded-lg
-      px-6 py-3 text-center transition-colors duration-200
-      hover:bg-opacity-90 hover:brightness-110;
+    @apply inline-flex items-center justify-center bg-tangerine text-licorice font-body font-bold uppercase tracking-wide rounded-full
+      px-10 py-4 text-center transition-all duration-200
+      hover:brightness-110 hover:scale-105;
   }
 
   .btn-secondary {
-    @apply inline-block border-2 border-bone text-bone font-display rounded-lg
-      px-6 py-3 text-center transition-colors duration-200
-      hover:bg-bone hover:text-licorice;
+    @apply inline-flex items-center justify-center border-2 border-bone text-bone font-body font-bold rounded-full
+      px-8 py-3.5 text-center transition-all duration-200
+      hover:bg-bone hover:text-licorice hover:scale-105;
   }
 
   .section-padding {
