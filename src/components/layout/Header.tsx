@@ -50,7 +50,7 @@ export default function Header() {
               <Link
                 key={link.key}
                 href={`/${locale}${link.href}`}
-                className="text-xs uppercase tracking-wider text-bone/70 hover:text-bone transition-colors font-display"
+                className="text-sm uppercase tracking-wider text-bone/70 hover:text-bone transition-colors font-body"
               >
                 {t(link.key)}
               </Link>
@@ -62,7 +62,7 @@ export default function Header() {
             <LanguageSwitcher />
             <Link
               href={`/${locale}/tickets`}
-              className="btn-primary text-xs uppercase tracking-wider"
+              className="btn-secondary text-xs uppercase tracking-wider"
             >
               {t("getPassport")}
             </Link>
