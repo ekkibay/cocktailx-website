@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "festival": "FESTIVAL",
+    "awards": "AWARDS",
+    "app": "APP",
+    "shop": "SHOP",
+    "blog": "BLOG",
+    "getPassport": "PASSPORT HOLEN"
+  },
+  "hero": {
+    "title": "COCKTAIL \u2726 FESTIVAL",
+    "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
+    "cta": "HOLT EUCH EUREN PASSPORT",
+    "days": "Tage",
+    "hours": "Stunden",
+    "minutes": "Minuten",
+    "seconds": "Sekunden"
+  },
+  "about": {
+    "headline": "DEUTSCHLANDS GR\u00d6SSTES COCKTAIL FESTIVAL",
+    "bars": "50+ Bars",
+    "cocktails": "200+ Cocktails",
+    "days": "18 Tage",
+    "passport": "1 Passport",
+    "cta": "MEHR ERFAHREN"
+  },
+  "howItWorks": {
+    "step1": "HOL DIR DEINEN PASSPORT",
+    "step2": "BESUCHE 50+ BARS",
+    "step3": "SAMMLE STEMPEL"
+  },
+  "tickets": {
+    "headline": "TICKETS",
+    "buyNow": "JETZT KAUFEN"
+  },
+  "map": {
+    "headline": "ENTDECKE M\u00dcNCHEN",
+    "cta": "ALLE BARS ENTDECKEN"
+  },
+  "newsletter": {
+    "headline": "VERPASSE NICHTS",
+    "placeholder": "Deine E-Mail Adresse",
+    "submit": "ANMELDEN"
+  },
+  "footer": {
+    "connect": "Verbinde dich",
+    "becomeSponsor": "Sponsor werden",
+    "becomeBar": "Bar werden",
+    "becomeGuest": "Gast werden",
+    "becomeExcelerator": "Excelerator werden",
+    "events": "Events",
+    "grandOpening": "Grand Opening",
+    "closingAwards": "Closing & Awards",
+    "app": "App",
+    "login": "Login",
+    "aboutUs": "\u00dcber uns",
+    "catering": "Catering",
+    "founder": "Gr\u00fcnder",
+    "contact": "Kontakt",
+    "legal": "Rechtliches",
+    "privacy": "Datenschutz",
+    "cookies": "Cookies",
+    "imprint": "Impressum",
+    "copyright": "\u00a9 2026 Cocktail X. Alle Rechte vorbehalten."
+  }
+}

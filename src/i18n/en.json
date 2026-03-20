@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "festival": "FESTIVAL",
+    "awards": "AWARDS",
+    "app": "APP",
+    "shop": "SHOP",
+    "blog": "BLOG",
+    "getPassport": "GET PASSPORT"
+  },
+  "hero": {
+    "title": "COCKTAIL \u2726 FESTIVAL",
+    "subtitle": "MUNICH \u00b7 MAY 13\u201330 \u00b7 2026",
+    "cta": "GET YOUR PASSPORT",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  },
+  "about": {
+    "headline": "GERMANY\u2019S BIGGEST COCKTAIL FESTIVAL",
+    "bars": "50+ Bars",
+    "cocktails": "200+ Cocktails",
+    "days": "18 Days",
+    "passport": "1 Passport",
+    "cta": "LEARN MORE"
+  },
+  "howItWorks": {
+    "step1": "GET YOUR PASSPORT",
+    "step2": "VISIT 50+ BARS",
+    "step3": "COLLECT STAMPS"
+  },
+  "tickets": {
+    "headline": "TICKETS",
+    "buyNow": "BUY NOW"
+  },
+  "map": {
+    "headline": "DISCOVER MUNICH",
+    "cta": "DISCOVER ALL BARS"
+  },
+  "newsletter": {
+    "headline": "DON\u2019T MISS A THING",
+    "placeholder": "Your email address",
+    "submit": "SUBSCRIBE"
+  },
+  "footer": {
+    "connect": "Connect",
+    "becomeSponsor": "Become a Sponsor",
+    "becomeBar": "Become a Bar",
+    "becomeGuest": "Become a Guest",
+    "becomeExcelerator": "Become an Excelerator",
+    "events": "Events",
+    "grandOpening": "Grand Opening",
+    "closingAwards": "Closing & Awards",
+    "app": "App",
+    "login": "Login",
+    "aboutUs": "About Us",
+    "catering": "Catering",
+    "founder": "Founder",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookies",
+    "imprint": "Imprint",
+    "copyright": "\u00a9 2026 Cocktail X. All rights reserved."
+  }
+}
