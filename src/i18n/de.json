@@ -8,9 +8,12 @@
     "getPassport": "PASSPORT HOLEN"
   },
   "hero": {
-    "title": "COCKTAIL \u2726 FESTIVAL",
+    "title": "cocktail \u2726 festival",
     "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
-    "cta": "HOLT EUCH EUREN PASSPORT",
+    "subheadline": "Erlebe 50+ Bars, exklusive Drinks und unvergessliche Festival-Momente in ganz M\u00fcnchen.",
+    "countdownLabel": "Noch {days} Tage bis zum Start",
+    "cta": "Jetzt Festival Pass sichern",
+    "trustLine": "50+ Bars \u00b7 Limitierte P\u00e4sse \u00b7 Exklusive Erlebnisse",
     "days": "Tage",
     "hours": "Stunden",
     "minutes": "Minuten",

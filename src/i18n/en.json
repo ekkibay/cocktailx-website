@@ -8,9 +8,12 @@
     "getPassport": "GET PASSPORT"
   },
   "hero": {
-    "title": "COCKTAIL \u2726 FESTIVAL",
+    "title": "cocktail \u2726 festival",
     "subtitle": "MUNICH \u00b7 MAY 13\u201330 \u00b7 2026",
-    "cta": "GET YOUR PASSPORT",
+    "subheadline": "Experience 50+ bars, exclusive drinks and unforgettable festival moments across Munich.",
+    "countdownLabel": "{days} days until the festival",
+    "cta": "Get Your Festival Pass",
+    "trustLine": "50+ Bars \u00b7 Limited Passes \u00b7 Exclusive Experiences",
     "days": "Days",
     "hours": "Hours",
     "minutes": "Minutes",
