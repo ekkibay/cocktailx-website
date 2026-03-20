@@ -1,53 +1,93 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Countdown from "@/components/ui/Countdown";
 
+const heroImages = [
+  "/images/hero-bg.jpg.webp",
+  "/images/Cocktail X_2.png",
+  "/images/Cocktail X_3.png",
+  "/images/Cocktail X_4.png",
+  "/images/IMG_1063.jpg",
+  "/images/L1030863_CocktailX_adriancamo.jpg",
+  "/images/L1030894_CocktailX_adriancamo.jpg",
+];
+
 export default function Hero() {
   const t = useTranslations("hero");
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+  }, []);
 
   return (
     <section className="relative h-screen overflow-hidden flex items-center justify-center">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <Image
-          src="/images/placeholder/hero-bg.svg"
-          alt=""
-          fill
-          className="object-cover opacity-40"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-licorice via-licorice/50 to-transparent" />
-      </div>
+      {/* Pattern Background */}
+      <div className="absolute inset-0" style={{ backgroundImage: 'url(/images/pattern-bg.svg)', backgroundSize: '200px 200px', backgroundRepeat: 'repeat' }} />
+      {/* Darken overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-licorice/80 via-licorice/90 to-licorice" />
+      {/* Radial spotlight to isolate center content */}
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center 40%, transparent 0%, rgba(25,21,19,0.6) 70%)' }} />
+
+      {/* Image Card behind text */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[160px] h-[210px] md:w-[220px] md:h-[280px] lg:w-[260px] lg:h-[330px]"
+      >
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={heroImages[currentIndex]}
+              alt="Cocktail X Festival"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 480px"
+              priority={currentIndex === 0}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 gap-8">
-        <motion.h1
+      <div className="relative z-10 flex flex-col items-center text-center px-4">
+        <motion.span
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-9xl font-display text-bone"
+          className="mb-3 md:mb-4 inline-block px-5 py-2 border-2 border-tangerine rounded-full text-sm md:text-base font-body text-tangerine tracking-[0.25em] uppercase font-bold"
         >
-          {t("title")}
-        </motion.h1>
+          {t("subtitle")}
+        </motion.span>
 
-        <motion.p
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-lg md:text-xl font-body text-bone/70 tracking-[0.3em] uppercase"
+          className="mb-10 md:mb-14 text-6xl md:text-8xl lg:text-[10rem] font-display text-bone"
         >
-          {t("subtitle")}
-        </motion.p>
+          {t("title")}
+        </motion.h1>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
+          className="mb-12 md:mb-16"
         >
-          <Countdown />
+          <Countdown onTick={nextSlide} />
         </motion.div>
 
         <motion.a
@@ -55,7 +95,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="btn-primary text-lg animate-pulse-slow"
+          className="btn-primary text-xl md:text-2xl"
         >
           {t("cta")}
         </motion.a>
