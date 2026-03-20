@@ -67,7 +67,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-3 md:mb-4 inline-block px-5 py-2 border-2 border-tangerine rounded-full text-sm md:text-base font-body text-tangerine tracking-[0.25em] uppercase font-bold"
+          className="mb-3 md:mb-4 inline-block px-4 py-1.5 border border-tangerine/60 rounded-full text-xs md:text-sm font-body text-tangerine tracking-[0.25em] uppercase font-normal"
         >
           {t("subtitle")}
         </motion.span>
