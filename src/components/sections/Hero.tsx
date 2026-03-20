@@ -43,16 +43,16 @@ export default function Hero() {
       {/* Pattern Background */}
       <div className="absolute inset-0" style={{ backgroundImage: 'url(/images/pattern-bg.svg)', backgroundSize: '200px 200px', backgroundRepeat: 'repeat' }} />
       {/* Darken overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-licorice/85 via-licorice/92 to-licorice" />
-      {/* Radial spotlight — stronger center isolation */}
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center 40%, rgba(25,21,19,0.3) 0%, rgba(25,21,19,0.85) 60%)' }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-licorice/80 via-licorice/90 to-licorice" />
+      {/* Radial spotlight to isolate center content */}
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center 40%, transparent 0%, rgba(25,21,19,0.6) 70%)' }} />
 
-      {/* Image Card — smaller, subtler accent */}
+      {/* Image Card behind text */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="absolute top-[8%] md:top-[10%] lg:top-[12%] w-[110px] h-[145px] md:w-[150px] md:h-[200px] lg:w-[180px] lg:h-[240px] opacity-50"
+        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[140px] h-[185px] md:w-[190px] md:h-[250px] lg:w-[220px] lg:h-[290px] opacity-70"
       >
         <AnimatePresence mode="popLayout">
           <motion.div
@@ -68,7 +68,7 @@ export default function Hero() {
               alt="Cocktail X Festival"
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 150px, (max-width: 1024px) 200px, 240px"
+              sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 480px"
               priority={currentIndex === 0}
             />
           </motion.div>
@@ -77,42 +77,42 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-4">
-        {/* Badge — bigger, stronger border, more space below */}
+        {/* Badge */}
         <motion.span
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-5 md:mb-6 inline-block px-5 py-2 border-2 border-tangerine/70 rounded-full text-xs md:text-sm font-body text-tangerine tracking-[0.3em] uppercase font-normal"
+          className="mb-3 md:mb-4 inline-block px-4 py-1.5 border border-tangerine/60 rounded-full text-xs md:text-sm font-body text-tangerine tracking-[0.25em] uppercase font-normal"
         >
           {t("subtitle")}
         </motion.span>
 
-        {/* Headline — slightly smaller, more breathing room below */}
+        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-5 md:mb-8 text-5xl md:text-6xl lg:text-7xl font-display text-bone"
+          className="mb-4 md:mb-6 text-5xl md:text-7xl lg:text-8xl font-display text-bone"
         >
           {t("title")}
         </motion.h1>
 
-        {/* Subheadline — brighter, larger, tighter max-width */}
+        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mb-8 md:mb-10 max-w-md text-sm md:text-base lg:text-lg font-body text-bone/80 leading-relaxed"
+          className="mb-6 md:mb-10 max-w-xl text-sm md:text-lg font-body text-bone/70 leading-relaxed"
         >
           {t("subheadline")}
         </motion.p>
 
-        {/* Countdown label — brighter */}
+        {/* Countdown label */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55 }}
-          className="mb-3 text-sm md:text-base font-body text-bone/70 uppercase tracking-wider"
+          className="mb-2 text-sm md:text-base font-body text-bone/50 uppercase tracking-wider"
         >
           {t("countdownLabel", { days: daysLeft })}
         </motion.p>
@@ -122,7 +122,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mb-8 md:mb-12"
+          className="mb-6 md:mb-10"
         >
           <Countdown onTick={nextSlide} />
         </motion.div>
@@ -133,17 +133,17 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="btn-primary text-sm md:text-base lg:text-lg whitespace-nowrap"
+          className="btn-primary text-sm md:text-lg whitespace-nowrap"
         >
           {t("cta")}
         </motion.a>
 
-        {/* Trust line — brighter, slightly bigger, more space */}
+        {/* Trust line */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="mt-5 text-xs md:text-sm font-body text-bone/60 tracking-wide"
+          className="mt-4 text-xs md:text-sm font-body text-bone/40 tracking-wider"
         >
           {t("trustLine")}
         </motion.p>

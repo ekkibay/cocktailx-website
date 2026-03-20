@@ -18,12 +18,12 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 10, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-display text-tangerine"
+          className="text-4xl md:text-7xl lg:text-8xl font-display text-tangerine"
         >
           {display}
         </motion.span>
       </AnimatePresence>
-      <span className="text-xs md:text-sm font-body text-bone/70 uppercase tracking-widest mt-3">
+      <span className="text-xs font-body text-bone/60 uppercase tracking-widest mt-2">
         {label}
       </span>
     </div>
@@ -74,12 +74,14 @@ export default function Countdown({ onTick }: { onTick?: () => void }) {
   }
 
   return (
-    <div className="flex items-center gap-4 md:gap-8">
+    <div className="flex items-center gap-3 md:gap-8">
       <CountdownUnit value={timeLeft.days} label={t("days")} />
-      <span className="text-2xl md:text-4xl font-display text-bone/20 -mt-6">:</span>
+      <span className="text-2xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
       <CountdownUnit value={timeLeft.hours} label={t("hours")} />
-      <span className="text-2xl md:text-4xl font-display text-bone/20 -mt-6">:</span>
+      <span className="text-2xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
       <CountdownUnit value={timeLeft.minutes} label={t("minutes")} />
+      <span className="text-2xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
+      <CountdownUnit value={timeLeft.seconds} label={t("seconds")} />
     </div>
   );
 }
