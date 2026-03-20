@@ -92,7 +92,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-4 md:mb-6 text-6xl md:text-8xl lg:text-[10rem] font-display text-bone"
+          className="mb-4 md:mb-6 text-5xl md:text-7xl lg:text-8xl font-display text-bone"
         >
           {t("title")}
         </motion.h1>
@@ -102,7 +102,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mb-8 md:mb-10 max-w-xl text-base md:text-lg font-body text-bone/70 leading-relaxed"
+          className="mb-6 md:mb-10 max-w-xl text-sm md:text-lg font-body text-bone/70 leading-relaxed"
         >
           {t("subheadline")}
         </motion.p>
@@ -122,7 +122,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mb-8 md:mb-10"
+          className="mb-6 md:mb-10"
         >
           <Countdown onTick={nextSlide} />
         </motion.div>
@@ -133,7 +133,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="btn-primary text-lg md:text-xl"
+          className="btn-primary text-sm md:text-lg whitespace-nowrap"
         >
           {t("cta")}
         </motion.a>

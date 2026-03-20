@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 
@@ -18,7 +18,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 10, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-display text-tangerine"
+          className="text-4xl md:text-7xl lg:text-8xl font-display text-tangerine"
         >
           {display}
         </motion.span>
@@ -30,7 +30,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
   );
 }
 
-export default function Countdown() {
+export default function Countdown({ onTick }: { onTick?: () => void }) {
   const t = useTranslations("hero");
   const [mounted, setMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
@@ -39,6 +39,8 @@ export default function Countdown() {
     minutes: 0,
     seconds: 0,
   });
+  const onTickRef = useRef(onTick);
+  onTickRef.current = onTick;
 
   useEffect(() => {
     setMounted(true);
@@ -60,7 +62,10 @@ export default function Countdown() {
     }
 
     setTimeLeft(calcTime());
-    const interval = setInterval(() => setTimeLeft(calcTime()), 1000);
+    const interval = setInterval(() => {
+      setTimeLeft(calcTime());
+      onTickRef.current?.();
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -69,13 +74,13 @@ export default function Countdown() {
   }
 
   return (
-    <div className="flex items-center gap-4 md:gap-8">
+    <div className="flex items-center gap-3 md:gap-8">
       <CountdownUnit value={timeLeft.days} label={t("days")} />
-      <span className="text-3xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
+      <span className="text-2xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
       <CountdownUnit value={timeLeft.hours} label={t("hours")} />
-      <span className="text-3xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
+      <span className="text-2xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
       <CountdownUnit value={timeLeft.minutes} label={t("minutes")} />
-      <span className="text-3xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
+      <span className="text-2xl md:text-5xl font-display text-bone/30 -mt-6">:</span>
       <CountdownUnit value={timeLeft.seconds} label={t("seconds")} />
     </div>
   );
