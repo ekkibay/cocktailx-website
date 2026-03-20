@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default async function LocaleLayout({
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           <Header />
-          {children}
+          <PageTransition>{children}</PageTransition>
           <Footer />
         </NextIntlClientProvider>
       </body>
