@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cookies",
+  description: "Cookie-Richtlinie der Cocktail X GmbH.",
+};
+
 export default function CookiesPage() {
   return (
     <main className="bg-bone text-licorice min-h-screen">

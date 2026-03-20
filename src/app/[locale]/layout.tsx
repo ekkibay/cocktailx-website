@@ -9,9 +9,12 @@ import PageTransition from "@/components/layout/PageTransition";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Cocktail X Festival",
+  title: {
+    default: "Cocktail X Festival | München 2026",
+    template: "%s | Cocktail X Festival",
+  },
   description:
-    "Deutschlands gr\u00f6\u00dftes Cocktail Festival \u2013 M\u00fcnchen, 13.\u201330. Mai 2026",
+    "Deutschlands größtes Cocktail Festival – München, 13.–30. Mai 2026. 50+ Bars, 200+ exklusive Cocktails, 18 Tage Festival.",
 };
 
 export default async function LocaleLayout({

@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Datenschutz",
+  description: "Datenschutzerklärung der Cocktail X GmbH.",
+};
+
 export default function DatenschutzPage() {
   return (
     <main className="bg-bone text-licorice min-h-screen">

@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Impressum",
+  description: "Impressum der Cocktail X GmbH, München.",
+};
+
 export default function ImpressumPage() {
   return (
     <main className="bg-bone text-licorice min-h-screen">
