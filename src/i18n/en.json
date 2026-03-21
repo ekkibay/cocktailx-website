@@ -11,7 +11,6 @@
     "title": "cocktail \u2726 festival",
     "subtitle": "MUNICH \u00b7 MAY 13\u201330 \u00b7 2026",
     "subheadline": "Experience 50+ bars, exclusive drinks and unforgettable festival moments across Munich.",
-    "countdownLabel": "{days} days until the festival",
     "cta": "Get Your Festival Pass",
     "trustLine": "50+ Bars \u00b7 Limited Passes \u00b7 Exclusive Experiences",
     "days": "Days",
@@ -30,10 +29,22 @@
   },
   "howItWorks": {
     "headline": "HOW IT WORKS",
-    "stepLabel": "STEP {number}",
-    "step1": "GET YOUR PASSPORT",
-    "step2": "VISIT 50+ BARS",
-    "step3": "COLLECT STAMPS"
+    "step1": {
+      "title": "GET YOUR PASSPORT",
+      "description": "Your digital festival pass for <strong>50+ bars</strong> and <strong>18 days</strong> of exclusive drinks."
+    },
+    "step2": {
+      "title": "DISCOVER EXCLUSIVE DRINKS",
+      "description": "Each bar mixes a <strong>signature cocktail</strong> available only during the festival. For just <strong>€6</strong>."
+    },
+    "step3": {
+      "title": "SCAN & ORDER",
+      "description": "Scan the <strong>QR code</strong> at the bar, unlock the signature cocktail and order directly."
+    },
+    "step4": {
+      "title": "COLLECT STAMPS & WIN",
+      "description": "Collect a digital <strong>stamp</strong> at every bar visit. The more stamps you have, the better your chances to win."
+    }
   },
   "tickets": {
     "headline": "TICKETS",

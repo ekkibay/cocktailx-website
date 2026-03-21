@@ -11,7 +11,6 @@
     "title": "cocktail \u2726 festival",
     "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
     "subheadline": "Erlebe 50+ Bars, exklusive Drinks und unvergessliche Festival-Momente in ganz M\u00fcnchen.",
-    "countdownLabel": "Noch {days} Tage bis zum Start",
     "cta": "Jetzt Festival Pass sichern",
     "trustLine": "50+ Bars \u00b7 Limitierte P\u00e4sse \u00b7 Exklusive Erlebnisse",
     "days": "Tage",
@@ -30,10 +29,22 @@
   },
   "howItWorks": {
     "headline": "SO FUNKTIONIERT'S",
-    "stepLabel": "SCHRITT {number}",
-    "step1": "HOL DIR DEINEN PASSPORT",
-    "step2": "BESUCHE 50+ BARS",
-    "step3": "SAMMLE STEMPEL"
+    "step1": {
+      "title": "HOL DIR DEINEN PASSPORT",
+      "description": "Dein digitaler Festivalpass für <strong>50+ Bars</strong> und <strong>18 Tage</strong> voller exklusiver Drinks."
+    },
+    "step2": {
+      "title": "ENTDECKE EXKLUSIVE DRINKS",
+      "description": "Jede Bar mixt einen <strong>Signature Cocktail</strong>, den es nur während des Festivals gibt. Für nur <strong>6€</strong>."
+    },
+    "step3": {
+      "title": "SCANNE & BESTELLE",
+      "description": "Scanne den <strong>QR-Code</strong> in der Bar, schalte den Signature Cocktail frei und bestelle direkt."
+    },
+    "step4": {
+      "title": "SAMMLE STEMPEL & GEWINNE",
+      "description": "Bei jedem Barbesuch sammelst du einen digitalen <strong>Stempel</strong>. Je mehr Stempel du hast, desto besser deine Gewinnchancen."
+    }
   },
   "tickets": {
     "headline": "TICKETS",

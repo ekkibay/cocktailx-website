@@ -5,14 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileNav from "./MobileNav";
-
-const navLinks = [
-  { key: "festival", href: "/festival" },
-  { key: "awards", href: "/awards" },
-  { key: "app", href: "/app" },
-  { key: "shop", href: "/shop" },
-  { key: "blog", href: "/blog" },
-] as const;
+import { navLinks } from "@/lib/nav";
 
 export default function Header() {
   const locale = useLocale();

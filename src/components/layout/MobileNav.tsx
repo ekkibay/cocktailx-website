@@ -4,19 +4,12 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { navLinks } from "@/lib/nav";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const navLinks = [
-  { key: "festival", href: "/festival" },
-  { key: "awards", href: "/awards" },
-  { key: "app", href: "/app" },
-  { key: "shop", href: "/shop" },
-  { key: "blog", href: "/blog" },
-] as const;
 
 export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const locale = useLocale();

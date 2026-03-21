@@ -47,13 +47,8 @@ export default function ShopifyBuyButton({
   className = "",
 }: ShopifyBuyButtonProps) {
   const handleClick = () => {
-    // Placeholder: will be replaced with real Shopify checkout flow
-    console.log(
-      `Shopify Buy Button will be connected with product: ${productId}`
-    );
-    alert(
-      `Shopify Buy Button will be connected with product: ${productId}`
-    );
+    // TODO: Replace with real Shopify checkout flow
+    // See comment at top of file for implementation pattern
   };
 
   return (

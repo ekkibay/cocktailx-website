@@ -18,8 +18,8 @@ const config: Config = {
         bone: "#e4d6c5",
       },
       fontFamily: {
-        display: ['"RousseauDeco"', "serif"],
-        body: ['"Geist"', "sans-serif"],
+        display: ["RousseauDeco", "system-ui", "sans-serif"],
+        body: ["Geist", "system-ui", "sans-serif"],
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",

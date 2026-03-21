@@ -8,9 +8,12 @@ export default function Newsletter() {
   const t = useTranslations("newsletter");
   const [email, setEmail] = useState("");
 
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Newsletter signup:", email);
+    // TODO: Connect to newsletter provider (e.g. Mailchimp, ConvertKit)
+    setStatus("success");
     setEmail("");
   };
 
@@ -41,26 +44,36 @@ export default function Newsletter() {
           {t("incentive")}
         </motion.p>
 
-        <motion.form
-          onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-3"
-        >
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={t("placeholder")}
-            className="flex-1 bg-transparent border border-bone/20 rounded-lg px-4 py-3 text-bone font-body placeholder:text-bone/30 focus:border-tangerine focus:outline-none transition-colors"
-          />
-          <button type="submit" className="btn-primary whitespace-nowrap">
-            {t("submit")}
-          </button>
-        </motion.form>
+        {status === "success" ? (
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-tangerine font-body font-bold text-lg py-4"
+          >
+            ✓ Du bist dabei! Wir melden uns bald.
+          </motion.p>
+        ) : (
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-3"
+          >
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("placeholder")}
+              className="flex-1 bg-transparent border border-bone/20 rounded-lg px-4 py-3 text-bone font-body placeholder:text-bone/30 focus:border-tangerine focus:outline-none transition-colors"
+            />
+            <button type="submit" className="btn-primary whitespace-nowrap">
+              {t("submit")}
+            </button>
+          </motion.form>
+        )}
 
         <motion.p
           initial={{ opacity: 0 }}

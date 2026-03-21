@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Countdown from "@/components/ui/Countdown";
@@ -39,27 +39,24 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[180px] h-[240px] md:w-[250px] md:h-[330px] lg:w-[290px] lg:h-[380px] opacity-70"
+        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[180px] h-[240px] md:w-[250px] md:h-[330px] lg:w-[290px] lg:h-[380px] opacity-70 z-[5]"
       >
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute inset-0"
+        {heroImages.map((src, i) => (
+          <div
+            key={src}
+            className="absolute inset-0 transition-opacity duration-500 ease-in-out"
+            style={{ opacity: i === currentIndex ? 1 : 0 }}
           >
             <Image
-              src={heroImages[currentIndex]}
+              src={src}
               alt="Cocktail X Festival"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 480px"
-              priority={currentIndex === 0}
+              priority
             />
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        ))}
       </motion.div>
 
       {/* Content */}
