@@ -26,17 +26,27 @@ export default function Newsletter() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-display text-bone mb-8"
+          className="text-3xl md:text-4xl font-display text-bone mb-4"
         >
           {t("headline")}
         </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-sm font-body text-tangerine font-bold mb-8"
+        >
+          {t("incentive")}
+        </motion.p>
 
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="flex flex-col sm:flex-row gap-3"
         >
           <input
@@ -51,6 +61,16 @@ export default function Newsletter() {
             {t("submit")}
           </button>
         </motion.form>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-xs font-body text-bone/40 mt-4"
+        >
+          {t("trust")}
+        </motion.p>
       </div>
     </section>
   );

@@ -66,9 +66,13 @@
     "cta": "DISCOVER ALL BARS"
   },
   "newsletter": {
-    "headline": "DON\u2019T MISS A THING",
+    "headline": "EARLY ACCESS & EXCLUSIVE DEALS",
+    "subheadline": "Be the first to get Early Bird tickets, bar previews and exclusive festival content.",
+    "incentive": "Subscribers hear about new bars & deals 24h before everyone else.",
     "placeholder": "Your email address",
-    "submit": "SUBSCRIBE"
+    "submit": "SUBSCRIBE",
+    "trust": "No spam · Unsubscribe anytime · Max. 2× per month",
+    "socialProof": "Join {count}+ cocktail fans"
   },
   "barsSlider": {
     "headline": "PARTICIPATING BARS",

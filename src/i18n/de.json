@@ -66,9 +66,13 @@
     "cta": "ALLE BARS ENTDECKEN"
   },
   "newsletter": {
-    "headline": "VERPASSE NICHTS",
+    "headline": "EARLY ACCESS & EXKLUSIVE DEALS",
+    "subheadline": "Erhalte als Erster Zugang zu Early Bird Tickets, Bar-Previews und exklusiven Festival-Inhalten.",
+    "incentive": "Newsletter-Abonnenten erfahren 24h früher von neuen Bars & Aktionen.",
     "placeholder": "Deine E-Mail Adresse",
-    "submit": "ANMELDEN"
+    "submit": "ANMELDEN",
+    "trust": "Kein Spam · Jederzeit abmelden · Max. 2× pro Monat",
+    "socialProof": "Bereits {count}+ Cocktail-Fans dabei"
   },
   "barsSlider": {
     "headline": "TEILNEHMENDE BARS",
