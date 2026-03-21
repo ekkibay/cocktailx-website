@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const quotes = [
   {
@@ -18,6 +19,7 @@ const quotes = [
 const pressLogos = ["Süddeutsche Zeitung", "ARD", "Mit Vergnügen"];
 
 export default function PressQuotes() {
+  const t = useTranslations("press");
   return (
     <section className="section-padding">
       <div className="max-w-5xl mx-auto">
@@ -55,7 +57,7 @@ export default function PressQuotes() {
           className="flex flex-wrap items-center justify-center gap-12 pt-12 border-t border-bone/10"
         >
           <p className="text-bone/30 text-sm font-body uppercase tracking-wider">
-            As seen in
+            {t("asSeenIn")}
           </p>
           {pressLogos.map((name) => (
             <span

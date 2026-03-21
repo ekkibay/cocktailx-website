@@ -23,6 +23,9 @@ export default function About() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-bone leading-tight">
               {t("headline")}
             </h2>
+            <p className="mt-6 text-base md:text-lg font-body text-bone/70 leading-relaxed max-w-xl">
+              {t("description")}
+            </p>
             <a href="#tickets" className="btn-primary mt-8 inline-block">
               {t("cta")}
             </a>
@@ -37,7 +40,7 @@ export default function About() {
             className="relative aspect-[4/3] rounded-2xl bg-jambalaya overflow-hidden"
           >
             <Image
-              src="/images/placeholder/about.svg"
+              src="/images/L1030863_CocktailX_adriancamo.jpg"
               alt="About Cocktail X Festival"
               fill
               className="object-cover"

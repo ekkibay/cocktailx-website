@@ -2,12 +2,14 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 import { bars } from "@/data/bars";
 
 export default function BarsSlider() {
   const locale = useLocale() as "de" | "en";
+  const t = useTranslations("barsSlider");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -27,7 +29,7 @@ export default function BarsSlider() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl lg:text-7xl font-display text-bone"
         >
-          LINEUP
+          {t("headline")}
         </motion.h2>
       </div>
 
@@ -64,6 +66,25 @@ export default function BarsSlider() {
             </div>
           </motion.div>
         ))}
+
+        {/* Teaser Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: bars.length * 0.1 }}
+          className="flex-shrink-0 w-[300px] md:w-[400px] aspect-[3/4] rounded-2xl overflow-hidden relative border border-bone/10 bg-licorice/50 backdrop-blur-md flex flex-col items-center justify-center text-center p-8"
+        >
+          <span className="text-6xl md:text-8xl font-display text-tangerine">50+</span>
+          <span className="text-lg md:text-xl font-display text-bone mt-2">{t("teaserTitle")}</span>
+          <p className="text-sm font-body text-bone/60 mt-4">{t("teaserText")}</p>
+          <Link
+            href={`/${locale}/festival`}
+            className="btn-primary mt-6 text-sm"
+          >
+            {t("teaserCta")}
+          </Link>
+        </motion.div>
       </motion.div>
     </section>
   );

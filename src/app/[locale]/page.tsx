@@ -6,8 +6,9 @@ import BarsSlider from "@/components/sections/BarsSlider";
 import EventsTimeline from "@/components/sections/EventsTimeline";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Tickets from "@/components/sections/Tickets";
+import FAQ from "@/components/sections/FAQ";
 import MapSection from "@/components/sections/MapSection";
-import SponsorsMarquee from "@/components/sections/SponsorsMarquee";
+// import SponsorsMarquee from "@/components/sections/SponsorsMarquee";
 import PressQuotes from "@/components/sections/PressQuotes";
 import Newsletter from "@/components/sections/Newsletter";
 
@@ -16,13 +17,14 @@ export default function HomePage() {
     <main>
       <Hero />
       <About />
-      <BarsSlider />
-      <EventsTimeline />
       <HowItWorks />
+      <BarsSlider />
       <Tickets />
+      <FAQ />
+      <EventsTimeline />
       <MapSection />
-      <SponsorsMarquee />
       <PressQuotes />
+      {/* <SponsorsMarquee /> */}
       <Newsletter />
     </main>
   );

@@ -10,7 +10,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
   const display = String(value).padStart(2, "0");
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-[52px] md:w-[100px] lg:w-[120px]">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={value}
@@ -18,12 +18,12 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 10, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="text-4xl md:text-7xl lg:text-8xl font-display text-tangerine"
+          className="text-4xl md:text-7xl lg:text-8xl font-display text-tangerine tabular-nums"
         >
           {display}
         </motion.span>
       </AnimatePresence>
-      <span className="text-xs font-body text-bone/60 uppercase tracking-widest mt-2">
+      <span className="text-[10px] md:text-xs font-body font-thin text-bone/70 uppercase tracking-widest mt-1">
         {label}
       </span>
     </div>

@@ -21,20 +21,45 @@
   },
   "about": {
     "headline": "GERMANY\u2019S BIGGEST COCKTAIL FESTIVAL",
-    "bars": "50+ Bars",
-    "cocktails": "200+ Cocktails",
-    "days": "18 Days",
-    "passport": "1 Passport",
+    "bars": "Bars",
+    "cocktails": "Cocktails",
+    "days": "Days",
+    "passport": "Passport",
+    "description": "18 days, 50+ bars, one city: Get your Cocktail X Passport and discover Munich's best bars with exclusive drinks at festival prices.",
     "cta": "LEARN MORE"
   },
   "howItWorks": {
+    "headline": "HOW IT WORKS",
+    "stepLabel": "STEP {number}",
     "step1": "GET YOUR PASSPORT",
     "step2": "VISIT 50+ BARS",
     "step3": "COLLECT STAMPS"
   },
   "tickets": {
     "headline": "TICKETS",
-    "buyNow": "BUY NOW"
+    "subtitle": "All passes are identical — only the price increases.",
+    "savings": "You save €{amount}",
+    "activeBadge": "Available now",
+    "buyNow": "BUY NOW",
+    "comingSoon": "Coming soon",
+    "soldOut": "Sold out",
+    "earlyBird": {
+      "name": "EARLY BIRD",
+      "info": "Limited quantity"
+    },
+    "regular": {
+      "name": "REGULAR",
+      "info": "Available from presale start"
+    },
+    "late": {
+      "name": "LAST MINUTE",
+      "info": "Available from festival start"
+    },
+    "feature1": "Access to 50+ participating bars",
+    "feature2": "200+ exclusive cocktails",
+    "feature3": "Collect stamps & win prizes",
+    "feature4": "18 days of festival fun",
+    "feature5": "Exclusive events & tastings"
   },
   "map": {
     "headline": "DISCOVER MUNICH",
@@ -44,6 +69,30 @@
     "headline": "DON\u2019T MISS A THING",
     "placeholder": "Your email address",
     "submit": "SUBSCRIBE"
+  },
+  "barsSlider": {
+    "headline": "PARTICIPATING BARS",
+    "teaserTitle": "Bars",
+    "teaserText": "More bars will be announced soon.",
+    "teaserCta": "DISCOVER ALL BARS"
+  },
+  "press": {
+    "asSeenIn": "As seen in"
+  },
+  "faq": {
+    "headline": "FAQ",
+    "q1": "What is the Cocktail X Passport?",
+    "a1": "The Passport is your digital festival pass. It gives you 18 days of access to exclusive cocktails at over 50 bars across Munich — at special festival prices.",
+    "q2": "Is the pass digital or physical?",
+    "a2": "The pass is fully digital. After purchase, you get access via the Cocktail X App. No printing needed — just show it at the bar.",
+    "q3": "How do the stamps work?",
+    "a3": "Each time you visit a participating bar, you receive a digital stamp in the app. The more bars you visit, the more prizes you can win.",
+    "q4": "Do I have to visit all bars?",
+    "a4": "No, you can visit as many or as few bars as you like. Each bar offers its own exclusive cocktails at the festival price.",
+    "q5": "Can I gift the pass?",
+    "a5": "Yes! The Passport makes a perfect gift for cocktail lovers. You can simply transfer it to another person after purchase.",
+    "q6": "Do I need the app?",
+    "a6": "Yes, the Cocktail X App is your companion during the festival. It holds your pass, lists all participating bars, tracks your stamps, and offers exclusive content."
   },
   "footer": {
     "connect": "Connect",

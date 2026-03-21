@@ -18,10 +18,14 @@ export default function Header() {
   const locale = useLocale();
   const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      setPastHero(window.scrollY > window.innerHeight * 0.8);
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -50,7 +54,7 @@ export default function Header() {
               <Link
                 key={link.key}
                 href={`/${locale}${link.href}`}
-                className="text-sm uppercase tracking-wider text-bone/70 hover:text-bone transition-colors font-body"
+                className="text-sm uppercase tracking-wider text-bone/70 hover:text-bone transition-colors font-body font-bold"
               >
                 {t(link.key)}
               </Link>
@@ -61,8 +65,10 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-6">
             <LanguageSwitcher />
             <Link
-              href={`/${locale}/tickets`}
-              className="btn-secondary text-xs uppercase tracking-wider"
+              href="#tickets"
+              className={`btn-secondary text-xs uppercase tracking-wider transition-all duration-300 ${
+                pastHero ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+              }`}
             >
               {t("getPassport")}
             </Link>

@@ -21,20 +21,45 @@
   },
   "about": {
     "headline": "DEUTSCHLANDS GR\u00d6SSTES COCKTAIL FESTIVAL",
-    "bars": "50+ Bars",
-    "cocktails": "200+ Cocktails",
-    "days": "18 Tage",
-    "passport": "1 Passport",
+    "bars": "Bars",
+    "cocktails": "Cocktails",
+    "days": "Tage",
+    "passport": "Passport",
+    "description": "18 Tage, 50+ Bars, eine Stadt: Hol dir deinen Cocktail X Passport und entdecke Münchens beste Bars mit exklusiven Drinks zu Festivalpreisen.",
     "cta": "MEHR ERFAHREN"
   },
   "howItWorks": {
+    "headline": "SO FUNKTIONIERT'S",
+    "stepLabel": "SCHRITT {number}",
     "step1": "HOL DIR DEINEN PASSPORT",
     "step2": "BESUCHE 50+ BARS",
     "step3": "SAMMLE STEMPEL"
   },
   "tickets": {
     "headline": "TICKETS",
-    "buyNow": "JETZT KAUFEN"
+    "subtitle": "Alle Pässe sind identisch — nur der Preis steigt.",
+    "savings": "Du sparst {amount}€",
+    "activeBadge": "Jetzt verfügbar",
+    "buyNow": "JETZT KAUFEN",
+    "comingSoon": "Bald verfügbar",
+    "soldOut": "Ausverkauft",
+    "earlyBird": {
+      "name": "EARLY BIRD",
+      "info": "Limitiertes Kontingent"
+    },
+    "regular": {
+      "name": "REGULAR",
+      "info": "Verfügbar ab Vorverkaufsstart"
+    },
+    "late": {
+      "name": "LAST MINUTE",
+      "info": "Ab Festivalstart erhältlich"
+    },
+    "feature1": "Zugang zu 50+ teilnehmenden Bars",
+    "feature2": "200+ exklusive Cocktails",
+    "feature3": "Stempel sammeln & Preise gewinnen",
+    "feature4": "18 Tage Festival-Erlebnis",
+    "feature5": "Exklusive Events & Tastings"
   },
   "map": {
     "headline": "ENTDECKE M\u00dcNCHEN",
@@ -44,6 +69,30 @@
     "headline": "VERPASSE NICHTS",
     "placeholder": "Deine E-Mail Adresse",
     "submit": "ANMELDEN"
+  },
+  "barsSlider": {
+    "headline": "TEILNEHMENDE BARS",
+    "teaserTitle": "Bars",
+    "teaserText": "Weitere Bars werden bald bekannt gegeben.",
+    "teaserCta": "ALLE BARS ENTDECKEN"
+  },
+  "press": {
+    "asSeenIn": "Bekannt aus"
+  },
+  "faq": {
+    "headline": "HÄUFIGE FRAGEN",
+    "q1": "Was ist der Cocktail X Passport?",
+    "a1": "Der Passport ist dein digitaler Festivalpass. Er gibt dir 18 Tage lang Zugang zu exklusiven Cocktails in über 50 Bars in ganz München — zu speziellen Festivalpreisen.",
+    "q2": "Ist der Pass digital oder physisch?",
+    "a2": "Der Pass ist komplett digital. Nach dem Kauf erhältst du Zugang über die Cocktail X App. Kein Ausdrucken nötig — einfach in der Bar vorzeigen.",
+    "q3": "Wie funktioniert das mit den Stempeln?",
+    "a3": "Bei jedem Besuch einer teilnehmenden Bar bekommst du einen digitalen Stempel in der App. Je mehr Bars du besuchst, desto mehr Preise kannst du gewinnen.",
+    "q4": "Muss ich alle Bars besuchen?",
+    "a4": "Nein, du kannst so viele oder wenige Bars besuchen wie du möchtest. Jede Bar bietet eigene exklusive Cocktails zum Festivalpreis.",
+    "q5": "Kann ich den Pass verschenken?",
+    "a5": "Ja! Der Passport ist das perfekte Geschenk für Cocktail-Fans. Du kannst ihn nach dem Kauf einfach an eine andere Person weitergeben.",
+    "q6": "Brauche ich die App?",
+    "a6": "Ja, die Cocktail X App ist dein Begleiter während des Festivals. Dort findest du deinen Pass, alle teilnehmenden Bars, deine Stempel und exklusive Inhalte."
   },
   "footer": {
     "connect": "Verbinde dich",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -24,19 +24,6 @@ export default function Hero() {
     setCurrentIndex((prev) => (prev + 1) % heroImages.length);
   }, []);
 
-  const [daysLeft, setDaysLeft] = useState(0);
-
-  useEffect(() => {
-    function calcDays() {
-      const now = new Date().getTime();
-      const festivalDate = new Date("2026-05-13T19:00:00+02:00").getTime();
-      const diff = festivalDate - now;
-      return diff > 0 ? Math.floor(diff / (1000 * 60 * 60 * 24)) : 0;
-    }
-    setDaysLeft(calcDays());
-    const interval = setInterval(() => setDaysLeft(calcDays()), 60000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section className="relative h-screen overflow-hidden flex items-center justify-center">
@@ -44,15 +31,15 @@ export default function Hero() {
       <div className="absolute inset-0" style={{ backgroundImage: 'url(/images/pattern-bg.svg)', backgroundSize: '200px 200px', backgroundRepeat: 'repeat' }} />
       {/* Darken overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-licorice/80 via-licorice/90 to-licorice" />
-      {/* Radial spotlight to isolate center content */}
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center 40%, transparent 0%, rgba(25,21,19,0.6) 70%)' }} />
+      {/* Linear overlay to further darken center */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-licorice/60 to-transparent" />
 
       {/* Image Card behind text */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[140px] h-[185px] md:w-[190px] md:h-[250px] lg:w-[220px] lg:h-[290px] opacity-70"
+        className="absolute top-[10%] md:top-[12%] lg:top-[14%] w-[180px] h-[240px] md:w-[250px] md:h-[330px] lg:w-[290px] lg:h-[380px] opacity-70"
       >
         <AnimatePresence mode="popLayout">
           <motion.div
@@ -82,7 +69,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-3 md:mb-4 inline-block px-4 py-1.5 border border-tangerine/60 rounded-full text-xs md:text-sm font-body text-tangerine tracking-[0.25em] uppercase font-normal"
+          className="mb-8 md:mb-10 inline-block px-4 py-1.5 border border-tangerine/60 rounded-full text-xs md:text-sm font-body text-tangerine tracking-[0.25em] uppercase font-bold backdrop-blur-md bg-licorice/60"
         >
           {t("subtitle")}
         </motion.span>
@@ -92,40 +79,30 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-4 md:mb-6 text-5xl md:text-7xl lg:text-8xl font-display text-bone"
+          className="mb-4 md:mb-6 text-6xl md:text-8xl lg:text-[10rem] font-display text-bone"
         >
           {t("title")}
         </motion.h1>
-
-        {/* Subheadline */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mb-6 md:mb-10 max-w-xl text-sm md:text-lg font-body text-bone/70 leading-relaxed"
-        >
-          {t("subheadline")}
-        </motion.p>
-
-        {/* Countdown label */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
-          className="mb-2 text-sm md:text-base font-body text-bone/50 uppercase tracking-wider"
-        >
-          {t("countdownLabel", { days: daysLeft })}
-        </motion.p>
 
         {/* Countdown */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mb-6 md:mb-10"
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="mb-6 md:mb-8"
         >
           <Countdown onTick={nextSlide} />
         </motion.div>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mb-6 md:mb-10 max-w-lg text-base md:text-lg font-body text-bone/85 leading-relaxed font-bold"
+        >
+          {t("subheadline")}
+        </motion.p>
 
         {/* CTA */}
         <motion.a
@@ -137,16 +114,6 @@ export default function Hero() {
         >
           {t("cta")}
         </motion.a>
-
-        {/* Trust line */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-          className="mt-4 text-xs md:text-sm font-body text-bone/40 tracking-wider"
-        >
-          {t("trustLine")}
-        </motion.p>
       </div>
 
       {/* Scroll indicator */}

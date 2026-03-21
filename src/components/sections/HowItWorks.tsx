@@ -40,7 +40,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-display text-bone text-center mb-16"
         >
-          HOW IT WORKS
+          {t("headline")}
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -55,7 +55,7 @@ export default function HowItWorks() {
             >
               <span className={`text-4xl ${step.iconColor}`}>{step.icon}</span>
               <p className="text-bone/40 text-sm font-body mt-4 mb-2">
-                STEP {i + 1}
+                {t("stepLabel", { number: i + 1 })}
               </p>
               <p className="text-bone text-lg font-display">{t(step.key)}</p>
             </motion.div>

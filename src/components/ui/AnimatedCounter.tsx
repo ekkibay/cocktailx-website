@@ -55,7 +55,7 @@ export default function AnimatedCounter({
         {count}
         {suffix}
       </span>
-      <span className="text-sm font-body text-bone/60 mt-2">{label}</span>
+      <span className="text-sm font-body font-bold text-bone/60 mt-2 uppercase tracking-wider">{label}</span>
     </motion.div>
   );
 }
