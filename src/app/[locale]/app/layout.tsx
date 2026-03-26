@@ -5,7 +5,6 @@ export const metadata: Metadata = {
   description:
     "Die Cocktail X App – dein digitaler Begleiter für das Festival. Passport, Karte und mehr.",
 };
-
 export default function AppLayout({
   children,
 }: {
