@@ -29,7 +29,7 @@ export const events: FestivalEvent[] = [
       de: "Der gro\u00dfe Auftakt zum Cocktail X Festival 2026 mit Live-Musik, Top-Bartendern und exklusiven Cocktailkreationen.",
       en: "The grand kick-off of Cocktail X Festival 2026 featuring live music, top bartenders, and exclusive cocktail creations.",
     },
-    image: "/images/placeholder/event-1.svg",
+    image: "/images/festival-cheers.webp",
     type: "opening",
   },
   {
@@ -45,7 +45,7 @@ export const events: FestivalEvent[] = [
       de: "18 Tage voller einzigartiger Cocktails in \u00fcber 50 Bars in ganz M\u00fcnchen. Sammle Stempel und entdecke neue Lieblingsdrinks.",
       en: "18 days of unique cocktails across 50+ bars throughout Munich. Collect stamps and discover new favorite drinks.",
     },
-    image: "/images/placeholder/event-2.svg",
+    image: "/images/festival-bar-life.webp",
     type: "festival",
   },
   {
@@ -61,7 +61,7 @@ export const events: FestivalEvent[] = [
       de: "Die gro\u00dfe Abschlussfeier mit der Verleihung der Cocktail X Awards f\u00fcr die besten Bars und Cocktails des Festivals.",
       en: "The grand closing celebration with the Cocktail X Awards ceremony for the best bars and cocktails of the festival.",
     },
-    image: "/images/placeholder/event-3.svg",
+    image: "/images/festival-bartender-pour.webp",
     type: "closing",
   },
 ];

@@ -42,6 +42,7 @@ interface ShopifyBuyButtonProps {
 }
 
 export default function ShopifyBuyButton({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   productId,
   buttonText,
   className = "",

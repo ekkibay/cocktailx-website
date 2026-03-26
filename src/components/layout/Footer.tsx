@@ -29,7 +29,7 @@ export default function Footer() {
   const locale = useLocale();
 
   return (
-    <footer className="bg-licorice border-t border-bone/10">
+    <footer className="bg-licorice border-t border-bone/10 pb-20 md:pb-0">
       <div className="mx-auto max-w-7xl px-4 py-12 md:px-8 lg:px-16">
         {/* Column grid */}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5">
@@ -193,7 +193,11 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 border-t border-bone/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-bone/40">{t("copyright")}</p>
+          <div className="flex items-center gap-3">
+            <p className="text-sm text-bone/40">{t("copyright")}</p>
+            <span className="text-bone/20">·</span>
+            <p className="text-sm text-bone/40">{t("ageNotice")}</p>
+          </div>
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (
               <a

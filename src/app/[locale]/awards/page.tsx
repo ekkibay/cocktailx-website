@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLocale } from "next-intl";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
 
 const categories = [
   {
@@ -40,17 +41,30 @@ const categories = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.15 },
-  }),
-};
+function CategoryCard({ cat, index, locale }: { cat: typeof categories[0]; index: number; locale: "de" | "en" }) {
+  const reveal = useReveal({ delay: index * 150 });
+  return (
+    <div
+      ref={reveal.ref}
+      style={reveal.style}
+      className={`${cat.bg} border ${cat.border} rounded-2xl p-8 text-center`}
+    >
+      <span className="text-5xl">{cat.icon}</span>
+      <h3 className="text-2xl font-display text-bone mt-4 mb-3">
+        {cat.title[locale]}
+      </h3>
+      <p className="text-bone/60 font-body">
+        {cat.description[locale]}
+      </p>
+    </div>
+  );
+}
 
 export default function AwardsPage() {
   const locale = useLocale() as "de" | "en";
+  const revealSubtitle = useReveal<HTMLParagraphElement>({ delay: 200 });
+  const revealCategoriesTitle = useReveal();
+  const revealCta = useReveal();
 
   return (
     <main>
@@ -58,59 +72,39 @@ export default function AwardsPage() {
       <section className="relative bg-licorice section-padding flex flex-col items-center justify-center text-center min-h-[60vh]">
         <div className="absolute inset-0 bg-gradient-to-b from-jambalaya/20 via-licorice to-licorice" />
         <div className="relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+          <BlurText
+            text="COCKTAIL X AWARDS"
+            tag="h1"
             className="text-5xl md:text-7xl lg:text-8xl font-display text-bone"
-          >
-            COCKTAIL X AWARDS
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            delay={80}
+            duration={0.7}
+          />
+          <p
+            ref={revealSubtitle.ref}
+            style={revealSubtitle.style}
             className="text-lg md:text-xl font-body text-bone/70 mt-6 max-w-2xl mx-auto"
           >
             {locale === "de"
               ? "Die prestigetraechtigsten Auszeichnungen der Muenchner Cocktail-Szene."
               : "The most prestigious awards in Munich's cocktail scene."}
-          </motion.p>
+          </p>
         </div>
       </section>
 
       {/* Categories */}
       <section className="section-padding">
         <div className="max-w-5xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <h2
+            ref={revealCategoriesTitle.ref}
+            style={revealCategoriesTitle.style}
             className="text-3xl md:text-4xl font-display text-bone text-center mb-16"
           >
             {locale === "de" ? "KATEGORIEN" : "CATEGORIES"}
-          </motion.h2>
+          </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {categories.map((cat, i) => (
-              <motion.div
-                key={cat.title.en}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={cardVariants}
-                className={`${cat.bg} border ${cat.border} rounded-2xl p-8 text-center`}
-              >
-                <span className="text-5xl">{cat.icon}</span>
-                <h3 className="text-2xl font-display text-bone mt-4 mb-3">
-                  {cat.title[locale]}
-                </h3>
-                <p className="text-bone/60 font-body">
-                  {cat.description[locale]}
-                </p>
-              </motion.div>
+              <CategoryCard key={cat.title.en} cat={cat} index={i} locale={locale} />
             ))}
           </div>
         </div>
@@ -118,11 +112,9 @@ export default function AwardsPage() {
 
       {/* CTA */}
       <section className="section-padding text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <div
+          ref={revealCta.ref}
+          style={revealCta.style}
         >
           <h2 className="text-3xl md:text-4xl font-display text-bone mb-6">
             {locale === "de" ? "JETZT ABSTIMMEN" : "VOTE NOW"}
@@ -135,7 +127,7 @@ export default function AwardsPage() {
           <Link href={`/${locale}/awards/history`} className="btn-primary text-lg">
             {locale === "de" ? "VERGANGENE GEWINNER" : "PAST WINNERS"}
           </Link>
-        </motion.div>
+        </div>
       </section>
     </main>
   );

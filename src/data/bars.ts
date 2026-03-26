@@ -27,7 +27,7 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "Prinzregentenstra\u00dfe 1, 80538 M\u00fcnchen",
     signatureCocktail: "Golden Munich Mule",
-    image: "/images/bars/goldene-bar.jpg",
+    image: "/images/bars/goldene-bar.webp",
     description: {
       de: "Elegante Bar im Haus der Kunst mit erstklassigen Cocktails und glamour\u00f6sem Ambiente.",
       en: "Elegant bar in the Haus der Kunst with first-class cocktails and glamorous ambiance.",
@@ -39,7 +39,7 @@ export const bars: Bar[] = [
     district: "Maxvorstadt",
     address: "Odeonsplatz 6, 80539 M\u00fcnchen",
     signatureCocktail: "Schumann\u2019s Negroni",
-    image: "/images/bars/schumanns-bar.jpg",
+    image: "/images/bars/schumanns-bar.webp",
     description: {
       de: "Legendäre Cocktailbar am Odeonsplatz \u2013 eine M\u00fcnchner Institution seit 1982.",
       en: "Legendary cocktail bar at Odeonsplatz \u2013 a Munich institution since 1982.",
@@ -51,7 +51,7 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "Baaderstra\u00dfe 68, 80469 M\u00fcnchen",
     signatureCocktail: "Zephyr Sour",
-    image: "/images/bars/zephyr-bar.jpg",
+    image: "/images/bars/zephyr-bar.webp",
     description: {
       de: "Kreative Cocktailbar im Glockenbachviertel mit saisonalen Eigenkreationen.",
       en: "Creative cocktail bar in the Glockenbachviertel with seasonal house creations.",
@@ -63,7 +63,7 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "Falkenturmstra\u00dfe 9, 80331 M\u00fcnchen",
     signatureCocktail: "Painkiller",
-    image: "/images/bars/pussers-bar.jpg",
+    image: "/images/bars/pussers-bar.webp",
     description: {
       de: "Karibisches Flair mitten in M\u00fcnchen \u2013 bekannt f\u00fcr Rum-Cocktails und gute Laune.",
       en: "Caribbean flair in the heart of Munich \u2013 known for rum cocktails and good vibes.",
@@ -75,7 +75,7 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "Maximiliansplatz 5, 80333 M\u00fcnchen",
     signatureCocktail: "Heart Beat",
-    image: "/images/bars/hearts-bar.jpg",
+    image: "/images/bars/hearts-bar.webp",
     description: {
       de: "Stilvolle Rooftop-Bar mit atemberaubendem Blick \u00fcber die M\u00fcnchner Altstadt.",
       en: "Stylish rooftop bar with a breathtaking view over Munich\u2019s old town.",
@@ -87,7 +87,7 @@ export const bars: Bar[] = [
     district: "Schwabing",
     address: "Leopoldstra\u00dfe 28, 80802 M\u00fcnchen",
     signatureCocktail: "Rouge Martini",
-    image: "/images/bars/salon-rouge.jpg",
+    image: "/images/bars/salon-rouge.webp",
     description: {
       de: "Gem\u00fctliche Bar in Schwabing mit klassischen Cocktails und entspannter Atmosph\u00e4re.",
       en: "Cozy bar in Schwabing with classic cocktails and a relaxed atmosphere.",

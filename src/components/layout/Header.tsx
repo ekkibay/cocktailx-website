@@ -11,13 +11,11 @@ export default function Header() {
   const locale = useLocale();
   const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      setPastHero(window.scrollY > window.innerHeight * 0.8);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -38,16 +36,16 @@ export default function Header() {
             href={`/${locale}`}
             className="font-display text-lg md:text-xl text-bone whitespace-nowrap"
           >
-            cocktail &#10022; festival
+            cocktail{" "}<svg viewBox="0 0 100 100" className="inline-block w-[0.85em] h-[0.85em] align-middle relative -top-[0.03em]" fill="currentColor"><path d="M50 0 C52 38, 62 48, 100 50 C62 52, 52 62, 50 100 C48 62, 38 52, 0 50 C38 48, 48 38, 50 0Z" /></svg>{" "}festival
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          <nav className="hidden lg:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.key}
                 href={`/${locale}${link.href}`}
-                className="text-sm uppercase tracking-wider text-bone/70 hover:text-bone transition-colors font-body font-bold"
+                className="text-sm uppercase tracking-wider text-bone/70 hover:text-bone transition-colors font-body font-bold nav-link-hover"
               >
                 {t(link.key)}
               </Link>
@@ -55,13 +53,11 @@ export default function Header() {
           </nav>
 
           {/* Desktop right */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6">
             <LanguageSwitcher />
             <Link
               href="#tickets"
-              className={`btn-secondary text-xs uppercase tracking-wider transition-all duration-300 ${
-                pastHero ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
-              }`}
+              className="btn-secondary text-xs uppercase tracking-wider"
             >
               {t("getPassport")}
             </Link>
@@ -70,10 +66,14 @@ export default function Header() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="md:hidden text-bone text-2xl"
+            className="lg:hidden p-2 -mr-2"
             aria-label="Open navigation"
           >
-            &#9776;
+            <svg width="22" height="14" viewBox="0 0 22 14" fill="none" className="text-bone/80">
+              <line x1="0" y1="1" x2="22" y2="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="6" y1="7" x2="22" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="0" y1="13" x2="22" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
           </button>
         </div>
       </header>

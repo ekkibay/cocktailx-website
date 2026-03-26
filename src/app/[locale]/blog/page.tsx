@@ -1,11 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useLocale } from "next-intl";
 import { blogPosts } from "@/data/blog-posts";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
+
+function BlogCard({ post, index, locale }: { post: typeof blogPosts[0]; index: number; locale: "de" | "en" }) {
+  const reveal = useReveal({ delay: index * 100 });
+  return (
+    <div ref={reveal.ref} style={reveal.style}>
+      <Link
+        href={`/${locale}/blog/${post.slug}`}
+        className="group block bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+      >
+        <div className="relative aspect-video">
+          <Image
+            src={post.image}
+            alt={post.title[locale]}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            loading="lazy"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+        <div className="p-6">
+          <span className="inline-block bg-hibiscus/20 text-hibiscus text-xs font-body uppercase tracking-wider px-3 py-1 rounded-full mb-3">
+            {post.category}
+          </span>
+          <h3 className="text-xl font-display text-bone mb-2">
+            {post.title[locale]}
+          </h3>
+          <p className="text-bone/50 font-body text-sm mb-3 line-clamp-2">
+            {post.excerpt[locale]}
+          </p>
+          <p className="text-bone/30 font-body text-xs">{post.date}</p>
+        </div>
+      </Link>
+    </div>
+  );
+}
 
 export default function BlogPage() {
   const locale = useLocale() as "de" | "en";
@@ -13,6 +49,10 @@ export default function BlogPage() {
 
   const featuredPost = blogPosts.find((p) => p.featured);
   const otherPosts = blogPosts.filter((p) => !p.featured);
+
+  const revealFeatured = useReveal();
+  const revealNewsletterTitle = useReveal();
+  const revealNewsletterForm = useReveal<HTMLFormElement>({ delay: 150 });
 
   const handleNewsletter = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,24 +64,21 @@ export default function BlogPage() {
     <main>
       {/* Hero */}
       <section className="section-padding text-center min-h-[30vh] flex flex-col items-center justify-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+        <BlurText
+          text="BLOG"
+          tag="h1"
           className="text-5xl md:text-7xl lg:text-8xl font-display text-bone"
-        >
-          BLOG
-        </motion.h1>
+          delay={80}
+          duration={0.7}
+        />
       </section>
 
       {/* Featured Post */}
       {featuredPost && (
         <section className="section-padding pt-0">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+          <div
+            ref={revealFeatured.ref}
+            style={revealFeatured.style}
             className="max-w-6xl mx-auto"
           >
             <Link
@@ -53,6 +90,7 @@ export default function BlogPage() {
                   src={featuredPost.image}
                   alt={featuredPost.title[locale]}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
@@ -71,7 +109,7 @@ export default function BlogPage() {
                 </p>
               </div>
             </Link>
-          </motion.div>
+          </div>
         </section>
       )}
 
@@ -80,39 +118,7 @@ export default function BlogPage() {
         <section className="section-padding pt-0">
           <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {otherPosts.map((post, i) => (
-              <motion.div
-                key={post.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <Link
-                  href={`/${locale}/blog/${post.slug}`}
-                  className="group block bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-                >
-                  <div className="relative aspect-video">
-                    <Image
-                      src={post.image}
-                      alt={post.title[locale]}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <span className="inline-block bg-hibiscus/20 text-hibiscus text-xs font-body uppercase tracking-wider px-3 py-1 rounded-full mb-3">
-                      {post.category}
-                    </span>
-                    <h3 className="text-xl font-display text-bone mb-2">
-                      {post.title[locale]}
-                    </h3>
-                    <p className="text-bone/50 font-body text-sm mb-3 line-clamp-2">
-                      {post.excerpt[locale]}
-                    </p>
-                    <p className="text-bone/30 font-body text-xs">{post.date}</p>
-                  </div>
-                </Link>
-              </motion.div>
+              <BlogCard key={post.slug} post={post} index={i} locale={locale} />
             ))}
           </div>
         </section>
@@ -121,21 +127,17 @@ export default function BlogPage() {
       {/* Newsletter */}
       <section className="section-padding">
         <div className="max-w-xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <h2
+            ref={revealNewsletterTitle.ref}
+            style={revealNewsletterTitle.style}
             className="text-3xl md:text-4xl font-display text-bone mb-8"
           >
             {locale === "de" ? "NEWSLETTER ABONNIEREN" : "SUBSCRIBE TO NEWSLETTER"}
-          </motion.h2>
-          <motion.form
+          </h2>
+          <form
             onSubmit={handleNewsletter}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            ref={revealNewsletterForm.ref}
+            style={revealNewsletterForm.style}
             className="flex flex-col sm:flex-row gap-3"
           >
             <input
@@ -149,7 +151,7 @@ export default function BlogPage() {
             <button type="submit" className="btn-primary whitespace-nowrap">
               {locale === "de" ? "ABONNIEREN" : "SUBSCRIBE"}
             </button>
-          </motion.form>
+          </form>
         </div>
       </section>
     </main>

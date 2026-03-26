@@ -48,4 +48,40 @@ export const cocktails: Cocktail[] = [
     image: "/images/placeholder/cocktail-3.svg",
     accentColor: "#7B6BA0",
   },
+  {
+    id: "painkiller",
+    name: "Painkiller",
+    bar: "Pusser\u2019s",
+    barId: "pussers",
+    description: {
+      de: "Tropischer Rum-Cocktail mit Ananassaft, Kokosnusscreme und frischer Muskatnuss.",
+      en: "Tropical rum cocktail with pineapple juice, coconut cream and fresh nutmeg.",
+    },
+    image: "/images/placeholder/cocktail-4.svg",
+    accentColor: "#D48C2E",
+  },
+  {
+    id: "heart-beat",
+    name: "Heart Beat",
+    bar: "HEARTS",
+    barId: "hearts",
+    description: {
+      de: "Eleganter Gin-Cocktail mit Hibiskus, Rosensirup und einem Hauch Champagner.",
+      en: "Elegant gin cocktail with hibiscus, rose syrup and a touch of champagne.",
+    },
+    image: "/images/placeholder/cocktail-5.svg",
+    accentColor: "#bd256e",
+  },
+  {
+    id: "rouge-martini",
+    name: "Rouge Martini",
+    bar: "Salon Rouge",
+    barId: "salon-rouge",
+    description: {
+      de: "Samtiger Wodka Martini mit Himbeer-Inf\u00fcsion und edlem Ros\u00e9-Vermouth.",
+      en: "Velvety vodka martini with raspberry infusion and ros\u00e9 vermouth.",
+    },
+    image: "/images/placeholder/cocktail-6.svg",
+    accentColor: "#8B2252",
+  },
 ];

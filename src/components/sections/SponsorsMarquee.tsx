@@ -2,30 +2,50 @@
 
 import { sponsors } from "@/data/sponsors";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { useReveal } from "@/hooks/useReveal";
 
-const doubled = [...sponsors, ...sponsors];
+// 4 copies for seamless loop
+const repeated = [...sponsors, ...sponsors, ...sponsors, ...sponsors];
 
 export default function SponsorsMarquee() {
+  const t = useTranslations("sponsors");
+  const heading = useReveal<HTMLParagraphElement>();
+
   return (
-    <section className="py-16 border-y border-bone/5 overflow-hidden">
-      <div className="flex animate-marquee">
-        {doubled.map((sponsor, i) => (
-          <a
-            key={`${sponsor.id}-${i}`}
-            href={sponsor.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-shrink-0 mx-12 opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
-          >
-            <Image
-              src={sponsor.logo}
-              alt={sponsor.name}
-              width={120}
-              height={48}
-              className="h-12 w-auto object-contain"
-            />
-          </a>
-        ))}
+    <section className="py-12 md:py-16 overflow-hidden">
+      <p
+        ref={heading.ref}
+        style={heading.style}
+        className="text-center text-bone/30 text-sm font-body uppercase tracking-wider mb-8"
+      >
+        {t("headline")}
+      </p>
+      <div className="relative">
+        <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-licorice to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-licorice to-transparent z-10 pointer-events-none" />
+        <div
+          className="flex animate-marquee-left"
+          style={{ animationDuration: "30s", width: "max-content" }}
+        >
+          {repeated.map((sponsor, i) => (
+            <a
+              key={`${sponsor.id}-${i}`}
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 mx-5 md:mx-12 opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
+            >
+              <Image
+                src={sponsor.logo}
+                alt={sponsor.name}
+                width={140}
+                height={56}
+                className="h-7 md:h-14 w-auto object-contain invert"
+              />
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

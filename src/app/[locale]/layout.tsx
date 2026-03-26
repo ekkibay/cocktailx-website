@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
+import AntiFlicker from "@/components/layout/AntiFlicker";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -33,8 +34,11 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className="antialiased">
+    <html lang={locale} style={{ backgroundColor: "#1A120B" }} suppressHydrationWarning>
+      <head>
+        <AntiFlicker />
+      </head>
+      <body className="antialiased" style={{ backgroundColor: "#1A120B" }}>
         <NextIntlClientProvider messages={messages}>
           <Header />
           <PageTransition>{children}</PageTransition>

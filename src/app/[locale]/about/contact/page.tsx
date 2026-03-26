@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 
 const socialLinks = [
-  { name: "Instagram", url: "https://www.instagram.com/cocktailx_festival/" },
+  { name: "Instagram", url: "https://www.instagram.com/cocktailxfestival/" },
   { name: "TikTok", url: "https://www.tiktok.com/@cocktailxfestival" },
   { name: "Facebook", url: "https://www.facebook.com/cocktailxfestival" },
   { name: "LinkedIn", url: "https://www.linkedin.com/company/cocktailx" },

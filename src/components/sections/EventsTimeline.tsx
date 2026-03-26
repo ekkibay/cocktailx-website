@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import { events, type FestivalEvent } from "@/data/events";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
 
 const dotColor: Record<FestivalEvent["type"], string> = {
   opening: "bg-hibiscus",
@@ -13,23 +14,23 @@ const dotColor: Record<FestivalEvent["type"], string> = {
 
 export default function EventsTimeline() {
   const locale = useLocale() as "de" | "en";
+  const timeline = useReveal({ delay: 200 });
 
   return (
     <section className="section-padding">
       <div className="max-w-4xl mx-auto">
         {/* Title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <BlurText
+          text="EVENTS"
+          tag="h2"
           className="text-4xl md:text-5xl lg:text-7xl font-display text-bone text-center mb-16"
-        >
-          EVENTS
-        </motion.h2>
+          delay={100}
+          duration={0.8}
+          animateBy="chars"
+        />
 
         {/* Timeline */}
-        <div className="relative">
+        <div ref={timeline.ref} style={timeline.style} className="relative">
           {/* Vertical line */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-bone/10 -translate-x-1/2" />
 
@@ -42,12 +43,8 @@ export default function EventsTimeline() {
               );
 
               return (
-                <motion.div
+                <div
                   key={event.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.15 }}
                   className={`relative flex items-start gap-6 md:gap-12 ${
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   } pl-16 md:pl-0`}
@@ -65,13 +62,15 @@ export default function EventsTimeline() {
                       isEven ? "md:text-right" : "md:text-left"
                     }`}
                   >
-                    <div className="rounded-2xl overflow-hidden bg-jambalaya/30 border border-bone/5">
+                    <div className="rounded-2xl overflow-hidden bg-jambalaya/30 border border-bone/5 transition-all duration-300 ease-out hover:border-bone/15 hover:shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
                       {/* Image */}
                       <div className="relative aspect-video">
                         <Image
                           src={event.image}
                           alt={event.title[locale]}
                           fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          loading="lazy"
                           className="object-cover"
                         />
                       </div>
@@ -96,7 +95,7 @@ export default function EventsTimeline() {
 
                   {/* Spacer for the other side */}
                   <div className="hidden md:block flex-1" />
-                </motion.div>
+                </div>
               );
             })}
           </div>

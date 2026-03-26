@@ -43,6 +43,9 @@
    Base layer
    ------------------------------------------------ */
 @layer base {
+  html, body {
+    overflow-x: hidden;
+  }
   body {
     @apply bg-licorice text-bone font-body antialiased;
   }
@@ -60,20 +63,179 @@
 /* ------------------------------------------------
    Components layer
    ------------------------------------------------ */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer components {
   .btn-primary {
     @apply inline-flex items-center justify-center bg-tangerine text-licorice font-body font-bold uppercase tracking-wide rounded-full
-      px-10 py-4 text-center transition-all duration-200
-      hover:brightness-110 hover:scale-105;
+      px-10 py-4 text-center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.35),
+      transparent
+    );
+    transition: none;
+    transform: skewX(-20deg);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(227, 168, 62, 0.3), 0 0 80px rgba(227, 168, 62, 0.15);
+  }
+
+  .btn-primary:hover::before {
+    animation: btn-shine 0.6s ease forwards;
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center border-2 border-bone text-bone font-body font-bold rounded-full
-      px-8 py-3.5 text-center transition-all duration-200
-      hover:bg-bone hover:text-licorice hover:scale-105;
+      px-8 py-3.5 text-center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .btn-secondary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: none;
+    transform: skewX(-20deg);
+  }
+
+  .btn-secondary:hover {
+    background-color: #F5F0E8;
+    color: #1A1A1A;
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(245, 240, 232, 0.15), 0 0 80px rgba(245, 240, 232, 0.08);
+  }
+
+  .btn-secondary:hover::before {
+    animation: btn-shine 0.6s ease forwards;
   }
 
   .section-padding {
     @apply px-4 py-16 md:px-8 lg:px-16 lg:py-24;
   }
+
+  /* Nav link underline animation */
+  .nav-link-hover {
+    position: relative;
+  }
+
+  .nav-link-hover::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #E3A83E;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+
+  .nav-link-hover:hover::after {
+    width: 100%;
+    left: 0;
+  }
+}
+
+/* ------------------------------------------------
+   Marquee animations
+   ------------------------------------------------ */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right linear infinite;
+}
+
+/* Button shine animation */
+@keyframes btn-shine {
+  0% { left: -100%; }
+  100% { left: 120%; }
+}
+
+/* ------------------------------------------------
+   Hero fade-in — pure CSS, no transform (avoids
+   conflict with Framer Motion parallax transforms)
+   ------------------------------------------------ */
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-fade {
+  opacity: 0;
+  animation: heroFadeIn 1.2s ease-out forwards;
+}
+
+.hero-fade-fast {
+  opacity: 0;
+  animation: heroFadeIn 0.6s ease-out forwards;
+}
+
+/* ------------------------------------------------
+   Page hydration mask — hides the brief flash when
+   Framer Motion initializes on client-side hydration.
+   Safari is slower to hydrate, making the flash visible.
+   ------------------------------------------------ */
+@keyframes pageReady {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.page-hydration-mask {
+  animation: pageReady 0.3s ease-out 0.05s both;
+}
+
+/* Ken Burns subtle zoom effect */
+@keyframes kenBurns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+.ken-burns {
+  animation: kenBurns 20s ease-in-out infinite alternate;
 }

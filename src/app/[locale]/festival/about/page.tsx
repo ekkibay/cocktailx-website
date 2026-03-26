@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import Image from "next/image";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
 
 const content = {
   story: {
@@ -24,32 +25,45 @@ const content = {
   founder: {
     name: "Max Mustermann",
     role: { de: "Gründer & Creative Director", en: "Founder & Creative Director" },
-    image: "/images/placeholder/founder.svg",
+    image: "/images/festival-bartender-pour.webp",
   },
 };
 
+function StoryParagraph({ text, index }: { text: string; index: number }) {
+  const reveal = useReveal<HTMLParagraphElement>({ delay: index * 100 });
+  return (
+    <p
+      ref={reveal.ref}
+      style={reveal.style}
+      className="text-base md:text-lg font-body text-bone/70 leading-relaxed"
+    >
+      {text}
+    </p>
+  );
+}
+
 export default function AboutPage() {
   const locale = useLocale() as "de" | "en";
+  const revealStory = useReveal();
+  const revealMission = useReveal();
+  const revealTeam = useReveal();
 
   return (
     <main className="section-padding">
       <div className="max-w-4xl mx-auto">
         {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <BlurText
+          text="ABOUT US"
+          tag="h1"
           className="text-4xl md:text-6xl lg:text-7xl font-display text-bone text-center mb-16"
-        >
-          ABOUT US
-        </motion.h1>
+          delay={80}
+          duration={0.7}
+        />
 
         {/* Brand Story */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <div
+          ref={revealStory.ref}
+          style={revealStory.style}
           className="mb-20"
         >
           <h2 className="text-2xl md:text-3xl font-display text-tangerine mb-8">
@@ -57,26 +71,15 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-6">
             {content.story[locale].map((paragraph, i) => (
-              <motion.p
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="text-base md:text-lg font-body text-bone/70 leading-relaxed"
-              >
-                {paragraph}
-              </motion.p>
+              <StoryParagraph key={i} text={paragraph} index={i} />
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Mission Statement */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <div
+          ref={revealMission.ref}
+          style={revealMission.style}
           className="mb-20 p-8 md:p-12 rounded-2xl bg-jambalaya/20 border border-bone/10 text-center"
         >
           <h2 className="text-2xl md:text-3xl font-display text-bone mb-6">
@@ -85,14 +88,12 @@ export default function AboutPage() {
           <p className="text-lg md:text-xl font-body text-bone/80 leading-relaxed italic">
             &ldquo;{content.mission[locale]}&rdquo;
           </p>
-        </motion.div>
+        </div>
 
         {/* Team / Founder */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <div
+          ref={revealTeam.ref}
+          style={revealTeam.style}
         >
           <h2 className="text-2xl md:text-3xl font-display text-tangerine mb-10 text-center">
             {locale === "de" ? "DAS TEAM" : "THE TEAM"}
@@ -104,6 +105,8 @@ export default function AboutPage() {
                   src={content.founder.image}
                   alt={content.founder.name}
                   fill
+                  sizes="(max-width: 768px) 160px, 208px"
+                  loading="lazy"
                   className="object-cover"
                 />
               </div>
@@ -115,7 +118,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </main>
   );

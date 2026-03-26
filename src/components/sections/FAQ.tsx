@@ -3,49 +3,46 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
 
-const faqKeys = ["q1", "q2", "q3", "q4", "q5", "q6"] as const;
+const faqKeys = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9"] as const;
 
 export default function FAQ() {
   const t = useTranslations("faq");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const items = useReveal({ delay: 200 });
 
   return (
     <section className="section-padding">
       <div className="max-w-3xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <BlurText
+          text={t("headline")}
+          tag="h2"
           className="text-3xl md:text-4xl font-display text-bone text-center mb-12"
-        >
-          {t("headline")}
-        </motion.h2>
+          delay={70}
+          duration={0.7}
+        />
 
-        <div className="space-y-3">
+        <div ref={items.ref} style={items.style} className="space-y-3">
           {faqKeys.map((key, i) => {
             const isOpen = openIndex === i;
-            const answerKey = key.replace("q", "a") as `a${1 | 2 | 3 | 4 | 5 | 6}`;
+            const answerKey = key.replace("q", "a") as `a${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`;
 
             return (
-              <motion.div
+              <div
                 key={key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="border border-bone/10 rounded-xl overflow-hidden"
+                className="border border-bone/10 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:border-bone/20 hover:bg-bone/[0.02]"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-5 text-left"
+                  className="w-full flex items-center justify-between px-6 py-5 text-left transition-colors duration-200 hover:bg-bone/[0.03] rounded-xl"
                 >
                   <span className="text-sm md:text-base font-body font-bold text-bone pr-4">
                     {t(key)}
                   </span>
-                  <span className="text-tangerine text-xl flex-shrink-0">
-                    {isOpen ? "−" : "+"}
+                  <span className={`text-tangerine text-xl flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45" : "rotate-0"}`}>
+                    +
                   </span>
                 </button>
 
@@ -64,7 +61,7 @@ export default function FAQ() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             );
           })}
         </div>

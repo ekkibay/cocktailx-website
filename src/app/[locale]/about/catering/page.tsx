@@ -1,45 +1,52 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useLocale } from "next-intl";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function CateringPage() {
   const locale = useLocale() as "de" | "en";
+  const revealImage = useReveal();
+  const revealContent = useReveal({ delay: 150 });
+  const revealCta = useReveal({ delay: 300 });
 
   return (
     <main>
       {/* Hero */}
       <section className="section-padding min-h-[50vh] flex flex-col items-center justify-center text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+        <BlurText
+          text="COCKTAIL X CATERING"
+          tag="h1"
           className="text-5xl md:text-7xl font-display text-bone mb-8"
-        >
-          COCKTAIL X CATERING
-        </motion.h1>
+          delay={80}
+          duration={0.7}
+        />
       </section>
 
       {/* Content */}
       <section className="section-padding pt-0">
         <div className="max-w-3xl mx-auto">
-          {/* Placeholder Image */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="aspect-video bg-bone/5 border border-bone/10 rounded-2xl flex items-center justify-center mb-12"
+          {/* Hero Image */}
+          <div
+            ref={revealImage.ref}
+            style={revealImage.style}
+            className="relative aspect-video rounded-2xl overflow-hidden border border-bone/10 mb-12"
           >
-            <span className="text-6xl opacity-30">🍸</span>
-          </motion.div>
+            <Image
+              src="/images/festival-bar-life.webp"
+              alt="Cocktail X Catering"
+              fill
+              sizes="(max-width: 768px) 100vw, 720px"
+              loading="lazy"
+              className="object-cover"
+            />
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
+          <div
+            ref={revealContent.ref}
+            style={revealContent.style}
             className="text-bone/80 font-body text-lg leading-relaxed space-y-6"
           >
             <p>
@@ -57,20 +64,18 @@ export default function CateringPage() {
                 ? "Jedes Catering-Paket wird individuell auf Ihre Wuensche abgestimmt. Wir arbeiten eng mit Ihnen zusammen, um ein Cocktailmenue zu entwickeln, das perfekt zu Ihrem Anlass passt -- von klassischen Cocktails bis hin zu kreativen Eigenkreationen."
                 : "Each catering package is individually tailored to your wishes. We work closely with you to develop a cocktail menu that perfectly suits your occasion -- from classic cocktails to creative original creations."}
             </p>
-          </motion.div>
+          </div>
 
           {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <div
+            ref={revealCta.ref}
+            style={revealCta.style}
             className="mt-12 text-center"
           >
             <Link href={`/${locale}/about/contact`} className="btn-primary text-lg">
               {locale === "de" ? "KONTAKTIEREN SIE UNS" : "CONTACT US"}
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
     </main>

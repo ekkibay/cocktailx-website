@@ -69,6 +69,8 @@ export default function BarsPage() {
                     src={bar.image}
                     alt={bar.name}
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    loading="lazy"
                     className="object-cover"
                   />
                 </div>

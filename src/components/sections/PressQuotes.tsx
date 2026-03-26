@@ -1,73 +1,42 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-
-const quotes = [
-  {
-    text: "Cocktail X is redefining what a cocktail festival can be. Munich has never tasted this good.",
-    author: "Simone Caporale",
-    role: "World-renowned bartender",
-  },
-  {
-    text: "A passport to the best bars in the city — this is the future of cocktail culture.",
-    author: "Alex Kratena",
-    role: "Co-founder of Tayēr + Elementary",
-  },
-];
-
-const pressLogos = ["Süddeutsche Zeitung", "ARD", "Mit Vergnügen"];
+import Image from "next/image";
+import { pressLogos } from "@/data/sponsors";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function PressQuotes() {
   const t = useTranslations("press");
+  const container = useReveal();
+  const logos = useReveal({ delay: 100 });
   return (
-    <section className="section-padding">
-      <div className="max-w-5xl mx-auto">
-        {/* Quotes */}
-        <div className="grid md:grid-cols-2 gap-16 mb-20">
-          {quotes.map((quote, i) => (
-            <motion.blockquote
-              key={quote.author}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-            >
-              <p className="italic text-2xl md:text-3xl text-bone/80 font-body leading-relaxed mb-6">
-                &ldquo;{quote.text}&rdquo;
-              </p>
-              <footer>
-                <cite className="not-italic font-display text-tangerine text-lg">
-                  {quote.author}
-                </cite>
-                <p className="text-bone/40 text-sm font-body mt-1">
-                  {quote.role}
-                </p>
-              </footer>
-            </motion.blockquote>
-          ))}
-        </div>
-
-        {/* Press logos */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-center gap-12 pt-12 border-t border-bone/10"
+    <section className="py-16 border-y border-bone/5">
+      <div className="max-w-5xl mx-auto px-4">
+        <div
+          ref={container.ref}
+          style={container.style}
+          className="flex flex-col items-center gap-8"
         >
           <p className="text-bone/30 text-sm font-body uppercase tracking-wider">
             {t("asSeenIn")}
           </p>
-          {pressLogos.map((name) => (
-            <span
-              key={name}
-              className="text-bone/30 text-lg font-display hover:text-bone/60 transition-colors"
-            >
-              {name}
-            </span>
-          ))}
-        </motion.div>
+          <div ref={logos.ref} style={logos.style} className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+            {pressLogos.map((press) => (
+              <div
+                key={press.id}
+                className="opacity-40 hover:opacity-80 grayscale hover:grayscale-0 transition-all duration-300"
+              >
+                <Image
+                  src={press.logo}
+                  alt={press.name}
+                  width={120}
+                  height={40}
+                  className="h-8 md:h-10 w-auto object-contain invert"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

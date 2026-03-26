@@ -1,7 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
 
 function PassportIcon({ className }: { className?: string }) {
   return (
@@ -63,51 +65,89 @@ const steps = [
 
 export default function HowItWorks() {
   const t = useTranslations("howItWorks");
+  const grid = useReveal({ delay: 200 });
+  const mockup = useReveal({ delay: 350, direction: "up" });
 
   return (
     <section className="section-padding">
       <div className="max-w-5xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <BlurText
+          text={t("headline")}
+          tag="h2"
           className="text-3xl md:text-4xl font-display text-bone text-center mb-16"
-        >
-          {t("headline")}
-        </motion.h2>
+          delay={70}
+          duration={0.7}
+        />
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {steps.map((step, i) => {
-            const Icon = icons[i];
-            return (
-              <motion.div
-                key={step.key}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="border border-bone/10 rounded-2xl p-6 md:p-8 flex flex-col"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-3xl md:text-4xl font-display text-tangerine">
-                    {step.number}
-                  </span>
-                  <Icon className="w-6 h-6 md:w-7 md:h-7 text-bone/30" />
+        <div className="grid lg:grid-cols-[auto_1fr] gap-8 lg:gap-12 items-center">
+          {/* App Mockup - links */}
+          <div
+            ref={mockup.ref}
+            style={mockup.style}
+            className="hidden lg:flex justify-center"
+          >
+            <div className="relative w-[220px]">
+              <Image
+                src="/images/app-mockup.webp"
+                alt="Cocktail X App"
+                width={520}
+                height={1040}
+                className="w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+              />
+              <p className="text-center text-xs font-body text-bone/40 mt-3">
+                {t("appHint")}
+              </p>
+            </div>
+          </div>
+
+          {/* Steps grid */}
+          <div ref={grid.ref} style={grid.style} className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            {steps.map((step, i) => {
+              const Icon = icons[i];
+              return (
+                <div
+                  key={step.key}
+                  className="border border-bone/10 rounded-2xl p-6 md:p-8 flex flex-col relative overflow-hidden
+                    transition-all duration-300 ease-out
+                    hover:border-bone/25 hover:bg-bone/[0.03] hover:shadow-[0_4px_30px_rgba(245,240,232,0.06)]
+                    before:absolute before:top-0 before:left-0 before:right-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-tangerine before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-3xl md:text-4xl font-display text-tangerine">
+                      {step.number}
+                    </span>
+                    <Icon className="w-6 h-6 md:w-7 md:h-7 text-bone/30" />
+                  </div>
+                  <h3 className="text-base md:text-lg font-display font-bold text-bone mb-3">
+                    {t(`${step.key}.title`)}
+                  </h3>
+                  <p className="text-sm font-body text-bone/60 leading-relaxed">
+                    {t.rich(`${step.key}.description`, {
+                      strong: (chunks) => (
+                        <strong className="font-bold text-bone/80">{chunks}</strong>
+                      ),
+                    })}
+                  </p>
                 </div>
-                <h3 className="text-base md:text-lg font-display font-bold text-bone mb-3">
-                  {t(`${step.key}.title`)}
-                </h3>
-                <p className="text-sm font-body text-bone/60 leading-relaxed">
-                  {t.rich(`${step.key}.description`, {
-                    strong: (chunks) => (
-                      <strong className="font-bold text-bone/80">{chunks}</strong>
-                    ),
-                  })}
-                </p>
-              </motion.div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* App Mockup - mobile only (unter den Schritten) */}
+          <div className="flex lg:hidden justify-center mt-8">
+            <div className="relative w-[140px]">
+              <Image
+                src="/images/app-mockup.webp"
+                alt="Cocktail X App"
+                width={520}
+                height={1040}
+                className="w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+              />
+              <p className="text-center text-xs font-body text-bone/40 mt-3">
+                {t("appHint")}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

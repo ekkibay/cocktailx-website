@@ -3,12 +3,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import BlurText from "@/components/ui/BlurText";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function Newsletter() {
   const t = useTranslations("newsletter");
   const [email, setEmail] = useState("");
 
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const incentive = useReveal<HTMLParagraphElement>({ delay: 150 });
+  const formReveal = useReveal<HTMLFormElement>({ delay: 250 });
+  const trust = useReveal<HTMLParagraphElement>({ delay: 350 });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,25 +29,21 @@ export default function Newsletter() {
       <div className="absolute inset-0 bg-gradient-to-b from-licorice via-licorice/80 to-licorice" />
 
       <div className="relative z-10 max-w-xl mx-auto px-4 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <BlurText
+          text={t("headline")}
+          tag="h2"
           className="text-3xl md:text-4xl font-display text-bone mb-4"
-        >
-          {t("headline")}
-        </motion.h2>
+          delay={70}
+          duration={0.7}
+        />
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+        <p
+          ref={incentive.ref}
+          style={incentive.style}
           className="text-sm font-body text-tangerine font-bold mb-8"
         >
           {t("incentive")}
-        </motion.p>
+        </p>
 
         {status === "success" ? (
           <motion.p
@@ -53,12 +54,10 @@ export default function Newsletter() {
             ✓ Du bist dabei! Wir melden uns bald.
           </motion.p>
         ) : (
-          <motion.form
+          <form
+            ref={formReveal.ref}
+            style={formReveal.style}
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-3"
           >
             <input
@@ -72,18 +71,16 @@ export default function Newsletter() {
             <button type="submit" className="btn-primary whitespace-nowrap">
               {t("submit")}
             </button>
-          </motion.form>
+          </form>
         )}
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+        <p
+          ref={trust.ref}
+          style={trust.style}
           className="text-xs font-body text-bone/40 mt-4"
         >
           {t("trust")}
-        </motion.p>
+        </p>
       </div>
     </section>
   );
