@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLocale } from "next-intl";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
@@ -9,8 +10,8 @@ const categories = [
   {
     title: { de: "Beste Bar", en: "Best Bar" },
     description: {
-      de: "Auszeichnung fuer die herausragendste Bar des Jahres.",
-      en: "Award for the most outstanding bar of the year.",
+      de: "Auszeichnung für die herausragendste Bar Münchens.",
+      en: "Award for the most outstanding bar in München.",
     },
     accent: "tangerine",
     bg: "bg-tangerine/10",
@@ -31,8 +32,8 @@ const categories = [
   {
     title: { de: "Beste Neue Bar", en: "Best New Bar" },
     description: {
-      de: "Die aufregendste Neueroeffnung in der Muenchner Barszene.",
-      en: "The most exciting new opening in Munich's bar scene.",
+      de: "Die aufregendste Neueröffnung in der Münchner Barszene.",
+      en: "The most exciting new opening in München's bar scene.",
     },
     accent: "everglade",
     bg: "bg-everglade/10",
@@ -70,7 +71,14 @@ export default function AwardsPage() {
     <main>
       {/* Hero */}
       <section className="relative bg-licorice section-padding flex flex-col items-center justify-center text-center min-h-[60vh]">
-        <div className="absolute inset-0 bg-gradient-to-b from-jambalaya/20 via-licorice to-licorice" />
+        <Image
+          src="/images/festival-bartender-pour.webp"
+          alt="Cocktail X Awards"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-licorice/60 via-licorice/70 to-licorice" />
         <div className="relative z-10">
           <BlurText
             text="COCKTAIL X AWARDS"
@@ -85,8 +93,8 @@ export default function AwardsPage() {
             className="text-lg md:text-xl font-body text-bone/70 mt-6 max-w-2xl mx-auto"
           >
             {locale === "de"
-              ? "Die prestigetraechtigsten Auszeichnungen der Muenchner Cocktail-Szene."
-              : "The most prestigious awards in Munich's cocktail scene."}
+              ? "Die prestigeträchtigsten Auszeichnungen der Münchner Cocktail-Szene."
+              : "The most prestigious awards in München's cocktail scene."}
           </p>
         </div>
       </section>
@@ -121,7 +129,7 @@ export default function AwardsPage() {
           </h2>
           <p className="text-bone/60 font-body max-w-xl mx-auto mb-8">
             {locale === "de"
-              ? "Stimme fuer deine Lieblingsbars und Cocktails ab und hilf uns, die besten der Besten zu kueren."
+              ? "Stimme für deine Lieblingsbars und Cocktails ab und hilf uns, die besten der Besten zu küren."
               : "Vote for your favorite bars and cocktails and help us crown the best of the best."}
           </p>
           <Link href={`/${locale}/awards/history`} className="btn-primary text-lg">

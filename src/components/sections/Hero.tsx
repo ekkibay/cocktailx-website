@@ -7,16 +7,16 @@ import Image from "next/image";
 import Countdown from "@/components/ui/Countdown";
 
 const bgImages = [
-  { src: "/images/L1030894_CocktailX_adriancamo.webp", top: "-2%", left: "-2%", size: "w-[80px] h-[100px] md:w-[200px] md:h-[260px]", rotate: -8, delay: 0, speed: 0.3, mobileHide: false },
-  { src: "/images/festival-lounge.webp", top: "-3%", right: "-1%", size: "w-[75px] h-[95px] md:w-[190px] md:h-[250px]", rotate: 6, delay: 100, speed: 0.5, mobileHide: false },
-  { src: "/images/IMG_1063.webp", top: "30%", left: "-3%", size: "w-[70px] h-[90px] md:w-[180px] md:h-[230px]", rotate: 4, delay: 200, speed: 0.2, mobileHide: false },
-  { src: "/images/festival-cocktails-duo.webp", bottom: "-2%", left: "2%", size: "w-[75px] h-[95px] md:w-[185px] md:h-[240px]", rotate: -5, delay: 300, speed: 0.6, mobileHide: true },
-  { src: "/images/festival-bottles.webp", top: "18%", right: "-2%", size: "w-[65px] h-[85px] md:w-[170px] md:h-[220px]", rotate: -4, delay: 150, speed: 0.35, mobileHide: false },
-  { src: "/images/L1030863_CocktailX_adriancamo.webp", top: "50%", right: "-1%", size: "w-[75px] h-[95px] md:w-[190px] md:h-[245px]", rotate: 7, delay: 250, speed: 0.45, mobileHide: true },
-  { src: "/images/Cocktail X_2.webp", bottom: "-3%", left: "22%", size: "w-[70px] h-[90px] md:w-[175px] md:h-[225px]", rotate: 3, delay: 350, speed: 0.55, mobileHide: true },
-  { src: "/images/Cocktail X_4.webp", bottom: "-2%", right: "5%", size: "w-[72px] h-[92px] md:w-[180px] md:h-[235px]", rotate: -6, delay: 400, speed: 0.25, mobileHide: true },
-  { src: "/images/festival-cheers.webp", top: "2%", right: "20%", size: "w-[68px] h-[88px] md:w-[165px] md:h-[215px]", rotate: 5, delay: 200, speed: 0.4, mobileHide: false },
-  { src: "/images/Cocktail X_3.webp", bottom: "5%", right: "25%", size: "w-[65px] h-[85px] md:w-[160px] md:h-[210px]", rotate: -3, delay: 450, speed: 0.65, mobileHide: true },
+  { src: "/images/L1030894_CocktailX_adriancamo.webp", top: "-2%", left: "1%", size: "w-[100px] h-[130px] md:w-[260px] md:h-[340px]", rotate: -8, delay: 0, speed: 0.3, mobileHide: false },
+  { src: "/images/festival-lounge.webp", top: "-3%", right: "1%", size: "w-[95px] h-[120px] md:w-[250px] md:h-[320px]", rotate: 6, delay: 100, speed: 0.5, mobileHide: false },
+  { src: "/images/IMG_1063.webp", top: "30%", left: "1%", size: "w-[90px] h-[115px] md:w-[235px] md:h-[300px]", rotate: 4, delay: 200, speed: 0.2, mobileHide: false },
+  { src: "/images/studio-berg-3.jpg", bottom: "-2%", left: "4%", size: "w-[95px] h-[120px] md:w-[245px] md:h-[315px]", rotate: -5, delay: 300, speed: 0.6, mobileHide: true },
+  { src: "/images/festival-bottles.webp", top: "18%", right: "1%", size: "w-[85px] h-[110px] md:w-[225px] md:h-[290px]", rotate: -4, delay: 150, speed: 0.35, mobileHide: false },
+  { src: "/images/L1030863_CocktailX_adriancamo.webp", top: "50%", right: "1%", size: "w-[95px] h-[120px] md:w-[250px] md:h-[320px]", rotate: 7, delay: 250, speed: 0.45, mobileHide: true },
+  { src: "/images/Cocktail X_2.webp", bottom: "-3%", left: "22%", size: "w-[90px] h-[115px] md:w-[230px] md:h-[295px]", rotate: 3, delay: 350, speed: 0.55, mobileHide: true },
+  { src: "/images/Cocktail X_4.webp", bottom: "-2%", right: "5%", size: "w-[92px] h-[118px] md:w-[238px] md:h-[305px]", rotate: -6, delay: 400, speed: 0.25, mobileHide: true },
+  { src: "/images/festival-cheers.webp", top: "2%", right: "20%", size: "w-[88px] h-[112px] md:w-[220px] md:h-[280px]", rotate: 5, delay: 200, speed: 0.4, mobileHide: false },
+  { src: "/images/Cocktail X_3.webp", bottom: "5%", right: "25%", size: "w-[85px] h-[108px] md:w-[210px] md:h-[270px]", rotate: -3, delay: 450, speed: 0.65, mobileHide: true },
 ];
 
 function ParallaxImage({

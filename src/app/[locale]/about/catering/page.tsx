@@ -13,7 +13,14 @@ export default function CateringPage() {
   const revealCta = useReveal({ delay: 300 });
 
   return (
-    <main>
+    <main className="relative">
+      {/* CI background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+        <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-bg.svg)", backgroundSize:"200px 200px", backgroundRepeat:"repeat", opacity:0.18 }} />
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(25,21,19,0.55) 0%, rgba(25,21,19,0.2) 25%, rgba(25,21,19,0.2) 75%, rgba(25,21,19,0.7) 100%)" }} />
+        <div style={{ position:"absolute", top:"-200px", right:"-200px", width:"600px", height:"600px", borderRadius:"50%", background:"rgba(243,146,0,0.12)", filter:"blur(120px)" }} />
+        <div style={{ position:"absolute", top:"30%", left:"-200px", width:"500px", height:"500px", borderRadius:"50%", background:"rgba(189,37,110,0.10)", filter:"blur(110px)" }} />
+      </div>
       {/* Hero */}
       <section className="section-padding min-h-[50vh] flex flex-col items-center justify-center text-center">
         <BlurText
@@ -51,18 +58,18 @@ export default function CateringPage() {
           >
             <p>
               {locale === "de"
-                ? "Cocktail X Catering bringt die Magie des Festivals direkt zu Ihrem Event. Unser Team aus erfahrenen Mixologen kreiert massgeschneiderte Cocktail-Erlebnisse fuer private Feiern, Firmenveranstaltungen und besondere Anlaesse jeder Groesse."
+                ? "Cocktail X Catering bringt die Magie des Festivals direkt zu Ihrem Event. Unser Team aus erfahrenen Mixologen kreiert maßgeschneiderte Cocktail-Erlebnisse für private Feiern, Firmenveranstaltungen und besondere Anlässe jeder Größe."
                 : "Cocktail X Catering brings the magic of the festival directly to your event. Our team of experienced mixologists creates bespoke cocktail experiences for private celebrations, corporate events, and special occasions of any size."}
             </p>
             <p>
               {locale === "de"
-                ? "Von intimen Dinner-Partys bis hin zu grossen Firmenevents -- wir bieten ein umfassendes Catering-Erlebnis, das Ihre Gaeste begeistern wird. Unsere mobilen Bars sind mit allem ausgestattet, was man fuer erstklassige Cocktails benoetigt."
-                : "From intimate dinner parties to large corporate events -- we offer a comprehensive catering experience that will delight your guests. Our mobile bars are equipped with everything needed for first-class cocktails."}
+                ? "Von intimen Dinner-Partys bis hin zu großen Firmenevents – wir bieten ein umfassendes Catering-Erlebnis, das Ihre Gäste begeistern wird. Unsere mobilen Bars sind mit allem ausgestattet, was man für erstklassige Cocktails benötigt."
+                : "From intimate dinner parties to large corporate events – we offer a comprehensive catering experience that will delight your guests. Our mobile bars are equipped with everything needed for first-class cocktails."}
             </p>
             <p>
               {locale === "de"
-                ? "Jedes Catering-Paket wird individuell auf Ihre Wuensche abgestimmt. Wir arbeiten eng mit Ihnen zusammen, um ein Cocktailmenue zu entwickeln, das perfekt zu Ihrem Anlass passt -- von klassischen Cocktails bis hin zu kreativen Eigenkreationen."
-                : "Each catering package is individually tailored to your wishes. We work closely with you to develop a cocktail menu that perfectly suits your occasion -- from classic cocktails to creative original creations."}
+                ? "Jedes Catering-Paket wird individuell auf Ihre Wünsche abgestimmt. Wir arbeiten eng mit Ihnen zusammen, um ein Cocktailmenü zu entwickeln, das perfekt zu Ihrem Anlass passt – von klassischen Cocktails bis hin zu kreativen Eigenkreationen."
+                : "Each catering package is individually tailored to your wishes. We work closely with you to develop a cocktail menu that perfectly suits your occasion – from classic cocktails to creative original creations."}
             </p>
           </div>
 

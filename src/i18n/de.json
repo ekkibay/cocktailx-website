@@ -10,10 +10,10 @@
   "hero": {
     "title": "cocktail \u2726 festival",
     "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
-    "subheadline": "Erlebe 50+ Bars, exklusive Drinks und unvergessliche Festival-Momente in ganz M\u00fcnchen.",
+    "subheadline": "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival.",
     "cta": "Jetzt Ticket sichern",
-    "trustLine": "50+ Bars \u00b7 Limitierte Tickets \u00b7 Exklusive Erlebnisse",
-    "guestCount": "8.000+ G\u00e4ste erwartet in 2026",
+    "trustLine": "58 Bars \u00b7 Limitierte Tickets \u00b7 Exklusive Erlebnisse",
+    "guestCount": "5.000+ G\u00e4ste erwartet in 2026",
     "days": "Tage",
     "hours": "Stunden",
     "minutes": "Minuten",
@@ -26,9 +26,9 @@
     "days": "Tage",
     "passport": "Ticket",
     "expectedGuests": "Gäste erwartet",
-    "description": "18 Tage, 50+ Bars, eine Stadt: Hol dir dein Cocktail X Ticket und entdecke Münchens beste Bars mit exklusiven Drinks zu Festivalpreisen.",
-    "edition": "Bereits die 3. Ausgabe",
-    "visitors": "5.000+ Gäste in 2025",
+    "description": "18 Tage, 58 Bars, 1 Ticket: Jede teilnehmende Bar kreiert einen exklusiven Signature Cocktail – exklusiv für das Festival, für nur 6€.",
+    "edition": "Bereits die 4. Ausgabe",
+    "visitors": "2.500 Gäste in 2025",
     "cta": "MEHR ERFAHREN",
     "videoLabel": "Festival Highlights ansehen"
   },
@@ -36,11 +36,11 @@
     "headline": "SO FUNKTIONIERT'S",
     "step1": {
       "title": "HOL DIR DEIN TICKET",
-      "description": "Kaufe dein Ticket und erhalte Zugang zur App mit allen teilnehmenden <strong>50+ Bars</strong> und ihren Festivaldrinks. Dein Ticket begleitet dich <strong>18 Tage</strong> lang durch das Festival."
+      "description": "Kaufe dein Ticket und erhalte Zugang zur App mit allen teilnehmenden <strong>58 Bars</strong> und ihren Festival-Cocktails. Dein Ticket begleitet dich <strong>18 Tage</strong> lang durch das Festival."
     },
     "step2": {
-      "title": "ENTDECKE DIE BARS & DRINKS",
-      "description": "In der App siehst du, welche Bars teilnehmen und welchen <strong>Signature Cocktail</strong> du dort freischalten kannst. Jede Bar kreiert dafür einen eigenen Drink, den es <strong>nur während des Festivals</strong> gibt."
+      "title": "ENTDECKE DIE BARS & COCKTAILS",
+      "description": "In der App siehst du, welche Bars teilnehmen und welchen <strong>Signature Cocktail</strong> du dort freischalten kannst. Jede Bar kreiert dafür einen eigenen Cocktail, den es <strong>nur während des Festivals</strong> gibt."
     },
     "step3": {
       "title": "SCANNE & BESTELLE",
@@ -48,7 +48,7 @@
     },
     "step4": {
       "title": "SAMMLE STEMPEL & SCHALTE BELOHNUNGEN FREI",
-      "description": "Für jeden gekauften Festivaldrink erhältst du einen digitalen <strong>Stempel</strong>. Je mehr Stempel du sammelst, desto mehr <strong>Belohnungen und Vorteile</strong> schaltest du frei."
+      "description": "Für jeden gekauften Signature Cocktail erhältst du einen digitalen <strong>Stempel</strong>. Je mehr Stempel du sammelst, desto mehr <strong>Belohnungen und Vorteile</strong> schaltest du frei."
     },
     "appHint": "Alles in der Cocktail X App"
   },
@@ -64,21 +64,21 @@
     "afterBuy": "Nach dem Kauf erhältst du dein Ticket direkt in der Cocktail X App.",
     "earlyBird": {
       "name": "EARLY BIRD",
-      "info": "Limitiertes Kontingent"
+      "info": "Bis 31. März"
     },
     "regular": {
       "name": "REGULAR",
-      "info": "Verfügbar nach Early Bird"
+      "info": "1. April – 30. April"
     },
     "late": {
       "name": "LAST MINUTE",
-      "info": "Ab Festivalstart zum vollen Preis"
+      "info": "Ab 1. Mai zum vollen Preis"
     },
-    "feature1": "Zugang zu 50+ teilnehmenden Bars",
+    "feature1": "Zugang zu 58 teilnehmenden Bars",
     "feature2": "Signature Cocktails für nur 6€ statt 12-16€",
-    "feature3": "Gilt für alle 18 Festivaltage, jede Bar, so oft du willst",
+    "feature3": "Gilt für alle 18 Festivaltage, jede Bar – 1 Signature Cocktail pro Bar",
     "feature4": "Stempel sammeln & Belohnungen freischalten",
-    "feature5": "Exklusive Events & Tastings",
+    "feature5": "Exklusive Events",
     "timerLabel": "Noch {days} Tage zum Early-Bird-Preis",
     "timerLabelRegular": "Noch {days} Tage zum Regular-Preis",
     "lateHint": "Voller Preis · Keine Ermäßigung"
@@ -113,7 +113,7 @@
   "faq": {
     "headline": "HÄUFIGE FRAGEN",
     "q1": "Was ist das Cocktail X Ticket?",
-    "a1": "Das Ticket ist dein digitaler Festivalpass. Es gibt dir 18 Tage lang Zugang zu exklusiven Cocktails in über 50 Bars in ganz München, zu speziellen Festivalpreisen.",
+    "a1": "Das Ticket ist dein digitaler Festivalpass. Es gibt dir 18 Tage lang Zugang zu exklusiven Cocktails in allen 58 Bars in ganz München, zu speziellen Festivalpreisen.",
     "q2": "Ist das Ticket digital oder physisch?",
     "a2": "Das Ticket ist komplett digital. Nach dem Kauf erhältst du Zugang über die Cocktail X App. Kein Ausdrucken nötig, einfach in der Bar vorzeigen.",
     "q3": "Wie funktioniert das mit den Stempeln?",
@@ -127,7 +127,7 @@
     "q7": "Kann ich mein Ticket stornieren?",
     "a7": "Eine Stornierung ist bis 14 Tage vor Festivalbeginn möglich. Alternativ kannst du dein Ticket jederzeit an eine andere Person übertragen.",
     "q8": "Muss ich einen Platz reservieren?",
-    "a8": "Nein, du kannst jede Bar spontan besuchen. Die Bars haben regulären Betrieb und dein Festivaldrink ist garantiert verfügbar.",
+    "a8": "Nein, du kannst jede Bar spontan besuchen. Die Bars haben regulären Betrieb und dein Signature Cocktail ist garantiert verfügbar.",
     "q9": "Ab welchem Alter kann ich teilnehmen?",
     "a9": "Das Festival richtet sich an Gäste ab 18 Jahren, da ausschließlich alkoholische Getränke im Festivalprogramm enthalten sind."
   },
@@ -146,7 +146,7 @@
       "name": "Alex, 40"
     },
     "t4": {
-      "quote": "18 Tage, über 50 Bars und jede Menge neue Lieblingsdrinks. So macht man ein Cocktailfestival.",
+      "quote": "18 Tage, 58 Bars und jede Menge neue Lieblingscocktails. So macht man ein Cocktailfestival.",
       "name": "Thomas, 38"
     },
     "t5": {
@@ -158,7 +158,7 @@
       "name": "Sarah, 29"
     },
     "t7": {
-      "quote": "Für 16€ bekommt man Zugang zu über 50 Bars mit Signature Cocktails für 6€. Das ist unschlagbar.",
+      "quote": "Für 20€ bekommt man Zugang zu über 58 Bars mit Signature Cocktails für 6€. Das ist unschlagbar.",
       "name": "Marco, 31"
     },
     "t8": {
@@ -174,7 +174,7 @@
       "name": "Gerhard, 81"
     },
     "t11": {
-      "quote": "Jeder Abend ist etwas komplett Neues. Andere Bar, andere Atmosphäre, anderer Drink. Das wird einfach nicht langweilig.",
+      "quote": "Jeder Abend ist etwas komplett Neues. Andere Bar, andere Atmosphäre, anderer Signature Cocktail. Das wird einfach nicht langweilig.",
       "name": "Paula, 27"
     },
     "t12": {
@@ -199,7 +199,7 @@
     "subheadline": "Egal ob Cocktail-Profi oder Neuling, hier ist für jeden was dabei.",
     "cocktailLovers": {
       "title": "COCKTAIL-FANS",
-      "description": "200+ exklusive Signature Drinks in Münchens besten Bars entdecken."
+      "description": "58 exklusive Signature Cocktails in Münchens besten Bars entdecken – 1 Ticket, 18 Tage."
     },
     "friends": {
       "title": "FREUNDESGRUPPEN",
@@ -221,10 +221,10 @@
   "gallery": {
     "badge": "RÜCKBLICK",
     "headline": "SO WAR 2025",
-    "subheadline": "5.000+ Gäste, 45 Bars und 180+ Signature Cocktails - das war Cocktail X 2025.",
+    "subheadline": "2.500 Gäste, 45 Bars und 26.000 servierte Signature Cocktails – das war Cocktail X 2025.",
     "statGuests": "Gäste",
     "statBars": "Bars",
-    "statCocktails": "Signature Cocktails"
+    "statCocktails": "Servierte Cocktails"
   },
   "social": {
     "subheadline": "Folge uns für Behind-the-Scenes & Festival-Updates",

@@ -128,42 +128,131 @@ export default function AppPage() {
             </div>
           </div>
 
-          {/* Right: Phone mockup */}
-          <div ref={phoneReveal.ref} style={phoneReveal.style} className="relative w-[260px] md:w-[300px] mx-auto md:mx-0">
-            <div className="relative rounded-[2rem] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)] bg-[#223a7b]">
-              <div
-                className="absolute inset-0"
-                style={{
+          {/* Right: iPhone mockup */}
+          <div ref={phoneReveal.ref} style={phoneReveal.style} className="relative mx-auto md:mx-0 flex-shrink-0">
+            {/* Glow behind phone */}
+            <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 50% 60%, rgba(243,146,0,0.18) 0%, transparent 70%)", filter: "blur(30px)", zIndex: 0 }} />
+
+            {/* iPhone outer shell */}
+            <div style={{
+              position: "relative",
+              width: "270px",
+              borderRadius: "52px",
+              background: "linear-gradient(160deg, #3a3a3c 0%, #1c1c1e 40%, #2a2a2c 100%)",
+              padding: "3px",
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.08), 0 40px 100px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12)",
+              zIndex: 1,
+            }}>
+              {/* Side buttons — volume */}
+              <div style={{ position: "absolute", left: "-3px", top: "110px", width: "3px", height: "34px", background: "#3a3a3c", borderRadius: "2px 0 0 2px" }} />
+              <div style={{ position: "absolute", left: "-3px", top: "154px", width: "3px", height: "34px", background: "#3a3a3c", borderRadius: "2px 0 0 2px" }} />
+              <div style={{ position: "absolute", left: "-3px", top: "80px",  width: "3px", height: "22px", background: "#3a3a3c", borderRadius: "2px 0 0 2px" }} />
+              {/* Side button — power */}
+              <div style={{ position: "absolute", right: "-3px", top: "130px", width: "3px", height: "60px", background: "#3a3a3c", borderRadius: "0 2px 2px 0" }} />
+
+              {/* Screen bezel */}
+              <div style={{
+                borderRadius: "50px",
+                overflow: "hidden",
+                background: "#1a1208",
+                position: "relative",
+              }}>
+                {/* Dynamic Island */}
+                <div style={{
+                  position: "absolute",
+                  top: "14px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "110px",
+                  height: "34px",
+                  background: "#000",
+                  borderRadius: "20px",
+                  zIndex: 10,
+                }} />
+
+                {/* App screen content */}
+                <div style={{
+                  aspectRatio: "9/19.5",
+                  display: "flex",
+                  flexDirection: "column",
                   backgroundImage: "url(/images/pattern-bg.svg)",
                   backgroundSize: "104px 104px",
                   backgroundRepeat: "repeat",
-                }}
-              />
-              <div className="aspect-[9/16] relative flex flex-col px-5 py-6">
-                {/* Logo top-right */}
-                <p className="font-display text-bone text-lg self-end text-right leading-tight">
-                  cocktail{" "}
-                  <svg viewBox="0 0 100 100" className="inline-block w-[0.85em] h-[0.85em] align-middle relative -top-[0.03em]" fill="currentColor"><path d="M50 0 C52 38, 62 48, 100 50 C62 52, 52 62, 50 100 C48 62, 38 52, 0 50 C38 48, 48 38, 50 0Z" /></svg>
-                  <br />festival
-                </p>
+                  position: "relative",
+                }}>
+                  {/* Dark overlay for readability */}
+                  <div style={{ position: "absolute", inset: 0, background: "rgba(25,18,8,0.82)" }} />
 
-                {/* Star centered */}
-                <div className="flex-1 flex items-center justify-center">
-                  <svg viewBox="0 0 100 100" className="w-28 h-28 md:w-36 md:h-36 text-tangerine" fill="currentColor">
-                    <path d="M50 0 C52 38, 62 48, 100 50 C62 52, 52 62, 50 100 C48 62, 38 52, 0 50 C38 48, 48 38, 50 0Z" />
-                  </svg>
-                </div>
+                  {/* Status bar spacer */}
+                  <div style={{ height: "58px", flexShrink: 0 }} />
 
-                {/* Date */}
-                <div className="text-center mb-3">
-                  <p className="text-bone/90 text-sm font-body">13. - 30. Mai 2026</p>
-                  <p className="text-bone/60 text-xs font-body">München</p>
-                </div>
+                  {/* App content */}
+                  <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", padding: "0 20px 24px" }}>
+                    {/* Header */}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                      <span style={{ fontFamily: "sans-serif", fontSize: "11px", color: "rgba(245,235,220,0.5)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                        {locale === "de" ? "Mein Festival" : "My Festival"}
+                      </span>
+                      <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "rgba(243,146,0,0.15)", border: "1px solid rgba(243,146,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(243,146,0,0.9)" strokeWidth="2">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </div>
+                    </div>
 
-                {/* Buttons */}
-                <div className="flex gap-2">
-                  <div className="flex-1 bg-tangerine rounded-full py-2.5 text-center text-xs font-body font-bold text-licorice">Tickets</div>
-                  <div className="flex-1 bg-bone rounded-full py-2.5 text-center text-xs font-body font-bold text-licorice">Login</div>
+                    {/* Passport card */}
+                    <div style={{ background: "linear-gradient(135deg, rgba(243,146,0,0.25) 0%, rgba(189,37,110,0.15) 100%)", border: "1px solid rgba(243,146,0,0.3)", borderRadius: "16px", padding: "14px 16px", marginBottom: "16px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
+                        <div>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "9px", color: "rgba(243,146,0,0.8)", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "2px" }}>Cocktail X 2026</p>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "15px", fontWeight: 700, color: "#f5ebdc", letterSpacing: "-0.01em" }}>Festival Passport</p>
+                        </div>
+                        <svg viewBox="0 0 100 100" width="28" height="28" fill="rgba(243,146,0,0.9)">
+                          <path d="M50 0 C52 38,62 48,100 50 C62 52,52 62,50 100 C48 62,38 52,0 50 C38 48,48 38,50 0Z" />
+                        </svg>
+                      </div>
+                      <div style={{ display: "flex", gap: "16px" }}>
+                        <div>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "8px", color: "rgba(245,235,220,0.4)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Bars</p>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "13px", fontWeight: 700, color: "#f5ebdc" }}>58</p>
+                        </div>
+                        <div>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "8px", color: "rgba(245,235,220,0.4)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Tage</p>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "13px", fontWeight: 700, color: "#f5ebdc" }}>18</p>
+                        </div>
+                        <div>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "8px", color: "rgba(245,235,220,0.4)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Preis</p>
+                          <p style={{ fontFamily: "sans-serif", fontSize: "13px", fontWeight: 700, color: "#f5ebdc" }}>6€</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Stamp row */}
+                    <p style={{ fontFamily: "sans-serif", fontSize: "9px", color: "rgba(245,235,220,0.4)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "8px" }}>
+                      {locale === "de" ? "Deine Stempel" : "Your Stamps"}
+                    </p>
+                    <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "16px" }}>
+                      {[...Array(10)].map((_, i) => (
+                        <div key={i} style={{ width: "22px", height: "22px", borderRadius: "50%", background: i < 4 ? "rgba(243,146,0,0.9)" : "rgba(245,235,220,0.07)", border: i < 4 ? "none" : "1px solid rgba(245,235,220,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          {i < 4 && <svg viewBox="0 0 100 100" width="10" height="10" fill="#1a1208"><path d="M50 0 C52 38,62 48,100 50 C62 52,52 62,50 100 C48 62,38 52,0 50 C38 48,48 38,50 0Z" /></svg>}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Bar list mini */}
+                    <p style={{ fontFamily: "sans-serif", fontSize: "9px", color: "rgba(245,235,220,0.4)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "8px" }}>
+                      {locale === "de" ? "Bars in der Nähe" : "Bars nearby"}
+                    </p>
+                    {["The Halleschen Haus", "Goldene Bar", "Bar Gabányi"].map((bar, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 10px", marginBottom: "5px", background: "rgba(245,235,220,0.04)", borderRadius: "10px", border: "1px solid rgba(245,235,220,0.06)" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                          <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "rgba(243,146,0,0.8)", flexShrink: 0 }} />
+                          <span style={{ fontFamily: "sans-serif", fontSize: "10px", color: "rgba(245,235,220,0.75)" }}>{bar}</span>
+                        </div>
+                        <span style={{ fontFamily: "sans-serif", fontSize: "9px", color: "rgba(243,146,0,0.7)" }}>6 €</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -172,18 +261,23 @@ export default function AppPage() {
       </section>
 
       {/* How it works — compact horizontal */}
-      <section className="py-16 md:py-20 bg-jambalaya/10">
+      <section className="py-16 md:py-24 bg-jambalaya/40 border-y border-bone/10">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-display text-bone text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-display text-bone text-center mb-4">
             {locale === "de" ? "SO FUNKTIONIERT'S" : "HOW IT WORKS"}
           </h2>
+          <p className="text-center text-bone/50 font-body text-sm md:text-base mb-14">
+            {locale === "de"
+              ? "In 4 einfachen Schritten zum Festival-Erlebnis"
+              : "4 simple steps to your festival experience"}
+          </p>
 
-          <div ref={stepsReveal.ref} style={stepsReveal.style} className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div ref={stepsReveal.ref} style={stepsReveal.style} className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {steps.map((step, i) => (
-              <div key={i} className="relative text-center">
-                <span className="text-3xl md:text-4xl font-display text-tangerine/20 block mb-2">{step.num}</span>
-                <h3 className="text-sm md:text-base font-display text-bone mb-1.5">{step.title[locale]}</h3>
-                <p className="text-xs font-body text-bone/45 leading-relaxed">{step.desc[locale]}</p>
+              <div key={i} className="relative text-center bg-licorice/60 border border-bone/10 rounded-2xl p-5 md:p-6">
+                <span className="text-4xl md:text-5xl font-display text-tangerine block mb-3">{step.num}</span>
+                <h3 className="text-sm md:text-base font-display text-bone mb-2">{step.title[locale]}</h3>
+                <p className="text-xs font-body text-bone/55 leading-relaxed">{step.desc[locale]}</p>
                 {/* Connector line */}
                 {i < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-5 -right-3 w-6 h-px bg-bone/10" />
@@ -203,7 +297,7 @@ export default function AppPage() {
           <p className="text-sm font-body text-bone/50 mb-8">
             {locale === "de"
               ? "Hol dir jetzt dein Ticket und erlebe 18 Tage Cocktail-Kultur in Münchens besten Bars."
-              : "Get your ticket now and experience 18 days of cocktail culture in Munich's best bars."}
+              : "Get your ticket now and experience 18 days of cocktail culture in München's best bars."}
           </p>
           <Link href={`/${locale}/shop`} className="btn-primary text-base px-10 py-4 inline-block">
             {locale === "de" ? "TICKET SICHERN" : "GET YOUR TICKET"}

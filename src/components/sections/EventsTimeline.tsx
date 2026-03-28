@@ -37,10 +37,11 @@ export default function EventsTimeline() {
           <div className="flex flex-col gap-16">
             {events.map((event, i) => {
               const isEven = i % 2 === 0;
-              const dateStr = new Date(event.date).toLocaleDateString(
-                locale === "de" ? "de-DE" : "en-US",
-                { day: "numeric", month: "long", year: "numeric" }
-              );
+              const fmt = { day: "numeric", month: "long", year: "numeric" } as const;
+              const dateLoc = "de-DE";
+              const dateStr = event.dateEnd
+                ? `${new Date(event.date).toLocaleDateString(dateLoc, { day: "numeric", month: "long" })}–${new Date(event.dateEnd).toLocaleDateString(dateLoc, { day: "numeric", month: "long", year: "numeric" })}`
+                : new Date(event.date).toLocaleDateString(dateLoc, fmt);
 
               return (
                 <div

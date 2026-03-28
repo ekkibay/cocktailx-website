@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/excelerator`}
+                  href={`/${locale}/connect/excelerator`}
                   className="text-sm text-bone/60 hover:text-bone transition-colors"
                 >
                   {t("becomeExcelerator")}
@@ -132,7 +132,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href={`/${locale}/catering`}
+                  href={`/${locale}/about/catering`}
                   className="text-sm text-bone/60 hover:text-bone transition-colors"
                 >
                   {t("catering")}
@@ -140,7 +140,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/founder`}
+                  href={`/${locale}/about/founder`}
                   className="text-sm text-bone/60 hover:text-bone transition-colors"
                 >
                   {t("founder")}
@@ -148,7 +148,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={`/${locale}/contact`}
+                  href={`/${locale}/about/contact`}
                   className="text-sm text-bone/60 hover:text-bone transition-colors"
                 >
                   {t("contact")}

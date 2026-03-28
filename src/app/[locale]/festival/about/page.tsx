@@ -13,18 +13,18 @@ const content = {
       "Was als kleines Experiment mit 25 Bars begann, ist heute Münchens größtes Cocktail-Festival. Jedes Jahr verwandeln wir die Stadt in eine einzige große Bar-Tour, bei der jeder Drink eine Geschichte erzählt und jede Bar ein neues Kapitel aufschlägt.",
     ],
     en: [
-      "Cocktail X was born from the conviction that Munich is more than beer and pretzels. It's a city with a vibrant, cosmopolitan bar culture just waiting to be discovered.",
-      "Inspired by the golden era of Italian aperitivo culture and the raw charm of Munich nights, the idea for a festival that combines both emerged in 2023: La Dolce Vita meets Bavarian Gemütlichkeit.",
-      "What started as a small experiment with 25 bars is now Munich's biggest cocktail festival. Every year, we transform the city into one grand bar tour, where every drink tells a story and every bar opens a new chapter.",
+      "Cocktail X was born from the conviction that München is more than beer and pretzels. It's a city with a vibrant, cosmopolitan bar culture just waiting to be discovered.",
+      "Inspired by the golden era of Italian aperitivo culture and the raw charm of München nights, the idea for a festival that combines both emerged in 2023: La Dolce Vita meets Bavarian Gemütlichkeit.",
+      "What started as a small experiment with 25 bars is now München's biggest cocktail festival. Every year, we transform the city into one grand bar tour, where every drink tells a story and every bar opens a new chapter.",
     ],
   },
   mission: {
     de: "Unsere Mission ist es, die Cocktailkultur Münchens zu feiern, neue Talente zu fördern und Menschen durch die Kunst des Mixens zusammenzubringen. Jeder Schluck soll ein Erlebnis sein.",
-    en: "Our mission is to celebrate Munich's cocktail culture, nurture new talent, and bring people together through the art of mixing. Every sip should be an experience.",
+    en: "Our mission is to celebrate München's cocktail culture, nurture new talent, and bring people together through the art of mixing. Every sip should be an experience.",
   },
   founder: {
-    name: "Max Mustermann",
-    role: { de: "Gründer & Creative Director", en: "Founder & Creative Director" },
+    name: "Jennifer Mindl",
+    role: { de: "Gründerin & Geschäftsführerin", en: "Founder & CEO" },
     image: "/images/festival-bartender-pour.webp",
   },
 };
@@ -49,8 +49,15 @@ export default function AboutPage() {
   const revealTeam = useReveal();
 
   return (
-    <main className="section-padding">
-      <div className="max-w-4xl mx-auto">
+    <main className="section-padding relative">
+      {/* CI background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+        <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-bg.svg)", backgroundSize:"200px 200px", backgroundRepeat:"repeat", opacity:0.18 }} />
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(25,21,19,0.55) 0%, rgba(25,21,19,0.2) 25%, rgba(25,21,19,0.2) 75%, rgba(25,21,19,0.7) 100%)" }} />
+        <div style={{ position:"absolute", top:"-200px", right:"-200px", width:"600px", height:"600px", borderRadius:"50%", background:"rgba(243,146,0,0.12)", filter:"blur(120px)" }} />
+        <div style={{ position:"absolute", top:"30%", left:"-200px", width:"500px", height:"500px", borderRadius:"50%", background:"rgba(189,37,110,0.10)", filter:"blur(110px)" }} />
+      </div>
+      <div className="max-w-4xl mx-auto relative">
         {/* Title */}
         <BlurText
           text="ABOUT US"

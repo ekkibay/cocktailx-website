@@ -9,11 +9,11 @@
   },
   "hero": {
     "title": "cocktail \u2726 festival",
-    "subtitle": "MUNICH \u00b7 MAY 13\u201330 \u00b7 2026",
-    "subheadline": "Experience 50+ bars, exclusive drinks and unforgettable festival moments across Munich.",
+    "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
+    "subheadline": "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival.",
     "cta": "Get Your Ticket",
-    "trustLine": "50+ Bars \u00b7 Limited Tickets \u00b7 Exclusive Experiences",
-    "guestCount": "8,000+ guests expected in 2026",
+    "trustLine": "58 Bars \u00b7 Limited Tickets \u00b7 Exclusive Experiences",
+    "guestCount": "5,000+ guests expected in 2026",
     "days": "Days",
     "hours": "Hours",
     "minutes": "Minutes",
@@ -26,9 +26,9 @@
     "days": "Days",
     "passport": "Ticket",
     "expectedGuests": "Guests expected",
-    "description": "18 days, 50+ bars, one city: Get your Cocktail X Ticket and discover Munich's best bars with exclusive drinks at festival prices.",
-    "edition": "Now in its 3rd edition",
-    "visitors": "5,000+ guests in 2025",
+    "description": "18 days, 58 bars, 1 ticket: Each participating bar creates an exclusive signature cocktail — only for the festival, for just €6.",
+    "edition": "Now in its 4th edition",
+    "visitors": "2,500 guests in 2025",
     "cta": "LEARN MORE",
     "videoLabel": "Watch Festival Highlights"
   },
@@ -36,11 +36,11 @@
     "headline": "HOW IT WORKS",
     "step1": {
       "title": "GET YOUR TICKET",
-      "description": "Buy your ticket and get access to the app with all <strong>50+ participating bars</strong> and their festival drinks. Your ticket accompanies you for <strong>18 days</strong> through the festival."
+      "description": "Buy your ticket and get access to the app with all <strong>58 participating bars</strong> and their festival cocktails. Your ticket accompanies you for <strong>18 days</strong> through the festival."
     },
     "step2": {
-      "title": "DISCOVER THE BARS & DRINKS",
-      "description": "In the app you can see which bars participate and which <strong>signature cocktail</strong> you can unlock there. Each bar creates a unique drink available <strong>only during the festival</strong>."
+      "title": "DISCOVER THE BARS & COCKTAILS",
+      "description": "In the app you can see which bars participate and which <strong>signature cocktail</strong> you can unlock there. Each bar creates a unique cocktail available <strong>only during the festival</strong>."
     },
     "step3": {
       "title": "SCAN & ORDER",
@@ -48,13 +48,13 @@
     },
     "step4": {
       "title": "COLLECT STAMPS & UNLOCK REWARDS",
-      "description": "For every festival drink you buy, you receive a digital <strong>stamp</strong>. The more stamps you collect, the more <strong>rewards and perks</strong> you unlock."
+      "description": "For every signature cocktail you buy, you receive a digital <strong>stamp</strong>. The more stamps you collect, the more <strong>rewards and perks</strong> you unlock."
     },
     "appHint": "Everything in the Cocktail X App"
   },
   "tickets": {
     "headline": "GET YOUR PASS NOW",
-    "subtitle": "May 13-30, 2026 · Munich · All tickets are identical. The earlier you buy, the less you pay.",
+    "subtitle": "Mai 13-30, 2026 · München · All tickets are identical. The earlier you buy, the less you pay.",
     "savings": "You save €{amount}",
     "activeBadge": "Best price now",
     "buyNow": "BUY NOW",
@@ -64,28 +64,28 @@
     "afterBuy": "After purchase, you'll receive your ticket directly in the Cocktail X App.",
     "earlyBird": {
       "name": "EARLY BIRD",
-      "info": "Limited quantity"
+      "info": "Until March 31"
     },
     "regular": {
       "name": "REGULAR",
-      "info": "Available after Early Bird"
+      "info": "April 1 – April 30"
     },
     "late": {
       "name": "LAST MINUTE",
-      "info": "Available from festival start at full price"
+      "info": "From May 1 at full price"
     },
-    "feature1": "Access to 50+ participating bars",
+    "feature1": "Access to 58 participating bars",
     "feature2": "Signature cocktails for just €6 instead of €12-16",
-    "feature3": "Valid for all 18 festival days, any bar, as often as you like",
+    "feature3": "Valid for all 18 festival days, any bar – 1 signature cocktail per bar",
     "feature4": "Collect stamps & unlock rewards",
-    "feature5": "Exclusive events & tastings",
+    "feature5": "Exclusive events",
     "timerLabel": "{days} days left at Early Bird price",
     "timerLabelRegular": "{days} days left at Regular price",
     "lateHint": "Full price · No discount"
   },
   "map": {
-    "headline": "DISCOVER MUNICH",
-    "subtitle": "All bars across the Munich city area. Most within walking distance of each other.",
+    "headline": "DISCOVER MÜNCHEN",
+    "subtitle": "All bars across the München city area. Most within walking distance of each other.",
     "cta": "DISCOVER ALL BARS"
   },
   "sponsors": {
@@ -113,7 +113,7 @@
   "faq": {
     "headline": "FAQ",
     "q1": "What is the Cocktail X Ticket?",
-    "a1": "The Ticket is your digital festival pass. It gives you 18 days of access to exclusive cocktails at over 50 bars across Munich, at special festival prices.",
+    "a1": "The Ticket is your digital festival pass. It gives you 18 days of access to exclusive cocktails at all 58 bars across München, at special festival prices.",
     "q2": "Is the ticket digital or physical?",
     "a2": "The ticket is fully digital. After purchase, you get access via the Cocktail X App. No printing needed, just show it at the bar.",
     "q3": "How do the stamps work?",
@@ -127,7 +127,7 @@
     "q7": "Can I cancel my ticket?",
     "a7": "Cancellations are possible up to 14 days before the festival starts. Alternatively, you can transfer your ticket to another person at any time.",
     "q8": "Do I need to make a reservation?",
-    "a8": "No, you can visit any bar spontaneously. The bars operate as usual and your festival drink is guaranteed to be available.",
+    "a8": "No, you can visit any bar spontaneously. The bars operate as usual and your signature cocktail is guaranteed to be available.",
     "q9": "Is there a minimum age?",
     "a9": "The festival is for guests aged 18 and over, as the festival program exclusively features alcoholic beverages."
   },
@@ -138,19 +138,19 @@
       "name": "Jennifer, 34"
     },
     "t2": {
-      "quote": "Munich, a sleeping giant, is being awakened by the Cocktail X Festival through its understanding of the essence and true meaning of bartending and hospitality.",
+      "quote": "München, a sleeping giant, is being awakened by the Cocktail X Festival through its understanding of the essence and true meaning of bartending and hospitality.",
       "name": "Simone, 42"
     },
     "t3": {
-      "quote": "A city's cocktail culture is defined by how it celebrates its own scene, and Cocktail X is Munich's bold statement to the world.",
+      "quote": "A city's cocktail culture is defined by how it celebrates its own scene, and Cocktail X is München's bold statement to the world.",
       "name": "Alex, 40"
     },
     "t4": {
-      "quote": "18 days, over 50 bars, and so many new favorite drinks. This is how you do a cocktail festival.",
+      "quote": "18 days, 58 bars, and so many new favorite cocktails. This is how you do a cocktail festival.",
       "name": "Thomas, 38"
     },
     "t5": {
-      "quote": "We went as a group and discovered a different bar every evening. Best summer in Munich!",
+      "quote": "We went as a group and discovered a different bar every evening. Best summer in München!",
       "name": "Lisa, 26"
     },
     "t6": {
@@ -158,7 +158,7 @@
       "name": "Sarah, 29"
     },
     "t7": {
-      "quote": "For €16 you get access to 50+ bars with signature cocktails for €6. Unbeatable value.",
+      "quote": "For €20 you get access to 58 bars with signature cocktails for €6. Unbeatable value.",
       "name": "Marco, 31"
     },
     "t8": {
@@ -166,23 +166,23 @@
       "name": "Anna, 28"
     },
     "t9": {
-      "quote": "I thought I knew Munich's bar scene. The Cocktail X Festival proved me wrong.",
+      "quote": "I thought I knew München's bar scene. The Cocktail X Festival proved me wrong.",
       "name": "Felix, 35"
     },
     "t10": {
-      "quote": "My wife and I rediscovered Munich all over again. At our age, you think you know everything - but this festival proved us wrong.",
+      "quote": "My wife and I rediscovered München all over again. At our age, you think you know everything - but this festival proved us wrong.",
       "name": "Gerhard, 81"
     },
     "t11": {
-      "quote": "Every evening is something completely new. Different bar, different atmosphere, different drink. It just never gets boring.",
+      "quote": "Every evening is something completely new. Different bar, different atmosphere, different signature cocktail. It just never gets boring.",
       "name": "Paula, 27"
     },
     "t12": {
-      "quote": "Five of us went out and drank our way through half of Munich. You meet so many people - it's just great fun.",
+      "quote": "Five of us went out and drank our way through half of München. You meet so many people - it's just great fun.",
       "name": "Luis, 24"
     },
     "t13": {
-      "quote": "I never would have thought Munich was this big when it comes to nightlife. The festival showed me corners I didn't even know existed.",
+      "quote": "I never would have thought München was this big when it comes to nightlife. The festival showed me corners I didn't even know existed.",
       "name": "Dominik, 33"
     },
     "t14": {
@@ -199,7 +199,7 @@
     "subheadline": "Whether cocktail pro or newcomer, there's something for everyone.",
     "cocktailLovers": {
       "title": "COCKTAIL FANS",
-      "description": "Discover 200+ exclusive signature drinks at Munich's best bars."
+      "description": "58 exclusive signature cocktails at München's best bars — 1 ticket, 18 days."
     },
     "friends": {
       "title": "FRIEND GROUPS",
@@ -211,7 +211,7 @@
     },
     "explorers": {
       "title": "EXPLORERS",
-      "description": "Discover new bars and hidden gems across Munich."
+      "description": "Discover new bars and hidden gems across München."
     }
   },
   "stickyCta": {
@@ -221,10 +221,10 @@
   "gallery": {
     "badge": "LOOKING BACK",
     "headline": "2025 HIGHLIGHTS",
-    "subheadline": "5,000+ guests, 45 bars and 180+ signature cocktails - that was Cocktail X 2025.",
+    "subheadline": "2,500 guests, 45 bars and 26,000 signature cocktails served – that was Cocktail X 2025.",
     "statGuests": "Guests",
     "statBars": "Bars",
-    "statCocktails": "Signature Cocktails"
+    "statCocktails": "Cocktails Served"
   },
   "social": {
     "subheadline": "Follow us for behind-the-scenes & festival updates",

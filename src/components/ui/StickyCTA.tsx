@@ -40,8 +40,8 @@ export default function StickyCTA() {
             <div>
               <span className="text-xs font-body text-bone/60">{t("label")}</span>
               <div className="flex items-baseline gap-2">
-                <span className="text-lg font-display text-bone/30 line-through">€25</span>
-                <span className="text-2xl font-display text-tangerine">€16</span>
+                <span className="text-lg font-display text-bone/30 line-through">€49</span>
+                <span className="text-2xl font-display text-tangerine">€20</span>
               </div>
             </div>
             <a

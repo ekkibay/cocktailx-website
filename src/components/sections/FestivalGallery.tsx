@@ -7,14 +7,14 @@ import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 
 const GALLERY_IMAGES = [
-  { src: "/images/2025/A9300010_CocktailX_adriancamo.webp", alt: "Cocktail close-up" },
-  { src: "/images/2025/A9309606_CocktailX_adriancamo.webp", alt: "Festival atmosphere" },
-  { src: "/images/2025/A9309611_CocktailX_adriancamo.webp", alt: "Bar ambiance" },
-  { src: "/images/2025/A9309721_CocktailX_adriancamo.webp", alt: "Festival guests" },
-  { src: "/images/2025/CocktailXClosing-29.webp", alt: "Signature cocktails" },
-  { src: "/images/2025/L1004703_CocktailXKempinski_adriancamo.webp", alt: "Kempinski bar" },
-  { src: "/images/2025/L1005399_CocktailX_adriancamo.webp", alt: "Bartenders crafting" },
-  { src: "/images/2025/L1005488_CocktailX_adriancamo.webp", alt: "Festival night vibes" },
+  { src: "/images/festival-cocktails-duo.webp", alt: "Cocktail close-up" },
+  { src: "/images/festival-friends.webp", alt: "Festival atmosphere" },
+  { src: "/images/festival-bar-scene.webp", alt: "Bar ambiance" },
+  { src: "/images/festival-laugh.webp", alt: "Festival guests" },
+  { src: "/images/festival-lounge.webp", alt: "Festival lounge" },
+  { src: "/images/L1030863_CocktailX_adriancamo.webp", alt: "Bartenders crafting" },
+  { src: "/images/festival-bartenders.webp", alt: "Bartender at work" },
+  { src: "/images/L1030894_CocktailX_adriancamo.webp", alt: "Festival night vibes" },
 ];
 
 export default function FestivalGallery() {
@@ -51,9 +51,9 @@ export default function FestivalGallery() {
           style={stats.style}
           className="grid grid-cols-3 gap-6 md:gap-12 mb-16 pt-8 pb-8 border-y border-bone/10"
         >
-          <AnimatedCounter target={5000} suffix="+" label={t("statGuests")} />
+          <AnimatedCounter target={2500} label={t("statGuests")} />
           <AnimatedCounter target={45} label={t("statBars")} />
-          <AnimatedCounter target={180} suffix="+" label={t("statCocktails")} />
+          <AnimatedCounter target={26000} label={t("statCocktails")} />
         </div>
 
         {/* Gallery grid — 2 Reihen, abwechselnd groß/klein */}

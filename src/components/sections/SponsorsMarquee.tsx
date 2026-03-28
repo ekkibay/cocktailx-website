@@ -17,7 +17,7 @@ export default function SponsorsMarquee() {
       <p
         ref={heading.ref}
         style={heading.style}
-        className="text-center text-bone/30 text-sm font-body uppercase tracking-wider mb-8"
+        className="text-center text-bone/55 text-sm font-body uppercase tracking-wider mb-8"
       >
         {t("headline")}
       </p>
@@ -34,7 +34,7 @@ export default function SponsorsMarquee() {
               href={sponsor.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 mx-5 md:mx-12 opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
+              className="flex-shrink-0 mx-5 md:mx-12 opacity-65 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
             >
               <Image
                 src={sponsor.logo}

@@ -11,19 +11,19 @@ const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
 const tiers = [
   {
     key: "earlyBird",
-    price: 16,
+    price: 20,
     productId: "passport-early-bird",
-    soldOutDaysBefore: 30,
+    soldOutDaysBefore: 43, // ends March 31
   },
   {
     key: "regular",
-    price: 20,
+    price: 34,
     productId: "passport-regular",
-    soldOutDaysBefore: 10,
+    soldOutDaysBefore: 13, // ends April 30
   },
   {
     key: "late",
-    price: 25,
+    price: 49,
     productId: "passport-late",
     soldOutDaysBefore: -18,
   },
@@ -86,8 +86,15 @@ export default function Tickets() {
   )?.key;
 
   return (
-    <section id="tickets" className="py-20 bg-jambalaya/30">
-      <div className="max-w-4xl mx-auto px-4">
+    <section id="tickets" className="py-20 bg-jambalaya/30 relative">
+      {/* CI background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+        <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-3.png)", backgroundSize:"300px 300px", backgroundRepeat:"repeat", opacity:0.12 }} />
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(25,21,19,0.55) 0%, rgba(25,21,19,0.2) 25%, rgba(25,21,19,0.2) 75%, rgba(25,21,19,0.7) 100%)" }} />
+        <div style={{ position:"absolute", top:"-150px", right:"-150px", width:"500px", height:"500px", borderRadius:"50%", background:"rgba(243,146,0,0.10)", filter:"blur(120px)" }} />
+        <div style={{ position:"absolute", bottom:"-100px", left:"-150px", width:"450px", height:"450px", borderRadius:"50%", background:"rgba(189,37,110,0.08)", filter:"blur(110px)" }} />
+      </div>
+      <div className="max-w-4xl mx-auto px-4 relative">
         {/* Headline */}
         <BlurText
           text={t("headline")}
@@ -149,9 +156,9 @@ export default function Tickets() {
 
                 {/* Price */}
                 <div className="mt-3 mb-2 flex items-baseline justify-center gap-2.5">
-                  {!isSoldOut && tier.price < 25 && (
+                  {!isSoldOut && tier.price < 49 && (
                     <span className="text-xl font-display text-bone/25 line-through">
-                      &euro;25
+                      &euro;49
                     </span>
                   )}
                   <span
@@ -169,9 +176,9 @@ export default function Tickets() {
 
                 {/* Savings + info — fixed height for alignment */}
                 <div className="h-[40px] flex flex-col items-center justify-center">
-                  {!isSoldOut && tier.price < 25 && (
+                  {!isSoldOut && tier.price < 49 && (
                     <span className="text-xs font-body text-emerald-400 font-bold leading-tight">
-                      {t("savings", { amount: 25 - tier.price })}
+                      {t("savings", { amount: 49 - tier.price })}
                     </span>
                   )}
                   <p

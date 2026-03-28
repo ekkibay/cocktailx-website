@@ -3,6 +3,7 @@ export interface Bar {
   name: string;
   district: string;
   address: string;
+  website?: string;
   signatureCocktail: string;
   image: string;
   description: {
@@ -26,6 +27,7 @@ export const bars: Bar[] = [
     name: "Goldene Bar",
     district: "Altstadt-Lehel",
     address: "Prinzregentenstra\u00dfe 1, 80538 M\u00fcnchen",
+    website: "https://www.goldenebar.de",
     signatureCocktail: "Golden Munich Mule",
     image: "/images/bars/goldene-bar.webp",
     description: {
@@ -38,6 +40,7 @@ export const bars: Bar[] = [
     name: "Schumann\u2019s Bar",
     district: "Maxvorstadt",
     address: "Odeonsplatz 6, 80539 M\u00fcnchen",
+    website: "https://www.schumanns.de",
     signatureCocktail: "Schumann\u2019s Negroni",
     image: "/images/bars/schumanns-bar.webp",
     description: {
@@ -50,6 +53,7 @@ export const bars: Bar[] = [
     name: "Zephyr Bar",
     district: "Glockenbachviertel",
     address: "Baaderstra\u00dfe 68, 80469 M\u00fcnchen",
+    website: "https://www.zephyrbar.de",
     signatureCocktail: "Zephyr Sour",
     image: "/images/bars/zephyr-bar.webp",
     description: {
@@ -62,6 +66,7 @@ export const bars: Bar[] = [
     name: "Pusser\u2019s",
     district: "Altstadt-Lehel",
     address: "Falkenturmstra\u00dfe 9, 80331 M\u00fcnchen",
+    website: "https://www.pussers.de",
     signatureCocktail: "Painkiller",
     image: "/images/bars/pussers-bar.webp",
     description: {
@@ -74,6 +79,7 @@ export const bars: Bar[] = [
     name: "HEARTS",
     district: "Altstadt-Lehel",
     address: "Maximiliansplatz 5, 80333 M\u00fcnchen",
+    website: "https://www.hearts-munich.de",
     signatureCocktail: "Heart Beat",
     image: "/images/bars/hearts-bar.webp",
     description: {
@@ -86,6 +92,7 @@ export const bars: Bar[] = [
     name: "Salon Rouge",
     district: "Schwabing",
     address: "Leopoldstra\u00dfe 28, 80802 M\u00fcnchen",
+    website: "https://www.salon-rouge.de",
     signatureCocktail: "Rouge Martini",
     image: "/images/bars/salon-rouge.webp",
     description: {

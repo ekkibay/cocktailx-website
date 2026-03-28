@@ -26,12 +26,12 @@ export const blogPosts: BlogPost[] = [
       en: "The Cocktail X 2026 Line-Up Is Here!",
     },
     excerpt: {
-      de: "\u00dcber 50 Bars, 200 exklusive Cocktails und 18 Tage voller Genuss \u2013 entdecke das komplette Festival-Programm.",
-      en: "Over 50 bars, 200 exclusive cocktails, and 18 days of indulgence \u2013 discover the complete festival program.",
+      de: "58 Bars, 174+ exklusive Cocktails und 18 Tage voller Genuss \u2013 entdecke das komplette Festival-Programm.",
+      en: "58 bars, 174+ exclusive cocktails, and 18 days of indulgence \u2013 discover the complete festival program.",
     },
     content: {
-      de: "Wir freuen uns, das vollst\u00e4ndige Line-Up f\u00fcr das Cocktail X Festival 2026 bekannt zu geben. Dieses Jahr erwarten euch \u00fcber 50 teilnehmende Bars aus ganz M\u00fcnchen, mehr als 200 exklusive Cocktailkreationen und 18 unvergessliche Tage. Von der Goldenen Bar bis zur Zephyr Bar \u2013 jede Location hat einen einzigartigen Signature Cocktail f\u00fcr das Festival kreiert.",
-      en: "We are excited to announce the complete line-up for the Cocktail X Festival 2026. This year, you can look forward to over 50 participating bars from across Munich, more than 200 exclusive cocktail creations, and 18 unforgettable days. From Goldene Bar to Zephyr Bar \u2013 each location has created a unique signature cocktail for the festival.",
+      de: "Wir freuen uns, das vollst\u00e4ndige Line-Up f\u00fcr das Cocktail X Festival 2026 bekannt zu geben. Dieses Jahr erwarten euch 58 teilnehmende Bars aus ganz M\u00fcnchen, 174+ exklusive Cocktailkreationen und 18 unvergessliche Tage. Von der Goldenen Bar bis zur Zephyr Bar \u2013 jede Location hat einen einzigartigen Signature Cocktail f\u00fcr das Festival kreiert.",
+      en: "We are excited to announce the complete line-up for the Cocktail X Festival 2026. This year, you can look forward to 58 participating bars from across M\u00fcnchen, 174+ exclusive cocktail creations, and 18 unforgettable days. From Goldene Bar to Zephyr Bar \u2013 each location has created a unique signature cocktail for the festival.",
     },
     date: "2026-03-15",
     image: "/images/placeholder/blog-1.svg",

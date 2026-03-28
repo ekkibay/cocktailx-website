@@ -1,44 +1,318 @@
 "use client";
 
+import { useState, useRef } from "react";
 import { useLocale } from "next-intl";
 import Link from "next/link";
 import ShopifyBuyButton from "@/components/ui/ShopifyBuyButton";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 
-const trustPoints = {
-  de: ["Sofort per E-Mail", "18 Tage gültig", "50+ Bars", "Kostenlose Stornierung"],
-  en: ["Instant email delivery", "Valid for 18 days", "50+ Bars", "Free cancellation"],
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const NORMAL_PRICE = 15;
+const FESTIVAL_PRICE = 6;
+const SAVINGS_PER = NORMAL_PRICE - FESTIVAL_PRICE; // 9 €
+
+// New tickets available from April 1
+const NEW_TICKETS_LAUNCH = new Date("2026-04-01");
+const newTicketsAvailable = new Date() >= NEW_TICKETS_LAUNCH;
+
+// ── Calculator options (shared across page) ───────────────────────────────────
+
+type CalcOption = {
+  key: string;
+  label: { de: string; en: string };
+  price: number;       // ticket price (or per-person for groups)
+  isGroup: boolean;
+  groupSize?: number;
 };
 
-const ticketFeatures = {
+const CALC_OPTIONS: CalcOption[] = [
+  { key: "passport-eb",  label: { de: "Passport · Early Bird",    en: "Passport · Early Bird"    }, price: 20,    isGroup: false },
+  { key: "passport-r",   label: { de: "Passport · Regular",       en: "Passport · Regular"       }, price: 34,    isGroup: false },
+  { key: "passport-lm",  label: { de: "Passport · Last Minute",   en: "Passport · Last Minute"   }, price: 49,    isGroup: false },
+  { key: "weekday-r",    label: { de: "Weekday Pass · Regular",   en: "Weekday Pass · Regular"   }, price: 29,    isGroup: false },
+  { key: "weekday-lm",   label: { de: "Weekday Pass · Last Minute", en: "Weekday Pass · Last Minute" }, price: 40, isGroup: false },
+  { key: "group-r",      label: { de: "Group Ticket · Regular",   en: "Group Ticket · Regular"   }, price: 28.33, isGroup: true, groupSize: 6 },
+  { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 40.83, isGroup: true, groupSize: 6 },
+  { key: "groupwd-r",    label: { de: "Group Weekday · Regular",  en: "Group Weekday · Regular"  }, price: 24.17, isGroup: true, groupSize: 6 },
+  { key: "groupwd-lm",   label: { de: "Group Weekday · Last Minute", en: "Group Weekday · Last Minute" }, price: 33.33, isGroup: true, groupSize: 6 },
+];
+
+// ── Ticket data ───────────────────────────────────────────────────────────────
+
+const PASSPORT_TIERS = {
   de: [
-    "Zugang zu allen 50+ teilnehmenden Bars",
-    "Signature Cocktails für nur 6€ statt 12–16€",
-    "Gilt für alle 18 Festivaltage",
-    "Digitaler Stempelpass mit Belohnungen",
-    "Exklusive Events & Tastings",
+    { label: "Early Bird",  until: "bis 31. März", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: true  },
+    { label: "Regular",     until: "bis 1. Mai",   price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: false },
+    { label: "Last Minute", until: "bis 13. Mai",  price: 49, calcKey: "passport-lm", productId: "passport-late",       active: false },
   ],
   en: [
-    "Access to all 50+ participating bars",
+    { label: "Early Bird",  until: "until Mar 31", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: true  },
+    { label: "Regular",     until: "until May 1",  price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: false },
+    { label: "Last Minute", until: "until May 13", price: 49, calcKey: "passport-lm", productId: "passport-late",       active: false },
+  ],
+};
+
+type OtherTicket = {
+  key: string;
+  name: string;
+  tagline: { de: string; en: string };
+  description: { de: string; en: string };
+  badge: { de: string | null; en: string | null };
+  accent: "hibiscus" | "tangerine" | "everglade";
+  tiers: {
+    label: string;
+    until: { de: string; en: string };
+    price: number;
+    perPerson: number | null;
+    calcKey: string;
+    productId: string;
+    active: boolean;
+  }[];
+};
+
+const OTHER_TICKETS: OtherTicket[] = [
+  {
+    key: "weekday",
+    name: "Weekday Pass",
+    tagline: { de: "Für Bars nach der Arbeit", en: "For bars after work" },
+    description: {
+      de: "Gültig montags bis donnerstags während des gesamten Festivals. Ideal für After-Work-Besuche – alle 58 Bars, jeder Cocktail für 6 €.",
+      en: "Valid Monday to Thursday throughout the entire festival. Perfect for after-work visits – all 58 bars, every cocktail for €6.",
+    },
+    badge: { de: "NEU", en: "NEW" },
+    accent: "hibiscus",
+    tiers: [
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 29, perPerson: null, calcKey: "weekday-r",  productId: "weekday-regular", active: true  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 40, perPerson: null, calcKey: "weekday-lm", productId: "weekday-late",    active: false },
+    ],
+  },
+  {
+    key: "group",
+    name: "Group Ticket",
+    tagline: { de: "6 Passports zum Preis von 5", en: "6 Passports for the price of 5" },
+    description: {
+      de: "Der perfekte Pass für Gruppen – ein Passport gratis. Jede Person erhält einen vollwertigen Festival-Passport für alle 18 Tage.",
+      en: "The perfect pass for groups – one Passport free. Each person receives a full festival Passport for all 18 days.",
+    },
+    badge: { de: null, en: null },
+    accent: "tangerine",
+    tiers: [
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 170, perPerson: 28.33, calcKey: "group-r",  productId: "group-regular", active: true  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 245, perPerson: 40.83, calcKey: "group-lm", productId: "group-late",    active: false },
+    ],
+  },
+  {
+    key: "group-weekday",
+    name: "Group Weekday",
+    tagline: { de: "6 Weekday Passes zum Preis von 5", en: "6 Weekday Passes for the price of 5" },
+    description: {
+      de: "Das beste Preis-Leistungs-Verhältnis für Gruppen unter der Woche – ideal für Firmengruppen und Team-Events.",
+      en: "Best value for groups on weekdays – ideal for corporate groups and team events.",
+    },
+    badge: { de: null, en: null },
+    accent: "everglade",
+    tiers: [
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 145, perPerson: 24.17, calcKey: "groupwd-r",  productId: "group-weekday-regular", active: true  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 200, perPerson: 33.33, calcKey: "groupwd-lm", productId: "group-weekday-late",    active: false },
+    ],
+  },
+];
+
+const ACCENT = {
+  tangerine: { border: "border-tangerine/40", ring: "ring-tangerine/60", badge: "bg-tangerine text-licorice", text: "text-tangerine", dot: "bg-tangerine" },
+  hibiscus:  { border: "border-hibiscus/40",  ring: "ring-hibiscus/60",  badge: "bg-hibiscus text-bone",      text: "text-hibiscus",  dot: "bg-hibiscus"  },
+  everglade: { border: "border-everglade/40", ring: "ring-everglade/60", badge: "bg-everglade text-bone",     text: "text-everglade", dot: "bg-everglade" },
+};
+
+// ── Savings Calculator ────────────────────────────────────────────────────────
+
+function SavingsCalculator({
+  locale,
+  selectedKey,
+  onKeyChange,
+}: {
+  locale: "de" | "en";
+  selectedKey: string;
+  onKeyChange: (key: string) => void;
+}) {
+  const [count, setCount] = useState(5);
+  const availableKeys = CALC_OPTIONS.filter((o) =>
+    newTicketsAvailable ? true : o.key.startsWith("passport")
+  );
+  const option = availableKeys.find((o) => o.key === selectedKey) ?? availableKeys[0];
+  const ticketPrice = option.price;
+  const barTotal = count * NORMAL_PRICE;
+  const festivalTotal = ticketPrice + count * FESTIVAL_PRICE;
+  const savings = barTotal - festivalTotal;
+  const breakEven = (ticketPrice / SAVINGS_PER).toFixed(1);
+
+  const perPersonNote = option.isGroup
+    ? locale === "de"
+      ? `(${ticketPrice.toFixed(2).replace(".", ",")} € pro Person bei ${option.groupSize} Personen)`
+      : `(€${ticketPrice.toFixed(2)} per person for ${option.groupSize} people)`
+    : null;
+
+  return (
+    <div className="rounded-2xl bg-bone/[0.04] border border-bone/10 p-6 md:p-8 max-w-2xl mx-auto">
+      <p className="text-[11px] font-body font-bold uppercase tracking-[0.15em] text-tangerine mb-1">
+        {locale === "de" ? "Lohnt sich das Ticket?" : "Is the ticket worth it?"}
+      </p>
+      <h3 className="text-xl md:text-2xl font-display text-bone mb-2">
+        {locale === "de" ? "Dein Spar-Rechner" : "Your Savings Calculator"}
+      </h3>
+      <p className="text-sm font-body text-bone/40 mb-6">
+        {locale === "de"
+          ? "Wähle ein Ticket oben aus oder passe hier manuell an."
+          : "Select a ticket above or adjust manually here."}
+      </p>
+
+      {/* Ticket selector pills — only available tickets */}
+      <div className="mb-6">
+        <p className="text-xs font-body text-bone/40 uppercase tracking-wider mb-2">
+          {locale === "de" ? "Ticket" : "Ticket"}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {CALC_OPTIONS.filter((opt) =>
+            newTicketsAvailable ? true : opt.key.startsWith("passport")
+          ).map((opt) => (
+            <button
+              key={opt.key}
+              onClick={() => onKeyChange(opt.key)}
+              className={`text-xs font-body px-3 py-1.5 rounded-full border transition-colors ${
+                opt.key === selectedKey
+                  ? "bg-tangerine text-licorice border-tangerine font-bold"
+                  : "border-bone/20 text-bone/50 hover:border-bone/40 hover:text-bone/70"
+              }`}
+            >
+              {opt.label[locale]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Cocktail slider */}
+      <label className="block text-sm font-body text-bone/60 mb-3">
+        {locale === "de" ? "Wie viele Cocktails planst du? — " : "How many cocktails are you planning? — "}
+        <span className="text-bone font-bold">{count}</span>
+      </label>
+      <input
+        type="range" min={1} max={30} step={1} value={count}
+        onChange={(e) => setCount(Number(e.target.value))}
+        className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-tangerine bg-bone/10 mb-6"
+      />
+
+      {/* Comparison rows */}
+      <div className="space-y-3 mb-5">
+        <div className="flex justify-between items-center text-sm font-body">
+          <span className="text-bone/50">
+            {locale === "de" ? `Normale Bar (${count} × 15 €)` : `Normal bar (${count} × €15)`}
+          </span>
+          <span className="text-bone/60 font-bold tabular-nums">
+            {locale === "de" ? `${barTotal} €` : `€${barTotal}`}
+          </span>
+        </div>
+        <div className="flex justify-between items-center text-sm font-body">
+          <span className="text-bone/50">
+            {locale === "de"
+              ? `Festival (${ticketPrice.toFixed(2).replace(".", ",")} € + ${count} × 6 €)`
+              : `Festival (€${ticketPrice.toFixed(2)} + ${count} × €6)`}
+          </span>
+          <span className="text-bone font-bold tabular-nums">
+            {locale === "de" ? `${festivalTotal.toFixed(2).replace(".", ",")} €` : `€${festivalTotal.toFixed(2)}`}
+          </span>
+        </div>
+        <div className="h-px bg-bone/10" />
+        <div className="flex justify-between items-center">
+          <span className="text-sm font-body text-bone/50">
+            {locale === "de" ? "Deine Ersparnis" : "Your savings"}
+          </span>
+          <span className={`text-xl font-display tabular-nums ${savings > 0 ? "text-emerald-400" : "text-hibiscus"}`}>
+            {savings > 0
+              ? locale === "de" ? `+ ${savings.toFixed(2).replace(".", ",")} €` : `+ €${savings.toFixed(2)}`
+              : locale === "de" ? `− ${Math.abs(savings).toFixed(2).replace(".", ",")} €` : `− €${Math.abs(savings).toFixed(2)}`}
+          </span>
+        </div>
+      </div>
+
+      <p className="text-xs font-body text-bone/35 text-center">
+        {locale === "de"
+          ? `Ab ${breakEven} Cocktails lohnt sich das Ticket${perPersonNote ? " " + perPersonNote : ""} — du bist schon bei ${count}.`
+          : `The ticket pays off after ${breakEven} cocktails${perPersonNote ? " " + perPersonNote : ""} — you're already at ${count}.`}
+      </p>
+    </div>
+  );
+}
+
+// ── Check icon ────────────────────────────────────────────────────────────────
+
+function Check() {
+  return (
+    <svg className="w-4 h-4 text-tangerine shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+// ── Page ─────────────────────────────────────────────────────────────────────
+
+const trustPoints = {
+  de: ["Sofort per E-Mail", "18 Tage gültig", "58 Bars", "Kostenlose Stornierung"],
+  en: ["Instant email delivery", "Valid for 18 days", "58 Bars", "Free cancellation"],
+};
+
+const passportFeatures = {
+  de: [
+    "Zugang zu allen 58 teilnehmenden Bars",
+    "Signature Cocktails für nur 6 € statt 12–16 €",
+    "Gilt für alle 18 Festivaltage – 1 Signature Cocktail pro Bar",
+    "Digitaler Stempelpass mit Belohnungen",
+    "Exklusive Events",
+  ],
+  en: [
+    "Access to all 58 participating bars",
     "Signature cocktails for just €6 instead of €12–16",
-    "Valid for all 18 festival days",
+    "Valid for all 18 festival days – 1 signature cocktail per bar",
     "Digital stamp passport with rewards",
-    "Exclusive events & tastings",
+    "Exclusive events",
   ],
 };
 
 export default function ShopPage() {
   const locale = useLocale() as "de" | "en";
+  const [calcKey, setCalcKey] = useState("passport-eb");
+  const calcRef = useRef<HTMLDivElement>(null);
+
   const heroReveal = useReveal({ delay: 150 });
   const trustReveal = useReveal({ delay: 250 });
-  const merchTitle = useReveal({ delay: 100 });
-  const merchCards = useReveal({ delay: 200 });
+  const otherReveal = useReveal({ delay: 200 });
+
+  const activeTier = PASSPORT_TIERS[locale].find((t) => t.active)!;
+
+  function selectAndScroll(key: string) {
+    setCalcKey(key);
+    setTimeout(() => {
+      calcRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 50);
+  }
 
   return (
-    <main>
-      {/* Hero — Ticket as primary product */}
-      <section className="section-padding min-h-[70vh] flex flex-col items-center justify-center">
+    <main className="relative">
+
+      {/* ── BACKGROUND ── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+        <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-bg.svg)", backgroundSize:"200px 200px", backgroundRepeat:"repeat", opacity:0.18 }} />
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(25,21,19,0.55) 0%, rgba(25,21,19,0.2) 25%, rgba(25,21,19,0.2) 75%, rgba(25,21,19,0.7) 100%)" }} />
+        <div style={{ position:"absolute", top:"-200px", right:"-200px", width:"600px", height:"600px", borderRadius:"50%", background:"rgba(243,146,0,0.12)", filter:"blur(120px)" }} />
+        <div style={{ position:"absolute", top:"30%", left:"-200px", width:"500px", height:"500px", borderRadius:"50%", background:"rgba(189,37,110,0.10)", filter:"blur(110px)" }} />
+      </div>
+
+      {/* ── HERO — COCKTAIL X PASSPORT ── */}
+      <section className="section-padding min-h-[80vh] flex flex-col items-center justify-center relative">
+        <p className="text-[11px] font-body font-bold uppercase tracking-[0.2em] text-tangerine mb-3">
+          13.–30. Mai 2026 · München
+        </p>
         <BlurText
           text={locale === "de" ? "SICHERE DIR DEIN TICKET" : "GET YOUR TICKET"}
           tag="h1"
@@ -46,75 +320,115 @@ export default function ShopPage() {
           delay={80}
           duration={0.7}
         />
+        <p className="text-base font-body text-bone/50 text-center max-w-lg mb-10">
+          {locale === "de"
+            ? "Dein All-Access-Pass für 58 Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
+            : "Your all-access pass for 58 bars, 18 days, countless cocktails – at the festival price of €6."}
+        </p>
 
-        <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto mt-8">
-          {/* Main Ticket Card */}
-          <div className="relative rounded-3xl overflow-hidden border-2 border-tangerine/40 bg-gradient-to-br from-tangerine/[0.08] via-licorice to-licorice">
-            {/* Pattern subtle */}
-            <div
-              className="absolute inset-0 opacity-[0.03]"
-              style={{
-                backgroundImage: "url(/images/pattern-bg.svg)",
-                backgroundSize: "120px 120px",
-              }}
-            />
+        <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto">
+          {/* Passport card */}
+          <div
+            className={`relative rounded-3xl overflow-hidden border-2 bg-gradient-to-br from-tangerine/[0.10] via-licorice to-licorice cursor-pointer transition-all duration-200 ${
+              calcKey.startsWith("passport")
+                ? "border-tangerine/70 ring-2 ring-tangerine/30"
+                : "border-tangerine/40 hover:border-tangerine/60"
+            }`}
+            onClick={() => selectAndScroll(activeTier.calcKey)}
+          >
+            <div style={{ position:"absolute", top:"-80px", right:"-80px", width:"256px", height:"256px", borderRadius:"50%", background:"rgba(243,146,0,0.14)", filter:"blur(60px)", pointerEvents:"none" }} />
+            <div style={{ position:"absolute", bottom:"-64px", left:"-64px", width:"192px", height:"192px", borderRadius:"50%", background:"rgba(189,37,110,0.11)", filter:"blur(50px)", pointerEvents:"none" }} />
+            <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-bg.svg)", backgroundSize:"120px 120px", backgroundRepeat:"repeat", opacity:0.08 }} />
 
-            <div className="relative grid md:grid-cols-[1fr,auto] gap-8 p-6 md:p-10">
-              {/* Left: Product info */}
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-tangerine px-3 py-1 rounded-full">
-                    {locale === "de" ? "BESTER PREIS AKTUELL" : "BEST PRICE NOW"}
+            <div className="relative p-6 md:p-10">
+              <div className="flex flex-wrap items-center gap-3 mb-5">
+                <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-tangerine px-3 py-1 rounded-full">
+                  {locale === "de" ? "BESTER PREIS JETZT" : "BEST PRICE NOW"}
+                </span>
+                <span className="text-[10px] font-body font-bold uppercase tracking-wider text-tangerine/80 bg-tangerine/10 border border-tangerine/20 px-3 py-1 rounded-full">
+                  Early Bird · {locale === "de" ? "bis 31. März" : "until Mar 31"}
+                </span>
+                {calcKey.startsWith("passport") && (
+                  <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-emerald-400 px-3 py-1 rounded-full">
+                    {locale === "de" ? "Im Rechner aktiv" : "Active in calculator"}
                   </span>
-                  <span className="text-[10px] font-body font-bold uppercase tracking-wider text-tangerine/70 bg-tangerine/10 border border-tangerine/20 px-3 py-1 rounded-full">
-                    Early Bird
-                  </span>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl font-display text-bone mb-2">
-                  COCKTAIL X FESTIVAL TICKET
-                </h2>
-                <p className="text-sm font-body text-bone/50 mb-6">
-                  {locale === "de"
-                    ? "13.–30. Mai 2026 · München · Dein All-Access-Pass"
-                    : "May 13–30, 2026 · Munich · Your all-access pass"}
-                </p>
-
-                {/* Feature checklist */}
-                <ul className="space-y-2.5 mb-6">
-                  {ticketFeatures[locale].map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-sm font-body text-bone/70">
-                      <svg className="w-4 h-4 text-tangerine shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                )}
               </div>
 
-              {/* Right: Price + CTA */}
-              <div className="flex flex-col items-center justify-center md:min-w-[200px] md:border-l md:border-bone/10 md:pl-8">
-                <div className="flex items-baseline gap-3 mb-1">
-                  <span className="text-2xl font-display text-bone/25 line-through">€25</span>
-                  <span className="text-6xl md:text-7xl font-display text-tangerine">€16</span>
+              <div className="grid md:grid-cols-[1fr,auto] gap-8">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-display text-bone mb-1">COCKTAIL X PASSPORT</h2>
+                  <p className="text-sm font-body text-bone/40 mb-5">
+                    {locale === "de" ? "Vollzugang · Alle Tage · Alle Bars" : "Full access · All days · All bars"}
+                  </p>
+                  <ul className="space-y-2.5 mb-6">
+                    {passportFeatures[locale].map((f, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-sm font-body text-bone/70">
+                        <Check />{f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Pricing tiers */}
+                  <div className="border-t border-bone/10 pt-5">
+                    <p className="text-[10px] font-body font-bold uppercase tracking-[0.12em] text-bone/30 mb-3">
+                      {locale === "de" ? "Preisentwicklung" : "Pricing schedule"}
+                    </p>
+                    <div className="space-y-2">
+                      {PASSPORT_TIERS[locale].map((tier) => (
+                        <button
+                          key={tier.calcKey}
+                          onClick={(e) => { e.stopPropagation(); selectAndScroll(tier.calcKey); }}
+                          className={`w-full flex items-center justify-between text-sm font-body rounded-lg px-2 py-1.5 transition-colors ${
+                            tier.calcKey === calcKey
+                              ? "bg-tangerine/10 text-bone"
+                              : tier.active
+                                ? "text-bone hover:bg-bone/5"
+                                : "text-bone/35 hover:bg-bone/5"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={`w-1.5 h-1.5 rounded-full ${tier.active ? "bg-tangerine" : "bg-bone/20"}`} />
+                            <span>{tier.label}</span>
+                            <span className={`text-xs ${tier.active ? "text-bone/50" : "text-bone/25"}`}>· {tier.until}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span className={`text-xs ${tier.active ? "text-bone/40" : "text-bone/20"}`}>
+                              {locale === "de"
+                                ? `ab ${(tier.price / SAVINGS_PER).toFixed(1)} Cocktails`
+                                : `from ${(tier.price / SAVINGS_PER).toFixed(1)} cocktails`}
+                            </span>
+                            <span className={`font-bold tabular-nums ${tier.active ? "text-tangerine" : ""}`}>
+                              {tier.price} €
+                            </span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <span className="text-xs font-body text-emerald-400 font-bold mb-1">
-                  {locale === "de" ? "Du sparst 9€" : "You save €9"}
-                </span>
-                <span className="text-[11px] font-body text-bone/40 mb-6">
-                  {locale === "de" ? "pro Person" : "per person"}
-                </span>
 
-                <ShopifyBuyButton
-                  productId="passport-early-bird"
-                  buttonText={locale === "de" ? "JETZT KAUFEN" : "BUY NOW"}
-                  className="w-full text-center text-base py-4"
-                />
-
-                <div className="flex items-center gap-1.5 mt-3 text-[11px] font-body font-bold text-tangerine/70">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-                  {locale === "de" ? "Limitiertes Kontingent" : "Limited availability"}
+                {/* Price + CTA */}
+                <div className="flex flex-col items-center justify-center md:min-w-[200px] md:border-l md:border-bone/10 md:pl-8">
+                  <div className="flex items-baseline gap-3 mb-1">
+                    <span className="text-2xl font-display text-bone/25 line-through">€49</span>
+                    <span className="text-6xl md:text-7xl font-display text-tangerine">€20</span>
+                  </div>
+                  <span className="text-xs font-body text-emerald-400 font-bold mb-1">
+                    {locale === "de" ? "Du sparst 29 €" : "You save €29"}
+                  </span>
+                  <span className="text-[11px] font-body text-bone/40 mb-6">
+                    {locale === "de" ? "pro Person" : "per person"}
+                  </span>
+                  <ShopifyBuyButton
+                    productId={activeTier.productId}
+                    buttonText={locale === "de" ? "JETZT KAUFEN" : "BUY NOW"}
+                    className="w-full text-center text-base py-4"
+                  />
+                  <div className="flex items-center gap-1.5 mt-3 text-[11px] font-body font-bold text-tangerine/70">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
+                    {locale === "de" ? "Limitiertes Kontingent" : "Limited availability"}
+                  </div>
                 </div>
               </div>
             </div>
@@ -134,104 +448,137 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* Merch Section */}
-      <section className="section-padding bg-jambalaya/10">
-        <div className="max-w-4xl mx-auto">
-          <h2
-            ref={merchTitle.ref}
-            style={merchTitle.style}
-            className="text-2xl md:text-3xl font-display text-bone text-center mb-10"
-          >
-            {locale === "de" ? "MERCHANDISE & GESCHENKE" : "MERCHANDISE & GIFTS"}
+      {/* ── WEITERE TICKETS ── */}
+      <section className="py-16 md:py-24 px-4 relative">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-display text-bone text-center mb-2">
+            {locale === "de" ? "WEITERE TICKETS" : "MORE TICKETS"}
           </h2>
+          <p className="text-sm font-body text-bone/40 text-center mb-3">
+            {locale === "de"
+              ? "Weekday Pass, Gruppen-Tickets und mehr – für jeden das passende Angebot."
+              : "Weekday Pass, group tickets and more – the right option for everyone."}
+          </p>
+          {!newTicketsAvailable && (
+            <p className="text-xs font-body text-tangerine/70 text-center mb-10 font-bold uppercase tracking-wider">
+              {locale === "de" ? "Ab 1. April verfügbar" : "Available from April 1"}
+            </p>
+          )}
+          {newTicketsAvailable && <div className="mb-10" />}
 
-          <div ref={merchCards.ref} style={merchCards.style} className="grid sm:grid-cols-2 gap-6">
-            {/* T-Shirt */}
-            <div className="group rounded-2xl overflow-hidden bg-licorice border border-bone/[0.08] hover:border-bone/[0.15] transition-all duration-500 hover:-translate-y-1">
-              <div
-                className="relative aspect-[4/3] overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #bd256e22 0%, #bd256e08 50%, transparent 100%)" }}
-              >
-                <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(/images/pattern-bg.svg)", backgroundSize: "80px 80px" }} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative">
-                    <div className="absolute inset-0 blur-3xl opacity-30 scale-150 bg-hibiscus" />
-                    <svg className="relative w-20 h-20 text-hibiscus transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20.38 3.46 16 2 12 5 8 2 3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="absolute top-4 left-4">
-                  <span className="text-[10px] font-body font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-hibiscus/20 text-hibiscus border border-hibiscus/30">
-                    LIMITED
-                  </span>
-                </div>
-              </div>
-              <div className="p-5 md:p-6">
-                <h3 className="text-xl font-display text-bone">Festival T-Shirt</h3>
-                <p className="text-sm font-body text-bone/50 mt-2">
-                  {locale === "de"
-                    ? "Offizielles Cocktail X Festival T-Shirt. 100% Bio-Baumwolle, limitierte Auflage 2026."
-                    : "Official Cocktail X Festival T-Shirt. 100% organic cotton, limited 2026 edition."}
-                </p>
-                <div className="flex items-center justify-between mt-5 pt-4 border-t border-bone/[0.06]">
-                  <span className="text-2xl font-display text-hibiscus">€39</span>
-                  <ShopifyBuyButton
-                    productId="tshirt"
-                    buttonText={locale === "de" ? "Kaufen" : "Buy"}
-                    className="text-sm"
-                  />
-                </div>
-              </div>
-            </div>
+          <div ref={otherReveal.ref} style={otherReveal.style} className="grid md:grid-cols-3 gap-5">
+            {OTHER_TICKETS.map((ticket) => {
+              const c = ACCENT[ticket.accent];
+              const activeTierHere = ticket.tiers.find((t) => t.active)!;
+              const isSelected = ticket.tiers.some((t) => t.calcKey === calcKey);
 
-            {/* Gift Card */}
-            <div className="group rounded-2xl overflow-hidden bg-licorice border border-bone/[0.08] hover:border-bone/[0.15] transition-all duration-500 hover:-translate-y-1">
-              <div
-                className="relative aspect-[4/3] overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #7B6BA022 0%, #7B6BA008 50%, transparent 100%)" }}
-              >
-                <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(/images/pattern-bg.svg)", backgroundSize: "80px 80px" }} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative">
-                    <div className="absolute inset-0 blur-3xl opacity-30 scale-150 bg-[#7B6BA0]" />
-                    <svg className="relative w-20 h-20 text-[#7B6BA0] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="8" width="18" height="12" rx="2" />
-                      <path d="M12 8V3" />
-                      <path d="M8 3c0 2.5 4 5 4 5s4-2.5 4-5" />
-                      <path d="M12 8v12" />
-                      <path d="M3 14h18" />
-                    </svg>
+              return (
+                <div
+                  key={ticket.key}
+                  onClick={() => newTicketsAvailable && selectAndScroll(activeTierHere.calcKey)}
+                  className={`relative rounded-2xl border bg-licorice/60 p-6 flex flex-col transition-all duration-200 ${
+                    newTicketsAvailable ? "cursor-pointer" : "cursor-default opacity-70"
+                  } ${
+                    isSelected && newTicketsAvailable
+                      ? `${c.border} ring-2 ${c.ring}`
+                      : c.border
+                  } ${newTicketsAvailable ? "hover:bg-licorice/80" : ""}`}
+                >
+                  {/* Coming soon overlay */}
+                  {!newTicketsAvailable && (
+                    <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
+                      <span className="text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-bone/10 text-bone/50">
+                        {locale === "de" ? "Ab 1. April" : "From April 1"}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Badge (NEW etc.) */}
+                  {ticket.badge[locale] && newTicketsAvailable && (
+                    <span className={`absolute top-4 right-4 text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${c.badge}`}>
+                      {ticket.badge[locale]}
+                    </span>
+                  )}
+
+                  {/* Active in calculator badge */}
+                  {isSelected && newTicketsAvailable && (
+                    <span className="absolute top-4 right-4 text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-400 text-licorice">
+                      {locale === "de" ? "Im Rechner" : "In calculator"}
+                    </span>
+                  )}
+
+                  <h3 className="text-xl font-display text-bone mb-1 mt-1">{ticket.name}</h3>
+                  <p className={`text-xs font-body font-bold mb-4 ${c.text}`}>{ticket.tagline[locale]}</p>
+                  <p className="text-sm font-body text-bone/55 leading-relaxed mb-6 flex-1">
+                    {ticket.description[locale]}
+                  </p>
+
+                  {/* Pricing tiers */}
+                  <div className="space-y-2 mb-6">
+                    {ticket.tiers.map((tier) => (
+                      <button
+                        key={tier.calcKey}
+                        disabled={!newTicketsAvailable}
+                        onClick={(e) => { e.stopPropagation(); selectAndScroll(tier.calcKey); }}
+                        className={`w-full flex items-center justify-between text-sm font-body rounded-lg px-2 py-1.5 transition-colors ${
+                          tier.calcKey === calcKey && newTicketsAvailable
+                            ? "bg-bone/10 text-bone"
+                            : tier.active
+                              ? "text-bone hover:bg-bone/5"
+                              : "text-bone/35 hover:bg-bone/5"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className={`w-1.5 h-1.5 rounded-full ${tier.active ? c.dot : "bg-bone/20"}`} />
+                          <span>{tier.label}</span>
+                          <span className={`text-xs ${tier.active ? "text-bone/40" : "text-bone/20"}`}>· {tier.until[locale]}</span>
+                        </div>
+                        <div className="text-right">
+                          <span className={`font-bold tabular-nums ${tier.active && newTicketsAvailable ? c.text : ""}`}>
+                            {tier.price} €
+                          </span>
+                          <span className={`block text-[10px] ${tier.active ? "text-bone/40" : "text-bone/20"}`}>
+                            {tier.perPerson
+                              ? locale === "de"
+                                ? `≙ ${tier.perPerson.toFixed(2).replace(".", ",")} €/Person`
+                                : `≙ €${tier.perPerson.toFixed(2)}/person`
+                              : locale === "de"
+                                ? `ab ${(tier.price / SAVINGS_PER).toFixed(1)} Cocktails`
+                                : `from ${(tier.price / SAVINGS_PER).toFixed(1)} cocktails`}
+                          </span>
+                        </div>
+                      </button>
+                    ))}
                   </div>
+
+                  {/* CTA */}
+                  {newTicketsAvailable ? (
+                    <ShopifyBuyButton
+                      productId={activeTierHere.productId}
+                      buttonText={locale === "de" ? `AB ${activeTierHere.price} € KAUFEN` : `BUY FROM €${activeTierHere.price}`}
+                      className="w-full text-center text-sm py-3"
+                    />
+                  ) : (
+                    <div className="w-full text-center text-sm py-3 rounded-xl border border-bone/15 text-bone/30 font-body font-bold uppercase tracking-wider cursor-not-allowed">
+                      {locale === "de" ? "Ab 1. April verfügbar" : "Available from April 1"}
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div className="p-5 md:p-6">
-                <h3 className="text-xl font-display text-bone">{locale === "de" ? "Geschenkkarte" : "Gift Card"}</h3>
-                <p className="text-sm font-body text-bone/50 mt-2">
-                  {locale === "de"
-                    ? "Das perfekte Geschenk für Cocktail-Liebhaber. Einlösbar für jedes Festival-Ticket."
-                    : "The perfect gift for cocktail lovers. Redeemable for any festival ticket."}
-                </p>
-                <div className="flex items-center justify-between mt-5 pt-4 border-t border-bone/[0.06]">
-                  <span className="text-2xl font-display text-[#7B6BA0]">€16</span>
-                  <ShopifyBuyButton
-                    productId="giftcard"
-                    buttonText={locale === "de" ? "Verschenken" : "Gift"}
-                    className="text-sm"
-                  />
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="section-padding text-center">
+      {/* ── SAVINGS CALCULATOR ── */}
+      <section className="pb-16 md:pb-24 px-4 relative" ref={calcRef}>
+        <SavingsCalculator locale={locale} selectedKey={calcKey} onKeyChange={setCalcKey} />
+      </section>
+
+      {/* ── BOTTOM CTA ── */}
+      <section className="section-padding text-center relative">
         <p className="text-sm font-body text-bone/40 mb-4">
-          {locale === "de"
-            ? "Fragen zum Festival oder Ticket?"
-            : "Questions about the festival or ticket?"}
+          {locale === "de" ? "Fragen zum Festival oder Ticket?" : "Questions about the festival or ticket?"}
         </p>
         <Link
           href={`/${locale}/about/contact`}

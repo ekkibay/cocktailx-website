@@ -11,26 +11,24 @@ import { sponsors, pressLogos } from "@/data/sponsors";
 
 /* ── History stats ── */
 const history = [
-  { year: "2023", bars: 25, visitors: "8.000+", cocktails: "12.000+", days: 10 },
-  { year: "2024", bars: 40, visitors: "15.000+", cocktails: "22.000+", days: 14 },
-  { year: "2025", bars: 50, visitors: "22.000+", cocktails: "35.000+", days: 18 },
+  { year: "2023", bars: 32, visitors: "1.400", cocktails: "—", days: 5 },
+  { year: "2024", bars: 42, visitors: "1.200", cocktails: "—", days: 5 },
+  { year: "2025", bars: 45, visitors: "2.500", cocktails: "—", days: 12 },
 ];
 
 /* ── Key facts ── */
 const keyFacts = {
   de: [
+    { value: "58", label: "Bars" },
     { value: "18", label: "Tage" },
-    { value: "50+", label: "Bars" },
-    { value: "6€", label: "pro Cocktail" },
-    { value: "8.000+", label: "Gäste erwartet" },
-    { value: "3.", label: "Ausgabe" },
+    { value: "1", label: "Ticket" },
+    { value: "5.000+", label: "Gäste erwartet" },
   ],
   en: [
+    { value: "58", label: "Bars" },
     { value: "18", label: "Days" },
-    { value: "50+", label: "Bars" },
-    { value: "€6", label: "per cocktail" },
-    { value: "8,000+", label: "guests expected" },
-    { value: "3rd", label: "Edition" },
+    { value: "1", label: "Ticket" },
+    { value: "5,000+", label: "Guests expected" },
   ],
 };
 
@@ -74,8 +72,8 @@ export default function FestivalPage() {
           <div ref={heroText.ref} style={heroText.style}>
             <p className="text-base md:text-lg font-body text-bone/70 max-w-xl mx-auto mb-8">
               {locale === "de"
-                ? "18 Tage, 50+ Bars, eine Stadt: Erlebe Münchens größtes Cocktail-Festival mit exklusiven Drinks zu Festivalpreisen."
-                : "18 days, 50+ bars, one city: Experience Munich's biggest cocktail festival with exclusive drinks at festival prices."}
+                ? "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival."
+                : "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival."}
             </p>
             <Link href={`/${locale}/shop`} className="btn-primary text-base px-10 py-4 inline-block">
               {locale === "de" ? "TICKET SICHERN" : "GET YOUR TICKET"}
@@ -146,6 +144,16 @@ export default function FestivalPage() {
                   <p className="text-sm font-body text-bone/60 line-clamp-2">
                     {bar.description[locale]}
                   </p>
+                  {bar.website && (
+                    <a
+                      href={bar.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-body text-tangerine hover:text-tangerine/80 mt-3 transition-colors"
+                    >
+                      Website besuchen →
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -153,8 +161,8 @@ export default function FestivalPage() {
 
           <p className="text-center text-sm font-body text-bone/40 mt-8">
             {locale === "de"
-              ? "Weitere 44+ Bars werden in Kürze bekanntgegeben."
-              : "44+ more bars will be announced soon."}
+              ? "Weitere 52+ Bars werden in Kürze bekanntgegeben."
+              : "52+ more bars will be announced soon."}
           </p>
         </div>
       </section>
@@ -280,31 +288,31 @@ export default function FestivalPage() {
               {sponsors
                 .filter((s) => s.tier === "platinum" || s.tier === "gold")
                 .map((sponsor) => (
-                  <div key={sponsor.id} className="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                  <div key={sponsor.id} className="opacity-75 hover:opacity-100 transition-opacity duration-300">
                     <Image
                       src={sponsor.logo}
                       alt={sponsor.name}
                       width={sponsor.tier === "platinum" ? 120 : 90}
                       height={sponsor.tier === "platinum" ? 48 : 36}
-                      className="object-contain"
+                      className="object-contain brightness-0 invert"
                     />
                   </div>
                 ))}
             </div>
 
             {/* Press — bekannt aus */}
-            <p className="text-[11px] font-body text-bone/30 uppercase tracking-[0.15em] text-center mb-6">
+            <p className="text-[11px] font-body text-bone/40 uppercase tracking-[0.15em] text-center mb-6">
               {locale === "de" ? "Bekannt aus" : "As seen in"}
             </p>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
               {pressLogos.map((press) => (
-                  <div key={press.name} className="opacity-40 hover:opacity-70 transition-opacity duration-300">
+                  <div key={press.name} className="opacity-55 hover:opacity-85 transition-opacity duration-300">
                     <Image
                       src={press.logo}
                       alt={press.name}
                       width={70}
                       height={28}
-                      className="object-contain"
+                      className="object-contain brightness-0 invert"
                     />
                   </div>
                 ))}
@@ -324,11 +332,11 @@ export default function FestivalPage() {
           <p className="text-sm font-body text-bone/50 mb-8">
             {locale === "de"
               ? "Sichere dir jetzt dein Ticket zum besten Preis und erlebe 18 Tage Cocktail-Kultur in Münchens besten Bars."
-              : "Get your ticket now at the best price and experience 18 days of cocktail culture in Munich's best bars."}
+              : "Get your ticket now at the best price and experience 18 days of cocktail culture in München's best bars."}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href={`/${locale}/shop`} className="btn-primary text-base px-10 py-4 text-center">
-              {locale === "de" ? "TICKET KAUFEN — AB 16€" : "BUY TICKET — FROM €16"}
+              {locale === "de" ? "TICKET KAUFEN — AB 20€" : "BUY TICKET — FROM €20"}
             </Link>
             <Link href={`/${locale}/app`} className="btn-secondary text-base px-8 py-4 text-center">
               {locale === "de" ? "ZUR APP" : "OPEN APP"}

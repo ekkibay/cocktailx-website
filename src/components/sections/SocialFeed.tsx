@@ -6,12 +6,12 @@ import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 
 const FEED_IMAGES = [
-  { src: "/images/2025/A9300010_CocktailX_adriancamo.webp", alt: "Cocktail art" },
-  { src: "/images/2025/A9309611_CocktailX_adriancamo.webp", alt: "Bar scene" },
-  { src: "/images/2025/CocktailXClosing-29.webp", alt: "Signature cocktails" },
-  { src: "/images/2025/L1005399_CocktailX_adriancamo.webp", alt: "Bartenders" },
-  { src: "/images/2025/A9309721_CocktailX_adriancamo.webp", alt: "Festival vibes" },
-  { src: "/images/2025/L1004703_CocktailXKempinski_adriancamo.webp", alt: "Bar experience" },
+  { src: "/images/festival-cocktails-duo.webp", alt: "Cocktail art" },
+  { src: "/images/festival-friends.webp", alt: "Bar scene" },
+  { src: "/images/L1030863_CocktailX_adriancamo.webp", alt: "Signature cocktails" },
+  { src: "/images/festival-bar-scene.webp", alt: "Bartenders" },
+  { src: "/images/L1030894_CocktailX_adriancamo.webp", alt: "Festival vibes" },
+  { src: "/images/festival-lounge.webp", alt: "Bar experience" },
 ];
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -110,13 +110,13 @@ export default function SocialFeed() {
           </a>
 
           <div className="flex items-center gap-5">
-            <a href="https://tiktok.com/@cocktailxfestival" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@cocktailxfestival" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="TikTok">
               <TikTokIcon className="w-5 h-5" />
             </a>
-            <a href="https://facebook.com/cocktailxfestival" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="Facebook">
+            <a href="https://www.facebook.com/profile.php?id=100090270165472" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="Facebook">
               <FacebookIcon className="w-5 h-5" />
             </a>
-            <a href="https://linkedin.com/company/cocktailxfestival" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/cocktailx" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="LinkedIn">
               <LinkedInIcon className="w-5 h-5" />
             </a>
           </div>

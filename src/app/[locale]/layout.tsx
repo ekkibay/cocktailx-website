@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: "%s | Cocktail X Festival",
   },
   description:
-    "Deutschlands größtes Cocktail Festival – München, 13.–30. Mai 2026. 50+ Bars, 200+ exklusive Cocktails, 18 Tage Festival.",
+    "Deutschlands größtes Cocktail Festival – München, 13.–30. Mai 2026. 58 Bars, 174+ exklusive Cocktails, 18 Tage Festival.",
 };
 
 export default async function LocaleLayout({

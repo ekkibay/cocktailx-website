@@ -7,7 +7,7 @@ import { useLocale } from "next-intl";
 const socialLinks = [
   { name: "Instagram", url: "https://www.instagram.com/cocktailxfestival/" },
   { name: "TikTok", url: "https://www.tiktok.com/@cocktailxfestival" },
-  { name: "Facebook", url: "https://www.facebook.com/cocktailxfestival" },
+  { name: "Facebook", url: "https://www.facebook.com/profile.php?id=100090270165472" },
   { name: "LinkedIn", url: "https://www.linkedin.com/company/cocktailx" },
 ];
 
@@ -35,8 +35,15 @@ export default function ContactPage() {
     "w-full bg-transparent border border-bone/20 rounded-lg px-4 py-3 text-bone font-body placeholder:text-bone/30 focus:border-tangerine focus:outline-none transition-colors";
 
   return (
-    <main className="section-padding min-h-screen">
-      <div className="max-w-5xl mx-auto">
+    <main className="section-padding min-h-screen relative">
+      {/* CI background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+        <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-bg.svg)", backgroundSize:"200px 200px", backgroundRepeat:"repeat", opacity:0.18 }} />
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(25,21,19,0.55) 0%, rgba(25,21,19,0.2) 25%, rgba(25,21,19,0.2) 75%, rgba(25,21,19,0.7) 100%)" }} />
+        <div style={{ position:"absolute", top:"-200px", right:"-200px", width:"600px", height:"600px", borderRadius:"50%", background:"rgba(243,146,0,0.12)", filter:"blur(120px)" }} />
+        <div style={{ position:"absolute", top:"30%", left:"-200px", width:"500px", height:"500px", borderRadius:"50%", background:"rgba(189,37,110,0.10)", filter:"blur(110px)" }} />
+      </div>
+      <div className="max-w-5xl mx-auto relative">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,11 +139,11 @@ export default function ContactPage() {
                 {locale === "de" ? "ADRESSE" : "ADDRESS"}
               </h3>
               <p className="text-bone/60 font-body leading-relaxed">
-                Cocktail X GmbH
+                bayundco GmbH
                 <br />
-                Musterstrasse 1
+                Türkenstr. 61 RGB
                 <br />
-                80331 Muenchen
+                80799 München
                 <br />
                 {locale === "de" ? "Deutschland" : "Germany"}
               </p>
@@ -145,10 +152,10 @@ export default function ContactPage() {
             <div>
               <h3 className="text-xl font-display text-bone mb-3">E-MAIL</h3>
               <a
-                href="mailto:hello@cocktailx.de"
+                href="mailto:info@cocktail-x.com"
                 className="text-tangerine font-body hover:underline"
               >
-                hello@cocktailx.de
+                info@cocktail-x.com
               </a>
             </div>
 

@@ -7,10 +7,10 @@ import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 
 const useCases = [
-  { key: "cocktailLovers", Icon: Wine, image: "/images/2025/A9300010_CocktailX_adriancamo copy.webp" },
+  { key: "cocktailLovers", Icon: Wine, image: "/images/festival-cocktails-duo.webp" },
   { key: "friends", Icon: Users, image: "/images/festival-friends.webp" },
-  { key: "dateNight", Icon: Heart, image: "/images/2025/CocktailXClosing-29.webp" },
-  { key: "explorers", Icon: Compass, image: "/images/2025/A9309611_CocktailX_adriancamo.webp" },
+  { key: "dateNight", Icon: Heart, image: "/images/festival-lounge.webp" },
+  { key: "explorers", Icon: Compass, image: "/images/festival-bar-scene.webp" },
 ] as const;
 
 export default function ForWhom() {

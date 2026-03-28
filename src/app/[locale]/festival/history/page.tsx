@@ -19,13 +19,12 @@ const historyData: Record<
   "2023": {
     stats: [
       { label: { de: "Bars", en: "Bars" }, value: "25" },
-      { label: { de: "Besucher", en: "Visitors" }, value: "8.000+" },
-      { label: { de: "Cocktails", en: "Cocktails" }, value: "12.000+" },
+      { label: { de: "Besucher", en: "Visitors" }, value: "800+" },
       { label: { de: "Tage", en: "Days" }, value: "10" },
     ],
     highlights: {
       de: "Das erste Cocktail X Festival feierte 2023 seine Premiere in München. Was als mutige Idee begann, wurde schnell zum Stadtgespräch. 25 handverlesene Bars boten einzigartige Kreationen, und die Münchner Cocktailszene fand eine neue Heimat.",
-      en: "The first Cocktail X Festival celebrated its premiere in Munich in 2023. What started as a bold idea quickly became the talk of the town. 25 hand-picked bars offered unique creations, and Munich's cocktail scene found a new home.",
+      en: "The first Cocktail X Festival celebrated its premiere in München in 2023. What started as a bold idea quickly became the talk of the town. 25 hand-picked bars offered unique creations, and München's cocktail scene found a new home.",
     },
     images: [
       "/images/placeholder/bar-1.svg",
@@ -39,13 +38,12 @@ const historyData: Record<
   "2024": {
     stats: [
       { label: { de: "Bars", en: "Bars" }, value: "40" },
-      { label: { de: "Besucher", en: "Visitors" }, value: "15.000+" },
-      { label: { de: "Cocktails", en: "Cocktails" }, value: "25.000+" },
+      { label: { de: "Besucher", en: "Visitors" }, value: "1.500+" },
       { label: { de: "Tage", en: "Days" }, value: "14" },
     ],
     highlights: {
       de: "2024 wurde das Festival größer, lauter und besser. 40 Bars, ein erweitertes Programm mit Masterclasses und die erste Awards-Verleihung machten es zum kulturellen Highlight des Münchner Sommers. Der Stempelpass wurde zur Kultjagd.",
-      en: "In 2024, the festival grew bigger, louder, and better. 40 bars, an expanded program with masterclasses, and the first awards ceremony made it the cultural highlight of Munich's summer. The stamp pass became a cult chase.",
+      en: "In 2024, the festival grew bigger, louder, and better. 40 bars, an expanded program with masterclasses, and the first awards ceremony made it the cultural highlight of München's summer. The stamp pass became a cult chase.",
     },
     images: [
       "/images/placeholder/bar-4.svg",
@@ -58,14 +56,13 @@ const historyData: Record<
   },
   "2025": {
     stats: [
-      { label: { de: "Bars", en: "Bars" }, value: "50+" },
-      { label: { de: "Besucher", en: "Visitors" }, value: "22.000+" },
-      { label: { de: "Cocktails", en: "Cocktails" }, value: "40.000+" },
+      { label: { de: "Bars", en: "Bars" }, value: "45" },
+      { label: { de: "Besucher", en: "Visitors" }, value: "2.500" },
       { label: { de: "Tage", en: "Days" }, value: "18" },
     ],
     highlights: {
-      de: "Das dritte Jahr brachte internationale Aufmerksamkeit. Mit über 50 teilnehmenden Bars, Gastbartendern aus ganz Europa und dem ersten Cocktail X Market wurde München zum Zentrum der europäischen Cocktailkultur.",
-      en: "The third year brought international attention. With over 50 participating bars, guest bartenders from across Europe, and the first Cocktail X Market, Munich became the center of European cocktail culture.",
+      de: "Das dritte Jahr brachte internationale Aufmerksamkeit. Mit 45 teilnehmenden Bars und 2.500 Gästen wurde München zur aufstrebenden Hauptstadt der deutschen Cocktailkultur.",
+      en: "The third year brought international attention. With 45 participating bars and 2,500 guests, München established itself as the rising capital of German cocktail culture.",
     },
     images: [
       "/images/placeholder/bar-1.svg",
@@ -84,7 +81,14 @@ export default function HistoryPage() {
   const data = historyData[activeYear];
 
   return (
-    <main className="section-padding">
+    <main className="section-padding relative">
+      {/* CI background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+        <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-bg.svg)", backgroundSize:"200px 200px", backgroundRepeat:"repeat", opacity:0.18 }} />
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(25,21,19,0.55) 0%, rgba(25,21,19,0.2) 25%, rgba(25,21,19,0.2) 75%, rgba(25,21,19,0.7) 100%)" }} />
+        <div style={{ position:"absolute", top:"-200px", right:"-200px", width:"600px", height:"600px", borderRadius:"50%", background:"rgba(243,146,0,0.12)", filter:"blur(120px)" }} />
+        <div style={{ position:"absolute", top:"30%", left:"-200px", width:"500px", height:"500px", borderRadius:"50%", background:"rgba(189,37,110,0.10)", filter:"blur(110px)" }} />
+      </div>
       <div className="max-w-6xl mx-auto">
         {/* Title */}
         <motion.h1
