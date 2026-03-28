@@ -56,7 +56,7 @@ export default function CateringHeader() {
               alt="Cocktail X Catering"
               width={160}
               height={40}
-              className="h-8 w-auto object-contain"
+              className="h-9 md:h-11 w-auto object-contain"
             />
           </Link>
 

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileNav from "./MobileNav";
 import { navLinks } from "@/lib/nav";
@@ -30,8 +31,8 @@ export default function Header() {
             : "bg-transparent"
         }`}
       >
-        {/* Brand switcher strip */}
-        <div className="border-b border-bone/[0.06] bg-licorice/30 backdrop-blur-sm">
+        {/* Brand switcher strip — Catering hidden until ready */}
+        {/* <div className="border-b border-bone/[0.06] bg-licorice/30 backdrop-blur-sm">
           <div className="mx-auto max-w-7xl px-4 md:px-8 flex items-center gap-1.5 py-1.5 justify-start">
             <span className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-tangerine/15 text-bone border border-tangerine/30">
               cocktail ✦ festival
@@ -44,14 +45,21 @@ export default function Header() {
               cocktail ✦ catering
             </Link>
           </div>
-        </div>
+        </div> */}
         <div className="mx-auto flex items-center justify-between px-4 py-4 md:px-8 lg:px-16">
           {/* Logo */}
           <Link
             href={`/${locale}`}
-            className="font-display text-lg md:text-xl text-bone whitespace-nowrap"
+            className="block"
           >
-            cocktail{" "}<svg viewBox="0 0 100 100" className="inline-block w-[0.85em] h-[0.85em] align-middle relative -top-[0.03em]" fill="currentColor"><path d="M50 0 C52 38, 62 48, 100 50 C62 52, 52 62, 50 100 C48 62, 38 52, 0 50 C38 48, 48 38, 50 0Z" /></svg>{" "}festival
+            <Image
+              src="/images/logo-festival-white.png"
+              alt="Cocktail X Festival"
+              width={160}
+              height={40}
+              className="h-9 md:h-11 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
