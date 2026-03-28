@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+
 import { useLocale } from "next-intl";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
