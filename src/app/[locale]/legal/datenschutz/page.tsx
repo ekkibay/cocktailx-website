@@ -23,7 +23,7 @@ export default function DatenschutzPage() {
         <h1 className="text-5xl md:text-7xl font-display text-bone mb-3">DATENSCHUTZ</h1>
         <p className="font-body text-bone/40 text-sm mb-16">Stand: 27. Januar 2026</p>
 
-        <div className="space-y-12 font-body text-bone/70 leading-relaxed">
+        <div className="space-y-12 font-body text-bone/85 leading-relaxed">
 
           {/* 1 */}
           <section>

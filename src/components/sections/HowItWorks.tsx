@@ -121,7 +121,7 @@ export default function HowItWorks() {
                   <h3 className="text-base md:text-lg font-display font-bold text-bone mb-3">
                     {t(`${step.key}.title`)}
                   </h3>
-                  <p className="text-sm font-body text-bone/60 leading-relaxed">
+                  <p className="text-sm font-body text-bone/80 leading-relaxed">
                     {t.rich(`${step.key}.description`, {
                       strong: (chunks) => (
                         <strong className="font-bold text-bone/80">{chunks}</strong>

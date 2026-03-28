@@ -76,17 +76,17 @@ export default function FounderPage() {
           <p className="text-[11px] font-body font-bold uppercase tracking-[0.2em] text-tangerine mb-3">
             {locale === "de" ? "Die Geschichte" : "The Story"}
           </p>
-          <p className="text-bone/80 font-body text-base md:text-lg leading-relaxed mb-5">
+          <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed mb-5">
             {locale === "de"
               ? "Während der Pandemie lag Münchens Gastronomie am Boden. Bars geschlossen, Bartender ohne Bühne, eine ganze Kulturszene im Wartezustand. Genau in dieser Zeit entwickelten Ekkehard Bay und Vincent Kerger eine Idee, die größer war als der Moment: ein Festival, das Münchens Barszene sichtbar macht – für alle."
               : "During the pandemic, Munich's gastronomy scene was at a standstill. Bars closed, bartenders without a stage, an entire cultural scene on hold. It was precisely in this moment that Ekkehard Bay and Vincent Kerger developed an idea bigger than the crisis: a festival that puts Munich's bar scene in the spotlight — for everyone."}
           </p>
-          <p className="text-bone/80 font-body text-base md:text-lg leading-relaxed mb-5">
+          <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed mb-5">
             {locale === "de"
               ? "Die Inspiration kam aus London: Die London Cocktail Week zeigt, wie ein dezentrales Festival-Format funktioniert – Gäste besuchen mit einem einzigen Ticket zahlreiche Bars und entdecken die Stadt neu. Bay und Kerger übertrugen dieses Konzept auf München und schufen etwas Eigenes: ein Festival, bei dem jede Bar einen exklusiven Signature Cocktail kreiert – nur für diese 18 Tage."
               : "The inspiration came from London: London Cocktail Week demonstrates how a decentralised festival format works — guests visit numerous bars with a single ticket and rediscover the city. Bay and Kerger adapted this concept for Munich and created something of their own: a festival where every bar creates an exclusive signature cocktail — only for these 18 days."}
           </p>
-          <p className="text-bone/80 font-body text-base md:text-lg leading-relaxed">
+          <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed">
             {locale === "de"
               ? "Im April 2023 öffnete Cocktail X zum ersten Mal seine Türen – mit 32 teilnehmenden Bars und der klaren Vision, Deutschlands größtes Cocktail-Festival zu werden. Heute, in der 4. Ausgabe, sind 58 Bars dabei und über 5.000 Gäste erwartet."
               : "In April 2023, Cocktail X opened its doors for the first time — with 32 participating bars and a clear vision to become Germany's largest cocktail festival. Today, in its 4th edition, 58 bars participate and over 5,000 guests are expected."}

@@ -84,7 +84,7 @@ export default function ExceleratorPage() {
               <div key={benefit.title} className="bg-bone/[0.04] border border-bone/10 rounded-xl p-5 hover:border-tangerine/30 transition-colors duration-300">
                 <span className="text-tangerine text-xs block mb-3">{benefit.icon}</span>
                 <h3 className="font-display text-bone text-base mb-2">{benefit.title}</h3>
-                <p className="font-body text-bone/55 text-sm leading-relaxed">{benefit.desc}</p>
+                <p className="font-body text-bone/75 text-sm leading-relaxed">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -108,7 +108,7 @@ export default function ExceleratorPage() {
               ]).map((item) => (
                 <div key={item.step} className="flex gap-4 items-start">
                   <span className="font-display text-tangerine/40 text-sm flex-shrink-0 w-8">{item.step}</span>
-                  <p className="font-body text-bone/65 text-sm leading-relaxed">{item.text}</p>
+                  <p className="font-body text-bone/80 text-sm leading-relaxed">{item.text}</p>
                 </div>
               ))}
             </div>
