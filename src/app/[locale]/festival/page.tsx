@@ -170,7 +170,7 @@ export default function FestivalPage() {
           />
 
           <div ref={eventsReveal.ref} style={eventsReveal.style} className="space-y-6">
-            {events.map((event, i) => (
+            {events.map((event) => (
               <div
                 key={event.id}
                 className="grid md:grid-cols-[140px,1fr] gap-4 md:gap-8 items-start p-5 md:p-6 rounded-2xl bg-licorice/50 border border-bone/[0.06]"

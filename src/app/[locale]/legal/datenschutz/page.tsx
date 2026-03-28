@@ -263,7 +263,7 @@ export default function DatenschutzPage() {
             <p>
               Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren, um Änderungen unserer
               Praktiken oder geltender Rechtsvorschriften zu berücksichtigen. Änderungen werden auf dieser
-              Seite veröffentlicht und das Datum „Stand" wird entsprechend aktualisiert. Bei wesentlichen
+              Seite veröffentlicht und das Datum &bdquo;Stand&ldquo; wird entsprechend aktualisiert. Bei wesentlichen
               Änderungen werden wir Sie gegebenenfalls gesondert informieren.
             </p>
           </section>

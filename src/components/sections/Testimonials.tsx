@@ -5,7 +5,6 @@ import { motion, useAnimationFrame, useMotionValue, useSpring } from "framer-mot
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BlurText from "@/components/ui/BlurText";
-import { useReveal } from "@/hooks/useReveal";
 
 interface Testimonial {
   key: string;
