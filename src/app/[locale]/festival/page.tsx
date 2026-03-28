@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
@@ -8,6 +9,7 @@ import { useReveal } from "@/hooks/useReveal";
 import { bars } from "@/data/bars";
 import { events } from "@/data/events";
 import { sponsors, pressLogos } from "@/data/sponsors";
+import { trackEvent } from "@/lib/meta-pixel";
 
 /* ── History stats ── */
 const history = [
@@ -42,6 +44,14 @@ export default function FestivalPage() {
   const sponsorsReveal = useReveal({ delay: 200 });
   const ctaReveal = useReveal({ delay: 200 });
 
+  useEffect(() => {
+    trackEvent("ViewContent", {
+      content_name: "Festival Landing Page",
+      content_category: "Festival",
+      content_type: "product_group",
+    });
+  }, []);
+
   return (
     <main>
       {/* ╔══════════════════════════════════════╗
@@ -50,8 +60,8 @@ export default function FestivalPage() {
       <section className="relative min-h-[70vh] flex items-center justify-center text-center overflow-hidden">
         {/* BG image */}
         <Image
-          src="/images/festival-cheers.webp"
-          alt="Festival atmosphere"
+          src="/images/festival-hero-obvs.jpg"
+          alt="Premium Cocktails — Cocktail X Festival München"
           fill
           priority
           className="object-cover"
@@ -65,7 +75,7 @@ export default function FestivalPage() {
           <BlurText
             text={locale === "de" ? "DAS FESTIVAL" : "THE FESTIVAL"}
             tag="h1"
-            className="text-5xl md:text-7xl lg:text-8xl font-display text-bone mb-6"
+            className="text-5xl md:text-7xl lg:text-8xl font-display text-bone mb-6 text-center w-full"
             delay={80}
             duration={0.7}
           />
@@ -75,7 +85,16 @@ export default function FestivalPage() {
                 ? "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival."
                 : "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival."}
             </p>
-            <Link href={`/${locale}/shop`} className="btn-primary text-base px-10 py-4 inline-block">
+            <Link
+              href={`/${locale}/shop`}
+              className="btn-primary text-base px-10 py-4 inline-block"
+              onClick={() => trackEvent("InitiateCheckout", {
+                content_name: "Festival Ticket",
+                content_category: "Festival",
+                currency: "EUR",
+                value: 20,
+              })}
+            >
               {locale === "de" ? "TICKET SICHERN" : "GET YOUR TICKET"}
             </Link>
           </div>
@@ -181,7 +200,7 @@ export default function FestivalPage() {
                     {new Date(event.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "short" })}
                   </span>
                   <span className="text-xs font-body text-bone/55">
-                    {event.time} Uhr
+                    {event.time}{locale === "de" ? " Uhr" : ""}
                   </span>
                 </div>
 
@@ -329,7 +348,16 @@ export default function FestivalPage() {
               : "Get your ticket now at the best price and experience 18 days of cocktail culture in München's best bars."}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href={`/${locale}/shop`} className="btn-primary text-base px-10 py-4 text-center">
+            <Link
+              href={`/${locale}/shop`}
+              className="btn-primary text-base px-10 py-4 text-center"
+              onClick={() => trackEvent("InitiateCheckout", {
+                content_name: "Festival Ticket",
+                content_category: "Festival",
+                currency: "EUR",
+                value: 20,
+              })}
+            >
               {locale === "de" ? "TICKET KAUFEN — AB 20€" : "BUY TICKET — FROM €20"}
             </Link>
             <Link href={`/${locale}/app`} className="btn-secondary text-base px-8 py-4 text-center">

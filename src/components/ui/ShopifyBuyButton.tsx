@@ -1,5 +1,7 @@
 "use client";
 
+import { trackEvent } from "@/lib/meta-pixel";
+
 /*
  * Shopify Buy Button Component
  *
@@ -39,16 +41,28 @@ interface ShopifyBuyButtonProps {
   productId: string;
   buttonText: string;
   className?: string;
+  price?: number;
 }
 
 export default function ShopifyBuyButton({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   productId,
   buttonText,
   className = "",
+  price,
 }: ShopifyBuyButtonProps) {
   const handleClick = () => {
+    // Meta Pixel: track AddToCart when user clicks buy
+    trackEvent("AddToCart", {
+      content_name: productId,
+      content_category: "Festival",
+      content_type: "product",
+      currency: "EUR",
+      ...(price != null && { value: price }),
+    });
+
     // TODO: Replace with real Shopify checkout flow
+    // When Shopify checkout is live, fire trackEvent("Purchase", { ... })
+    // after successful payment confirmation.
     // See comment at top of file for implementation pattern
   };
 

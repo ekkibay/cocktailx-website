@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocale } from "next-intl";
 import Link from "next/link";
 import ShopifyBuyButton from "@/components/ui/ShopifyBuyButton";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
+import { trackEvent } from "@/lib/meta-pixel";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -290,6 +291,16 @@ export default function ShopPage() {
 
   const activeTier = PASSPORT_TIERS[locale].find((t) => t.active)!;
 
+  useEffect(() => {
+    trackEvent("ViewContent", {
+      content_name: "Shop — Festival Tickets",
+      content_category: "Festival",
+      content_type: "product_group",
+      currency: "EUR",
+      value: activeTier.price,
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   function selectAndScroll(key: string) {
     setCalcKey(key);
     setTimeout(() => {
@@ -424,6 +435,7 @@ export default function ShopPage() {
                     productId={activeTier.productId}
                     buttonText={locale === "de" ? "JETZT KAUFEN" : "BUY NOW"}
                     className="w-full text-center text-base py-4"
+                    price={activeTier.price}
                   />
                   <div className="flex items-center gap-1.5 mt-3 text-[11px] font-body font-bold text-tangerine/70">
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
@@ -557,6 +569,7 @@ export default function ShopPage() {
                       productId={activeTierHere.productId}
                       buttonText={locale === "de" ? `AB ${activeTierHere.price} € KAUFEN` : `BUY FROM €${activeTierHere.price}`}
                       className="w-full text-center text-sm py-3"
+                      price={activeTierHere.price}
                     />
                   ) : (
                     <div className="w-full text-center text-sm py-3 rounded-xl border border-bone/15 text-bone/30 font-body font-bold uppercase tracking-wider cursor-not-allowed">

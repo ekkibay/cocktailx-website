@@ -1,0 +1,2 @@
+Typography name: Noto Serif
+https: https://fonts.google.com/noto/specimen/Noto+Serif

@@ -16,6 +16,12 @@ const config: Config = {
         "bay-of-many": "#223a7b",
         everglade: "#1a4620",
         bone: "#e4d6c5",
+        /* Cocktail X Catering CI */
+        "ct-cream": "#F6E6C9",
+        "ct-green": "#00674F",
+        "ct-navy": "#004369",
+        "ct-wine": "#7F1734",
+        "ct-red": "#E63946",
       },
       fontFamily: {
         display: ["RousseauDeco", "system-ui", "sans-serif"],

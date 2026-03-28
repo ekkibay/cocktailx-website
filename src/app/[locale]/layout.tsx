@@ -3,10 +3,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import PageTransition from "@/components/layout/PageTransition";
+import LayoutShell from "@/components/layout/LayoutShell";
 import AntiFlicker from "@/components/layout/AntiFlicker";
+import MetaPixel from "@/components/MetaPixel";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -40,9 +39,8 @@ export default async function LocaleLayout({
       </head>
       <body className="antialiased" style={{ backgroundColor: "#1A120B" }}>
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <PageTransition>{children}</PageTransition>
-          <Footer />
+          <MetaPixel />
+          <LayoutShell>{children}</LayoutShell>
         </NextIntlClientProvider>
       </body>
     </html>

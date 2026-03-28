@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BlurText from "@/components/ui/BlurText";
 
-
 interface Testimonial {
   key: string;
   image?: string;
