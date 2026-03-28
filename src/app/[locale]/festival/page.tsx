@@ -181,7 +181,7 @@ export default function FestivalPage() {
                     {new Date(event.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "short" })}
                   </span>
                   <span className="text-xs font-body text-bone/55">
-                    {event.time} Uhr
+                    {event.time}{locale === "de" ? " Uhr" : ""}
                   </span>
                 </div>
 

@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function KontaktPage() {
   const locale = useLocale() as "de" | "en";
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,11 +15,20 @@ export default function KontaktPage() {
     const params = new URLSearchParams();
     data.forEach((value, key) => params.append(key, value.toString()));
 
-    fetch("https://formspree.io/f/catering", {
+    // TODO: Replace endpoint with real Formspree form ID (e.g. f/xyzabc12)
+    fetch("https://formspree.io/f/xpwzodkp", {
       method: "POST",
       headers: { Accept: "application/json" },
       body: params,
-    }).then(() => setSubmitted(true));
+    })
+      .then((res) => {
+        if (res.ok) {
+          setSubmitted(true);
+        } else {
+          setError(true);
+        }
+      })
+      .catch(() => setError(true));
   };
 
   return (
@@ -42,6 +52,13 @@ export default function KontaktPage() {
             : "Tell us about your event — we'll get back to you within 24 hours with a non-binding quote."}
         </p>
 
+        {error && (
+          <div className="mb-6 p-4 rounded-xl border border-ct-wine/40 bg-ct-wine/10 text-sm font-body text-ct-cream/80">
+            {locale === "de"
+              ? "Etwas ist schiefgelaufen. Bitte schreib uns direkt an catering@cocktail-x.com."
+              : "Something went wrong. Please write to us directly at catering@cocktail-x.com."}
+          </div>
+        )}
         {submitted ? (
           <div className="text-center p-12 rounded-2xl border border-ct-green/30 bg-ct-green/[0.06]">
             <span className="font-display text-5xl text-ct-green block mb-4">✦</span>
