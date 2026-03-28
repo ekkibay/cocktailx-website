@@ -19,9 +19,16 @@ function BarCard({ bar, locale, compact }: { bar: typeof bars[0]; locale: "de" |
         fill
         sizes="(max-width: 640px) 40vw, 250px"
         loading="lazy"
-        className="object-cover transition-transform duration-500 group-hover:scale-110"
+        className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-30"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-transparent" />
+      {/* Coming Soon overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/60 to-licorice/40" />
+      <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "180px 180px", backgroundRepeat: "repeat", opacity: 0.07 }} />
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+        <span className="text-tangerine font-body font-bold uppercase tracking-[0.25em] text-[10px]">★</span>
+        <span className={`font-display text-bone tracking-widest ${compact ? "text-sm" : "text-xl md:text-2xl"}`}>COMING SOON</span>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-transparent to-transparent" />
       <div className={`absolute bottom-0 left-0 right-0 ${compact ? "px-4 pb-6 pt-3" : "md:p-6"} translate-y-4 group-hover:translate-y-0 transition-transform duration-300`}>
         <h3 className={`${compact ? "text-xs" : "md:text-2xl"} font-display text-bone`}>{bar.name}</h3>
         <p className={`${compact ? "text-[9px]" : "md:text-sm"} font-body text-tangerine mt-0.5`}>

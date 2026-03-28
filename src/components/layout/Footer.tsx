@@ -88,6 +88,14 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
+                  href={`/${locale}/festival/bars`}
+                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                >
+                  {locale === "de" ? "Alle Bars" : "All Bars"}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href={`/${locale}/festival/events`}
                   className="text-sm text-bone/60 hover:text-bone transition-colors"
                 >

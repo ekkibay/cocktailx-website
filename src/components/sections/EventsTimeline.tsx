@@ -65,15 +65,21 @@ export default function EventsTimeline() {
                   >
                     <div className="rounded-2xl overflow-hidden bg-jambalaya/30 border border-bone/5 transition-all duration-300 ease-out hover:border-bone/15 hover:shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
                       {/* Image */}
-                      <div className="relative aspect-video">
+                      <div className="relative aspect-video overflow-hidden">
                         <Image
                           src={event.image}
                           alt={event.title[locale]}
                           fill
                           sizes="(max-width: 768px) 100vw, 50vw"
                           loading="lazy"
-                          className="object-cover"
+                          className="object-cover opacity-25"
                         />
+                        <div className="absolute inset-0 bg-gradient-to-br from-licorice/80 to-licorice/60" />
+                        <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "160px 160px", backgroundRepeat: "repeat", opacity: 0.08 }} />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+                          <span className="text-tangerine text-xs">✦</span>
+                          <span className="font-display text-bone text-lg tracking-[0.3em]">COMING SOON</span>
+                        </div>
                       </div>
 
                       {/* Content */}

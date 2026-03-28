@@ -43,15 +43,21 @@ function EventCard({ event, index, locale }: { event: FestivalEvent; index: numb
       >
         <div className="rounded-2xl overflow-hidden bg-jambalaya/30 border border-bone/5">
           {/* Large Image */}
-          <div className="relative aspect-[16/10]">
+          <div className="relative aspect-[16/10] overflow-hidden">
             <Image
               src={event.image}
               alt={event.title[locale]}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               loading="lazy"
-              className="object-cover"
+              className="object-cover opacity-25"
             />
+            <div className="absolute inset-0 bg-gradient-to-br from-licorice/80 to-licorice/60" />
+            <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "180px 180px", backgroundRepeat: "repeat", opacity: 0.08 }} />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              <span className="text-tangerine text-sm">✦</span>
+              <span className="font-display text-bone text-xl md:text-2xl tracking-[0.35em]">COMING SOON</span>
+            </div>
           </div>
 
           {/* Content */}

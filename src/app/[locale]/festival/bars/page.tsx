@@ -71,15 +71,22 @@ export default function BarsPage() {
                 className="group rounded-2xl bg-licorice border border-bone/10 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-tangerine/10"
               >
                 {/* Image */}
-                <div className="relative aspect-video">
+                <div className="relative aspect-video overflow-hidden">
                   <Image
                     src={bar.image}
                     alt={bar.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
-                    className="object-cover"
+                    className="object-cover opacity-25"
                   />
+                  {/* Coming Soon overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-licorice/80 to-licorice/60" />
+                  <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "160px 160px", backgroundRepeat: "repeat", opacity: 0.08 }} />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+                    <span className="text-tangerine text-xs">✦</span>
+                    <span className="font-display text-bone text-lg tracking-[0.3em]">COMING SOON</span>
+                  </div>
                 </div>
 
                 {/* Content */}

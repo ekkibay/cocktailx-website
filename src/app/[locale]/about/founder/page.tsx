@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
+import Image from "next/image";
 
 export default function FounderPage() {
   const locale = useLocale() as "de" | "en";
@@ -30,12 +31,40 @@ export default function FounderPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-bone/60 font-body text-center text-base md:text-lg leading-relaxed mb-16 max-w-2xl mx-auto"
+          className="text-bone/60 font-body text-center text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
         >
           {locale === "de"
             ? "Cocktail X entstand aus einer einfachen Überzeugung: Münchens Barkultur verdient eine Bühne. Zwei Männer haben sie gebaut."
             : "Cocktail X was born from a simple belief: Munich's bar culture deserves a stage. Two men built it."}
         </motion.p>
+
+        {/* Founders photo */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden mb-16"
+        >
+          <Image
+            src="/images/founders.jpg"
+            alt="Ekkehard Bay & Vincent Kerger — Gründer Cocktail X"
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 768px) 100vw, 768px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-licorice/70 via-transparent to-transparent" />
+          <div className="absolute bottom-5 left-6 right-6 flex justify-between items-end">
+            <div>
+              <p className="text-xs font-body font-bold text-tangerine uppercase tracking-[0.2em]">Ekkehard Bay</p>
+              <p className="text-bone/60 font-body text-xs">{locale === "de" ? "Co-Gründer" : "Co-Founder"}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs font-body font-bold text-tangerine uppercase tracking-[0.2em]">Vincent Kerger</p>
+              <p className="text-bone/60 font-body text-xs">{locale === "de" ? "Co-Gründer" : "Co-Founder"}</p>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Founding Story */}
         <motion.div
@@ -75,8 +104,15 @@ export default function FounderPage() {
             className="flex flex-col md:flex-row gap-8 items-start"
           >
             <div className="w-full md:w-1/3 flex-shrink-0">
-              <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl flex items-center justify-center">
-                <span className="text-6xl opacity-30">👤</span>
+              <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden relative">
+                <Image
+                  src="/images/founders.jpg"
+                  alt="Founders"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 250px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 via-transparent to-transparent" />
               </div>
             </div>
             <div className="flex-1">
@@ -116,8 +152,15 @@ export default function FounderPage() {
             className="flex flex-col md:flex-row gap-8 items-start"
           >
             <div className="w-full md:w-1/3 flex-shrink-0">
-              <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl flex items-center justify-center">
-                <span className="text-6xl opacity-30">👤</span>
+              <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden relative">
+                <Image
+                  src="/images/founders.jpg"
+                  alt="Founders"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 250px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 via-transparent to-transparent" />
               </div>
             </div>
             <div className="flex-1">

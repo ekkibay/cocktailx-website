@@ -128,12 +128,13 @@ export default function FestivalPage() {
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover opacity-25"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-licorice/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <h3 className="text-lg font-display text-bone">{bar.name}</h3>
-                    <p className="text-xs font-body text-tangerine">{bar.signatureCocktail}</p>
+                  <div className="absolute inset-0 bg-gradient-to-br from-licorice/80 to-licorice/60" />
+                  <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "160px 160px", backgroundRepeat: "repeat", opacity: 0.08 }} />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+                    <span className="text-tangerine text-xs">✦</span>
+                    <span className="font-display text-bone text-base tracking-[0.3em]">COMING SOON</span>
                   </div>
                 </div>
                 {/* Details */}
@@ -141,19 +142,7 @@ export default function FestivalPage() {
                   <p className="text-xs font-body text-bone/40 mb-2">
                     {bar.district} · {bar.address}
                   </p>
-                  <p className="text-sm font-body text-bone/60 line-clamp-2">
-                    {bar.description[locale]}
-                  </p>
-                  {bar.website && (
-                    <a
-                      href={bar.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-body text-tangerine hover:text-tangerine/80 mt-3 transition-colors"
-                    >
-                      Website besuchen →
-                    </a>
-                  )}
+                  <h3 className="text-base font-display text-bone">{bar.name}</h3>
                 </div>
               </div>
             ))}
@@ -206,6 +195,11 @@ export default function FestivalPage() {
                     }`}>
                       {event.type === "opening" ? "Opening" : event.type === "closing" ? "Closing" : "Festival"}
                     </span>
+                    {(event.type === "opening" || event.type === "closing") && (
+                      <span className="text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-bone/15 text-bone/40">
+                        Details folgen
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-lg md:text-xl font-display text-bone mb-2">
                     {event.title[locale]}
