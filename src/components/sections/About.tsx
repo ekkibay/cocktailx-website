@@ -92,7 +92,9 @@ export default function About() {
                 {t("description")}
               </p>
               <a
-                href="#tickets"
+                href="https://cocktailx.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary mt-8 inline-block"
               >
                 {t("cta")}

@@ -78,12 +78,14 @@ export default function Header() {
           {/* Desktop right */}
           <div className="hidden lg:flex items-center gap-6">
             <LanguageSwitcher />
-            <Link
-              href="#tickets"
+            <a
+              href="https://cocktailx.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-secondary text-xs uppercase tracking-wider"
             >
               {t("getPassport")}
-            </Link>
+            </a>
           </div>
 
           {/* Mobile hamburger */}

@@ -45,7 +45,9 @@ export default function StickyCTA() {
               </div>
             </div>
             <a
-              href="#tickets"
+              href="https://cocktailx.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary text-sm whitespace-nowrap px-6 py-3"
             >
               {t("cta")}

@@ -163,7 +163,9 @@ export default function Hero() {
         </p>
 
         <a
-          href="#tickets"
+          href="https://cocktailx.app/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hero-fade-fast btn-primary text-sm md:text-lg whitespace-nowrap"
           style={{ opacity: 0, animationDelay: "800ms" }}
         >
