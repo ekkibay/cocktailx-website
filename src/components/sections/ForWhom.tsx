@@ -32,7 +32,7 @@ export default function ForWhom() {
         <p
           ref={subtitle.ref}
           style={subtitle.style}
-          className="text-center text-sm md:text-base font-body text-bone/60 mb-16"
+          className="text-center text-sm md:text-base font-body text-bone/80 mb-16"
         >
           {t("subheadline")}
         </p>
@@ -67,7 +67,7 @@ export default function ForWhom() {
                 <h3 className="text-sm md:text-base font-display text-bone mb-2">
                   {t(`${key}.title`)}
                 </h3>
-                <p className="text-xs font-body text-bone/60 leading-relaxed">
+                <p className="text-xs font-body text-bone/80 leading-relaxed">
                   {t(`${key}.description`)}
                 </p>
               </div>

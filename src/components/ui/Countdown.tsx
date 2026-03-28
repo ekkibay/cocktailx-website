@@ -13,7 +13,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
       <span className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display text-tangerine tabular-nums">
         {display}
       </span>
-      <span className="text-[10px] md:text-xs font-body font-thin text-bone/70 uppercase tracking-widest mt-1">
+      <span className="text-[10px] md:text-xs font-body font-thin text-bone/85 uppercase tracking-widest mt-1">
         {label}
       </span>
     </div>

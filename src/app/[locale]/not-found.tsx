@@ -9,7 +9,7 @@ export default function NotFound() {
       <h1 className="text-5xl md:text-7xl lg:text-8xl font-display text-bone mb-6">
         PAGE NOT FOUND
       </h1>
-      <p className="text-bone/60 font-body max-w-md mb-10 text-lg">
+      <p className="text-bone/80 font-body max-w-md mb-10 text-lg">
         The page you are looking for does not exist or has been moved.
       </p>
       <Link href="/" className="btn-primary text-lg">

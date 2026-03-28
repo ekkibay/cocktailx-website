@@ -54,13 +54,13 @@ function WinnerCard({ winner, index, locale }: { winner: typeof winners[0]; inde
         />
       </div>
       <div className="p-6">
-        <p className="text-sm font-body text-bone/40 uppercase tracking-wider mb-2">
+        <p className="text-sm font-body text-bone/55 uppercase tracking-wider mb-2">
           {winner.category[locale]}
         </p>
         <h3 className="text-2xl font-display text-bone mb-1">
           {winner.name}
         </h3>
-        <p className="text-bone/60 font-body">{winner.bar}</p>
+        <p className="text-bone/80 font-body">{winner.bar}</p>
       </div>
     </div>
   );
@@ -86,7 +86,7 @@ export default function AwardsHistoryPage() {
           <p
             ref={revealSubtitle.ref}
             style={revealSubtitle.style}
-            className="text-lg md:text-xl font-body text-bone/70 mt-6 max-w-2xl mx-auto"
+            className="text-lg md:text-xl font-body text-bone/85 mt-6 max-w-2xl mx-auto"
           >
             {locale === "de"
               ? "Die Gewinner der Cocktail X Awards 2025."

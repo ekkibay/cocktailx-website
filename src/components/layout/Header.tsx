@@ -45,7 +45,7 @@ export default function Header() {
               <Link
                 key={link.key}
                 href={`/${locale}${link.href}`}
-                className="text-sm uppercase tracking-wider text-bone/70 hover:text-bone transition-colors font-body font-bold nav-link-hover"
+                className="text-sm uppercase tracking-wider text-bone/85 hover:text-bone transition-colors font-body font-bold nav-link-hover"
               >
                 {t(link.key)}
               </Link>

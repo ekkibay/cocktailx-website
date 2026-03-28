@@ -125,7 +125,7 @@ export default function Hero() {
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className="text-bone/50"
+          className="text-bone/65"
         >
           <path d="M12 5v14M5 12l7 7 7-7" />
         </svg>

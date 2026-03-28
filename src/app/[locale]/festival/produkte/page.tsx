@@ -24,7 +24,7 @@ export default function ProduktePage() {
         <p
           ref={subtitle.ref}
           style={subtitle.style}
-          className="text-center text-sm md:text-base font-body text-bone/50 mb-16 max-w-lg mx-auto"
+          className="text-center text-sm md:text-base font-body text-bone/65 mb-16 max-w-lg mx-auto"
         >
           {locale === "de"
             ? "Jede teilnehmende Bar kreiert einen exklusiven Signature Cocktail — nur während des Festivals erhältlich."
@@ -109,7 +109,7 @@ export default function ProduktePage() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm font-body text-bone/50 mt-3 leading-relaxed line-clamp-3">
+                <p className="text-sm font-body text-bone/65 mt-3 leading-relaxed line-clamp-3">
                   {cocktail.description[locale]}
                 </p>
 

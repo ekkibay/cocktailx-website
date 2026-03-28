@@ -44,7 +44,7 @@ export default function BlogPostContent({ post }: { post: BlogPost }) {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display text-bone mb-4">
             {post.title[locale]}
           </h1>
-          <p className="text-bone/40 font-body mb-12">{post.date}</p>
+          <p className="text-bone/55 font-body mb-12">{post.date}</p>
         </motion.div>
 
         <motion.div

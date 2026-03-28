@@ -68,7 +68,7 @@ function EventCard({ event, index, locale }: { event: FestivalEvent; index: numb
             <h3 className="text-3xl md:text-4xl font-display text-bone mt-3">
               {event.title[locale]}
             </h3>
-            <p className="text-base font-body text-bone/70 mt-4 leading-relaxed">
+            <p className="text-base font-body text-bone/85 mt-4 leading-relaxed">
               {event.description[locale]}
             </p>
             <div className="mt-6 flex items-center gap-2">
@@ -90,7 +90,7 @@ function EventCard({ event, index, locale }: { event: FestivalEvent; index: numb
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              <p className="text-sm font-body text-bone/50">
+              <p className="text-sm font-body text-bone/65">
                 {event.location}
               </p>
             </div>

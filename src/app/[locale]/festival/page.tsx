@@ -70,7 +70,7 @@ export default function FestivalPage() {
             duration={0.7}
           />
           <div ref={heroText.ref} style={heroText.style}>
-            <p className="text-base md:text-lg font-body text-bone/70 max-w-xl mx-auto mb-8">
+            <p className="text-base md:text-lg font-body text-bone/85 max-w-xl mx-auto mb-8">
               {locale === "de"
                 ? "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival."
                 : "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival."}
@@ -90,7 +90,7 @@ export default function FestivalPage() {
           {keyFacts[locale].map((fact, i) => (
             <div key={i} className="text-center">
               <span className="text-3xl md:text-4xl font-display text-tangerine block">{fact.value}</span>
-              <span className="text-xs font-body text-bone/50 uppercase tracking-wider">{fact.label}</span>
+              <span className="text-xs font-body text-bone/65 uppercase tracking-wider">{fact.label}</span>
             </div>
           ))}
         </div>
@@ -108,7 +108,7 @@ export default function FestivalPage() {
             delay={70}
             duration={0.7}
           />
-          <p className="text-sm font-body text-bone/50 text-center mb-12 max-w-lg mx-auto">
+          <p className="text-sm font-body text-bone/65 text-center mb-12 max-w-lg mx-auto">
             {locale === "de"
               ? "Jede Bar kreiert einen exklusiven Signature Cocktail — nur während des Festivals für 6€ erhältlich."
               : "Each bar creates an exclusive signature cocktail — available only during the festival for €6."}
@@ -139,7 +139,7 @@ export default function FestivalPage() {
                 </div>
                 {/* Details */}
                 <div className="p-4">
-                  <p className="text-xs font-body text-bone/40 mb-2">
+                  <p className="text-xs font-body text-bone/55 mb-2">
                     {bar.district} · {bar.address}
                   </p>
                   <h3 className="text-base font-display text-bone">{bar.name}</h3>
@@ -148,7 +148,7 @@ export default function FestivalPage() {
             ))}
           </div>
 
-          <p className="text-center text-sm font-body text-bone/40 mt-8">
+          <p className="text-center text-sm font-body text-bone/55 mt-8">
             {locale === "de"
               ? "Weitere 52+ Bars werden in Kürze bekanntgegeben."
               : "52+ more bars will be announced soon."}
@@ -180,7 +180,7 @@ export default function FestivalPage() {
                   <span className="text-2xl md:text-3xl font-display text-tangerine">
                     {new Date(event.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "short" })}
                   </span>
-                  <span className="text-xs font-body text-bone/40">
+                  <span className="text-xs font-body text-bone/55">
                     {event.time} Uhr
                   </span>
                 </div>
@@ -191,12 +191,12 @@ export default function FestivalPage() {
                     <span className={`text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
                       event.type === "opening" ? "bg-tangerine/15 text-tangerine" :
                       event.type === "closing" ? "bg-hibiscus/15 text-hibiscus" :
-                      "bg-bone/5 text-bone/50"
+                      "bg-bone/5 text-bone/65"
                     }`}>
                       {event.type === "opening" ? "Opening" : event.type === "closing" ? "Closing" : "Festival"}
                     </span>
                     {(event.type === "opening" || event.type === "closing") && (
-                      <span className="text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-bone/15 text-bone/40">
+                      <span className="text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-bone/15 text-bone/55">
                         Details folgen
                       </span>
                     )}
@@ -204,7 +204,7 @@ export default function FestivalPage() {
                   <h3 className="text-lg md:text-xl font-display text-bone mb-2">
                     {event.title[locale]}
                   </h3>
-                  <p className="text-sm font-body text-bone/50 leading-relaxed">
+                  <p className="text-sm font-body text-bone/65 leading-relaxed">
                     {event.description[locale]}
                   </p>
                   <p className="text-xs font-body text-bone/30 mt-2">
@@ -229,7 +229,7 @@ export default function FestivalPage() {
             delay={70}
             duration={0.7}
           />
-          <p className="text-sm font-body text-bone/50 text-center mb-12 max-w-md mx-auto">
+          <p className="text-sm font-body text-bone/65 text-center mb-12 max-w-md mx-auto">
             {locale === "de"
               ? "Von der Idee zum größten Cocktail-Festival Deutschlands — in nur 3 Jahren."
               : "From idea to Germany's biggest cocktail festival — in just 3 years."}
@@ -242,17 +242,17 @@ export default function FestivalPage() {
                 <div className="space-y-3">
                   <div>
                     <span className="text-xl md:text-2xl font-display text-bone block">{year.bars}</span>
-                    <span className="text-[10px] md:text-xs font-body text-bone/40 uppercase tracking-wider">Bars</span>
+                    <span className="text-[10px] md:text-xs font-body text-bone/55 uppercase tracking-wider">Bars</span>
                   </div>
                   <div>
                     <span className="text-xl md:text-2xl font-display text-bone block">{year.visitors}</span>
-                    <span className="text-[10px] md:text-xs font-body text-bone/40 uppercase tracking-wider">
+                    <span className="text-[10px] md:text-xs font-body text-bone/55 uppercase tracking-wider">
                       {locale === "de" ? "Gäste" : "Guests"}
                     </span>
                   </div>
                   <div>
                     <span className="text-xl md:text-2xl font-display text-bone block">{year.days}</span>
-                    <span className="text-[10px] md:text-xs font-body text-bone/40 uppercase tracking-wider">
+                    <span className="text-[10px] md:text-xs font-body text-bone/55 uppercase tracking-wider">
                       {locale === "de" ? "Tage" : "Days"}
                     </span>
                   </div>
@@ -295,7 +295,7 @@ export default function FestivalPage() {
             </div>
 
             {/* Press — bekannt aus */}
-            <p className="text-[11px] font-body text-bone/40 uppercase tracking-[0.15em] text-center mb-6">
+            <p className="text-[11px] font-body text-bone/55 uppercase tracking-[0.15em] text-center mb-6">
               {locale === "de" ? "Bekannt aus" : "As seen in"}
             </p>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
@@ -323,7 +323,7 @@ export default function FestivalPage() {
           <h2 className="text-3xl md:text-4xl font-display text-bone mb-4">
             {locale === "de" ? "DABEI SEIN?" : "JOIN US?"}
           </h2>
-          <p className="text-sm font-body text-bone/50 mb-8">
+          <p className="text-sm font-body text-bone/65 mb-8">
             {locale === "de"
               ? "Sichere dir jetzt dein Ticket zum besten Preis und erlebe 18 Tage Cocktail-Kultur in Münchens besten Bars."
               : "Get your ticket now at the best price and experience 18 days of cocktail culture in München's best bars."}

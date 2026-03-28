@@ -35,7 +35,7 @@ function StoryParagraph({ text, index }: { text: string; index: number }) {
     <p
       ref={reveal.ref}
       style={reveal.style}
-      className="text-base md:text-lg font-body text-bone/70 leading-relaxed"
+      className="text-base md:text-lg font-body text-bone/85 leading-relaxed"
     >
       {text}
     </p>
@@ -120,7 +120,7 @@ export default function AboutPage() {
               <h3 className="text-xl font-display text-bone">
                 {content.founder.name}
               </h3>
-              <p className="text-sm font-body text-bone/50">
+              <p className="text-sm font-body text-bone/65">
                 {content.founder.role[locale]}
               </p>
             </div>

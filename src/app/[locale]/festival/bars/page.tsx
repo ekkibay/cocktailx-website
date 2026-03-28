@@ -49,7 +49,7 @@ export default function BarsPage() {
               className={`px-4 py-2 rounded-lg font-body text-sm transition-colors duration-200 ${
                 activeFilter === district
                   ? "bg-tangerine text-licorice"
-                  : "border border-bone/20 text-bone/60 hover:text-bone hover:border-bone/40"
+                  : "border border-bone/20 text-bone/80 hover:text-bone hover:border-bone/40"
               }`}
             >
               {district}
@@ -92,13 +92,13 @@ export default function BarsPage() {
                 {/* Content */}
                 <div className="p-6">
                   <h3 className="text-xl font-display text-bone">{bar.name}</h3>
-                  <p className="text-sm font-body text-bone/50 mt-1">
+                  <p className="text-sm font-body text-bone/65 mt-1">
                     {bar.address}
                   </p>
                   <p className="text-sm font-body text-tangerine mt-2">
                     {bar.signatureCocktail}
                   </p>
-                  <p className="text-sm font-body text-bone/60 mt-3">
+                  <p className="text-sm font-body text-bone/80 mt-3">
                     {bar.description[locale]}
                   </p>
                 </div>

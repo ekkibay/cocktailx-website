@@ -84,11 +84,11 @@ export default function About() {
                 <span className="text-xs font-body font-bold text-tangerine bg-tangerine/10 px-3 py-1 rounded-full">
                   {t("edition")}
                 </span>
-                <span className="text-xs font-body font-bold text-bone/50 bg-bone/5 px-3 py-1 rounded-full">
+                <span className="text-xs font-body font-bold text-bone/65 bg-bone/5 px-3 py-1 rounded-full">
                   {t("visitors")}
                 </span>
               </div>
-              <p className="mt-4 text-base md:text-lg font-body text-bone/70 leading-relaxed max-w-xl">
+              <p className="mt-4 text-base md:text-lg font-body text-bone/85 leading-relaxed max-w-xl">
                 {t("description")}
               </p>
               <a

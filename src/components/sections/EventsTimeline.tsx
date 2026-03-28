@@ -90,10 +90,10 @@ export default function EventsTimeline() {
                         <h3 className="text-2xl font-display text-bone mt-2">
                           {event.title[locale]}
                         </h3>
-                        <p className="text-sm font-body text-bone/60 mt-2">
+                        <p className="text-sm font-body text-bone/80 mt-2">
                           {event.description[locale]}
                         </p>
-                        <p className="text-xs font-body text-bone/40 mt-3">
+                        <p className="text-xs font-body text-bone/55 mt-3">
                           {event.location}
                         </p>
                       </div>

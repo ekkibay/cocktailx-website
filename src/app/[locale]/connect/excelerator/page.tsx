@@ -50,7 +50,7 @@ export default function ExceleratorPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-bone/60 font-body text-center mb-16 max-w-lg mx-auto"
+          className="text-bone/80 font-body text-center mb-16 max-w-lg mx-auto"
         >
           {locale === "de"
             ? "Werde Teil des Cocktail X Netzwerks. Empfehle Tickets, verdiene Provision und erlebe das Festival hautnah."
@@ -84,7 +84,7 @@ export default function ExceleratorPage() {
               <div key={benefit.title} className="bg-bone/[0.04] border border-bone/10 rounded-xl p-5 hover:border-tangerine/30 transition-colors duration-300">
                 <span className="text-tangerine text-xs block mb-3">{benefit.icon}</span>
                 <h3 className="font-display text-bone text-base mb-2">{benefit.title}</h3>
-                <p className="font-body text-bone/75 text-sm leading-relaxed">{benefit.desc}</p>
+                <p className="font-body text-bone/90 text-sm leading-relaxed">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -132,7 +132,7 @@ export default function ExceleratorPage() {
           className="space-y-6"
         >
           <div>
-            <label className="block text-bone/60 font-body text-sm mb-2">
+            <label className="block text-bone/80 font-body text-sm mb-2">
               {locale === "de" ? "Name" : "Name"}
             </label>
             <input
@@ -147,7 +147,7 @@ export default function ExceleratorPage() {
           </div>
 
           <div>
-            <label className="block text-bone/60 font-body text-sm mb-2">
+            <label className="block text-bone/80 font-body text-sm mb-2">
               E-Mail
             </label>
             <input
@@ -162,7 +162,7 @@ export default function ExceleratorPage() {
           </div>
 
           <div>
-            <label className="block text-bone/60 font-body text-sm mb-2">
+            <label className="block text-bone/80 font-body text-sm mb-2">
               {locale === "de" ? "Telefon" : "Phone"}
             </label>
             <input
@@ -176,7 +176,7 @@ export default function ExceleratorPage() {
           </div>
 
           <div>
-            <label className="block text-bone/60 font-body text-sm mb-2">
+            <label className="block text-bone/80 font-body text-sm mb-2">
               {locale === "de" ? "Nachricht" : "Message"}
             </label>
             <textarea
@@ -190,7 +190,7 @@ export default function ExceleratorPage() {
           </div>
 
           <div>
-            <label className="block text-bone/60 font-body text-sm mb-2">
+            <label className="block text-bone/80 font-body text-sm mb-2">
               {locale === "de"
                 ? "Warum moechtest du Excelerator werden?"
                 : "Why do you want to be an Excelerator?"}

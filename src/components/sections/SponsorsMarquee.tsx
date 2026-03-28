@@ -17,7 +17,7 @@ export default function SponsorsMarquee() {
       <p
         ref={heading.ref}
         style={heading.style}
-        className="text-center text-bone/55 text-sm font-body uppercase tracking-wider mb-8"
+        className="text-center text-bone/75 text-sm font-body uppercase tracking-wider mb-8"
       >
         {t("headline")}
       </p>

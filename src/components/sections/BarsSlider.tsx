@@ -35,7 +35,7 @@ function BarCard({ bar, locale, compact }: { bar: typeof bars[0]; locale: "de" |
           {bar.signatureCocktail}
         </p>
         {!compact && (
-          <p className="text-sm font-body text-bone/60 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
+          <p className="text-sm font-body text-bone/80 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
             {bar.description[locale]}
           </p>
         )}
@@ -98,7 +98,7 @@ export default function BarsSlider() {
         <div className="flex-shrink-0 w-[400px] aspect-[3/4] rounded-2xl overflow-hidden relative border border-bone/10 bg-licorice/50 backdrop-blur-md flex flex-col items-center justify-center text-center p-8 transition-all duration-300 ease-out hover:border-bone/25 hover:bg-licorice/60">
           <span className="text-8xl font-display text-tangerine">58</span>
           <span className="text-xl font-display text-bone mt-2">{t("teaserTitle")}</span>
-          <p className="text-sm font-body text-bone/60 mt-4">{t("teaserText")}</p>
+          <p className="text-sm font-body text-bone/80 mt-4">{t("teaserText")}</p>
           <Link href={`/${locale}/festival`} className="btn-primary mt-6 text-sm">
             {t("teaserCta")}
           </Link>

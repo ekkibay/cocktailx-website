@@ -107,7 +107,7 @@ export default function Tickets() {
         <p
           ref={subtitle.ref}
           style={subtitle.style}
-          className="text-center text-sm md:text-base font-body text-bone/60 mb-10"
+          className="text-center text-sm md:text-base font-body text-bone/80 mb-10"
         >
           {t("subtitle")}
         </p>
@@ -148,7 +148,7 @@ export default function Tickets() {
                       ? "text-bone/25 line-through"
                       : isBest
                       ? "text-bone/90"
-                      : "text-bone/60"
+                      : "text-bone/80"
                   }`}
                 >
                   {t(`${tier.key}.name`)}
@@ -256,7 +256,7 @@ export default function Tickets() {
                 <div className="w-10 h-10 rounded-full bg-tangerine/10 border border-tangerine/20 flex items-center justify-center">
                   {featureIcons[i]}
                 </div>
-                <span className="text-xs font-body text-bone/60 leading-snug">{feature}</span>
+                <span className="text-xs font-body text-bone/80 leading-snug">{feature}</span>
               </div>
             ))}
           </div>
@@ -269,7 +269,7 @@ export default function Tickets() {
                 <div className="w-9 h-9 shrink-0 rounded-full bg-tangerine/10 border border-tangerine/20 flex items-center justify-center">
                   {featureIcons[i]}
                 </div>
-                <span className="text-sm font-body text-bone/60 leading-snug">{feature}</span>
+                <span className="text-sm font-body text-bone/80 leading-snug">{feature}</span>
               </div>
             ))}
           </div>

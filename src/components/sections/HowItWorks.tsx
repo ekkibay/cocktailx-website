@@ -94,7 +94,7 @@ export default function HowItWorks() {
                 height={1040}
                 className="w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
               />
-              <p className="text-center text-xs font-body text-bone/40 mt-3">
+              <p className="text-center text-xs font-body text-bone/55 mt-3">
                 {t("appHint")}
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function HowItWorks() {
                 height={1040}
                 className="w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
               />
-              <p className="text-center text-xs font-body text-bone/40 mt-3">
+              <p className="text-center text-xs font-body text-bone/55 mt-3">
                 {t("appHint")}
               </p>
             </div>

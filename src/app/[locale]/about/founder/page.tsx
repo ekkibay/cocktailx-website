@@ -31,7 +31,7 @@ export default function FounderPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-bone/60 font-body text-center text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
+          className="text-bone/80 font-body text-center text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
         >
           {locale === "de"
             ? "Cocktail X entstand aus einer einfachen Überzeugung: Münchens Barkultur verdient eine Bühne. Zwei Männer haben sie gebaut."
@@ -57,11 +57,11 @@ export default function FounderPage() {
           <div className="absolute bottom-5 left-6 right-6 flex justify-between items-end">
             <div>
               <p className="text-xs font-body font-bold text-tangerine uppercase tracking-[0.2em]">Ekkehard Bay</p>
-              <p className="text-bone/60 font-body text-xs">{locale === "de" ? "Co-Gründer" : "Co-Founder"}</p>
+              <p className="text-bone/80 font-body text-xs">{locale === "de" ? "Co-Gründer" : "Co-Founder"}</p>
             </div>
             <div className="text-right">
               <p className="text-xs font-body font-bold text-tangerine uppercase tracking-[0.2em]">Vincent Kerger</p>
-              <p className="text-bone/60 font-body text-xs">{locale === "de" ? "Co-Gründer" : "Co-Founder"}</p>
+              <p className="text-bone/80 font-body text-xs">{locale === "de" ? "Co-Gründer" : "Co-Founder"}</p>
             </div>
           </div>
         </motion.div>
@@ -120,8 +120,8 @@ export default function FounderPage() {
               <p className="text-tangerine font-body mb-1">
                 {locale === "de" ? "Co-Gründer & Geschäftsführer" : "Co-Founder & Managing Director"}
               </p>
-              <p className="text-bone/40 font-body text-sm mb-5">bayundco GmbH</p>
-              <div className="text-bone/75 font-body text-base leading-relaxed space-y-4">
+              <p className="text-bone/55 font-body text-sm mb-5">bayundco GmbH</p>
+              <div className="text-bone/90 font-body text-base leading-relaxed space-y-4">
                 <p>
                   {locale === "de"
                     ? "Ekkehard Bay ist preisgekrönter Mixologe, leidenschaftlicher F&B-Manager und einer der prägenden Köpfe der Münchner Barszene. Sein Fokus gilt Barkonzepten, der Entwicklung von Teams und dem Erschaffen unvergesslicher Momente – Werte, die er seit Jahren bei Marriott International und zuletzt in der Ory Bar des Mandarin Oriental München lebt."
@@ -132,7 +132,7 @@ export default function FounderPage() {
                     ? "Mit bayundco GmbH hat er eine Plattform geschaffen, die über 500 Events und 182.905 servierte Drinks umfasst. Cocktail X ist der logische nächste Schritt: Münchens Bartender und ihre Kreativität in den Mittelpunkt zu stellen – nicht nur für eine Nacht, sondern 18 Tage lang, in der ganzen Stadt."
                     : "With bayundco GmbH he has built a platform spanning over 500 events and 182,905 served drinks. Cocktail X is the logical next step: putting Munich's bartenders and their creativity centre stage — not just for one night, but for 18 days across the entire city."}
                 </p>
-                <blockquote className="border-l-2 border-tangerine pl-4 text-bone/60 italic">
+                <blockquote className="border-l-2 border-tangerine pl-4 text-bone/80 italic">
                   {locale === "de"
                     ? "\u201eEs fasziniert mich, Menschen miteinander zu verbinden.\u201c"
                     : "\"It fascinates me to connect people with one another.\""}
@@ -168,8 +168,8 @@ export default function FounderPage() {
               <p className="text-tangerine font-body mb-1">
                 {locale === "de" ? "Co-Gründer & Geschäftsführer" : "Co-Founder & Managing Director"}
               </p>
-              <p className="text-bone/40 font-body text-sm mb-5">bayundco GmbH</p>
-              <div className="text-bone/75 font-body text-base leading-relaxed space-y-4">
+              <p className="text-bone/55 font-body text-sm mb-5">bayundco GmbH</p>
+              <div className="text-bone/90 font-body text-base leading-relaxed space-y-4">
                 <p>
                   {locale === "de"
                     ? "Vincent Kerger ist Gastro-Unternehmer mit einem Master in Steuerrecht. Er bringt das analytische Fundament mit, auf dem Cocktail X gebaut ist: skalierbare Strukturen, digitale Infrastruktur und die strategische Vision, aus einer Pandemie-Idee Deutschlands größtes Cocktail-Festival zu machen."
@@ -180,7 +180,7 @@ export default function FounderPage() {
                     ? "Wo Ekkehard die Barkultur verkörpert, schafft Vincent die Voraussetzungen, damit sie wachsen kann. Gemeinsam haben sie Cocktail X von 32 Bars und 5 Tagen im Jahr 2023 auf 58 Bars und 18 Tage in 2026 geführt – mit über 5.000 erwarteten Gästen."
                     : "Where Ekkehard embodies bar culture, Vincent creates the conditions for it to grow. Together they have taken Cocktail X from 32 bars and 5 days in 2023 to 58 bars and 18 days in 2026 — with over 5,000 guests expected."}
                 </p>
-                <blockquote className="border-l-2 border-tangerine pl-4 text-bone/60 italic">
+                <blockquote className="border-l-2 border-tangerine pl-4 text-bone/80 italic">
                   {locale === "de"
                     ? "\u201eCocktails stehen f\u00fcr globale Einfl\u00fcsse und Verbindungen \u2013 sie vereinen Traditionen und moderne Techniken aus der ganzen Welt.\u201c"
                     : "\"Cocktails represent global influences and connections \u2014 uniting traditions and modern techniques from around the world.\""}
@@ -231,10 +231,10 @@ export default function FounderPage() {
               },
             ].map((item) => (
               <div key={item.year} className="flex gap-6 items-start">
-                <span className={`text-sm font-display flex-shrink-0 w-12 ${item.highlight ? "text-tangerine" : "text-bone/40"}`}>
+                <span className={`text-sm font-display flex-shrink-0 w-12 ${item.highlight ? "text-tangerine" : "text-bone/55"}`}>
                   {item.year}
                 </span>
-                <p className={`font-body text-sm leading-relaxed ${item.highlight ? "text-bone/90" : "text-bone/55"}`}>
+                <p className={`font-body text-sm leading-relaxed ${item.highlight ? "text-bone/90" : "text-bone/75"}`}>
                   {locale === "de" ? item.de : item.en}
                 </p>
               </div>

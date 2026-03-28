@@ -62,7 +62,7 @@ export default function SocialFeed() {
           duration={0.7}
         />
         <div ref={buttons.ref} style={buttons.style}>
-          <p className="mt-4 text-base md:text-lg font-body text-bone/60">
+          <p className="mt-4 text-base md:text-lg font-body text-bone/80">
             {t("subheadline")}
           </p>
         </div>
@@ -110,13 +110,13 @@ export default function SocialFeed() {
           </a>
 
           <div className="flex items-center gap-5">
-            <a href="https://www.tiktok.com/@cocktailxfestival" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@cocktailxfestival" target="_blank" rel="noopener noreferrer" className="text-bone/55 hover:text-tangerine transition-colors duration-300" aria-label="TikTok">
               <TikTokIcon className="w-5 h-5" />
             </a>
-            <a href="https://www.facebook.com/profile.php?id=100090270165472" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="Facebook">
+            <a href="https://www.facebook.com/profile.php?id=100090270165472" target="_blank" rel="noopener noreferrer" className="text-bone/55 hover:text-tangerine transition-colors duration-300" aria-label="Facebook">
               <FacebookIcon className="w-5 h-5" />
             </a>
-            <a href="https://www.linkedin.com/company/cocktailx" target="_blank" rel="noopener noreferrer" className="text-bone/40 hover:text-tangerine transition-colors duration-300" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/cocktailx" target="_blank" rel="noopener noreferrer" className="text-bone/55 hover:text-tangerine transition-colors duration-300" aria-label="LinkedIn">
               <LinkedInIcon className="w-5 h-5" />
             </a>
           </div>

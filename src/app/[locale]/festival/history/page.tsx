@@ -114,7 +114,7 @@ export default function HistoryPage() {
               className={`relative text-2xl md:text-3xl font-display transition-colors duration-200 pb-2 ${
                 activeYear === year
                   ? "text-tangerine"
-                  : "text-bone/50 hover:text-bone/70"
+                  : "text-bone/65 hover:text-bone/85"
               }`}
             >
               {year}
@@ -147,7 +147,7 @@ export default function HistoryPage() {
                   <p className="text-3xl md:text-4xl font-display text-tangerine">
                     {stat.value}
                   </p>
-                  <p className="text-sm font-body text-bone/60 mt-2">
+                  <p className="text-sm font-body text-bone/80 mt-2">
                     {stat.label[locale]}
                   </p>
                 </div>
@@ -155,7 +155,7 @@ export default function HistoryPage() {
             </div>
 
             {/* Highlights Text */}
-            <p className="text-base md:text-lg font-body text-bone/70 leading-relaxed text-center max-w-3xl mx-auto mb-12">
+            <p className="text-base md:text-lg font-body text-bone/85 leading-relaxed text-center max-w-3xl mx-auto mb-12">
               {data.highlights[locale]}
             </p>
 

@@ -54,7 +54,7 @@ function CategoryCard({ cat, index, locale }: { cat: typeof categories[0]; index
       <h3 className="text-2xl font-display text-bone mt-4 mb-3">
         {cat.title[locale]}
       </h3>
-      <p className="text-bone/60 font-body">
+      <p className="text-bone/80 font-body">
         {cat.description[locale]}
       </p>
     </div>
@@ -90,7 +90,7 @@ export default function AwardsPage() {
           <p
             ref={revealSubtitle.ref}
             style={revealSubtitle.style}
-            className="text-lg md:text-xl font-body text-bone/70 mt-6 max-w-2xl mx-auto"
+            className="text-lg md:text-xl font-body text-bone/85 mt-6 max-w-2xl mx-auto"
           >
             {locale === "de"
               ? "Die prestigeträchtigsten Auszeichnungen der Münchner Cocktail-Szene."
@@ -127,7 +127,7 @@ export default function AwardsPage() {
           <h2 className="text-3xl md:text-4xl font-display text-bone mb-6">
             {locale === "de" ? "JETZT ABSTIMMEN" : "VOTE NOW"}
           </h2>
-          <p className="text-bone/60 font-body max-w-xl mx-auto mb-8">
+          <p className="text-bone/80 font-body max-w-xl mx-auto mb-8">
             {locale === "de"
               ? "Stimme für deine Lieblingsbars und Cocktails ab und hilf uns, die besten der Besten zu küren."
               : "Vote for your favorite bars and cocktails and help us crown the best of the best."}

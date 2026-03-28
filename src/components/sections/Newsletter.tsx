@@ -77,7 +77,7 @@ export default function Newsletter() {
         <p
           ref={trust.ref}
           style={trust.style}
-          className="text-xs font-body text-bone/40 mt-4"
+          className="text-xs font-body text-bone/55 mt-4"
         >
           {t("trust")}
         </p>

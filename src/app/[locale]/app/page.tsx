@@ -86,7 +86,7 @@ export default function AppPage() {
               duration={0.7}
             />
             <div ref={heroText.ref} style={heroText.style}>
-              <p className="text-base md:text-lg font-body text-bone/60 mb-8 max-w-lg">
+              <p className="text-base md:text-lg font-body text-bone/80 mb-8 max-w-lg">
                 {locale === "de"
                   ? "Mit der Cocktail X App hast du alle teilnehmenden Bars, Signature Cocktails und deinen digitalen Stempelpass immer dabei."
                   : "The Cocktail X App gives you all participating bars, signature cocktails, and your digital stamp passport in one place."}
@@ -95,7 +95,7 @@ export default function AppPage() {
               {/* Feature pills */}
               <div className="flex flex-wrap gap-3 mb-8">
                 {features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs font-body text-bone/70 bg-bone/[0.04] border border-bone/[0.08] rounded-full px-3.5 py-2">
+                  <div key={i} className="flex items-center gap-2 text-xs font-body text-bone/85 bg-bone/[0.04] border border-bone/[0.08] rounded-full px-3.5 py-2">
                     <span className="text-tangerine">{f.icon}</span>
                     {f.title[locale]}
                   </div>
@@ -266,7 +266,7 @@ export default function AppPage() {
           <h2 className="text-3xl md:text-5xl font-display text-bone text-center mb-4">
             {locale === "de" ? "SO FUNKTIONIERT'S" : "HOW IT WORKS"}
           </h2>
-          <p className="text-center text-bone/50 font-body text-sm md:text-base mb-14">
+          <p className="text-center text-bone/65 font-body text-sm md:text-base mb-14">
             {locale === "de"
               ? "In 4 einfachen Schritten zum Festival-Erlebnis"
               : "4 simple steps to your festival experience"}
@@ -277,7 +277,7 @@ export default function AppPage() {
               <div key={i} className="relative text-center bg-licorice/60 border border-bone/10 rounded-2xl p-5 md:p-6">
                 <span className="text-4xl md:text-5xl font-display text-tangerine block mb-3">{step.num}</span>
                 <h3 className="text-sm md:text-base font-display text-bone mb-2">{step.title[locale]}</h3>
-                <p className="text-xs font-body text-bone/55 leading-relaxed">{step.desc[locale]}</p>
+                <p className="text-xs font-body text-bone/75 leading-relaxed">{step.desc[locale]}</p>
                 {/* Connector line */}
                 {i < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-5 -right-3 w-6 h-px bg-bone/10" />
@@ -294,7 +294,7 @@ export default function AppPage() {
           <h2 className="text-2xl md:text-3xl font-display text-bone mb-4">
             {locale === "de" ? "BEREIT FÜR DAS FESTIVAL?" : "READY FOR THE FESTIVAL?"}
           </h2>
-          <p className="text-sm font-body text-bone/50 mb-8">
+          <p className="text-sm font-body text-bone/65 mb-8">
             {locale === "de"
               ? "Hol dir jetzt dein Ticket und erlebe 18 Tage Cocktail-Kultur in Münchens besten Bars."
               : "Get your ticket now and experience 18 days of cocktail culture in München's best bars."}

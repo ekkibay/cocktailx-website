@@ -44,7 +44,7 @@ export default function Footer() {
                   href="https://cocktailx.app/sponsor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("becomeSponsor")}
                 </a>
@@ -54,7 +54,7 @@ export default function Footer() {
                   href="https://cocktailx.app/bar"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("becomeBar")}
                 </a>
@@ -64,7 +64,7 @@ export default function Footer() {
                   href="https://cocktailx.app/guest"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("becomeGuest")}
                 </a>
@@ -72,7 +72,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/connect/excelerator`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("becomeExcelerator")}
                 </Link>
@@ -89,7 +89,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/festival/bars`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {locale === "de" ? "Alle Bars" : "All Bars"}
                 </Link>
@@ -97,7 +97,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/festival/events`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("grandOpening")}
                 </Link>
@@ -105,7 +105,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/festival/events`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("closingAwards")}
                 </Link>
@@ -124,7 +124,7 @@ export default function Footer() {
                   href="https://my.cocktail-x.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("login")}
                 </a>
@@ -141,7 +141,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/about/catering`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("catering")}
                 </Link>
@@ -149,7 +149,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/about/founder`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("founder")}
                 </Link>
@@ -157,7 +157,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/about/contact`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("contact")}
                 </Link>
@@ -174,7 +174,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/legal/datenschutz`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("privacy")}
                 </Link>
@@ -182,7 +182,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/legal/cookies`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("cookies")}
                 </Link>
@@ -190,7 +190,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={`/${locale}/legal/impressum`}
-                  className="text-sm text-bone/60 hover:text-bone transition-colors"
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
                   {t("imprint")}
                 </Link>
@@ -202,9 +202,9 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 border-t border-bone/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <p className="text-sm text-bone/40">{t("copyright")}</p>
+            <p className="text-sm text-bone/55">{t("copyright")}</p>
             <span className="text-bone/20">·</span>
-            <p className="text-sm text-bone/40">{t("ageNotice")}</p>
+            <p className="text-sm text-bone/55">{t("ageNotice")}</p>
           </div>
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (
@@ -214,7 +214,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-sm text-bone/60 hover:text-tangerine transition-colors font-display"
+                className="text-sm text-bone/80 hover:text-tangerine transition-colors font-display"
               >
                 {social.abbr}
               </a>

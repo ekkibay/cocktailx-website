@@ -33,7 +33,7 @@ function BlogCard({ post, index, locale }: { post: typeof blogPosts[0]; index: n
           <h3 className="text-xl font-display text-bone mb-2">
             {post.title[locale]}
           </h3>
-          <p className="text-bone/50 font-body text-sm mb-3 line-clamp-2">
+          <p className="text-bone/65 font-body text-sm mb-3 line-clamp-2">
             {post.excerpt[locale]}
           </p>
           <p className="text-bone/30 font-body text-xs">{post.date}</p>
@@ -108,10 +108,10 @@ export default function BlogPage() {
                 <h2 className="text-2xl md:text-3xl font-display text-bone mb-4">
                   {featuredPost.title[locale]}
                 </h2>
-                <p className="text-bone/60 font-body mb-4">
+                <p className="text-bone/80 font-body mb-4">
                   {featuredPost.excerpt[locale]}
                 </p>
-                <p className="text-bone/40 font-body text-sm">
+                <p className="text-bone/55 font-body text-sm">
                   {featuredPost.date}
                 </p>
               </div>

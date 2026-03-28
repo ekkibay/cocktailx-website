@@ -232,7 +232,7 @@ export default function MapSection() {
         <p
           ref={subtitle.ref}
           style={subtitle.style}
-          className="text-sm md:text-base font-body text-bone/60 mb-12"
+          className="text-sm md:text-base font-body text-bone/80 mb-12"
         >
           {t("subtitle")}
         </p>

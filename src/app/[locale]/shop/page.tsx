@@ -162,7 +162,7 @@ function SavingsCalculator({
       <h3 className="text-xl md:text-2xl font-display text-bone mb-2">
         {locale === "de" ? "Dein Spar-Rechner" : "Your Savings Calculator"}
       </h3>
-      <p className="text-sm font-body text-bone/40 mb-6">
+      <p className="text-sm font-body text-bone/55 mb-6">
         {locale === "de"
           ? "Wähle ein Ticket oben aus oder passe hier manuell an."
           : "Select a ticket above or adjust manually here."}
@@ -170,7 +170,7 @@ function SavingsCalculator({
 
       {/* Ticket selector pills — only available tickets */}
       <div className="mb-6">
-        <p className="text-xs font-body text-bone/40 uppercase tracking-wider mb-2">
+        <p className="text-xs font-body text-bone/55 uppercase tracking-wider mb-2">
           {locale === "de" ? "Ticket" : "Ticket"}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -183,7 +183,7 @@ function SavingsCalculator({
               className={`text-xs font-body px-3 py-1.5 rounded-full border transition-colors ${
                 opt.key === selectedKey
                   ? "bg-tangerine text-licorice border-tangerine font-bold"
-                  : "border-bone/20 text-bone/50 hover:border-bone/40 hover:text-bone/70"
+                  : "border-bone/20 text-bone/65 hover:border-bone/40 hover:text-bone/85"
               }`}
             >
               {opt.label[locale]}
@@ -193,7 +193,7 @@ function SavingsCalculator({
       </div>
 
       {/* Cocktail slider */}
-      <label className="block text-sm font-body text-bone/60 mb-3">
+      <label className="block text-sm font-body text-bone/80 mb-3">
         {locale === "de" ? "Wie viele Cocktails planst du? — " : "How many cocktails are you planning? — "}
         <span className="text-bone font-bold">{count}</span>
       </label>
@@ -206,15 +206,15 @@ function SavingsCalculator({
       {/* Comparison rows */}
       <div className="space-y-3 mb-5">
         <div className="flex justify-between items-center text-sm font-body">
-          <span className="text-bone/50">
+          <span className="text-bone/65">
             {locale === "de" ? `Normale Bar (${count} × 15 €)` : `Normal bar (${count} × €15)`}
           </span>
-          <span className="text-bone/60 font-bold tabular-nums">
+          <span className="text-bone/80 font-bold tabular-nums">
             {locale === "de" ? `${barTotal} €` : `€${barTotal}`}
           </span>
         </div>
         <div className="flex justify-between items-center text-sm font-body">
-          <span className="text-bone/50">
+          <span className="text-bone/65">
             {locale === "de"
               ? `Festival (${ticketPrice.toFixed(2).replace(".", ",")} € + ${count} × 6 €)`
               : `Festival (€${ticketPrice.toFixed(2)} + ${count} × €6)`}
@@ -225,7 +225,7 @@ function SavingsCalculator({
         </div>
         <div className="h-px bg-bone/10" />
         <div className="flex justify-between items-center">
-          <span className="text-sm font-body text-bone/50">
+          <span className="text-sm font-body text-bone/65">
             {locale === "de" ? "Deine Ersparnis" : "Your savings"}
           </span>
           <span className={`text-xl font-display tabular-nums ${savings > 0 ? "text-emerald-400" : "text-hibiscus"}`}>
@@ -320,7 +320,7 @@ export default function ShopPage() {
           delay={80}
           duration={0.7}
         />
-        <p className="text-base font-body text-bone/50 text-center max-w-lg mb-10">
+        <p className="text-base font-body text-bone/65 text-center max-w-lg mb-10">
           {locale === "de"
             ? "Dein All-Access-Pass für 58 Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
             : "Your all-access pass for 58 bars, 18 days, countless cocktails – at the festival price of €6."}
@@ -358,12 +358,12 @@ export default function ShopPage() {
               <div className="grid md:grid-cols-[1fr,auto] gap-8">
                 <div>
                   <h2 className="text-2xl md:text-3xl font-display text-bone mb-1">COCKTAIL X PASSPORT</h2>
-                  <p className="text-sm font-body text-bone/40 mb-5">
+                  <p className="text-sm font-body text-bone/55 mb-5">
                     {locale === "de" ? "Vollzugang · Alle Tage · Alle Bars" : "Full access · All days · All bars"}
                   </p>
                   <ul className="space-y-2.5 mb-6">
                     {passportFeatures[locale].map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm font-body text-bone/70">
+                      <li key={i} className="flex items-start gap-2.5 text-sm font-body text-bone/85">
                         <Check />{f}
                       </li>
                     ))}
@@ -390,10 +390,10 @@ export default function ShopPage() {
                           <div className="flex items-center gap-2">
                             <span className={`w-1.5 h-1.5 rounded-full ${tier.active ? "bg-tangerine" : "bg-bone/20"}`} />
                             <span>{tier.label}</span>
-                            <span className={`text-xs ${tier.active ? "text-bone/50" : "text-bone/25"}`}>· {tier.until}</span>
+                            <span className={`text-xs ${tier.active ? "text-bone/65" : "text-bone/25"}`}>· {tier.until}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className={`text-xs ${tier.active ? "text-bone/40" : "text-bone/20"}`}>
+                            <span className={`text-xs ${tier.active ? "text-bone/55" : "text-bone/20"}`}>
                               {locale === "de"
                                 ? `ab ${(tier.price / SAVINGS_PER).toFixed(1)} Cocktails`
                                 : `from ${(tier.price / SAVINGS_PER).toFixed(1)} cocktails`}
@@ -417,7 +417,7 @@ export default function ShopPage() {
                   <span className="text-xs font-body text-emerald-400 font-bold mb-1">
                     {locale === "de" ? "Du sparst 29 €" : "You save €29"}
                   </span>
-                  <span className="text-[11px] font-body text-bone/40 mb-6">
+                  <span className="text-[11px] font-body text-bone/55 mb-6">
                     {locale === "de" ? "pro Person" : "per person"}
                   </span>
                   <ShopifyBuyButton
@@ -438,7 +438,7 @@ export default function ShopPage() {
         {/* Trust bar */}
         <div ref={trustReveal.ref} style={trustReveal.style} className="flex flex-wrap justify-center gap-6 md:gap-10 mt-8">
           {trustPoints[locale].map((point, i) => (
-            <div key={i} className="flex items-center gap-2 text-xs font-body text-bone/40">
+            <div key={i} className="flex items-center gap-2 text-xs font-body text-bone/55">
               <svg className="w-3.5 h-3.5 text-tangerine/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -454,7 +454,7 @@ export default function ShopPage() {
           <h2 className="text-2xl md:text-3xl font-display text-bone text-center mb-2">
             {locale === "de" ? "WEITERE TICKETS" : "MORE TICKETS"}
           </h2>
-          <p className="text-sm font-body text-bone/40 text-center mb-3">
+          <p className="text-sm font-body text-bone/55 text-center mb-3">
             {locale === "de"
               ? "Weekday Pass, Gruppen-Tickets und mehr – für jeden das passende Angebot."
               : "Weekday Pass, group tickets and more – the right option for everyone."}
@@ -487,7 +487,7 @@ export default function ShopPage() {
                   {/* Coming soon overlay */}
                   {!newTicketsAvailable && (
                     <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
-                      <span className="text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-bone/10 text-bone/50">
+                      <span className="text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-bone/10 text-bone/65">
                         {locale === "de" ? "Ab 1. April" : "From April 1"}
                       </span>
                     </div>
@@ -509,7 +509,7 @@ export default function ShopPage() {
 
                   <h3 className="text-xl font-display text-bone mb-1 mt-1">{ticket.name}</h3>
                   <p className={`text-xs font-body font-bold mb-4 ${c.text}`}>{ticket.tagline[locale]}</p>
-                  <p className="text-sm font-body text-bone/55 leading-relaxed mb-6 flex-1">
+                  <p className="text-sm font-body text-bone/75 leading-relaxed mb-6 flex-1">
                     {ticket.description[locale]}
                   </p>
 
@@ -531,13 +531,13 @@ export default function ShopPage() {
                         <div className="flex items-center gap-2">
                           <span className={`w-1.5 h-1.5 rounded-full ${tier.active ? c.dot : "bg-bone/20"}`} />
                           <span>{tier.label}</span>
-                          <span className={`text-xs ${tier.active ? "text-bone/40" : "text-bone/20"}`}>· {tier.until[locale]}</span>
+                          <span className={`text-xs ${tier.active ? "text-bone/55" : "text-bone/20"}`}>· {tier.until[locale]}</span>
                         </div>
                         <div className="text-right">
                           <span className={`font-bold tabular-nums ${tier.active && newTicketsAvailable ? c.text : ""}`}>
                             {tier.price} €
                           </span>
-                          <span className={`block text-[10px] ${tier.active ? "text-bone/40" : "text-bone/20"}`}>
+                          <span className={`block text-[10px] ${tier.active ? "text-bone/55" : "text-bone/20"}`}>
                             {tier.perPerson
                               ? locale === "de"
                                 ? `≙ ${tier.perPerson.toFixed(2).replace(".", ",")} €/Person`
@@ -577,7 +577,7 @@ export default function ShopPage() {
 
       {/* ── BOTTOM CTA ── */}
       <section className="section-padding text-center relative">
-        <p className="text-sm font-body text-bone/40 mb-4">
+        <p className="text-sm font-body text-bone/55 mb-4">
           {locale === "de" ? "Fragen zum Festival oder Ticket?" : "Questions about the festival or ticket?"}
         </p>
         <Link

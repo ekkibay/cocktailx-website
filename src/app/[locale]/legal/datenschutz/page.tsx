@@ -21,7 +21,7 @@ export default function DatenschutzPage() {
         {/* Header */}
         <p className="text-xs font-body font-bold text-tangerine uppercase tracking-[0.25em] mb-4">Legal</p>
         <h1 className="text-5xl md:text-7xl font-display text-bone mb-3">DATENSCHUTZ</h1>
-        <p className="font-body text-bone/40 text-sm mb-16">Stand: 27. Januar 2026</p>
+        <p className="font-body text-bone/55 text-sm mb-16">Stand: 27. Januar 2026</p>
 
         <div className="space-y-12 font-body text-bone/85 leading-relaxed">
 
@@ -201,7 +201,7 @@ export default function DatenschutzPage() {
               <a href="mailto:info@cocktail-x.com" className="text-tangerine hover:text-tangerine/80 transition-colors font-medium">
                 info@cocktail-x.com
               </a>
-              <p className="text-bone/50 text-sm mt-3">
+              <p className="text-bone/65 text-sm mt-3">
                 Sie können Ihre Rechte auch über das{" "}
                 <a href="https://privacy.shopify.com/en" target="_blank" rel="noopener noreferrer" className="text-tangerine/80 hover:text-tangerine transition-colors underline underline-offset-4">
                   Shopify Privacy Portal
@@ -209,7 +209,7 @@ export default function DatenschutzPage() {
                 ausüben, soweit Shopify Daten als Verarbeiter hält.
               </p>
             </div>
-            <p className="mt-4 text-bone/50 text-sm">
+            <p className="mt-4 text-bone/65 text-sm">
               Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.
               Die zuständige Behörde in Bayern ist das{" "}
               <a href="https://www.lda.bayern.de" target="_blank" rel="noopener noreferrer" className="text-tangerine/80 hover:text-tangerine transition-colors underline underline-offset-4">
@@ -291,7 +291,7 @@ export default function DatenschutzPage() {
 
         {/* Back link */}
         <div className="mt-16 pt-8 border-t border-bone/10">
-          <Link href="." className="text-sm font-body text-bone/40 hover:text-bone/70 transition-colors">
+          <Link href="." className="text-sm font-body text-bone/55 hover:text-bone/85 transition-colors">
             ← {("Zurück")}
           </Link>
         </div>

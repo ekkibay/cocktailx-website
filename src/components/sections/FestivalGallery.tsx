@@ -39,7 +39,7 @@ export default function FestivalGallery() {
             duration={0.7}
           />
           <div ref={cta.ref} style={cta.style}>
-            <p className="mt-4 text-base md:text-lg font-body text-bone/60 max-w-2xl mx-auto">
+            <p className="mt-4 text-base md:text-lg font-body text-bone/80 max-w-2xl mx-auto">
               {t("subheadline")}
             </p>
           </div>

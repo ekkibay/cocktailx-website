@@ -63,7 +63,7 @@ export default function ContactPage() {
             className="space-y-6"
           >
             <div>
-              <label className="block text-bone/60 font-body text-sm mb-2">
+              <label className="block text-bone/80 font-body text-sm mb-2">
                 {locale === "de" ? "Name" : "Name"}
               </label>
               <input
@@ -78,7 +78,7 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="block text-bone/60 font-body text-sm mb-2">
+              <label className="block text-bone/80 font-body text-sm mb-2">
                 E-Mail
               </label>
               <input
@@ -93,7 +93,7 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="block text-bone/60 font-body text-sm mb-2">
+              <label className="block text-bone/80 font-body text-sm mb-2">
                 {locale === "de" ? "Betreff" : "Subject"}
               </label>
               <input
@@ -108,7 +108,7 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="block text-bone/60 font-body text-sm mb-2">
+              <label className="block text-bone/80 font-body text-sm mb-2">
                 {locale === "de" ? "Nachricht" : "Message"}
               </label>
               <textarea
@@ -138,7 +138,7 @@ export default function ContactPage() {
               <h3 className="text-xl font-display text-bone mb-3">
                 {locale === "de" ? "ADRESSE" : "ADDRESS"}
               </h3>
-              <p className="text-bone/60 font-body leading-relaxed">
+              <p className="text-bone/80 font-body leading-relaxed">
                 bayundco GmbH
                 <br />
                 Türkenstr. 61 RGB
@@ -168,7 +168,7 @@ export default function ContactPage() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-bone/60 font-body hover:text-tangerine transition-colors"
+                    className="text-bone/80 font-body hover:text-tangerine transition-colors"
                   >
                     {link.name}
                   </a>

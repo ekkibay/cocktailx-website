@@ -170,7 +170,7 @@ export default function Hero() {
           {t("cta")}
         </a>
         <p
-          className="hero-fade-fast mt-4 text-xs font-body text-bone/40 tracking-wide"
+          className="hero-fade-fast mt-4 text-xs font-body text-bone/55 tracking-wide"
           style={{ opacity: 0, animationDelay: "1000ms" }}
         >
           {t("guestCount")}
@@ -184,7 +184,7 @@ export default function Hero() {
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         style={{ opacity: contentOpacity }}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-bone/50">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-bone/65">
           <path d="M12 5v14M5 12l7 7 7-7" />
         </svg>
       </motion.div>

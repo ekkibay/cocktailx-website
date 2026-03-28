@@ -67,7 +67,7 @@ export default function SponsorenPage() {
 
         {/* Partners */}
         <div ref={revealPartnersSection.ref} style={revealPartnersSection.style}>
-          <h2 className="text-2xl md:text-3xl font-display text-bone/70 text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-display text-bone/85 text-center mb-10">
             PARTNERS
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

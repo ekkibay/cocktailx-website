@@ -22,7 +22,7 @@ export default function LanguageSwitcher() {
         className={
           locale === "de"
             ? "text-tangerine"
-            : "text-bone/50 hover:text-bone transition-colors"
+            : "text-bone/65 hover:text-bone transition-colors"
         }
       >
         DE
@@ -33,7 +33,7 @@ export default function LanguageSwitcher() {
         className={
           locale === "en"
             ? "text-tangerine"
-            : "text-bone/50 hover:text-bone transition-colors"
+            : "text-bone/65 hover:text-bone transition-colors"
         }
       >
         EN
