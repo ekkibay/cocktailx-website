@@ -21,6 +21,7 @@ const config: Config = {
         "ct-green": "#00674F",
         "ct-navy": "#004369",
         "ct-wine": "#7F1734",
+        "ct-red": "#E63946",
       },
       fontFamily: {
         display: ["RousseauDeco", "system-ui", "sans-serif"],

@@ -13,7 +13,7 @@ export default function CateringFooter() {
   const locale = useLocale();
 
   return (
-    <footer className="bg-black border-t border-ct-green/15 pb-20 md:pb-0">
+    <footer className="bg-licorice border-t border-white/[0.06] pb-20 md:pb-0">
       <div className="mx-auto max-w-7xl px-4 py-12 md:px-8 lg:px-16">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {/* Brand */}
@@ -25,24 +25,28 @@ export default function CateringFooter() {
               height={36}
               className="h-7 w-auto object-contain mb-4 opacity-85"
             />
-            <p className="text-xs font-body text-ct-cream/55 leading-relaxed">
+            <p className="text-xs font-body text-ct-cream/55 leading-relaxed mb-4">
               {locale === "de"
-                ? "Premium Cocktail Catering für Events jeder Größe."
-                : "Premium cocktail catering for events of any size."}
+                ? "Premium Cocktail Catering für Corporate Events & Messen in München."
+                : "Premium cocktail catering for corporate events & trade fairs in Munich."}
+            </p>
+            <p className="text-xs font-body text-ct-cream/40 leading-relaxed">
+              München · 015255709985
+              <br />
+              info@cocktail-x.com
             </p>
           </div>
 
           {/* Leistungen */}
           <div>
-            <h4 className="font-display text-sm text-ct-green mb-4 uppercase tracking-wider">
+            <h4 className="font-display text-sm text-ct-cream/50 mb-4 uppercase tracking-wider">
               {locale === "de" ? "Leistungen" : "Services"}
             </h4>
             <ul className="space-y-2">
               {[
-                { de: "Event Bar", en: "Event Bar", href: "/catering/leistungen#event-bar" },
-                { de: "Signature Cocktails", en: "Signature Cocktails", href: "/catering/leistungen#cocktails" },
-                { de: "Corporate Events", en: "Corporate Events", href: "/catering/leistungen#corporate" },
-                { de: "Private Feiern", en: "Private Events", href: "/catering/leistungen#private" },
+                { de: "Messe-Catering", en: "Trade Fair Catering", href: "/catering#messe" },
+                { de: "Corporate Events", en: "Corporate Events", href: "/catering#corporate" },
+                { de: "Kontakt", en: "Contact", href: "/catering/kontakt" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={`/${locale}${item.href}`} className="text-sm text-ct-cream/65 hover:text-ct-cream transition-colors font-body">
@@ -55,16 +59,16 @@ export default function CateringFooter() {
 
           {/* Company */}
           <div>
-            <h4 className="font-display text-sm text-ct-green mb-4 uppercase tracking-wider">
+            <h4 className="font-display text-sm text-ct-cream/50 mb-4 uppercase tracking-wider">
               {locale === "de" ? "Unternehmen" : "Company"}
             </h4>
             <ul className="space-y-2">
               {[
                 { de: "Über uns", en: "About us", href: "/catering/ueber-uns" },
-                { de: "Kontakt", en: "Contact", href: "/catering/kontakt" },
+                { de: "Jobs", en: "Jobs", href: "/catering/kontakt" },
                 { de: "Festival", en: "Festival", href: "/" },
               ].map((item) => (
-                <li key={item.href}>
+                <li key={item.de}>
                   <Link href={`/${locale}${item.href}`} className="text-sm text-ct-cream/65 hover:text-ct-cream transition-colors font-body">
                     {locale === "de" ? item.de : item.en}
                   </Link>
@@ -75,13 +79,14 @@ export default function CateringFooter() {
 
           {/* Legal */}
           <div>
-            <h4 className="font-display text-sm text-ct-green mb-4 uppercase tracking-wider">
-              {locale === "de" ? "Legal" : "Legal"}
+            <h4 className="font-display text-sm text-ct-cream/50 mb-4 uppercase tracking-wider">
+              Legal
             </h4>
             <ul className="space-y-2">
               {[
-                { de: "Impressum", en: "Imprint", href: "/catering/legal/impressum" },
                 { de: "Datenschutz", en: "Privacy", href: "/catering/legal/datenschutz" },
+                { de: "AGBs", en: "Terms", href: "/catering/legal/agb" },
+                { de: "Impressum", en: "Imprint", href: "/catering/legal/impressum" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={`/${locale}${item.href}`} className="text-sm text-ct-cream/65 hover:text-ct-cream transition-colors font-body">
@@ -94,7 +99,7 @@ export default function CateringFooter() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 border-t border-ct-green/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 border-t border-white/[0.06] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <p className="text-xs text-ct-cream/40 font-body">
               © {new Date().getFullYear()} Cocktail X Catering · Bay und Co. GmbH
@@ -112,7 +117,7 @@ export default function CateringFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-sm text-ct-cream/65 hover:text-ct-green transition-colors font-display"
+                className="text-sm text-ct-cream/65 hover:text-ct-cream transition-colors font-display"
               >
                 {social.abbr}
               </a>

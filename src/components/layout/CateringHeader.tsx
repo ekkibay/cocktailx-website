@@ -34,15 +34,15 @@ export default function CateringHeader() {
       >
         {/* Brand switcher strip */}
         <div className="border-b border-ct-green/15 bg-black/40 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-4 md:px-8 flex items-center gap-1 py-1.5 justify-end">
+          <div className="mx-auto max-w-7xl px-4 md:px-8 flex items-center gap-1.5 py-1.5 justify-start">
             <Link
               href={`/${locale}`}
-              className="text-[10px] font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full text-ct-cream/50 hover:text-ct-cream/80 transition-colors"
+              className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full text-ct-cream/50 hover:text-ct-cream/80 transition-colors"
             >
               cocktail ✦ festival
             </Link>
-            <span className="text-ct-cream/20 text-xs">·</span>
-            <span className="text-[10px] font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-ct-green/20 text-ct-cream border border-ct-green/40">
+            <span className="text-ct-cream/20 text-sm">·</span>
+            <span className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-ct-green/20 text-ct-cream border border-ct-green/40">
               cocktail ✦ catering
             </span>
           </div>

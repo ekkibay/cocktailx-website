@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import LayoutShell from "@/components/layout/LayoutShell";
 import AntiFlicker from "@/components/layout/AntiFlicker";
+import MetaPixel from "@/components/MetaPixel";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
       </head>
       <body className="antialiased" style={{ backgroundColor: "#1A120B" }}>
         <NextIntlClientProvider messages={messages}>
+          <MetaPixel />
           <LayoutShell>{children}</LayoutShell>
         </NextIntlClientProvider>
       </body>

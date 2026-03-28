@@ -32,14 +32,14 @@ export default function Header() {
       >
         {/* Brand switcher strip */}
         <div className="border-b border-bone/[0.06] bg-licorice/30 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-4 md:px-8 flex items-center gap-1 py-1.5 justify-end">
-            <span className="text-[10px] font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-tangerine/15 text-bone border border-tangerine/30">
+          <div className="mx-auto max-w-7xl px-4 md:px-8 flex items-center gap-1.5 py-1.5 justify-start">
+            <span className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-tangerine/15 text-bone border border-tangerine/30">
               cocktail ✦ festival
             </span>
-            <span className="text-bone/20 text-xs">·</span>
+            <span className="text-bone/20 text-sm">·</span>
             <Link
               href={`/${locale}/catering`}
-              className="text-[10px] font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full text-bone/45 hover:text-bone/75 transition-colors"
+              className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full text-bone/45 hover:text-bone/75 transition-colors"
             >
               cocktail ✦ catering
             </Link>

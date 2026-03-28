@@ -1,12 +1,36 @@
 "use client";
 
 import { useLocale } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
+import { useReveal } from "@/hooks/useReveal";
+
+/* ────────────────────────── REVEAL HELPER ────────────────────────── */
+
+function RevealDiv({
+  children,
+  className,
+  delay = 0,
+  direction = "up" as const,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  direction?: "up" | "down" | "left" | "right" | "none";
+}) {
+  const { ref, style } = useReveal<HTMLDivElement>({ delay, direction, distance: 30 });
+  return (
+    <div ref={ref} style={style} className={className}>
+      {children}
+    </div>
+  );
+}
+
+/* ────────────────────────── DATA ────────────────────────── */
 
 const services = [
   {
     id: "event-bar",
-    icon: "◈",
     de: {
       title: "Event Bar",
       subtitle: "Mobile Premium-Bar für jeden Anlass",
@@ -22,7 +46,6 @@ const services = [
   },
   {
     id: "cocktails",
-    icon: "◇",
     de: {
       title: "Signature Cocktails",
       subtitle: "Maßgeschneiderte Cocktailkarten",
@@ -38,12 +61,11 @@ const services = [
   },
   {
     id: "corporate",
-    icon: "◉",
     de: {
       title: "Corporate Events",
       subtitle: "Für Unternehmen, die Eindruck hinterlassen",
       text: "Produktlaunches, Jahresabschluss-Feiern, Konferenzen, Incentives. Wir verstehen, dass Corporate Events repräsentative Wirkung haben. Unser Service ist diskret, professionell und auf euer Branding abgestimmt.",
-      features: ["Branded Bar-Konzepte", "Discrete & professionell", "Vollservice", "Nach-Event Reporting"],
+      features: ["Branded Bar-Konzepte", "Diskret & professionell", "Vollservice", "Nach-Event Reporting"],
     },
     en: {
       title: "Corporate Events",
@@ -53,24 +75,22 @@ const services = [
     },
   },
   {
-    id: "private",
-    icon: "◐",
+    id: "messe",
     de: {
-      title: "Private Feiern",
-      subtitle: "Hochzeiten, Geburtstage, Jubiläen",
-      text: "Eure Feier ist einzigartig — das sollte auch die Bar sein. Wir kümmern uns um alles, damit ihr und eure Gäste den Abend genießen können. Persönliche Beratung, individuelle Konzepte.",
-      features: ["Persönliche Beratung", "Individuelle Konzepte", "Flexible Pakete", "Erinnerungswürdiger Service"],
+      title: "Messe-Catering",
+      subtitle: "Euer Cocktail-Partner für Messestände & After-Work",
+      text: "Erfahrenes, mehrsprachiges Team mit Messe-Routine. Express-Besetzung oft unter 24 Stunden aus unserem München-Pool. Logistik-Sicherheit: Pässe, Anlieferung, technischer Rider. White-Label komplett in eurer CI.",
+      features: ["Nitro High-Volume (500+ Drinks/Std)", "Express-Besetzung < 24h", "White-Label in eurer CI", "Logistik & Anlieferung"],
     },
     en: {
-      title: "Private Celebrations",
-      subtitle: "Weddings, birthdays, anniversaries",
-      text: "Your celebration is unique — so should the bar be. We take care of everything so you and your guests can enjoy the evening. Personal consultation, individual concepts.",
-      features: ["Personal consultation", "Individual concepts", "Flexible packages", "Memorable service"],
+      title: "Trade Fair Catering",
+      subtitle: "Your cocktail partner for trade fair booths & after-work",
+      text: "Experienced, multilingual team with trade fair routine. Express staffing often under 24 hours from our Munich pool. Logistics security: passes, delivery, technical rider. White-label completely in your CI.",
+      features: ["Nitro High-Volume (500+ Drinks/hr)", "Express staffing < 24h", "White-label in your CI", "Logistics & delivery"],
     },
   },
   {
     id: "festival",
-    icon: "◫",
     de: {
       title: "Festival & Outdoor",
       subtitle: "Bars für Open-Air und Festival-Events",
@@ -86,7 +106,6 @@ const services = [
   },
   {
     id: "consulting",
-    icon: "◬",
     de: {
       title: "Bar Consulting",
       subtitle: "Beratung & Training für die Gastronomie",
@@ -102,74 +121,116 @@ const services = [
   },
 ];
 
+/* ────────────────────────── PAGE ────────────────────────── */
+
 export default function LeistungenPage() {
   const locale = useLocale() as "de" | "en";
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: "#000000" }}>
-      {/* BG */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "180px 180px", backgroundRepeat: "repeat" }} />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.10]" style={{ background: "radial-gradient(circle, #00674F 0%, transparent 70%)" }} />
-      </div>
+    <main className="min-h-screen bg-ct-cream">
+      {/* ── HERO ── */}
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/catering/ct-bartender-1.jpg"
+          alt={locale === "de" ? "Professioneller Bartender bei einem Premium Catering Event" : "Professional bartender at a premium catering event"}
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ct-cream to-transparent" />
 
-      <div className="relative max-w-6xl mx-auto px-4 pt-40 pb-24">
-        <p className="text-xs font-body font-bold uppercase tracking-[0.3em] text-ct-green mb-4 text-center">
-          {locale === "de" ? "Was wir bieten" : "What We Offer"}
-        </p>
-        <h1 className="font-display text-5xl md:text-7xl text-ct-cream text-center mb-16">
-          {locale === "de" ? "LEISTUNGEN" : "SERVICES"}
-        </h1>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <RevealDiv delay={100}>
+            <p className="text-xs font-body font-bold uppercase tracking-[0.3em] text-ct-red mb-6">
+              {locale === "de" ? "Was wir bieten" : "What We Offer"}
+            </p>
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-[0.95]">
+              {locale === "de" ? "Unsere Leistungen" : "Our Services"}
+            </h1>
+          </RevealDiv>
+          <RevealDiv delay={250}>
+            <p className="font-body text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed">
+              {locale === "de"
+                ? "Von der mobilen Bar bis zum Full-Service — alles aus einer Hand."
+                : "From mobile bars to full service — everything from one source."}
+            </p>
+          </RevealDiv>
+        </div>
+      </section>
 
-        <div className="space-y-8">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              id={service.id}
-              className="group grid md:grid-cols-[80px,1fr,280px] gap-6 md:gap-8 items-start p-6 md:p-8 rounded-2xl border border-ct-green/15 bg-ct-green/[0.03] hover:border-ct-green/30 transition-all duration-300"
+      {/* ── SERVICES GRID ── */}
+      <section className="py-20 md:py-28 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {services.map((service, i) => {
+              const s = locale === "de" ? service.de : service.en;
+              return (
+                <RevealDiv
+                  key={service.id}
+                  delay={i * 80}
+                  className="group p-8 rounded-2xl bg-white/60 border border-everglade/10 hover:shadow-xl transition-shadow duration-300"
+                >
+                  <p className="text-xs font-body font-bold uppercase tracking-wider text-ct-red mb-3">
+                    {s.subtitle}
+                  </p>
+                  <h2 className="font-display text-2xl md:text-3xl text-licorice mb-3">
+                    {s.title}
+                  </h2>
+                  <p className="font-body text-sm text-everglade/70 leading-relaxed mb-6">
+                    {s.text}
+                  </p>
+                  <ul className="space-y-2">
+                    {s.features.map((f, j) => (
+                      <li key={j} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-ct-red/60 flex-shrink-0" />
+                        <span className="font-body text-sm text-everglade/65">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </RevealDiv>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="py-20 md:py-28 px-4 bg-licorice">
+        <div className="max-w-3xl mx-auto text-center">
+          <RevealDiv>
+            <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-cream/50 mb-4">
+              {locale === "de" ? "Interesse geweckt?" : "Interested?"}
+            </p>
+            <h2 className="font-display text-4xl md:text-6xl text-ct-cream mb-4">
+              {locale === "de"
+                ? "Lasst uns euer Event planen"
+                : "Let's Plan Your Event"}
+            </h2>
+            <p className="font-body text-lg text-ct-cream/65 mb-10 max-w-xl mx-auto leading-relaxed">
+              {locale === "de"
+                ? "Schreibt uns — wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot."
+                : "Contact us — we'll respond within 24 hours with a non-binding quote."}
+            </p>
+          </RevealDiv>
+          <RevealDiv delay={150} className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href={`/${locale}/catering/kontakt`}
+              className="inline-block px-10 py-4 rounded-full bg-ct-red text-white font-body font-bold text-sm uppercase tracking-wider hover:bg-ct-red/85 transition-all duration-200 shadow-lg shadow-ct-red/25"
             >
-              <span className="font-display text-4xl text-ct-green">{service.icon}</span>
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl text-ct-cream mb-1">
-                  {locale === "de" ? service.de.title : service.en.title}
-                </h2>
-                <p className="font-body text-sm text-ct-green mb-4">
-                  {locale === "de" ? service.de.subtitle : service.en.subtitle}
-                </p>
-                <p className="font-body text-ct-cream/70 leading-relaxed">
-                  {locale === "de" ? service.de.text : service.en.text}
-                </p>
-              </div>
-              <ul className="space-y-2">
-                {(locale === "de" ? service.de.features : service.en.features).map((f, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <span className="text-ct-green text-xs flex-shrink-0">✦</span>
-                    <span className="font-body text-sm text-ct-cream/65">{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+              {locale === "de" ? "Anfrage stellen" : "Send Enquiry"}
+            </Link>
+            <a
+              href="https://calendly.com/cocktailx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-10 py-4 rounded-full border-2 border-ct-cream/25 text-ct-cream font-body font-bold text-sm uppercase tracking-wider hover:border-ct-cream/50 transition-all duration-200"
+            >
+              {locale === "de" ? "15-Min-Call buchen" : "Book 15-Min Call"}
+            </a>
+          </RevealDiv>
         </div>
-
-        {/* CTA */}
-        <div className="mt-16 text-center p-10 rounded-2xl border border-ct-green/20" style={{ background: "linear-gradient(135deg, #001a15 0%, #000000 100%)" }}>
-          <h2 className="font-display text-3xl md:text-4xl text-ct-cream mb-4">
-            {locale === "de" ? "INTERESSE GEWECKT?" : "INTERESTED?"}
-          </h2>
-          <p className="font-body text-ct-cream/65 mb-8 max-w-lg mx-auto">
-            {locale === "de"
-              ? "Schreibt uns — wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot."
-              : "Contact us — we'll respond within 24 hours with a non-binding quote."}
-          </p>
-          <Link
-            href={`/${locale}/catering/kontakt`}
-            className="inline-block px-10 py-4 rounded-full bg-ct-green text-ct-cream font-body font-bold text-sm uppercase tracking-wider hover:bg-ct-green/80 transition-all duration-200"
-          >
-            {locale === "de" ? "Anfrage stellen" : "Send Enquiry"}
-          </Link>
-        </div>
-      </div>
+      </section>
     </main>
   );
 }
