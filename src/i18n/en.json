@@ -9,9 +9,11 @@
   },
   "hero": {
     "title": "cocktail \u2726 festival",
+    "heroHeadline": "GERMANY\u2019S BIGGEST COCKTAIL FESTIVAL",
     "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
-    "subheadline": "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival.",
+    "subheadline": "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail \u2014 only for the festival.",
     "cta": "Get Your Ticket",
+    "shareCta": "Share with friends",
     "trustLine": "58 Bars \u00b7 Limited Tickets \u00b7 Exclusive Experiences",
     "guestCount": "5,000+ guests expected in 2026",
     "days": "Days",
@@ -26,7 +28,8 @@
     "days": "Days",
     "passport": "Ticket",
     "expectedGuests": "Guests expected",
-    "description": "18 days, 58 bars, 1 ticket: Each participating bar creates an exclusive signature cocktail — only for the festival, for just €6.",
+    "ticketPrice": "Ticket price",
+    "description": "Imagine: for 18 days, 58 of Munich\u2019s finest bars open their doors just for you. Each one creates a unique signature cocktail available only during the festival \u2013 for just \u20ac6 instead of \u20ac12\u201316. Whether it\u2019s after-work drinks with friends, a romantic date night, or a solo adventure through Munich\u2019s bar scene \u2013 one ticket lets you experience the city like never before.",
     "edition": "Now in its 4th edition",
     "visitors": "2,500 guests in 2025",
     "cta": "LEARN MORE",
@@ -229,6 +232,19 @@
   "social": {
     "subheadline": "Follow us for behind-the-scenes & festival updates",
     "followButton": "FOLLOW ON INSTAGRAM"
+  },
+  "statsBar": {
+    "bars": "Bars",
+    "days": "Days",
+    "ticket": "Ticket",
+    "price": "from",
+    "savings": "Savings"
+  },
+  "founders": {
+    "badge": "ORGANIZERS",
+    "headline": "The minds behind Cocktail X",
+    "description": "Ekkehard Bay and Vincent Kerger founded Cocktail X during the pandemic \u2014 inspired by London Cocktail Week. Now in its 4th edition, with 58 bars and 5,000+ expected guests.",
+    "cta": "MORE ABOUT US"
   },
   "footer": {
     "connect": "Connect",

@@ -84,13 +84,13 @@ export default function FestivalGallery() {
             </div>
           </div>
 
-          {/* Row 3: 2 wide */}
-          <div className="grid grid-cols-2 gap-3 md:gap-4">
-            <div className="aspect-[16/10] relative rounded-2xl overflow-hidden group bg-jambalaya">
-              <Image src={GALLERY_IMAGES[6].src} alt={GALLERY_IMAGES[6].alt} fill sizes="50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+          {/* Row 3: 2 wide — smaller */}
+          <div className="grid grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto">
+            <div className="aspect-[16/9] relative rounded-2xl overflow-hidden group bg-jambalaya">
+              <Image src={GALLERY_IMAGES[6].src} alt={GALLERY_IMAGES[6].alt} fill sizes="40vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
-            <div className="aspect-[16/10] relative rounded-2xl overflow-hidden group bg-jambalaya">
-              <Image src={GALLERY_IMAGES[7].src} alt={GALLERY_IMAGES[7].alt} fill sizes="50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="aspect-[16/9] relative rounded-2xl overflow-hidden group bg-jambalaya">
+              <Image src={GALLERY_IMAGES[7].src} alt={GALLERY_IMAGES[7].alt} fill sizes="40vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           </div>
         </div>

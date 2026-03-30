@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
 /* ------------------------------------------------
    Font Declarations — loaded directly via @font-face
    for maximum reliability (no dependency on JS/hydration)

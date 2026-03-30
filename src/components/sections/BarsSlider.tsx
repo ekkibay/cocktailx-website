@@ -1,45 +1,115 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useCallback } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { bars } from "@/data/bars";
 import BlurText from "@/components/ui/BlurText";
 
-function BarCard({ bar, locale, compact }: { bar: typeof bars[0]; locale: "de" | "en"; compact?: boolean }) {
+function BarCard({ bar, locale }: { bar: typeof bars[0]; locale: "de" | "en" }) {
   return (
     <div
-      className={`group flex-shrink-0 ${compact ? "w-[140px] sm:w-[180px]" : "md:w-[400px]"} aspect-[3/4] rounded-2xl overflow-hidden bg-jambalaya relative cursor-pointer border border-transparent transition-all duration-300 ease-out hover:border-bone/15 hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}
+      className="group flex-shrink-0 w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden bg-jambalaya relative cursor-pointer border border-transparent transition-all duration-300 ease-out hover:border-bone/15 hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
     >
       <Image
         src={bar.image}
         alt={bar.name}
         fill
-        sizes="(max-width: 640px) 40vw, 250px"
+        sizes="300px"
         loading="lazy"
-        className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-30"
+        className="object-cover transition-transform duration-500 group-hover:scale-110"
       />
-      {/* Coming Soon overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/60 to-licorice/40" />
-      <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "180px 180px", backgroundRepeat: "repeat", opacity: 0.07 }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-        <span className="text-tangerine font-body font-bold uppercase tracking-[0.25em] text-[10px]">★</span>
-        <span className={`font-display text-bone tracking-widest ${compact ? "text-sm" : "text-xl md:text-2xl"}`}>COMING SOON</span>
+      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/20" />
+
+      {bar.logo ? (
+        <div className="absolute inset-0 flex items-center justify-center z-[2] p-6">
+          <div className="bg-bone/90 backdrop-blur-sm rounded-xl px-5 py-4 shadow-lg">
+            <img
+              src={bar.logo}
+              alt={`${bar.name} Logo`}
+              className="h-[65px] max-w-[150px] object-contain"
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-[2]">
+          <span className="font-display text-bone tracking-widest text-xl md:text-2xl">{bar.name}</span>
+        </div>
+      )}
+
+      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-transparent to-transparent z-[3]" />
+      <div className="absolute bottom-0 left-0 right-0 z-[4] p-4 md:p-5">
+        <h3 className="text-sm md:text-base font-display text-bone">{bar.name}</h3>
+        <p className="text-xs font-body text-bone/50 mt-0.5">{bar.district}</p>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-transparent to-transparent" />
-      <div className={`absolute bottom-0 left-0 right-0 ${compact ? "px-4 pb-6 pt-3" : "md:p-6"} translate-y-4 group-hover:translate-y-0 transition-transform duration-300`}>
-        <h3 className={`${compact ? "text-xs" : "md:text-2xl"} font-display text-bone`}>{bar.name}</h3>
-        <p className={`${compact ? "text-[9px]" : "md:text-sm"} font-body text-tangerine mt-0.5`}>
-          {bar.signatureCocktail}
-        </p>
-        {!compact && (
-          <p className="text-sm font-body text-bone/80 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
-            {bar.description[locale]}
-          </p>
-        )}
+    </div>
+  );
+}
+
+function ScrollRow({ bars: rowBars, locale }: { bars: typeof bars; locale: "de" | "en" }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const didInit = useRef(false);
+
+  // Start in the middle for seamless looping in both directions
+  const initScroll = useCallback((el: HTMLDivElement | null) => {
+    if (!el || didInit.current) return;
+    scrollRef.current = el;
+    didInit.current = true;
+    // Scroll to the start of the second copy (middle)
+    requestAnimationFrame(() => {
+      const cardWidth = 300 + 16; // card width + gap
+      el.scrollLeft = cardWidth * rowBars.length;
+    });
+  }, [rowBars.length]);
+
+  const scroll = useCallback((direction: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const amount = 320;
+    scrollRef.current.scrollBy({
+      left: direction === "right" ? amount : -amount,
+      behavior: "smooth",
+    });
+  }, []);
+
+  return (
+    <div className="relative group/row">
+      {/* Left arrow */}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-licorice/80 backdrop-blur-sm border border-bone/15 flex items-center justify-center text-bone/70 hover:text-bone hover:bg-licorice transition-all opacity-0 group-hover/row:opacity-100"
+        aria-label="Scroll left"
+      >
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      {/* Scrollable row */}
+      <div
+        ref={initScroll}
+        className="flex gap-3 md:gap-4 overflow-x-auto scrollbar-hide scroll-smooth px-4"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {[...rowBars, ...rowBars, ...rowBars].map((bar, i) => (
+          <BarCard key={`${bar.id}-${i}`} bar={bar} locale={locale} />
+        ))}
       </div>
+
+      {/* Right arrow */}
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-licorice/80 backdrop-blur-sm border border-bone/15 flex items-center justify-center text-bone/70 hover:text-bone hover:bg-licorice transition-all opacity-0 group-hover/row:opacity-100"
+        aria-label="Scroll right"
+      >
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-licorice to-transparent pointer-events-none z-[5]" />
+      <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-licorice to-transparent pointer-events-none z-[5]" />
     </div>
   );
 }
@@ -47,26 +117,13 @@ function BarCard({ bar, locale, compact }: { bar: typeof bars[0]; locale: "de" |
 export default function BarsSlider() {
   const locale = useLocale() as "de" | "en";
   const t = useTranslations("barsSlider");
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Desktop: single row parallax
-  const xDesktop = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-
-  // Mobile: two rows, opposite directions
-  const xRow1 = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
-  const xRow2 = useTransform(scrollYProgress, [0, 1], ["-30%", "10%"]);
 
   const row1 = bars.slice(0, Math.ceil(bars.length / 2));
   const row2 = bars.slice(Math.ceil(bars.length / 2));
 
   return (
-    <section ref={containerRef} className="section-padding overflow-hidden">
-      <div className="max-w-7xl mx-auto mb-8 md:mb-12">
+    <section className="pt-16 pb-8 md:pt-24 md:pb-12 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 mb-8 md:mb-12">
         <BlurText
           text={t("headline")}
           tag="h2"
@@ -76,34 +133,10 @@ export default function BarsSlider() {
         />
       </div>
 
-      {/* Mobile: two opposing rows */}
-      <div className="md:hidden flex flex-col gap-3">
-        <motion.div style={{ x: xRow1 }} className="flex gap-3 pl-4">
-          {[...row1, ...row1].map((bar, i) => (
-            <BarCard key={`${bar.id}-r1-${i}`} bar={bar} locale={locale} compact />
-          ))}
-        </motion.div>
-        <motion.div style={{ x: xRow2 }} className="flex gap-3 pl-4">
-          {[...row2, ...row2].map((bar, i) => (
-            <BarCard key={`${bar.id}-r2-${i}`} bar={bar} locale={locale} compact />
-          ))}
-        </motion.div>
+      <div className="flex flex-col gap-3 md:gap-4">
+        <ScrollRow bars={row1} locale={locale} />
+        <ScrollRow bars={row2} locale={locale} />
       </div>
-
-      {/* Desktop: single row parallax */}
-      <motion.div style={{ x: xDesktop }} className="hidden md:flex gap-6 pl-8 lg:pl-16">
-        {bars.map((bar) => (
-          <BarCard key={bar.id} bar={bar} locale={locale} />
-        ))}
-        <div className="flex-shrink-0 w-[400px] aspect-[3/4] rounded-2xl overflow-hidden relative border border-bone/10 bg-licorice/50 backdrop-blur-md flex flex-col items-center justify-center text-center p-8 transition-all duration-300 ease-out hover:border-bone/25 hover:bg-licorice/60">
-          <span className="text-8xl font-display text-tangerine">58</span>
-          <span className="text-xl font-display text-bone mt-2">{t("teaserTitle")}</span>
-          <p className="text-sm font-body text-bone/80 mt-4">{t("teaserText")}</p>
-          <Link href={`/${locale}/festival`} className="btn-primary mt-6 text-sm">
-            {t("teaserCta")}
-          </Link>
-        </div>
-      </motion.div>
 
       <div className="flex justify-center mt-12">
         <Link

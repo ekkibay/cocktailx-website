@@ -9,9 +9,11 @@
   },
   "hero": {
     "title": "cocktail \u2726 festival",
+    "heroHeadline": "DEUTSCHLANDS GR\u00d6SSTES COCKTAIL FESTIVAL",
     "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
-    "subheadline": "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival.",
+    "subheadline": "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail \u2013 nur f\u00fcr das Festival.",
     "cta": "Jetzt Ticket sichern",
+    "shareCta": "Freunden weiterleiten",
     "trustLine": "58 Bars \u00b7 Limitierte Tickets \u00b7 Exklusive Erlebnisse",
     "guestCount": "5.000+ G\u00e4ste erwartet in 2026",
     "days": "Tage",
@@ -26,7 +28,8 @@
     "days": "Tage",
     "passport": "Ticket",
     "expectedGuests": "Gäste erwartet",
-    "description": "18 Tage, 58 Bars, 1 Ticket: Jede teilnehmende Bar kreiert einen exklusiven Signature Cocktail – exklusiv für das Festival, für nur 6€.",
+    "ticketPrice": "Ticketpreis",
+    "description": "Stell dir vor: 18 Tage lang öffnen 58 der besten Bars Münchens ihre Türen für dich. Jede kreiert einen einzigartigen Signature Cocktail, den es nur während des Festivals gibt \u2013 für nur 6\u20ac statt 12\u201316\u20ac. Ob After-Work mit Freunden, romantische Date Night oder Solo-Entdeckungstour durch Münchens Barszene \u2013 mit einem einzigen Ticket erlebst du die Stadt so, wie du sie noch nie gesehen hast.",
     "edition": "Bereits die 4. Ausgabe",
     "visitors": "2.500 Gäste in 2025",
     "cta": "MEHR ERFAHREN",
@@ -229,6 +232,19 @@
   "social": {
     "subheadline": "Folge uns für Behind-the-Scenes & Festival-Updates",
     "followButton": "AUF INSTAGRAM FOLGEN"
+  },
+  "statsBar": {
+    "bars": "Bars",
+    "days": "Tage",
+    "ticket": "Ticket",
+    "price": "ab",
+    "savings": "Ersparnis"
+  },
+  "founders": {
+    "badge": "VERANSTALTER",
+    "headline": "Die K\u00f6pfe hinter Cocktail X",
+    "description": "Ekkehard Bay und Vincent Kerger haben Cocktail X w\u00e4hrend der Pandemie gegr\u00fcndet \u2013 inspiriert von der London Cocktail Week. Heute, in der 4. Ausgabe, mit 58 Bars und 5.000+ erwarteten G\u00e4sten.",
+    "cta": "MEHR \u00dcBER UNS"
   },
   "footer": {
     "connect": "Verbinde dich",

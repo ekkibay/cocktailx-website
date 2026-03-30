@@ -70,7 +70,7 @@ export default function BarsPage() {
                 transition={{ duration: 0.35 }}
                 className="group rounded-2xl bg-licorice border border-bone/10 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-tangerine/10"
               >
-                {/* Image */}
+                {/* Image + Logo */}
                 <div className="relative aspect-video overflow-hidden">
                   <Image
                     src={bar.image}
@@ -78,25 +78,24 @@ export default function BarsPage() {
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
-                    className="object-cover opacity-25"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  {/* Coming Soon overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-licorice/80 to-licorice/60" />
-                  <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "160px 160px", backgroundRepeat: "repeat", opacity: 0.08 }} />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
-                    <span className="text-tangerine text-xs">✦</span>
-                    <span className="font-display text-bone text-lg tracking-[0.3em]">COMING SOON</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-licorice/10" />
+                  {/* Logo */}
+                  {bar.logo && (
+                    <div className="absolute inset-0 flex items-center justify-center z-[2] p-6">
+                      <div className="bg-bone/90 backdrop-blur-sm rounded-xl px-5 py-4 shadow-lg">
+                        <img src={bar.logo} alt={`${bar.name} Logo`} className="h-[65px] max-w-[180px] object-contain" />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
                   <h3 className="text-xl font-display text-bone">{bar.name}</h3>
-                  <p className="text-sm font-body text-bone/65 mt-1">
-                    {bar.address}
-                  </p>
-                  <p className="text-sm font-body text-tangerine mt-2">
-                    {bar.signatureCocktail}
+                  <p className="text-xs font-body text-bone/50 mt-1">
+                    {bar.district}
                   </p>
                   <p className="text-sm font-body text-bone/80 mt-3">
                     {bar.description[locale]}

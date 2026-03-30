@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 
 interface AnimatedCounterProps {
   target: number;
+  prefix?: string;
   suffix?: string;
   label: string;
   duration?: number;
@@ -12,6 +13,7 @@ interface AnimatedCounterProps {
 
 export default function AnimatedCounter({
   target,
+  prefix = "",
   suffix = "",
   label,
   duration = 2,
@@ -52,8 +54,7 @@ export default function AnimatedCounter({
       className="flex flex-col items-center"
     >
       <span className="text-5xl md:text-6xl font-display text-tangerine">
-        {count}
-        {suffix}
+        {prefix}{count}{suffix}
       </span>
       <span className="text-sm font-body font-bold text-bone/80 mt-2 uppercase tracking-wider">{label}</span>
     </motion.div>
