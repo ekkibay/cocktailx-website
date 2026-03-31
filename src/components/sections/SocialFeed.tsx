@@ -1,11 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
+import { INSTAGRAM_POSTS } from "@/data/instagram-posts";
 
-const FEED_IMAGES = [
+const FALLBACK_IMAGES = [
   { src: "/images/festival-cocktails-duo.webp", alt: "Cocktail art" },
   { src: "/images/festival-friends.webp", alt: "Bar scene" },
   { src: "/images/L1030863_CocktailX_adriancamo.webp", alt: "Signature cocktails" },
@@ -46,10 +48,55 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
+/** Extracts the shortcode from an Instagram URL */
+function getShortcode(url: string): string {
+  const match = url.match(/instagram\.com\/(?:p|reel)\/([A-Za-z0-9_-]+)/);
+  return match?.[1] ?? "";
+}
+
+function InstaEmbed({ url }: { url: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Trigger Instagram embed processing after mount
+    const w = window as unknown as { instgrm?: { Embeds: { process: () => void } } };
+    w.instgrm?.Embeds?.process();
+  }, []);
+
+  const shortcode = getShortcode(url);
+
+  return (
+    <a
+      ref={ref}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative aspect-square overflow-hidden rounded-xl bg-jambalaya block"
+    >
+      {/* Use Instagram CDN thumbnail — public, no token needed */}
+      <img
+        src={`https://www.instagram.com/p/${shortcode}/media/?size=m`}
+        alt="Instagram post"
+        loading="lazy"
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        onError={(e) => {
+          // Hide broken image, fallback handled by parent
+          (e.target as HTMLImageElement).style.display = "none";
+        }}
+      />
+      <div className="absolute inset-0 bg-licorice/0 group-hover:bg-licorice/40 transition-colors duration-300 flex items-center justify-center">
+        <InstagramIcon className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+    </a>
+  );
+}
+
 export default function SocialFeed() {
   const t = useTranslations("social");
   const grid = useReveal({ delay: 200 });
   const buttons = useReveal({ delay: 300 });
+
+  const hasLivePosts = INSTAGRAM_POSTS.length > 0;
 
   return (
     <section className="section-padding">
@@ -67,34 +114,38 @@ export default function SocialFeed() {
           </p>
         </div>
 
-        {/* Image grid — klick öffnet Instagram */}
+        {/* Grid */}
         <div
           ref={grid.ref}
           style={grid.style}
-          className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 mt-12"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 mt-12"
         >
-          {FEED_IMAGES.map((image, index) => (
-            <a
-              key={image.src}
-              href="https://www.instagram.com/cocktailxfestival/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative aspect-square overflow-hidden rounded-xl bg-jambalaya"
-              style={{ animationDelay: `${index * 60}ms` }}
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(max-width: 640px) 33vw, 16vw"
-                loading="lazy"
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-licorice/0 group-hover:bg-licorice/40 transition-colors duration-300 flex items-center justify-center">
-                <InstagramIcon className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-            </a>
-          ))}
+          {hasLivePosts
+            ? INSTAGRAM_POSTS.slice(0, 6).map((url) => (
+                <InstaEmbed key={url} url={url} />
+              ))
+            : FALLBACK_IMAGES.map((image, index) => (
+                <a
+                  key={image.src}
+                  href="https://www.instagram.com/cocktailxfestival/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative aspect-square overflow-hidden rounded-xl bg-jambalaya"
+                  style={{ animationDelay: `${index * 60}ms` }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 16vw"
+                    loading="lazy"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-licorice/0 group-hover:bg-licorice/40 transition-colors duration-300 flex items-center justify-center">
+                    <InstagramIcon className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </a>
+              ))}
         </div>
 
         {/* CTA buttons */}
