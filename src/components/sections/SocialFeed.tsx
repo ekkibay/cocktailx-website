@@ -55,7 +55,7 @@ function getShortcode(url: string): string {
 }
 
 function InstaEmbed({ url }: { url: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     // Trigger Instagram embed processing after mount

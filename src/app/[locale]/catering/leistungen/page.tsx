@@ -257,7 +257,7 @@ export default function LeistungenPage() {
               const q = locale === "de" ? t.de : t.en;
               return (
                 <RevealDiv key={i} delay={i * 100} className="p-6 rounded-2xl bg-white/[0.04] border border-ct-cream/10">
-                  <p className="font-body text-sm text-ct-cream/75 italic leading-relaxed mb-4">"{q.quote}"</p>
+                  <p className="font-body text-sm text-ct-cream/75 italic leading-relaxed mb-4">&ldquo;{q.quote}&rdquo;</p>
                   <p className="font-body text-xs text-ct-red font-bold">{q.who}</p>
                 </RevealDiv>
               );

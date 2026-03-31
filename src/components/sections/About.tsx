@@ -7,7 +7,7 @@ import { Wine, Users, Heart, Compass } from "lucide-react";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
-import { TICKET_TIERS } from "@/data/ticket-tiers";
+
 
 const useCases = [
   { key: "cocktailLovers", Icon: Wine, image: "/images/festival-cocktails-duo.webp" },

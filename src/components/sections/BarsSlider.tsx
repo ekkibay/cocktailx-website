@@ -7,7 +7,7 @@ import Link from "next/link";
 import { bars } from "@/data/bars";
 import BlurText from "@/components/ui/BlurText";
 
-function BarCard({ bar, locale }: { bar: typeof bars[0]; locale: "de" | "en" }) {
+function BarCard({ bar }: { bar: typeof bars[0] }) {
   return (
     <div
       className="group flex-shrink-0 w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden bg-jambalaya relative cursor-pointer border border-transparent transition-all duration-300 ease-out hover:border-bone/15 hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
@@ -47,8 +47,8 @@ function BarCard({ bar, locale }: { bar: typeof bars[0]; locale: "de" | "en" }) 
   );
 }
 
-function ScrollRow({ bars: rowBars, locale }: { bars: typeof bars; locale: "de" | "en" }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+function ScrollRow({ bars: rowBars }: { bars: typeof bars }) {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const didInit = useRef(false);
 
   // Start in the middle for seamless looping in both directions
@@ -92,7 +92,7 @@ function ScrollRow({ bars: rowBars, locale }: { bars: typeof bars; locale: "de" 
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {[...rowBars, ...rowBars, ...rowBars].map((bar, i) => (
-          <BarCard key={`${bar.id}-${i}`} bar={bar} locale={locale} />
+          <BarCard key={`${bar.id}-${i}`} bar={bar} />
         ))}
       </div>
 
@@ -134,8 +134,8 @@ export default function BarsSlider() {
       </div>
 
       <div className="flex flex-col gap-3 md:gap-4">
-        <ScrollRow bars={row1} locale={locale} />
-        <ScrollRow bars={row2} locale={locale} />
+        <ScrollRow bars={row1} />
+        <ScrollRow bars={row2} />
       </div>
 
       <div className="flex justify-center mt-12">
