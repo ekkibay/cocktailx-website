@@ -5,7 +5,7 @@
  * Use `trackEvent()` from anywhere to fire standard or custom events.
  */
 
-export const META_PIXEL_ID = "1475856023819696";
+export const META_PIXEL_ID = "1991714461757981";
 
 /* ── Consent helpers ─────────────────────────────────────────────────── */
 

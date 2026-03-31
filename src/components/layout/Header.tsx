@@ -31,8 +31,8 @@ export default function Header() {
             : "bg-transparent"
         }`}
       >
-        {/* Brand switcher strip — Catering hidden until ready */}
-        {/* <div className="border-b border-bone/[0.06] bg-licorice/30 backdrop-blur-sm">
+        {/* Brand switcher strip */}
+        <div className="border-b border-bone/[0.06] bg-licorice/30 backdrop-blur-sm">
           <div className="mx-auto max-w-7xl px-4 md:px-8 flex items-center gap-1.5 py-1.5 justify-start">
             <span className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-tangerine/15 text-bone border border-tangerine/30">
               cocktail ✦ festival
@@ -45,7 +45,7 @@ export default function Header() {
               cocktail ✦ catering
             </Link>
           </div>
-        </div> */}
+        </div>
         <div className="mx-auto flex items-center justify-between px-4 py-4 md:px-8 lg:px-16">
           {/* Logo */}
           <Link

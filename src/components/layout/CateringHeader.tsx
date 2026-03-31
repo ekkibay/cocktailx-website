@@ -29,7 +29,7 @@ export default function CateringHeader() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled ? "bg-black/90 backdrop-blur-md border-b border-ct-green/20" : "bg-transparent"
+          scrolled ? "bg-black/90 backdrop-blur-md border-b border-ct-green/20" : "bg-black/70 backdrop-blur-sm"
         }`}
       >
         {/* Brand switcher strip */}
@@ -81,13 +81,13 @@ export default function CateringHeader() {
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href={`/${locale === "de" ? "en" : "de"}/catering`}
-              className="text-xs uppercase tracking-wider text-ct-cream/65 hover:text-ct-cream transition-colors font-body font-bold"
+              className="text-xs uppercase tracking-wider transition-colors font-body font-bold text-ct-cream/65 hover:text-ct-cream"
             >
               {locale === "de" ? "EN" : "DE"}
             </Link>
             <Link
               href={`/${locale}/catering/kontakt`}
-              className="text-xs uppercase tracking-wider px-5 py-2 rounded-full border border-ct-green text-ct-cream hover:bg-ct-green transition-all duration-200 font-body font-bold"
+              className="text-xs uppercase tracking-wider px-5 py-2 rounded-full bg-ct-green text-white hover:bg-ct-green/85 transition-all duration-200 font-body font-bold"
             >
               {locale === "de" ? "Anfrage" : "Enquire"}
             </Link>

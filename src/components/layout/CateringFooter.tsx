@@ -65,7 +65,6 @@ export default function CateringFooter() {
             <ul className="space-y-2">
               {[
                 { de: "Über uns", en: "About us", href: "/catering/ueber-uns" },
-                { de: "Jobs", en: "Jobs", href: "/catering/kontakt" },
                 { de: "Festival", en: "Festival", href: "/" },
               ].map((item) => (
                 <li key={item.de}>

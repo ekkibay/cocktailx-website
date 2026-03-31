@@ -3,172 +3,152 @@
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useReveal } from "@/hooks/useReveal";
 
-/* ────────────────────────── DATA ────────────────────────── */
+function RevealDiv({
+  children, className, delay = 0, direction = "up" as const,
+}: { children: React.ReactNode; className?: string; delay?: number; direction?: "up" | "down" | "left" | "right" | "none" }) {
+  const { ref, style } = useReveal<HTMLDivElement>({ delay, direction, distance: 30 });
+  return <div ref={ref} style={style} className={className}>{children}</div>;
+}
+
+function Check() {
+  return <svg className="w-4 h-4 text-ct-red flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>;
+}
+
+const references = [
+  "Tesla", "Lucid", "McKinsey & Company", "foodaffairs", "GHM",
+  "Siemens", "IAA Mobility", "INHORGENTA",
+];
 
 const usps = [
-  {
-    icon: "⚡",
-    de: { title: "Nitro-Technologie", text: "Bis 500 Cocktails pro Stunde — konstant hohe Qualität, auch bei Peaks." },
-    en: { title: "Nitro Technology", text: "Up to 500 cocktails per hour — consistently high quality, even at peak times." },
-  },
-  {
-    icon: "✓",
-    de: { title: "500+ Events", text: "Tesla, McKinsey, Siemens & Messe München vertrauen uns." },
-    en: { title: "500+ Events", text: "Tesla, McKinsey, Siemens & Messe München trust us." },
-  },
-  {
-    icon: "🎯",
-    de: { title: "Alles aus einer Hand", text: "Konzept, Logistik, Umsetzung — ihr lehnt euch zurück." },
-    en: { title: "All-in-One", text: "Concept, logistics, execution — you sit back and relax." },
-  },
-  {
-    icon: "⏱",
-    de: { title: "Angebot in 24h", text: "Schnelle, transparente Kalkulation — kein Warten." },
-    en: { title: "Quote in 24h", text: "Fast, transparent pricing — no waiting." },
-  },
+  { num: "500+", de: "Events durchgeführt", en: "Events delivered" },
+  { num: "3.000", de: "Gäste pro Event möglich", en: "Guests per event possible" },
+  { num: "48h", de: "Angebot nach Anfrage", en: "Quote after enquiry" },
+  { num: "200k+", de: "Cocktails serviert", en: "Cocktails served" },
 ];
 
-const cocktailConcepts = [
+const services = [
   {
-    de: { title: "Nitro High-Volume", capacity: "500+ Drinks/Std", text: "Große Besucherströme, Stand-Partys, Peaks — perfekt für hohes Gästeaufkommen." },
-    en: { title: "Nitro High-Volume", capacity: "500+ Drinks/hr", text: "Large visitor flows, booth parties, peaks — perfect for high guest volume." },
+    num: "01",
+    id: "masterclass",
+    image: "/images/catering/ct-drinks-hand.jpg",
+    imagePosition: "object-[center_60%]",
+    de: {
+      title: "Masterclass",
+      subtitle: "Das Team-Erlebnis, das niemand vergisst.",
+      text: "Kein Vortrag. Kein Lehrbuch. Einfach ein verdammt guter Nachmittag mit eurem Team – und am Ende kann jeder einen Drink mixen, der beeindruckt.",
+      meta: "2,5–3,5 Std. · 10–30 Personen",
+      features: ["3 Formate: Shake & Play, Flavour Battle, Around the World", "Professioneller Barkeeper / Moderator", "Alle Zutaten & Equipment inklusive", "Rezeptkarten zum Mitnehmen"],
+    },
+    en: {
+      title: "Masterclass",
+      subtitle: "The Team Experience No One Forgets.",
+      text: "No lectures. No textbooks. Just a damn good afternoon with your team – and by the end, everyone can mix a drink that impresses.",
+      meta: "2.5–3.5 hrs · 10–30 people",
+      features: ["3 formats: Shake & Play, Flavour Battle, Around the World", "Professional bartender / host", "All ingredients & equipment included", "Recipe cards to take home"],
+    },
   },
   {
-    de: { title: "Geshakte Cocktails", capacity: "120 Drinks/Std", text: "Premium-Stand, Produktpräsentation, Marken-Inszenierung — handcrafted quality." },
-    en: { title: "Shaken Cocktails", capacity: "120 Drinks/hr", text: "Premium booth, product presentation, brand staging — handcrafted quality." },
+    num: "02",
+    id: "team-experience",
+    image: "/images/catering/ct-bartender-pour.jpg",
+    imagePosition: "object-[center_30%]",
+    de: {
+      title: "Team Experience",
+      subtitle: "Shaken, nicht gerührt.",
+      text: "Gemeinsam mixen. Gemeinsam lachen. Gemeinsam anstoßen. Teams treten in einer kreativen Challenge gegeneinander an: Wer kreiert den besten Signature Drink?",
+      meta: "ca. 3 Std. · bis 20 Personen",
+      features: ["Cocktail-Klassiker gemeinsam mixen", "Kreative Team-Challenge mit Voting", "Siegerehrung & entspannter Ausklang"],
+    },
+    en: {
+      title: "Team Experience",
+      subtitle: "Shaken, Not Stirred.",
+      text: "Mix together. Laugh together. Raise a glass together. Teams compete in a creative challenge: Who can craft the best signature drink?",
+      meta: "approx. 3 hrs · up to 20 people",
+      features: ["Mix cocktail classics together", "Creative team challenge with voting", "Award ceremony & relaxed wrap-up"],
+    },
   },
   {
-    de: { title: "Molekular Live", capacity: "80 Drinks/Std", text: "VIP-Empfänge, Show-Element & Social-Media-Content — Wow-Faktor garantiert." },
-    en: { title: "Molecular Live", capacity: "80 Drinks/hr", text: "VIP receptions, show element & social media content — wow factor guaranteed." },
-  },
-];
-
-const messeRefs = [
-  { name: "INHORGENTA München", de: "48.000 Drinks · 3 Messetage", en: "48,000 Drinks · 3 Fair Days" },
-  { name: "ISPO München", de: "3.200 Drinks · After-Work Special", en: "3,200 Drinks · After-Work Special" },
-  { name: "Automotive Leitmesse", de: "5.000 Gäste · Full-Service", en: "5,000 Guests · Full-Service" },
-];
-
-const eventTypes = [
-  {
-    de: { title: "Produktlaunches", text: "Custom Cocktails passend zur Produktstory — vom Branding bis zum letzten Detail." },
-    en: { title: "Product Launches", text: "Custom cocktails matching your product story — from branding to every last detail." },
-  },
-  {
-    de: { title: "Firmenfeiern & Jubiläen", text: "Cocktails in euren Unternehmensfarben — ein unvergessliches Erlebnis für euer Team." },
-    en: { title: "Company Celebrations", text: "Cocktails in your corporate colours — an unforgettable experience for your team." },
-  },
-  {
-    de: { title: "Networking & VIP", text: "Signature Cocktails als Gesprächsstarter — für Empfänge, die beeindrucken." },
-    en: { title: "Networking & VIP", text: "Signature cocktails as conversation starters — for receptions that impress." },
-  },
-];
-
-const packages = [
-  {
-    name: "Essential",
-    price: "2.990",
-    guests: { de: "bis 100 Gäste", en: "up to 100 guests" },
-    highlights: { de: "3h · 2 Nitro + 1 Longdrink · 1 Bar · 2 Bartender", en: "3h · 2 Nitro + 1 Longdrink · 1 Bar · 2 Bartenders" },
-    featured: false,
+    num: "03",
+    id: "your-brand",
+    image: "/images/catering/ct-cocktail-red.jpg",
+    imagePosition: "object-[center_50%]",
+    de: {
+      title: "Cocktail X x Your Brand",
+      subtitle: "Euer Event. Unsere Bar. Ein gemeinsames Statement.",
+      text: "Wir bringen nicht einfach Drinks. Wir bringen eure Marke ins Glas – entwickeln Drinks, die eure Story erzählen, und schaffen ein Bar-Erlebnis in jedem Detail.",
+      meta: "3–5 Std. · 20–200 Personen",
+      features: ["3 Pakete: x Classic, x Premium, x Deluxe", "Signature Drinks in eurer Markenwelt", "Vollständiges Branding-Paket", "Ideal für Produktlaunches & VIP-Events"],
+    },
+    en: {
+      title: "Cocktail X x Your Brand",
+      subtitle: "Your Event. Our Bar. One Shared Statement.",
+      text: "We don't just bring drinks. We bring your brand to the glass – develop drinks that tell your story and create a bar experience in every detail.",
+      meta: "3–5 hrs · 20–200 people",
+      features: ["3 packages: x Classic, x Premium, x Deluxe", "Signature drinks in your brand world", "Full branding package", "Ideal for product launches & VIP events"],
+    },
   },
   {
-    name: "Business",
-    price: "5.900",
-    guests: { de: "bis 200 Gäste", en: "up to 200 guests" },
-    highlights: { de: "4–5h · 3 Nitro + Signature · 2 Bars · 4 Personal", en: "4–5h · 3 Nitro + Signature · 2 Bars · 4 Staff" },
-    featured: true,
+    num: "04",
+    id: "festival",
+    image: "/images/catering/ct-molecular.jpg",
+    imagePosition: "object-center",
+    de: {
+      title: "Pop-Up Eventreihe",
+      subtitle: "Drinks. Beats. Atmosphäre.",
+      text: "Kein fester Ort. Kein festes Datum. Aber immer ein Abend, für den sich jede Warteliste lohnt – zusammen mit Partnern aus Food, Musik und Lifestyle.",
+      meta: "4–5 Std. · 80–300 Personen",
+      features: ["Wechselnde Locations & Themen", "Multi-Station Drink-Setup", "Food-, Musik- & Lifestyle-Partner", "Limitierte Tickets & Community"],
+    },
+    en: {
+      title: "Pop-Up Event Series",
+      subtitle: "Drinks. Beats. Atmosphere.",
+      text: "No fixed location. No fixed date. But always a night worth every spot on the waitlist – together with partners from food, music and lifestyle.",
+      meta: "4–5 hrs · 80–300 people",
+      features: ["Changing locations & themes", "Multi-station drink setup", "Food, music & lifestyle partners", "Limited tickets & community"],
+    },
   },
   {
-    name: "Premium",
-    price: "9.900",
-    guests: { de: "bis 300 Gäste", en: "up to 300 guests" },
-    highlights: { de: "5–6h · Show-Setup · 3 Bars · Event Manager", en: "5–6h · Show Setup · 3 Bars · Event Manager" },
-    featured: false,
-  },
-  {
-    name: "Messe & Großevent",
-    price: "14.900",
-    guests: { de: "500+ Gäste", en: "500+ guests" },
-    highlights: { de: "6–8h · 4–10 Bars · volle Logistik · Event Manager", en: "6–8h · 4–10 Bars · Full Logistics · Event Manager" },
-    featured: false,
+    num: "05",
+    id: "event-catering",
+    image: "/images/catering/ct-bartender-glasses.jpg",
+    imagePosition: "object-[center_40%]",
+    de: {
+      title: "Event Catering",
+      subtitle: "Für Anlässe, die nach mehr schmecken.",
+      text: "Corporate Events. Messen. Productlaunches. Von 20 bis 3.000 Gäste – wir liefern nicht nur Drinks, wir liefern den richtigen Vibe.",
+      meta: "2–8+ Std. · 20–3.000 Personen",
+      features: ["Corporate Events & Firmenfeiern", "Messe-Service & Standpartys", "Productlaunches & Store Caterings", "Afterwork & Networking Events"],
+    },
+    en: {
+      title: "Event Catering",
+      subtitle: "For Occasions That Deserve More.",
+      text: "Corporate events. Trade fairs. Product launches. From 20 to 3,000 guests – we don't just deliver drinks, we deliver the right vibe.",
+      meta: "2–8+ hrs · 20–3,000 people",
+      features: ["Corporate events & parties", "Trade fair service & booth parties", "Product launches & store caterings", "Afterwork & networking events"],
+    },
   },
 ];
 
 const processSteps = [
-  {
-    step: "01",
-    de: { title: "Beratung", text: "Kickoff-Call, Konzeptentwicklung, Angebot innerhalb von 48 Stunden." },
-    en: { title: "Consultation", text: "Kickoff call, concept development, quote within 48 hours." },
-  },
-  {
-    step: "02",
-    de: { title: "Planung", text: "Tasting, Logistik-Planung, Feinabstimmung aller Details." },
-    en: { title: "Planning", text: "Tasting, logistics planning, fine-tuning all details." },
-  },
-  {
-    step: "03",
-    de: { title: "Event", text: "Aufbau 2–4h vorher, professioneller Service, Event Manager vor Ort." },
-    en: { title: "Event", text: "Setup 2–4h ahead, professional service, event manager on-site." },
-  },
-  {
-    step: "04",
-    de: { title: "Follow-Up", text: "Sauberer Abbau, Feedback-Gespräch, Dokumentation." },
-    en: { title: "Follow-Up", text: "Clean teardown, feedback session, documentation." },
-  },
+  { step: "01", de: { title: "Beratung", text: "Kickoff-Call, Konzeptentwicklung, Angebot innerhalb von 48h." }, en: { title: "Consultation", text: "Kickoff call, concept development, quote within 48h." } },
+  { step: "02", de: { title: "Planung", text: "Tasting, Logistik-Planung, Feinabstimmung." }, en: { title: "Planning", text: "Tasting, logistics planning, fine-tuning." } },
+  { step: "03", de: { title: "Event", text: "Aufbau, professioneller Service, Event Manager vor Ort." }, en: { title: "Event", text: "Setup, professional service, event manager on-site." } },
+  { step: "04", de: { title: "Follow-Up", text: "Abbau, Feedback, Dokumentation." }, en: { title: "Follow-Up", text: "Teardown, feedback, documentation." } },
 ];
-
-const messeBadges = [
-  { de: "Erfahrenes mehrsprachiges Team", en: "Experienced multilingual team" },
-  { de: "Express-Besetzung < 24h", en: "Express staffing < 24h" },
-  { de: "Logistik-Sicher", en: "Logistics-Secure" },
-  { de: "White-Label in eurer CI", en: "White-label in your CI" },
-];
-
-/* ────────────────────────── HELPERS ────────────────────────── */
-
-function RevealDiv({
-  children,
-  className,
-  delay = 0,
-  direction = "up" as const,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-  direction?: "up" | "down" | "left" | "right" | "none";
-}) {
-  const { ref, style } = useReveal<HTMLDivElement>({ delay, direction, distance: 30 });
-  return (
-    <div ref={ref} style={style} className={className}>
-      {children}
-    </div>
-  );
-}
-
-/* ────────────────────────── PAGE ────────────────────────── */
 
 export default function CateringPage() {
   const locale = useLocale() as "de" | "en";
 
   return (
     <main className="min-h-screen bg-ct-cream">
-      {/* ── 1. HERO ── */}
+      {/* ── HERO ── */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background image */}
-        <Image
-          src="/images/catering/ct-bartender-1.jpg"
-          alt="Premium Cocktail Catering Event in München — Cocktail X Catering"
-          fill
-          priority
-          className="object-cover"
-        />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
-        {/* Bottom gradient into bone */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ct-cream to-transparent" />
+        <Image src="/images/catering/ct-bar-kempinski.jpg" alt="Cocktail X Catering" fill priority className="object-cover object-[70%_center]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-ct-cream to-transparent" />
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <RevealDiv delay={100}>
@@ -176,234 +156,167 @@ export default function CateringPage() {
               Cocktail Excellence. Event Precision.
             </p>
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-[0.95]">
-              {locale === "de"
-                ? "Premium Cocktail Catering für München"
-                : "Premium Cocktail Catering for Munich"}
+              {locale === "de" ? "Premium Cocktail Catering" : "Premium Cocktail Catering"}
             </h1>
           </RevealDiv>
           <RevealDiv delay={250}>
-            <p className="font-body text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-4 leading-relaxed">
+            <p className="font-body text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-10 leading-relaxed">
               {locale === "de"
-                ? "Von den Machern des Cocktail X Festivals. Wir bringen die Cocktails zu Ihnen."
-                : "From the creators of Cocktail X Festival. We bring the cocktails to you."}
-            </p>
-            <p className="font-body text-base text-white/60 max-w-xl mx-auto mb-10">
-              {locale === "de"
-                ? "Corporate Events & Messen — professionell, zuverlässig, unvergesslich."
-                : "Corporate Events & Trade Fairs — professional, reliable, unforgettable."}
+                ? "Firmenevents, Masterclasses oder Product Launches – für jeden Anlass das richtige Format."
+                : "Corporate events, masterclasses or product launches – the right format for every occasion."}
             </p>
           </RevealDiv>
-          <RevealDiv delay={400}>
+          <RevealDiv delay={400} className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={`/${locale}/catering/kontakt`}
               className="inline-block px-10 py-4 rounded-full bg-ct-red text-white font-body font-bold text-sm uppercase tracking-wider hover:bg-ct-red/85 transition-all duration-200 shadow-lg shadow-ct-red/25"
             >
-              {locale === "de" ? "Angebot anfragen" : "Request a Quote"}
+              {locale === "de" ? "Jetzt anfragen" : "Get in Touch"}
+            </Link>
+            <Link
+              href="#services"
+              className="inline-block px-10 py-4 rounded-full border-2 border-white/30 text-white font-body font-bold text-sm uppercase tracking-wider hover:border-white/60 hover:bg-white/5 transition-all duration-200"
+            >
+              {locale === "de" ? "Formate entdecken" : "Explore Formats"}
             </Link>
           </RevealDiv>
         </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/50">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </motion.div>
       </section>
 
-      {/* ── 2. USP SECTION ── */}
-      <section className="py-20 md:py-28 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* ── USP BAR ── */}
+      <section className="py-8 md:py-10 bg-licorice">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {usps.map((usp, i) => (
-              <RevealDiv key={i} delay={i * 100} className="text-center p-8 rounded-2xl bg-white/60 border border-everglade/10">
-                <span className="text-3xl block mb-4">{usp.icon}</span>
-                <h3 className="font-display text-lg text-licorice mb-2">
-                  {locale === "de" ? usp.de.title : usp.en.title}
-                </h3>
-                <p className="font-body text-sm text-everglade/70 leading-relaxed">
-                  {locale === "de" ? usp.de.text : usp.en.text}
-                </p>
+              <RevealDiv key={i} delay={i * 80} className="text-center">
+                <span className="font-display text-2xl md:text-3xl text-ct-red block">{usp.num}</span>
+                <span className="font-body text-xs text-ct-cream/60 uppercase tracking-wider">
+                  {locale === "de" ? usp.de : usp.en}
+                </span>
               </RevealDiv>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 3. MESSE-CATERING ── */}
-      <section id="messe" className="py-20 md:py-28 px-4 bg-ct-wine">
-        <div className="max-w-6xl mx-auto">
-          <RevealDiv>
-            <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-cream/60 mb-4 text-center">
-              {locale === "de" ? "Unser Messe-Service" : "Our Trade Fair Service"}
-            </p>
-            <h2 className="font-display text-4xl md:text-6xl text-ct-cream text-center mb-4">
-              {locale === "de" ? "Messe-Service München" : "Trade Fair Service Munich"}
-            </h2>
-            <p className="font-body text-lg text-ct-cream/75 text-center max-w-2xl mx-auto mb-12">
-              {locale === "de"
-                ? "Euer Cocktail-Partner für Messestände & After-Work."
-                : "Your cocktail partner for trade fair booths & after-work events."}
-            </p>
-          </RevealDiv>
-
-          {/* USP Badges */}
-          <RevealDiv delay={100} className="flex flex-wrap justify-center gap-3 mb-16">
-            {messeBadges.map((badge, i) => (
-              <span
-                key={i}
-                className="px-4 py-2 rounded-full border border-ct-cream/20 text-ct-cream/80 font-body text-xs uppercase tracking-wider"
-              >
-                {locale === "de" ? badge.de : badge.en}
+      {/* ── REFERENCES / TRUST ── */}
+      <section className="py-10 md:py-12 px-4 border-b border-everglade/10">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-center text-[10px] font-body font-bold uppercase tracking-[0.25em] text-everglade/35 mb-6">
+            {locale === "de" ? "Marken, die uns vertrauen" : "Brands That Trust Us"}
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+            {references.map((name) => (
+              <span key={name} className="font-display text-base md:text-lg text-everglade/25 hover:text-everglade/45 transition-colors duration-300 cursor-default">
+                {name}
               </span>
             ))}
-          </RevealDiv>
-
-          {/* Cocktail Concepts */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            {cocktailConcepts.map((concept, i) => {
-              const c = locale === "de" ? concept.de : concept.en;
-              return (
-                <RevealDiv key={i} delay={i * 120} className="p-8 rounded-2xl bg-white/[0.06] border border-ct-cream/10 hover:border-ct-cream/25 transition-colors">
-                  <p className="text-xs font-body font-bold uppercase tracking-wider text-ct-red mb-3">
-                    {c.capacity}
-                  </p>
-                  <h3 className="font-display text-2xl text-ct-cream mb-3">{c.title}</h3>
-                  <p className="font-body text-sm text-ct-cream/65 leading-relaxed">{c.text}</p>
-                </RevealDiv>
-              );
-            })}
           </div>
-
-          {/* Messe References */}
-          <RevealDiv delay={200}>
-            <h3 className="font-display text-xl text-ct-cream text-center mb-8">
-              {locale === "de" ? "Referenzen" : "References"}
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {messeRefs.map((ref, i) => (
-                <div key={i} className="text-center p-6 rounded-xl bg-white/[0.04] border border-ct-cream/10">
-                  <p className="font-display text-lg text-ct-cream mb-1">{ref.name}</p>
-                  <p className="font-body text-sm text-ct-cream/55">
-                    {locale === "de" ? ref.de : ref.en}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </RevealDiv>
         </div>
       </section>
 
-      {/* ── 4. CORPORATE EVENTS ── */}
-      <section id="corporate" className="py-20 md:py-28 px-4">
+      {/* ── SERVICES ── */}
+      <section id="services" className="py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <RevealDiv>
-            <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-everglade/50 mb-4 text-center">
-              {locale === "de" ? "Corporate Events" : "Corporate Events"}
+          <RevealDiv className="text-center mb-12">
+            <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-everglade/50 mb-3">
+              {locale === "de" ? "Unsere Formate" : "Our Formats"}
             </p>
-            <h2 className="font-display text-4xl md:text-6xl text-licorice text-center mb-4">
-              {locale === "de"
-                ? "Events, die eure Marke stärken"
-                : "Events That Strengthen Your Brand"}
+            <h2 className="font-display text-4xl md:text-5xl text-licorice">
+              {locale === "de" ? "5 Konzepte. 1 Versprechen." : "5 Concepts. 1 Promise."}
             </h2>
-            <p className="font-body text-lg text-everglade/65 text-center max-w-2xl mx-auto mb-16">
-              {locale === "de"
-                ? "Von Produktlaunches bis VIP-Empfänge — maßgeschneiderte Cocktail-Konzepte für jede Occasion."
-                : "From product launches to VIP receptions — bespoke cocktail concepts for every occasion."}
-            </p>
           </RevealDiv>
 
-          {/* Event Type Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-            {eventTypes.map((type, i) => {
-              const t = locale === "de" ? type.de : type.en;
-              const images = ["/images/catering/ct-bar-1.jpg", "/images/catering/ct-bartender-1.jpg", "/images/catering/ct-event-2.jpg"];
-              const altTexts = [
-                locale === "de" ? "Bartender gießt handgemachten Cocktail bei einem Produktlaunch in München" : "Bartender pouring handcrafted cocktail at a product launch in Munich",
-                locale === "de" ? "Professionelles Bartender-Team im Smoking bei einer Firmenfeier" : "Professional bartender team in tuxedos at a corporate celebration",
-                locale === "de" ? "Elegante Cocktails beim VIP-Empfang — Premium Catering München" : "Elegant cocktails at VIP reception — premium catering Munich",
-              ];
+          <div className="space-y-6">
+            {services.map((service, i) => {
+              const s = locale === "de" ? service.de : service.en;
+              const isReversed = i % 2 === 1;
               return (
-                <RevealDiv key={i} delay={i * 120} className="group rounded-2xl overflow-hidden bg-white border border-everglade/10 hover:shadow-xl transition-shadow duration-300">
-                  <div className="relative h-52 overflow-hidden">
-                    <Image
-                      src={images[i]}
-                      alt={altTexts[i]}
-                      fill
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-display text-xl text-licorice mb-2">{t.title}</h3>
-                    <p className="font-body text-sm text-everglade/65 leading-relaxed">{t.text}</p>
+                <RevealDiv key={service.id} delay={i * 50}>
+                  <div className={`group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden bg-white border border-everglade/8 hover:shadow-2xl hover:shadow-everglade/8 transition-all duration-500 ${isReversed ? "md:grid-flow-dense" : ""}`}>
+                    {/* Image with parallax-like hover */}
+                    <div className={`relative h-52 md:h-auto md:min-h-[360px] overflow-hidden ${isReversed ? "md:col-start-2" : ""}`}>
+                      <Image
+                        src={service.image}
+                        alt={s.title}
+                        fill
+                        className={`object-cover ${service.imagePosition} group-hover:scale-105 transition-transform duration-700 ease-out`}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                      <div className="absolute top-4 left-4">
+                        <span className="font-display text-5xl text-white/20 group-hover:text-white/35 transition-colors duration-500">{service.num}</span>
+                      </div>
+                      {/* Meta badge on image */}
+                      <div className="absolute bottom-4 left-4">
+                        <span className="inline-block px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-sm text-[10px] font-body font-bold text-white/90 uppercase tracking-wider">
+                          {s.meta}
+                        </span>
+                      </div>
+                    </div>
+                    {/* Content */}
+                    <div className={`p-7 md:p-9 flex flex-col justify-center ${isReversed ? "md:col-start-1" : ""}`}>
+                      <h3 className="font-display text-2xl md:text-3xl text-licorice mb-1">{s.title}</h3>
+                      <p className="font-body text-base text-everglade/75 italic mb-4">{s.subtitle}</p>
+                      <p className="font-body text-sm text-everglade/60 leading-relaxed mb-5">{s.text}</p>
+                      <ul className="space-y-1.5 mb-6">
+                        {s.features.map((f, j) => (
+                          <li key={j} className="flex items-start gap-2 text-sm font-body text-everglade/65">
+                            <Check /> {f}
+                          </li>
+                        ))}
+                      </ul>
+                      <Link
+                        href={`/${locale}/catering/kontakt`}
+                        className="inline-flex items-center gap-2 self-start px-6 py-3 rounded-full bg-ct-red text-white font-body font-bold text-xs uppercase tracking-wider hover:bg-ct-red/85 hover:gap-3 transition-all duration-200"
+                      >
+                        {locale === "de" ? "Jetzt anfragen" : "Get in Touch"}
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                      </Link>
+                    </div>
                   </div>
                 </RevealDiv>
               );
             })}
           </div>
-
-          {/* Pricing Table */}
-          <RevealDiv>
-            <h3 className="font-display text-2xl md:text-3xl text-licorice text-center mb-10">
-              {locale === "de" ? "Unsere Pakete" : "Our Packages"}
-            </h3>
-          </RevealDiv>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {packages.map((pkg, i) => (
-              <RevealDiv
-                key={i}
-                delay={i * 100}
-                className={`relative rounded-2xl p-6 border transition-shadow duration-300 ${
-                  pkg.featured
-                    ? "bg-everglade text-ct-cream border-everglade shadow-xl scale-[1.02]"
-                    : "bg-white border-everglade/10 hover:shadow-lg"
-                }`}
-              >
-                {pkg.featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-ct-red text-white text-[10px] font-body font-bold uppercase tracking-wider">
-                    {locale === "de" ? "Beliebt" : "Popular"}
-                  </span>
-                )}
-                <p className={`font-display text-lg mb-1 ${pkg.featured ? "text-ct-cream" : "text-licorice"}`}>
-                  {pkg.name}
-                </p>
-                <p className={`font-display text-3xl mb-1 ${pkg.featured ? "text-ct-cream" : "text-licorice"}`}>
-                  ab {pkg.price} €
-                </p>
-                <p className={`font-body text-xs mb-4 ${pkg.featured ? "text-ct-cream/65" : "text-everglade/55"}`}>
-                  {locale === "de" ? pkg.guests.de : pkg.guests.en}
-                </p>
-                <div className={`h-px mb-4 ${pkg.featured ? "bg-ct-cream/15" : "bg-everglade/10"}`} />
-                <p className={`font-body text-xs leading-relaxed ${pkg.featured ? "text-ct-cream/75" : "text-everglade/65"}`}>
-                  {locale === "de" ? pkg.highlights.de : pkg.highlights.en}
-                </p>
-              </RevealDiv>
-            ))}
-          </div>
-
-          {/* Add-ons */}
-          <RevealDiv delay={200} className="text-center mt-10">
-            <p className="font-body text-sm text-everglade/55">
-              <span className="font-bold text-everglade/70">Add-ons: </span>
-              DJ · Branding · Hostessen · Fotowand · Custom Menüs
-            </p>
-          </RevealDiv>
         </div>
       </section>
 
-      {/* ── 5. PROCESS ── */}
-      <section className="py-20 md:py-28 px-4 bg-licorice">
-        <div className="max-w-5xl mx-auto">
-          <RevealDiv>
-            <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-cream/50 mb-4 text-center">
+      {/* ── PROCESS ── */}
+      <section className="py-16 md:py-24 px-4 bg-licorice relative overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url(/images/pattern-bg.svg)", backgroundSize: "150px 150px" }} />
+        <div className="max-w-5xl mx-auto relative">
+          <RevealDiv className="text-center mb-14">
+            <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-cream/40 mb-3">
               {locale === "de" ? "Unser Prozess" : "Our Process"}
             </p>
-            <h2 className="font-display text-4xl md:text-6xl text-ct-cream text-center mb-16">
+            <h2 className="font-display text-3xl md:text-5xl text-ct-cream">
               {locale === "de" ? "So arbeiten wir zusammen" : "How We Work Together"}
             </h2>
           </RevealDiv>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+            {/* Connecting line (desktop) */}
+            <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-ct-red/0 via-ct-red/20 to-ct-red/0" />
             {processSteps.map((s, i) => {
               const step = locale === "de" ? s.de : s.en;
               return (
-                <RevealDiv key={i} delay={i * 150} className="text-center md:text-left">
-                  <span className="font-display text-5xl text-ct-red/30 block mb-3">{s.step}</span>
-                  <h3 className="font-display text-xl text-ct-cream mb-2">{step.title}</h3>
-                  <p className="font-body text-sm text-ct-cream/60 leading-relaxed">{step.text}</p>
+                <RevealDiv key={i} delay={i * 120} className="text-center relative">
+                  <div className="w-14 h-14 rounded-full bg-ct-red/10 border border-ct-red/20 flex items-center justify-center mx-auto mb-4 relative z-10">
+                    <span className="font-display text-lg text-ct-red">{s.step}</span>
+                  </div>
+                  <h3 className="font-display text-lg text-ct-cream mb-2">{step.title}</h3>
+                  <p className="font-body text-xs text-ct-cream/50 leading-relaxed">{step.text}</p>
                 </RevealDiv>
               );
             })}
@@ -411,19 +324,23 @@ export default function CateringPage() {
         </div>
       </section>
 
-      {/* ── 6. CTA SECTION ── */}
-      <section className="py-20 md:py-28 px-4">
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ── CTA ── */}
+      <section className="py-16 md:py-24 px-4 relative overflow-hidden">
+        {/* Background image with heavy overlay */}
+        <Image src="/images/catering/ct-cocktail-flowers.jpg" alt="" fill className="object-cover object-[center_40%]" />
+        <div className="absolute inset-0 bg-licorice/85" />
+        <div className="max-w-3xl mx-auto text-center relative z-10">
           <RevealDiv>
-            <h2 className="font-display text-4xl md:text-6xl text-licorice mb-4">
-              {locale === "de"
-                ? "Bereit für euer nächstes Event?"
-                : "Ready for Your Next Event?"}
+            <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-4">
+              {locale === "de" ? "Bereit?" : "Ready?"}
+            </p>
+            <h2 className="font-display text-4xl md:text-6xl text-ct-cream mb-4">
+              {locale === "de" ? "Erzählt uns vom Anlass." : "Tell Us About the Occasion."}
             </h2>
-            <p className="font-body text-lg text-everglade/65 mb-10 max-w-xl mx-auto leading-relaxed">
+            <p className="font-body text-lg text-ct-cream/60 mb-10 max-w-xl mx-auto leading-relaxed">
               {locale === "de"
-                ? "Kostenloses Beratungsgespräch — wir entwickeln ein Konzept, das passt."
-                : "Free consultation — we'll develop a concept that fits."}
+                ? "Wir kümmern uns um den Rest. Jede Bar ein Highlight. Jeder Drink ein Statement."
+                : "We'll take care of the rest. Every bar a highlight. Every drink a statement."}
             </p>
           </RevealDiv>
           <RevealDiv delay={150} className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -431,16 +348,8 @@ export default function CateringPage() {
               href={`/${locale}/catering/kontakt`}
               className="inline-block px-10 py-4 rounded-full bg-ct-red text-white font-body font-bold text-sm uppercase tracking-wider hover:bg-ct-red/85 transition-all duration-200 shadow-lg shadow-ct-red/25"
             >
-              {locale === "de" ? "Angebot anfragen" : "Request a Quote"}
+              {locale === "de" ? "Jetzt anfragen" : "Get in Touch"}
             </Link>
-            <a
-              href="https://calendly.com/cocktailx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-10 py-4 rounded-full border-2 border-everglade/25 text-everglade font-body font-bold text-sm uppercase tracking-wider hover:border-everglade/50 transition-all duration-200"
-            >
-              {locale === "de" ? "15-Min-Call buchen" : "Book 15-Min Call"}
-            </a>
           </RevealDiv>
         </div>
       </section>
