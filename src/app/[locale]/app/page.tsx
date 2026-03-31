@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+
 import { useLocale } from "next-intl";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
@@ -112,12 +112,14 @@ export default function AppPage() {
                 >
                   {locale === "de" ? "APP ÖFFNEN" : "OPEN APP"}
                 </a>
-                <Link
-                  href={`/${locale}/shop`}
+                <a
+                  href="https://cocktailx.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-secondary text-base px-8 py-4 text-center"
                 >
                   {locale === "de" ? "TICKET KAUFEN" : "BUY TICKET"}
-                </Link>
+                </a>
               </div>
 
               <p className="text-[11px] font-body text-bone/30 mt-3">
@@ -299,9 +301,9 @@ export default function AppPage() {
               ? "Hol dir jetzt dein Ticket und erlebe 18 Tage Cocktail-Kultur in Münchens besten Bars."
               : "Get your ticket now and experience 18 days of cocktail culture in München's best bars."}
           </p>
-          <Link href={`/${locale}/shop`} className="btn-primary text-base px-10 py-4 inline-block">
+          <a href="https://cocktailx.app/" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4 inline-block">
             {locale === "de" ? "TICKET SICHERN" : "GET YOUR TICKET"}
-          </Link>
+          </a>
         </div>
       </section>
     </main>

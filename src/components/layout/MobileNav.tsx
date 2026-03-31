@@ -61,13 +61,15 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
 
           {/* CTA + Language switcher */}
           <div className="absolute bottom-12 flex flex-col items-center gap-6">
-            <Link
-              href={`/${locale}/tickets`}
+            <a
+              href="https://cocktailx.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={onClose}
               className="btn-primary text-sm uppercase tracking-wider"
             >
               {t("getPassport")}
-            </Link>
+            </a>
             <LanguageSwitcher />
           </div>
         </motion.div>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "git pull origin main && git push fork main --force"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",

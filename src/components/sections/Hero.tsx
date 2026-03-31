@@ -165,8 +165,9 @@ export default function Hero() {
           style={{ opacity: 0, animationDelay: "700ms" }}
         >
           <a
-            href="#tickets"
+            href="https://cocktailx.app/"
             className="btn-primary text-sm md:text-lg whitespace-nowrap"
+
           >
             {t("cta")}
           </a>

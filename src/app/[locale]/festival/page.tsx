@@ -85,8 +85,10 @@ export default function FestivalPage() {
                 ? "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival."
                 : "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival."}
             </p>
-            <Link
-              href={`/${locale}/shop`}
+            <a
+              href="https://cocktailx.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary text-base px-10 py-4 inline-block"
               onClick={() => trackEvent("InitiateCheckout", {
                 content_name: "Festival Ticket",
@@ -96,7 +98,7 @@ export default function FestivalPage() {
               })}
             >
               {locale === "de" ? "TICKET SICHERN" : "GET YOUR TICKET"}
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -348,8 +350,10 @@ export default function FestivalPage() {
               : "Get your ticket now at the best price and experience 18 days of cocktail culture in München's best bars."}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href={`/${locale}/shop`}
+            <a
+              href="https://cocktailx.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary text-base px-10 py-4 text-center"
               onClick={() => trackEvent("InitiateCheckout", {
                 content_name: "Festival Ticket",
@@ -359,7 +363,7 @@ export default function FestivalPage() {
               })}
             >
               {locale === "de" ? "TICKET KAUFEN — AB 20€" : "BUY TICKET — FROM €20"}
-            </Link>
+            </a>
             <Link href={`/${locale}/app`} className="btn-secondary text-base px-8 py-4 text-center">
               {locale === "de" ? "ZUR APP" : "OPEN APP"}
             </Link>

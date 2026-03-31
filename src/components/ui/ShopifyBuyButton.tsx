@@ -60,10 +60,7 @@ export default function ShopifyBuyButton({
       ...(price != null && { value: price }),
     });
 
-    // TODO: Replace with real Shopify checkout flow
-    // When Shopify checkout is live, fire trackEvent("Purchase", { ... })
-    // after successful payment confirmation.
-    // See comment at top of file for implementation pattern
+    window.open("https://cocktailx.app/", "_blank", "noopener,noreferrer");
   };
 
   return (
