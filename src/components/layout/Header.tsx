@@ -46,7 +46,7 @@ export default function Header() {
             </Link>
           </div>
         </div>
-        <div className="mx-auto flex items-center justify-between px-4 py-4 md:px-8 lg:px-16">
+        <div className="mx-auto flex items-center justify-between px-4 py-4 md:px-8 lg:px-16 relative">
           {/* Logo */}
           <Link
             href={`/${locale}`}
@@ -62,8 +62,8 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-6 lg:gap-8">
+          {/* Desktop nav — centered absolutely */}
+          <nav className="hidden lg:flex items-center gap-6 lg:gap-8 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <Link
                 key={link.key}

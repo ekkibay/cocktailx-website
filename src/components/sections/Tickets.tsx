@@ -11,7 +11,7 @@ const FESTIVAL_PRICE = 6;
 const SAVINGS_PER = NORMAL_PRICE - FESTIVAL_PRICE;
 
 const tiers = [
-  { key: "earlyBird", price: 20, productId: "passport-early-bird", soldOutDaysBefore: 43 },
+  { key: "earlyBird", price: 20, productId: "passport-early-bird", soldOutDaysBefore: 42 },
   { key: "regular", price: 34, productId: "passport-regular", soldOutDaysBefore: 13 },
   { key: "late", price: 49, productId: "passport-late", soldOutDaysBefore: -18 },
 ];

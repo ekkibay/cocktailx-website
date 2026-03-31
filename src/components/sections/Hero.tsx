@@ -125,7 +125,7 @@ export default function Hero() {
 
       {/* Content */}
       <motion.div
-        className="relative z-10 flex flex-col items-center text-center px-4 md:mt-0"
+        className="relative z-10 flex flex-col items-center text-center px-4 md:px-8 w-full max-w-4xl mx-auto"
         style={{ y: contentY, opacity: contentOpacity }}
       >
         <div

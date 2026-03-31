@@ -9,9 +9,9 @@ export const PASSPORT_PRICES = {
 function getCheapestAvailable(): number {
   const now = new Date();
 
-  // Early Bird ends March 31
+  // Early Bird ends after March 31 (April 1 = sold out)
   const ebEnd = new Date(FESTIVAL_DATE);
-  ebEnd.setDate(ebEnd.getDate() - 43);
+  ebEnd.setDate(ebEnd.getDate() - 42);
   if (now < ebEnd) return PASSPORT_PRICES.earlyBird;
 
   // Regular ends April 30
