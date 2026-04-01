@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "git pull origin main && git push fork main --force"
+    "deploy": "git pull origin main && git push nbm main --force"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
