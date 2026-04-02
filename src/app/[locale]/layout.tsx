@@ -49,7 +49,7 @@ export default async function LocaleLayout({
             height="1"
             width="1"
             style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1991714461757981&ev=PageView&noscript=1"
+            src="https://www.facebook.com/tr?id=1475856023819696&ev=PageView&noscript=1"
             alt=""
           />
         </noscript>
