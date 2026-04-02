@@ -3,22 +3,56 @@
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import Link from "next/link";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { trackEvent } from "@/lib/meta-pixel";
+
+/**
+ * Inner component that reads search params and fires the Purchase event.
+ * Wrapped in <Suspense> because useSearchParams() requires it in Next.js App Router.
+ *
+ * Expected redirect URL from cocktailx.app:
+ *   /de/danke?value=20&order_id=ABC123
+ */
+function PurchaseTracker() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const rawValue = searchParams.get("value");
+    const orderId = searchParams.get("order_id");
+
+    const params: Record<string, string | number | boolean> = {
+      content_name: "Festival Ticket",
+      content_category: "Festival",
+      currency: "EUR",
+    };
+
+    if (rawValue) {
+      const value = parseFloat(rawValue);
+      if (!isNaN(value) && value > 0) {
+        params.value = value;
+      }
+    }
+
+    if (orderId) {
+      params.content_ids = orderId;
+    }
+
+    trackEvent("Purchase", params);
+  }, [searchParams]);
+
+  return null;
+}
 
 export default function DankePage() {
   const locale = useLocale() as "de" | "en";
 
-  useEffect(() => {
-    trackEvent("Purchase", {
-      content_name: "Festival Ticket",
-      content_category: "Festival",
-      currency: "EUR",
-    });
-  }, []);
-
   return (
     <main className="section-padding pt-32 md:pt-40 min-h-screen relative flex items-center justify-center">
+      <Suspense fallback={null}>
+        <PurchaseTracker />
+      </Suspense>
+
       {/* CI background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/images/pattern-bg.svg)", backgroundSize: "200px 200px", backgroundRepeat: "repeat", opacity: 0.18 }} />

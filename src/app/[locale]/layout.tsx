@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   },
   description:
     "Deutschlands größtes Cocktail Festival – München, 13.–30. Mai 2026. 58 Bars, 174+ exklusive Cocktails, 18 Tage Festival.",
+  ...(process.env.META_DOMAIN_VERIFICATION && {
+    other: {
+      "facebook-domain-verification": process.env.META_DOMAIN_VERIFICATION,
+    },
+  }),
 };
 
 export default async function LocaleLayout({
@@ -38,6 +43,16 @@ export default async function LocaleLayout({
         <AntiFlicker />
       </head>
       <body className="antialiased" style={{ backgroundColor: "#1A120B" }}>
+        {/* Meta Pixel noscript fallback — tracks PageView for users without JS */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1991714461757981&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
         <NextIntlClientProvider messages={messages}>
           <MetaPixel />
           <LayoutShell>{children}</LayoutShell>

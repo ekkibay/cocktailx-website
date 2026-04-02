@@ -49,6 +49,7 @@ export default function FestivalPage() {
       content_name: "Festival Landing Page",
       content_category: "Festival",
       content_type: "product_group",
+      content_ids: "festival-2026",
     });
   }, []);
 
@@ -93,8 +94,10 @@ export default function FestivalPage() {
               onClick={() => trackEvent("InitiateCheckout", {
                 content_name: "Festival Ticket",
                 content_category: "Festival",
+                content_ids: "festival-2026",
                 currency: "EUR",
                 value: 20,
+                num_items: 1,
               })}
             >
               {locale === "de" ? "TICKET SICHERN" : "GET YOUR TICKET"}
@@ -358,8 +361,10 @@ export default function FestivalPage() {
               onClick={() => trackEvent("InitiateCheckout", {
                 content_name: "Festival Ticket",
                 content_category: "Festival",
+                content_ids: "festival-2026",
                 currency: "EUR",
                 value: 20,
+                num_items: 1,
               })}
             >
               {locale === "de" ? "TICKET KAUFEN — AB 20€" : "BUY TICKET — FROM €20"}

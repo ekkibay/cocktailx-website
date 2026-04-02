@@ -296,6 +296,7 @@ export default function ShopPage() {
       content_name: "Shop — Festival Tickets",
       content_category: "Festival",
       content_type: "product_group",
+      content_ids: activeTier.productId,
       currency: "EUR",
       value: activeTier.price,
     });
