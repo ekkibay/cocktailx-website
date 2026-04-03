@@ -64,24 +64,24 @@ const OTHER_TICKETS: OtherTicketType[] = [
   {
     key: "group",
     name: { de: "Group Ticket", en: "Group Ticket" },
-    tagline: { de: "5 Passports zum Preis von 4", en: "5 Passports for the price of 4" },
+    tagline: { de: "4 Passports zum Preis von 3", en: "4 Passports for the price of 3" },
     badge: { de: null, en: null },
     accent: "tangerine",
-    price: 136,
-    strikePrice: 170,
-    perPerson: 27.20,
-    groupSize: 5,
+    price: 102,
+    strikePrice: 136,
+    perPerson: 25.50,
+    groupSize: 4,
   },
   {
     key: "group-weekday",
     name: { de: "Group Weekday", en: "Group Weekday" },
-    tagline: { de: "5 Weekday Passes zum Preis von 4", en: "5 Weekday Passes for the price of 4" },
+    tagline: { de: "4 Weekday Passes zum Preis von 3", en: "4 Weekday Passes for the price of 3" },
     badge: { de: null, en: null },
     accent: "everglade",
-    price: 116,
-    strikePrice: 145,
-    perPerson: 23.20,
-    groupSize: 5,
+    price: 87,
+    strikePrice: 116,
+    perPerson: 21.75,
+    groupSize: 4,
   },
 ];
 
@@ -486,8 +486,8 @@ export default function Tickets() {
                   {ticket.groupSize && (
                     <p className="text-xs font-body text-emerald-400 font-bold mb-4">
                       {locale === "de"
-                        ? `20% Gruppenrabatt \u00b7 ${ticket.groupSize} Personen`
-                        : `20% group discount \u00b7 ${ticket.groupSize} people`}
+                        ? `25% Gruppenrabatt \u00b7 ${ticket.groupSize} Personen`
+                        : `25% group discount \u00b7 ${ticket.groupSize} people`}
                     </p>
                   )}
 

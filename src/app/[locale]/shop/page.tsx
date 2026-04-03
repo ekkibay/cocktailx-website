@@ -67,10 +67,10 @@ const CALC_OPTIONS: CalcOption[] = [
   { key: "passport-lm",  label: { de: "Passport · Last Minute",   en: "Passport · Last Minute"   }, price: 49,    isGroup: false },
   { key: "weekday-r",    label: { de: "Weekday Pass · Regular",   en: "Weekday Pass · Regular"   }, price: 29,    isGroup: false },
   { key: "weekday-lm",   label: { de: "Weekday Pass · Last Minute", en: "Weekday Pass · Last Minute" }, price: 40, isGroup: false },
-  { key: "group-r",      label: { de: "Group Ticket · Regular",   en: "Group Ticket · Regular"   }, price: 27.20, isGroup: true, groupSize: 5 },
-  { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 39.20, isGroup: true, groupSize: 5 },
-  { key: "groupwd-r",    label: { de: "Group Weekday · Regular",  en: "Group Weekday · Regular"  }, price: 23.20, isGroup: true, groupSize: 5 },
-  { key: "groupwd-lm",   label: { de: "Group Weekday · Last Minute", en: "Group Weekday · Last Minute" }, price: 32.00, isGroup: true, groupSize: 5 },
+  { key: "group-r",      label: { de: "Group Ticket · Regular",   en: "Group Ticket · Regular"   }, price: 25.50, isGroup: true, groupSize: 4 },
+  { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 36.75, isGroup: true, groupSize: 4 },
+  { key: "groupwd-r",    label: { de: "Group Weekday · Regular",  en: "Group Weekday · Regular"  }, price: 21.75, isGroup: true, groupSize: 4 },
+  { key: "groupwd-lm",   label: { de: "Group Weekday · Last Minute", en: "Group Weekday · Last Minute" }, price: 30.00, isGroup: true, groupSize: 4 },
   { key: "easter",       label: { de: "Oster Special · 3 für 2",   en: "Easter Special · 3 for 2"   }, price: easterPerPerson, isGroup: true, groupSize: 3 },
 ];
 
@@ -124,7 +124,7 @@ const OTHER_TICKETS: OtherTicket[] = [
   {
     key: "group",
     name: "Group Ticket",
-    tagline: { de: "5 Passports zum Preis von 4", en: "5 Passports for the price of 4" },
+    tagline: { de: "4 Passports zum Preis von 3", en: "4 Passports for the price of 3" },
     description: {
       de: "Der perfekte Pass für Gruppen – ein Passport gratis. Jede Person erhält einen vollwertigen Festival-Passport für alle 18 Tage.",
       en: "The perfect pass for groups – one Passport free. Each person receives a full festival Passport for all 18 days.",
@@ -132,14 +132,14 @@ const OTHER_TICKETS: OtherTicket[] = [
     badge: { de: null, en: null },
     accent: "tangerine",
     tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 136, perPerson: 27.20, calcKey: "group-r",  productId: "group-regular", active: regActive  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 196, perPerson: 39.20, calcKey: "group-lm", productId: "group-late",    active: lmActive  },
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 102, perPerson: 25.50, calcKey: "group-r",  productId: "group-regular", active: regActive  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 147, perPerson: 36.75, calcKey: "group-lm", productId: "group-late",    active: lmActive  },
     ],
   },
   {
     key: "group-weekday",
     name: "Group Weekday",
-    tagline: { de: "5 Weekday Passes zum Preis von 4", en: "5 Weekday Passes for the price of 4" },
+    tagline: { de: "4 Weekday Passes zum Preis von 3", en: "4 Weekday Passes for the price of 3" },
     description: {
       de: "Das beste Preis-Leistungs-Verhältnis für Gruppen unter der Woche – ideal für Firmengruppen und Team-Events.",
       en: "Best value for groups on weekdays – ideal for corporate groups and team events.",
@@ -147,8 +147,8 @@ const OTHER_TICKETS: OtherTicket[] = [
     badge: { de: null, en: null },
     accent: "everglade",
     tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 116, perPerson: 23.20, calcKey: "groupwd-r",  productId: "group-weekday-regular", active: regActive  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 160, perPerson: 32.00, calcKey: "groupwd-lm", productId: "group-weekday-late",    active: lmActive  },
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 87,  perPerson: 21.75, calcKey: "groupwd-r",  productId: "group-weekday-regular", active: regActive  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 120, perPerson: 30.00, calcKey: "groupwd-lm", productId: "group-weekday-late",    active: lmActive  },
     ],
   },
 ];
