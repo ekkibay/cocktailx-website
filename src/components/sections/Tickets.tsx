@@ -52,16 +52,6 @@ type OtherTicketType = {
 
 const OTHER_TICKETS: OtherTicketType[] = [
   {
-    key: "weekday",
-    name: { de: "Weekday Pass", en: "Weekday Pass" },
-    tagline: { de: "Mo\u2013Do \u00b7 Alle Bars \u00b7 6\u20ac Cocktails", en: "Mon\u2013Thu \u00b7 All bars \u00b7 \u20ac6 cocktails" },
-    badge: { de: "BESTER PREIS", en: "BEST VALUE" },
-    accent: "hibiscus",
-    price: 29,
-    strikePrice: 40,
-    perPerson: null,
-  },
-  {
     key: "group",
     name: { de: "Group Ticket", en: "Group Ticket" },
     tagline: { de: "4 Passports zum Preis von 3", en: "4 Passports for the price of 3" },
@@ -70,17 +60,6 @@ const OTHER_TICKETS: OtherTicketType[] = [
     price: 102,
     strikePrice: 136,
     perPerson: 25.50,
-    groupSize: 4,
-  },
-  {
-    key: "group-weekday",
-    name: { de: "Group Weekday", en: "Group Weekday" },
-    tagline: { de: "4 Weekday Passes zum Preis von 3", en: "4 Weekday Passes for the price of 3" },
-    badge: { de: null, en: null },
-    accent: "everglade",
-    price: 87,
-    strikePrice: 116,
-    perPerson: 21.75,
     groupSize: 4,
   },
 ];
@@ -437,8 +416,8 @@ export default function Tickets() {
           </h3>
           <p className="text-sm font-body text-bone/55 text-center mb-3">
             {locale === "de"
-              ? "Weekday Pass, Gruppen-Tickets und mehr."
-              : "Weekday Pass, group tickets and more."}
+              ? "Gruppen-Tickets und mehr."
+              : "Group tickets and more."}
           </p>
           {!newTicketsAvailable && (
             <p className="text-xs font-body text-tangerine/70 text-center mb-8 font-bold uppercase tracking-wider">

@@ -65,12 +65,8 @@ const CALC_OPTIONS: CalcOption[] = [
   { key: "passport-eb",  label: { de: "Passport · Early Bird",    en: "Passport · Early Bird"    }, price: 20,    isGroup: false },
   { key: "passport-r",   label: { de: "Passport · Regular",       en: "Passport · Regular"       }, price: 34,    isGroup: false },
   { key: "passport-lm",  label: { de: "Passport · Last Minute",   en: "Passport · Last Minute"   }, price: 49,    isGroup: false },
-  { key: "weekday-r",    label: { de: "Weekday Pass · Regular",   en: "Weekday Pass · Regular"   }, price: 29,    isGroup: false },
-  { key: "weekday-lm",   label: { de: "Weekday Pass · Last Minute", en: "Weekday Pass · Last Minute" }, price: 40, isGroup: false },
   { key: "group-r",      label: { de: "Group Ticket · Regular",   en: "Group Ticket · Regular"   }, price: 25.50, isGroup: true, groupSize: 4 },
   { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 36.75, isGroup: true, groupSize: 4 },
-  { key: "groupwd-r",    label: { de: "Group Weekday · Regular",  en: "Group Weekday · Regular"  }, price: 21.75, isGroup: true, groupSize: 4 },
-  { key: "groupwd-lm",   label: { de: "Group Weekday · Last Minute", en: "Group Weekday · Last Minute" }, price: 30.00, isGroup: true, groupSize: 4 },
   { key: "easter",       label: { de: "Oster Special · 3 für 2",   en: "Easter Special · 3 for 2"   }, price: easterPerPerson, isGroup: true, groupSize: 3 },
 ];
 
@@ -107,21 +103,6 @@ type OtherTicket = {
 
 const OTHER_TICKETS: OtherTicket[] = [
   {
-    key: "weekday",
-    name: "Weekday Pass",
-    tagline: { de: "Für Bars nach der Arbeit", en: "For bars after work" },
-    description: {
-      de: "Gültig montags bis donnerstags während des gesamten Festivals. Ideal für After-Work-Besuche – alle 58 Bars, jeder Cocktail für 6 €.",
-      en: "Valid Monday to Thursday throughout the entire festival. Perfect for after-work visits – all 58 bars, every cocktail for €6.",
-    },
-    badge: { de: "NEU", en: "NEW" },
-    accent: "hibiscus",
-    tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 29, perPerson: null, calcKey: "weekday-r",  productId: "weekday-regular", active: regActive  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 40, perPerson: null, calcKey: "weekday-lm", productId: "weekday-late",    active: lmActive  },
-    ],
-  },
-  {
     key: "group",
     name: "Group Ticket",
     tagline: { de: "4 Passports zum Preis von 3", en: "4 Passports for the price of 3" },
@@ -134,21 +115,6 @@ const OTHER_TICKETS: OtherTicket[] = [
     tiers: [
       { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 102, perPerson: 25.50, calcKey: "group-r",  productId: "group-regular", active: regActive  },
       { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 147, perPerson: 36.75, calcKey: "group-lm", productId: "group-late",    active: lmActive  },
-    ],
-  },
-  {
-    key: "group-weekday",
-    name: "Group Weekday",
-    tagline: { de: "4 Weekday Passes zum Preis von 3", en: "4 Weekday Passes for the price of 3" },
-    description: {
-      de: "Das beste Preis-Leistungs-Verhältnis für Gruppen unter der Woche – ideal für Firmengruppen und Team-Events.",
-      en: "Best value for groups on weekdays – ideal for corporate groups and team events.",
-    },
-    badge: { de: null, en: null },
-    accent: "everglade",
-    tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 87,  perPerson: 21.75, calcKey: "groupwd-r",  productId: "group-weekday-regular", active: regActive  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 120, perPerson: 30.00, calcKey: "groupwd-lm", productId: "group-weekday-late",    active: lmActive  },
     ],
   },
 ];
@@ -600,8 +566,8 @@ export default function ShopPage() {
           </h2>
           <p className="text-sm font-body text-bone/55 text-center mb-3">
             {locale === "de"
-              ? "Weekday Pass, Gruppen-Tickets und mehr – für jeden das passende Angebot."
-              : "Weekday Pass, group tickets and more – the right option for everyone."}
+              ? "Gruppen-Tickets und mehr – für jeden das passende Angebot."
+              : "Group tickets and more – the right option for everyone."}
           </p>
           {!newTicketsAvailable && (
             <p className="text-xs font-body text-tangerine/70 text-center mb-10 font-bold uppercase tracking-wider">
