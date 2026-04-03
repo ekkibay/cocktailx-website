@@ -8,7 +8,6 @@ import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 
-
 const useCases = [
   { key: "cocktailLovers", Icon: Wine, image: "/images/festival-cocktails-duo.webp" },
   { key: "friends", Icon: Users, image: "/images/festival-friends.webp" },
