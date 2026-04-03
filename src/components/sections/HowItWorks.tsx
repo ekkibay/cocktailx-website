@@ -149,6 +149,16 @@ export default function HowItWorks() {
             </div>
           </div>
         </div>
+
+        {/* CTA */}
+        <div className="text-center mt-12">
+          <a
+            href="#tickets"
+            className="btn-primary text-sm md:text-lg"
+          >
+            {t("cta")}
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -2,12 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { useReveal } from "@/hooks/useReveal";
+import { TICKET_TIERS } from "@/data/ticket-tiers";
 
 const stats = [
   { key: "bars", value: "58" },
   { key: "days", value: "18" },
   { key: "ticket", value: "1" },
-  { key: "price", value: "20\u20ac" },
+  { key: "price", value: `${TICKET_TIERS.cheapest}\u20ac` },
   { key: "savings", value: "\u00d8 60\u20ac" },
 ] as const;
 

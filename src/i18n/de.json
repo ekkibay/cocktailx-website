@@ -53,7 +53,8 @@
       "title": "SAMMLE STEMPEL & SCHALTE BELOHNUNGEN FREI",
       "description": "Für jeden gekauften Signature Cocktail erhältst du einen digitalen <strong>Stempel</strong>. Je mehr Stempel du sammelst, desto mehr <strong>Belohnungen und Vorteile</strong> schaltest du frei."
     },
-    "appHint": "Alles in der Cocktail X App"
+    "appHint": "Alles in der Cocktail X App",
+    "cta": "Jetzt Ticket sichern"
   },
   "tickets": {
     "headline": "SICHERE DIR JETZT DEINEN PASS",
@@ -218,7 +219,7 @@
     }
   },
   "stickyCta": {
-    "label": "Early Bird Preis",
+    "label": "Ticket ab",
     "cta": "JETZT SICHERN"
   },
   "gallery": {

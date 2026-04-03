@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,33 +8,42 @@ import { bars } from "@/data/bars";
 import BlurText from "@/components/ui/BlurText";
 
 function BarCard({ bar }: { bar: typeof bars[0] }) {
+  const [imgError, setImgError] = useState(false);
+  const [logoError, setLogoError] = useState(false);
+
   return (
     <div
       className="group flex-shrink-0 w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden bg-jambalaya relative cursor-pointer border border-transparent transition-all duration-300 ease-out hover:border-bone/15 hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
     >
-      <Image
-        src={bar.image}
-        alt={bar.name}
-        fill
-        sizes="300px"
-        loading="lazy"
-        className="object-cover transition-transform duration-500 group-hover:scale-110"
-      />
+      {bar.image && !imgError ? (
+        <Image
+          src={bar.image}
+          alt={bar.name}
+          fill
+          sizes="300px"
+          loading="lazy"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-jambalaya via-licorice to-jambalaya" />
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/20" />
 
-      {bar.logo ? (
+      {bar.logo && !logoError ? (
         <div className="absolute inset-0 flex items-center justify-center z-[2] p-6">
           <div className="bg-bone/90 backdrop-blur-sm rounded-xl px-5 py-4 shadow-lg">
             <img
               src={bar.logo}
               alt={`${bar.name} Logo`}
               className="h-[65px] max-w-[150px] object-contain"
+              onError={() => setLogoError(true)}
             />
           </div>
         </div>
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-[2]">
-          <span className="font-display text-bone tracking-widest text-xl md:text-2xl">{bar.name}</span>
+          <span className="font-display text-bone tracking-widest text-xl md:text-2xl text-center px-4">{bar.name}</span>
         </div>
       )}
 

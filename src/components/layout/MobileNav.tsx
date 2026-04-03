@@ -62,9 +62,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           {/* CTA + Language switcher */}
           <div className="absolute bottom-12 flex flex-col items-center gap-6">
             <a
-              href="https://cocktailx.app/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#tickets"
               onClick={onClose}
               className="btn-primary text-sm uppercase tracking-wider"
             >

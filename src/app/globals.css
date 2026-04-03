@@ -234,6 +234,36 @@
   animation: pageReady 0.3s ease-out 0.05s both;
 }
 
+/* ------------------------------------------------
+   Easter Special effects
+   ------------------------------------------------ */
+@keyframes easter-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(189, 37, 110, 0.15), 0 0 60px rgba(243, 146, 0, 0.08); }
+  50% { box-shadow: 0 0 50px rgba(189, 37, 110, 0.25), 0 0 100px rgba(243, 146, 0, 0.15); }
+}
+
+@keyframes easter-sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+@keyframes easter-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.easter-glow {
+  animation: easter-glow 3s ease-in-out infinite;
+}
+
+.easter-float {
+  animation: easter-float 3s ease-in-out infinite;
+}
+
+.easter-sparkle-1 { animation: easter-sparkle 2.5s ease-in-out infinite 0s; }
+.easter-sparkle-2 { animation: easter-sparkle 2.5s ease-in-out infinite 0.8s; }
+.easter-sparkle-3 { animation: easter-sparkle 2.5s ease-in-out infinite 1.6s; }
+
 /* Ken Burns subtle zoom effect */
 @keyframes kenBurns {
   0% { transform: scale(1); }

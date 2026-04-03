@@ -28,30 +28,62 @@ type CalcOption = {
   groupSize?: number;
 };
 
+// ── Ticket data ───────────────────────────────────────────────────────────────
+
+const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
+
+// Cutoff dates (same as landing page): Early Bird until Mar 31, Regular until Apr 30
+const EB_END = new Date(FESTIVAL_DATE); EB_END.setDate(EB_END.getDate() - 42);  // Apr 1
+const REG_END = new Date(FESTIVAL_DATE); REG_END.setDate(REG_END.getDate() - 13); // Apr 30
+
+function getPassportActive(): [boolean, boolean, boolean] {
+  const now = new Date();
+  if (now < EB_END) return [true, false, false];
+  if (now < REG_END) return [false, true, false];
+  return [false, false, true];
+}
+
+const [ebActive, regActive, lmActive] = getPassportActive();
+
+// Easter Special — 3 for 2, ends Easter Monday
+const EASTER_END = new Date("2026-04-07T00:00:00+02:00");
+const easterActive = new Date() < EASTER_END;
+
+function getEasterUnitPrice(): number {
+  const now = new Date();
+  if (now < EB_END) return 20;
+  if (now < REG_END) return 34;
+  return 49;
+}
+const easterUnit = getEasterUnitPrice();
+const easterPrice = easterUnit * 2;
+const easterPerPerson = +(easterPrice / 3).toFixed(2);
+
+// ── Calculator options ───────────────────────────────────────────────────────
+
 const CALC_OPTIONS: CalcOption[] = [
   { key: "passport-eb",  label: { de: "Passport · Early Bird",    en: "Passport · Early Bird"    }, price: 20,    isGroup: false },
   { key: "passport-r",   label: { de: "Passport · Regular",       en: "Passport · Regular"       }, price: 34,    isGroup: false },
   { key: "passport-lm",  label: { de: "Passport · Last Minute",   en: "Passport · Last Minute"   }, price: 49,    isGroup: false },
   { key: "weekday-r",    label: { de: "Weekday Pass · Regular",   en: "Weekday Pass · Regular"   }, price: 29,    isGroup: false },
   { key: "weekday-lm",   label: { de: "Weekday Pass · Last Minute", en: "Weekday Pass · Last Minute" }, price: 40, isGroup: false },
-  { key: "group-r",      label: { de: "Group Ticket · Regular",   en: "Group Ticket · Regular"   }, price: 28.33, isGroup: true, groupSize: 6 },
-  { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 40.83, isGroup: true, groupSize: 6 },
-  { key: "groupwd-r",    label: { de: "Group Weekday · Regular",  en: "Group Weekday · Regular"  }, price: 24.17, isGroup: true, groupSize: 6 },
-  { key: "groupwd-lm",   label: { de: "Group Weekday · Last Minute", en: "Group Weekday · Last Minute" }, price: 33.33, isGroup: true, groupSize: 6 },
+  { key: "group-r",      label: { de: "Group Ticket · Regular",   en: "Group Ticket · Regular"   }, price: 27.20, isGroup: true, groupSize: 5 },
+  { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 39.20, isGroup: true, groupSize: 5 },
+  { key: "groupwd-r",    label: { de: "Group Weekday · Regular",  en: "Group Weekday · Regular"  }, price: 23.20, isGroup: true, groupSize: 5 },
+  { key: "groupwd-lm",   label: { de: "Group Weekday · Last Minute", en: "Group Weekday · Last Minute" }, price: 32.00, isGroup: true, groupSize: 5 },
+  { key: "easter",       label: { de: "Oster Special · 3 für 2",   en: "Easter Special · 3 for 2"   }, price: easterPerPerson, isGroup: true, groupSize: 3 },
 ];
-
-// ── Ticket data ───────────────────────────────────────────────────────────────
 
 const PASSPORT_TIERS = {
   de: [
-    { label: "Early Bird",  until: "bis 31. März", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: true  },
-    { label: "Regular",     until: "bis 1. Mai",   price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: false },
-    { label: "Last Minute", until: "bis 13. Mai",  price: 49, calcKey: "passport-lm", productId: "passport-late",       active: false },
+    { label: "Early Bird",  until: "bis 31. März", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
+    { label: "Regular",     until: "bis 1. Mai",   price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
+    { label: "Last Minute", until: "bis 13. Mai",  price: 49, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
   ],
   en: [
-    { label: "Early Bird",  until: "until Mar 31", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: true  },
-    { label: "Regular",     until: "until May 1",  price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: false },
-    { label: "Last Minute", until: "until May 13", price: 49, calcKey: "passport-lm", productId: "passport-late",       active: false },
+    { label: "Early Bird",  until: "until Mar 31", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
+    { label: "Regular",     until: "until May 1",  price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
+    { label: "Last Minute", until: "until May 13", price: 49, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
   ],
 };
 
@@ -85,14 +117,14 @@ const OTHER_TICKETS: OtherTicket[] = [
     badge: { de: "NEU", en: "NEW" },
     accent: "hibiscus",
     tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 29, perPerson: null, calcKey: "weekday-r",  productId: "weekday-regular", active: true  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 40, perPerson: null, calcKey: "weekday-lm", productId: "weekday-late",    active: false },
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 29, perPerson: null, calcKey: "weekday-r",  productId: "weekday-regular", active: regActive  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 40, perPerson: null, calcKey: "weekday-lm", productId: "weekday-late",    active: lmActive  },
     ],
   },
   {
     key: "group",
     name: "Group Ticket",
-    tagline: { de: "6 Passports zum Preis von 5", en: "6 Passports for the price of 5" },
+    tagline: { de: "5 Passports zum Preis von 4", en: "5 Passports for the price of 4" },
     description: {
       de: "Der perfekte Pass für Gruppen – ein Passport gratis. Jede Person erhält einen vollwertigen Festival-Passport für alle 18 Tage.",
       en: "The perfect pass for groups – one Passport free. Each person receives a full festival Passport for all 18 days.",
@@ -100,14 +132,14 @@ const OTHER_TICKETS: OtherTicket[] = [
     badge: { de: null, en: null },
     accent: "tangerine",
     tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 170, perPerson: 28.33, calcKey: "group-r",  productId: "group-regular", active: true  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 245, perPerson: 40.83, calcKey: "group-lm", productId: "group-late",    active: false },
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 136, perPerson: 27.20, calcKey: "group-r",  productId: "group-regular", active: regActive  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 196, perPerson: 39.20, calcKey: "group-lm", productId: "group-late",    active: lmActive  },
     ],
   },
   {
     key: "group-weekday",
     name: "Group Weekday",
-    tagline: { de: "6 Weekday Passes zum Preis von 5", en: "6 Weekday Passes for the price of 5" },
+    tagline: { de: "5 Weekday Passes zum Preis von 4", en: "5 Weekday Passes for the price of 4" },
     description: {
       de: "Das beste Preis-Leistungs-Verhältnis für Gruppen unter der Woche – ideal für Firmengruppen und Team-Events.",
       en: "Best value for groups on weekdays – ideal for corporate groups and team events.",
@@ -115,8 +147,8 @@ const OTHER_TICKETS: OtherTicket[] = [
     badge: { de: null, en: null },
     accent: "everglade",
     tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 145, perPerson: 24.17, calcKey: "groupwd-r",  productId: "group-weekday-regular", active: true  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 200, perPerson: 33.33, calcKey: "groupwd-lm", productId: "group-weekday-late",    active: false },
+      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 116, perPerson: 23.20, calcKey: "groupwd-r",  productId: "group-weekday-regular", active: regActive  },
+      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 160, perPerson: 32.00, calcKey: "groupwd-lm", productId: "group-weekday-late",    active: lmActive  },
     ],
   },
 ];
@@ -176,6 +208,7 @@ function SavingsCalculator({
         </p>
         <div className="flex flex-wrap gap-2">
           {CALC_OPTIONS.filter((opt) =>
+            opt.key === "easter" ? easterActive :
             newTicketsAvailable ? true : opt.key.startsWith("passport")
           ).map((opt) => (
             <button
@@ -282,14 +315,13 @@ const passportFeatures = {
 
 export default function ShopPage() {
   const locale = useLocale() as "de" | "en";
-  const [calcKey, setCalcKey] = useState("passport-eb");
+  const activeTier = PASSPORT_TIERS[locale].find((t) => t.active)!;
+  const [calcKey, setCalcKey] = useState(activeTier.calcKey);
   const calcRef = useRef<HTMLDivElement>(null);
 
   const heroReveal = useReveal({ delay: 150 });
   const trustReveal = useReveal({ delay: 250 });
   const otherReveal = useReveal({ delay: 200 });
-
-  const activeTier = PASSPORT_TIERS[locale].find((t) => t.active)!;
 
   useEffect(() => {
     trackEvent("ViewContent", {
@@ -358,7 +390,7 @@ export default function ShopPage() {
                   {locale === "de" ? "BESTER PREIS JETZT" : "BEST PRICE NOW"}
                 </span>
                 <span className="text-[10px] font-body font-bold uppercase tracking-wider text-tangerine/80 bg-tangerine/10 border border-tangerine/20 px-3 py-1 rounded-full">
-                  Early Bird · {locale === "de" ? "bis 31. März" : "until Mar 31"}
+                  {activeTier.label} · {activeTier.until}
                 </span>
                 {calcKey.startsWith("passport") && (
                   <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-emerald-400 px-3 py-1 rounded-full">
@@ -423,12 +455,16 @@ export default function ShopPage() {
                 {/* Price + CTA */}
                 <div className="flex flex-col items-center justify-center md:min-w-[200px] md:border-l md:border-bone/10 md:pl-8">
                   <div className="flex items-baseline gap-3 mb-1">
-                    <span className="text-2xl font-display text-bone/25 line-through">€49</span>
-                    <span className="text-6xl md:text-7xl font-display text-tangerine">€20</span>
+                    {activeTier.price < 49 && (
+                      <span className="text-2xl font-display text-bone/25 line-through">€49</span>
+                    )}
+                    <span className="text-6xl md:text-7xl font-display text-tangerine">€{activeTier.price}</span>
                   </div>
-                  <span className="text-xs font-body text-emerald-400 font-bold mb-1">
-                    {locale === "de" ? "Du sparst 29 €" : "You save €29"}
-                  </span>
+                  {activeTier.price < 49 && (
+                    <span className="text-xs font-body text-emerald-400 font-bold mb-1">
+                      {locale === "de" ? `Du sparst ${49 - activeTier.price} €` : `You save €${49 - activeTier.price}`}
+                    </span>
+                  )}
                   <span className="text-[11px] font-body text-bone/55 mb-6">
                     {locale === "de" ? "pro Person" : "per person"}
                   </span>
@@ -460,6 +496,101 @@ export default function ShopPage() {
           ))}
         </div>
       </section>
+
+      {/* ── EASTER SPECIAL ── */}
+      {easterActive && (
+        <section id="easter-special" className="py-16 md:py-24 px-4 relative">
+          <div className="max-w-3xl mx-auto">
+            <div
+              className={`relative rounded-3xl overflow-hidden easter-glow cursor-pointer transition-all duration-200 ${
+                calcKey === "easter"
+                  ? "ring-2 ring-hibiscus/60 border-2 border-hibiscus/50"
+                  : "border-2 border-hibiscus/30 hover:border-hibiscus/50"
+              }`}
+              onClick={() => selectAndScroll("easter")}
+            >
+              {/* Decorative background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-hibiscus/20 via-licorice to-tangerine/10" />
+              <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-bg.svg)", backgroundSize: "100px 100px", backgroundRepeat: "repeat", opacity: 0.06 }} />
+              <div className="absolute top-[-60px] right-[-60px] w-[200px] h-[200px] rounded-full bg-hibiscus/20 blur-[80px]" />
+              <div className="absolute bottom-[-40px] left-[-40px] w-[160px] h-[160px] rounded-full bg-tangerine/15 blur-[60px]" />
+
+              {/* Sparkle decorations */}
+              <div className="absolute top-6 right-8 w-2 h-2 rounded-full bg-tangerine easter-sparkle-1" />
+              <div className="absolute top-12 right-20 w-1.5 h-1.5 rounded-full bg-hibiscus easter-sparkle-2" />
+              <div className="absolute bottom-10 left-10 w-2 h-2 rounded-full bg-tangerine easter-sparkle-3" />
+
+              <div className="relative p-6 md:p-10">
+                {/* Badges */}
+                <div className="flex flex-wrap items-center gap-3 mb-5">
+                  <span className="text-[10px] font-body font-bold uppercase tracking-wider text-bone bg-hibiscus px-3 py-1 rounded-full easter-float">
+                    🐣 {locale === "de" ? "OSTER SPECIAL" : "EASTER SPECIAL"}
+                  </span>
+                  <span className="text-[10px] font-body font-bold uppercase tracking-wider text-hibiscus bg-hibiscus/15 border border-hibiscus/30 px-3 py-1 rounded-full">
+                    {locale === "de" ? "NUR BIS OSTERMONTAG" : "UNTIL EASTER MONDAY ONLY"}
+                  </span>
+                  {calcKey === "easter" && (
+                    <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-emerald-400 px-3 py-1 rounded-full">
+                      {locale === "de" ? "Im Rechner aktiv" : "Active in calculator"}
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid md:grid-cols-[1fr,auto] gap-8 items-center">
+                  {/* Left: info */}
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-display text-bone mb-2">
+                      {locale === "de" ? "3 FÜR 2 PASSPORTS" : "3 FOR 2 PASSPORTS"}
+                    </h3>
+                    <p className="text-sm font-body text-bone/70 mb-5 max-w-md">
+                      {locale === "de"
+                        ? "Schnappt euch zu dritt ein Ticket – die dritte Person geht aufs Haus. Jede Person erhält einen vollwertigen Festival-Passport für alle 18 Tage, alle 58 Bars."
+                        : "Grab a ticket with two friends – the third person is on us. Each person receives a full Festival Passport for all 18 days, all 58 bars."}
+                    </p>
+                    <ul className="space-y-2">
+                      {[
+                        locale === "de" ? "3 vollwertige Festival-Passports" : "3 full Festival Passports",
+                        locale === "de" ? "Alle 18 Tage · Alle 58 Bars · 6 € Cocktails" : "All 18 days · All 58 bars · €6 cocktails",
+                        locale === "de" ? "Digitaler Stempelpass mit Belohnungen" : "Digital stamp passport with rewards",
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-2.5 text-sm font-body text-bone/80">
+                          <Check />{item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Right: price + CTA */}
+                  <div className="flex flex-col items-center text-center md:min-w-[200px] md:border-l md:border-bone/10 md:pl-8">
+                    <div className="flex items-baseline gap-2.5 mb-1">
+                      <span className="text-xl font-display text-bone/25 line-through">&euro;{easterUnit * 3}</span>
+                      <span className="text-6xl md:text-7xl font-display text-hibiscus">&euro;{easterPrice}</span>
+                    </div>
+                    <span className="text-xs font-body text-emerald-400 font-bold mb-0.5">
+                      {locale === "de"
+                        ? `33% Rabatt · ${easterPerPerson.toFixed(2).replace(".", ",")} €/Person`
+                        : `33% off · €${easterPerPerson.toFixed(2)}/person`}
+                    </span>
+                    <span className="text-[11px] font-body text-bone/45 mb-5">
+                      {locale === "de" ? "für 3 Personen" : "for 3 people"}
+                    </span>
+                    <ShopifyBuyButton
+                      productId="easter-3for2"
+                      buttonText={locale === "de" ? "OSTER-DEAL SICHERN" : "GET EASTER DEAL"}
+                      className="w-full text-center text-base py-4 !bg-hibiscus hover:!shadow-[0_0_40px_rgba(189,37,110,0.35)]"
+                      price={easterPrice}
+                    />
+                    <div className="mt-2.5 flex items-center gap-1.5 text-[11px] font-body font-bold text-hibiscus/70">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-hibiscus animate-pulse" />
+                      {locale === "de" ? "Endet Ostermontag" : "Ends Easter Monday"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── WEITERE TICKETS ── */}
       <section className="py-16 md:py-24 px-4 relative">
