@@ -147,7 +147,7 @@ export default function FestivalPage() {
                 {/* Bar image */}
                 <div className="relative aspect-[3/2] overflow-hidden">
                   <Image
-                    src={bar.image}
+                    src={bar.image ?? ""}
                     alt={bar.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
