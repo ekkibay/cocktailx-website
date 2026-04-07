@@ -50,7 +50,6 @@ export const events: FestivalEvent[] = [
       { de: "All you can drink Cocktails", en: "All you can drink cocktails" },
       { de: "Fingerfood inklusive", en: "Fingerfood included" },
       { de: "Live DJ · Rooftop Summer Vibes", en: "Live DJ · Rooftop Summer Vibes" },
-      { de: "Fotowand & professioneller Content", en: "Photo wall & professional content" },
       { de: "Exklusiver Einlass · 180 Gäste", en: "Exclusive access · 180 guests" },
     ],
     tickets: [
