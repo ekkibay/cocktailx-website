@@ -169,7 +169,7 @@ export default function FestivalPage() {
           </p>
 
           <div ref={barsReveal.ref} style={barsReveal.style} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {bars.map((bar) => (
+            {bars.filter((bar) => bar.image).map((bar) => (
               <FestivalBarCard key={bar.id} bar={bar} />
             ))}
           </div>

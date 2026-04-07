@@ -111,8 +111,9 @@ export default function BarsSlider() {
   const locale = useLocale() as "de" | "en";
   const t = useTranslations("barsSlider");
 
-  const row1 = bars.slice(0, Math.ceil(bars.length / 2));
-  const row2 = bars.slice(Math.ceil(bars.length / 2));
+  const barsWithImage = bars.filter((bar) => bar.image);
+  const row1 = barsWithImage.slice(0, Math.ceil(barsWithImage.length / 2));
+  const row2 = barsWithImage.slice(Math.ceil(barsWithImage.length / 2));
 
   return (
     <section className="pt-16 pb-8 md:pt-24 md:pb-12 overflow-hidden">
