@@ -240,11 +240,24 @@ export default function EventsPage() {
                   >
                     <div className={`absolute left-4 md:left-1/2 top-2 w-4 h-4 rounded-full ${dotColors[event.type]} -translate-x-1/2 ring-4 ring-licorice z-10`} />
                     <div className={`flex-1 ${isEven ? "md:text-right" : "md:text-left"}`}>
-                      <div className="rounded-2xl border border-bone/[0.08] bg-licorice/40 p-6 hover:border-bone/15 transition-colors">
-                        <p className="text-xs font-body text-tangerine font-bold mb-1">{dateStr} · {event.time}</p>
-                        <h3 className="text-xl font-display text-bone mb-2">{event.title[locale]}</h3>
-                        <p className="text-sm font-body text-bone/70 leading-relaxed mb-3">{event.description[locale]}</p>
-                        <p className="text-xs font-body text-bone/40">📍 {event.location}</p>
+                      <div className="rounded-2xl border border-bone/[0.08] bg-licorice/40 overflow-hidden hover:border-bone/15 transition-colors">
+                        <div className="relative aspect-[16/7] w-full">
+                          <Image
+                            src={event.image}
+                            alt={event.title[locale]}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            loading="lazy"
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 to-transparent" />
+                        </div>
+                        <div className="p-6">
+                          <p className="text-xs font-body text-tangerine font-bold mb-1">{dateStr} · {event.time}</p>
+                          <h3 className="text-xl font-display text-bone mb-2">{event.title[locale]}</h3>
+                          <p className="text-sm font-body text-bone/70 leading-relaxed mb-3">{event.description[locale]}</p>
+                          <p className="text-xs font-body text-bone/40">📍 {event.location}</p>
+                        </div>
                       </div>
                     </div>
                     <div className="hidden md:block flex-1" />

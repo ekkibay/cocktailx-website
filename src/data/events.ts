@@ -30,6 +30,22 @@ export interface FestivalEvent {
 
 export const events: FestivalEvent[] = [
   {
+    id: "grand-opening",
+    title: {
+      de: "Festival Start",
+      en: "Festival Start",
+    },
+    date: "2026-05-13",
+    time: "17:00",
+    location: "58 Bars in ganz München",
+    description: {
+      de: "Der offizielle Start des Cocktail X Festivals 2026. Ab sofort öffnen alle 58 teilnehmenden Bars ihre Türen – 18 Tage Cocktailkultur beginnt.",
+      en: "The official start of Cocktail X Festival 2026. All 58 participating bars open their doors – 18 days of cocktail culture begins.",
+    },
+    image: "/images/festival-cheers.webp",
+    type: "opening",
+  },
+  {
     id: "opening-party",
     title: {
       de: "Cocktail X Opening 2026",
@@ -73,22 +89,6 @@ export const events: FestivalEvent[] = [
     },
   },
   {
-    id: "grand-opening",
-    title: {
-      de: "Festival Start",
-      en: "Festival Start",
-    },
-    date: "2026-05-13",
-    time: "17:00",
-    location: "58 Bars in ganz München",
-    description: {
-      de: "Der offizielle Start des Cocktail X Festivals 2026. Ab sofort öffnen alle 58 teilnehmenden Bars ihre Türen – 18 Tage Cocktailkultur beginnt.",
-      en: "The official start of Cocktail X Festival 2026. All 58 participating bars open their doors – 18 days of cocktail culture begins.",
-    },
-    image: "/images/festival-cheers.webp",
-    type: "opening",
-  },
-  {
     id: "festival-days",
     title: {
       de: "Festival Tage",
@@ -102,7 +102,7 @@ export const events: FestivalEvent[] = [
       de: "58 Bars, 18 Tage, 1 Ticket: Entdecke die Signature Cocktails von Münchens besten Bars – für nur 6€ pro Drink.",
       en: "58 bars, 18 days, 1 ticket: Discover the signature cocktails of München's best bars – for just €6 per drink.",
     },
-    image: "/images/festival-bar-life.webp",
+    image: "/images/festival-key-visual.jpg",
     type: "festival",
   },
   {

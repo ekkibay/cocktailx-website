@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
+import { TICKET_TIERS } from "@/data/ticket-tiers";
 
 const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
 const NORMAL_PRICE = 15;
@@ -68,7 +69,7 @@ const OTHER_TICKETS: OtherTicketType[] = [
 
 function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
   const [count, setCount] = useState(5);
-  const ticketPrice = 20; // Early bird
+  const ticketPrice = TICKET_TIERS.cheapest;
   const barTotal = count * NORMAL_PRICE;
   const festivalTotal = ticketPrice + count * FESTIVAL_PRICE;
   const savings = barTotal - festivalTotal;
