@@ -1,15 +1,45 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
-import { bars } from "@/data/bars";
+import { bars, Bar } from "@/data/bars";
 import { events } from "@/data/events";
 import { sponsors, pressLogos } from "@/data/sponsors";
 import { trackEvent } from "@/lib/meta-pixel";
+
+function FestivalBarCard({ bar }: { bar: Bar }) {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <div className="group rounded-2xl overflow-hidden bg-licorice border border-bone/[0.08] hover:border-bone/[0.15] transition-all duration-300 hover:-translate-y-1">
+      <div className="relative aspect-[3/2] overflow-hidden">
+        {bar.image && !imgError ? (
+          <Image
+            src={bar.image}
+            alt={bar.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            loading="lazy"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-jambalaya via-licorice to-jambalaya flex items-center justify-center">
+            <span className="font-display text-bone tracking-widest text-lg text-center px-4">{bar.name}</span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 via-transparent to-transparent" />
+      </div>
+      <div className="p-4">
+        <p className="text-xs font-body text-bone/55 mb-1">{bar.district}</p>
+        <h3 className="text-base font-display text-bone">{bar.name}</h3>
+      </div>
+    </div>
+  );
+}
 
 /* ── History stats ── */
 const history = [
@@ -140,42 +170,14 @@ export default function FestivalPage() {
 
           <div ref={barsReveal.ref} style={barsReveal.style} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {bars.map((bar) => (
-              <div
-                key={bar.id}
-                className="group rounded-2xl overflow-hidden bg-licorice border border-bone/[0.08] hover:border-bone/[0.15] transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Bar image */}
-                <div className="relative aspect-[3/2] overflow-hidden">
-                  <Image
-                    src={bar.image ?? ""}
-                    alt={bar.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    loading="lazy"
-                    className="object-cover opacity-25"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-licorice/80 to-licorice/60" />
-                  <div className="absolute inset-0" style={{ backgroundImage: "url(/images/pattern-3.png)", backgroundSize: "160px 160px", backgroundRepeat: "repeat", opacity: 0.08 }} />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
-                    <span className="text-tangerine text-xs">✦</span>
-                    <span className="font-display text-bone text-base tracking-[0.3em]">COMING SOON</span>
-                  </div>
-                </div>
-                {/* Details */}
-                <div className="p-4">
-                  <p className="text-xs font-body text-bone/55 mb-2">
-                    {bar.district} · {bar.address}
-                  </p>
-                  <h3 className="text-base font-display text-bone">{bar.name}</h3>
-                </div>
-              </div>
+              <FestivalBarCard key={bar.id} bar={bar} />
             ))}
           </div>
 
           <p className="text-center text-sm font-body text-bone/55 mt-8">
             {locale === "de"
-              ? "Weitere 52+ Bars werden in Kürze bekanntgegeben."
-              : "52+ more bars will be announced soon."}
+              ? "Weitere Bars werden in Kürze bekanntgegeben."
+              : "More bars will be announced soon."}
           </p>
         </div>
       </section>
