@@ -27,8 +27,7 @@ export default function EventsTimeline() {
     { day: "numeric", month: "long", year: "numeric" }
   );
 
-  // Use rooftop image if available, fall back to m-uniqo bar image
-  const openingImage = "/images/opening-rooftop.jpg";
+  const openingImage = "/images/opening-rooftop.png";
 
   return (
     <section className="section-padding">
