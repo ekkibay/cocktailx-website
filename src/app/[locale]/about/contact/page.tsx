@@ -28,7 +28,31 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Contact form submitted:", form);
+
+    const subject = encodeURIComponent(
+      form.subject || (locale === "de" ? "Kontaktanfrage – Cocktail X Festival" : "Contact – Cocktail X Festival")
+    );
+
+    const lines = [
+      locale === "de" ? "KONTAKTANFRAGE – COCKTAIL X FESTIVAL" : "CONTACT – COCKTAIL X FESTIVAL",
+      "═".repeat(40),
+      "",
+      `${locale === "de" ? "Name" : "Name"}: ${form.name}`,
+      `E-Mail: ${form.email}`,
+      form.subject ? `${locale === "de" ? "Betreff" : "Subject"}: ${form.subject}` : "",
+      "",
+      "─".repeat(40),
+      "",
+      `${locale === "de" ? "Nachricht" : "Message"}:\n${form.message}`,
+      "",
+      "─".repeat(40),
+      locale === "de" ? "Gesendet über cocktail-x.com/contact" : "Sent via cocktail-x.com/contact",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const body = encodeURIComponent(lines);
+    window.location.href = `mailto:info@cocktail-x.com?subject=${subject}&body=${body}`;
   };
 
   const inputClasses =
@@ -125,6 +149,11 @@ export default function ContactPage() {
             <button type="submit" className="btn-primary w-full text-lg">
               {locale === "de" ? "NACHRICHT SENDEN" : "SEND MESSAGE"}
             </button>
+            <p className="text-xs font-body text-bone/35 text-center">
+              {locale === "de"
+                ? "Euer E-Mail-Programm öffnet sich mit den vorausgefüllten Daten."
+                : "Your email client will open with pre-filled details."}
+            </p>
           </motion.form>
 
           {/* Contact Info */}
