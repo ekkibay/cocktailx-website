@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/meta-pixel";
 import Image from "next/image";
 import Countdown from "@/components/ui/Countdown";
 
@@ -166,8 +167,8 @@ export default function Hero() {
         >
           <a
             href="https://cocktailx.app/"
+            onClick={() => trackEvent("InitiateCheckout", { content_name: "Hero CTA", content_category: "Festival" })}
             className="btn-primary text-sm md:text-lg whitespace-nowrap"
-
           >
             {t("cta")}
           </a>

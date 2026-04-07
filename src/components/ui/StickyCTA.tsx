@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/meta-pixel";
 
 export default function StickyCTA() {
   const t = useTranslations("stickyCta");
@@ -48,6 +49,7 @@ export default function StickyCTA() {
               href="https://cocktailx.app/"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent("InitiateCheckout", { content_name: "Sticky CTA", content_category: "Festival" })}
               className="btn-primary text-sm whitespace-nowrap px-6 py-3"
             >
               {t("cta")}

@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { trackEvent } from "@/lib/meta-pixel";
 import { Wine, Users, Heart, Compass } from "lucide-react";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import BlurText from "@/components/ui/BlurText";
@@ -104,6 +105,7 @@ export default function About() {
                 href="https://cocktailx.app/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("InitiateCheckout", { content_name: "About CTA", content_category: "Festival" })}
                 className="btn-primary mt-8 inline-block"
               >
                 {t("cta")}

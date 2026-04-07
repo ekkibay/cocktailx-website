@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { trackEvent } from "@/lib/meta-pixel";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { navLinks } from "@/lib/nav";
 
@@ -65,7 +66,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
               href="https://cocktailx.app/"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onClose}
+              onClick={() => { trackEvent("InitiateCheckout", { content_name: "Mobile Nav CTA", content_category: "Festival" }); onClose(); }}
               className="btn-primary text-sm uppercase tracking-wider"
             >
               {t("getPassport")}
