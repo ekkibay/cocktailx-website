@@ -53,7 +53,8 @@
       "title": "COLLECT STAMPS & UNLOCK REWARDS",
       "description": "For every signature cocktail you buy, you receive a digital <strong>stamp</strong>. The more stamps you collect, the more <strong>rewards and perks</strong> you unlock."
     },
-    "appHint": "Everything in the Cocktail X App"
+    "appHint": "Everything in the Cocktail X App",
+    "cta": "Get Your Ticket"
   },
   "tickets": {
     "headline": "GET YOUR PASS NOW",
@@ -218,7 +219,7 @@
     }
   },
   "stickyCta": {
-    "label": "Early Bird Price",
+    "label": "Tickets from",
     "cta": "GET YOURS"
   },
   "gallery": {

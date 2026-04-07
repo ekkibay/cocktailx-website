@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { trackEvent } from "@/lib/meta-pixel";
+import { TICKET_TIERS } from "@/data/ticket-tiers";
 
 export default function StickyCTA() {
   const t = useTranslations("stickyCta");
   const [visible, setVisible] = useState(false);
+  const currentPrice = TICKET_TIERS.cheapest;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,15 +42,14 @@ export default function StickyCTA() {
             <div>
               <span className="text-xs font-body text-bone/80">{t("label")}</span>
               <div className="flex items-baseline gap-2">
-                <span className="text-lg font-display text-bone/30 line-through">€49</span>
-                <span className="text-2xl font-display text-tangerine">€20</span>
+                {currentPrice < 49 && (
+                  <span className="text-lg font-display text-bone/30 line-through">€49</span>
+                )}
+                <span className="text-2xl font-display text-tangerine">€{currentPrice}</span>
               </div>
             </div>
             <a
-              href="https://cocktailx.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("InitiateCheckout", { content_name: "Sticky CTA", content_category: "Festival" })}
+              href="#tickets"
               className="btn-primary text-sm whitespace-nowrap px-6 py-3"
             >
               {t("cta")}

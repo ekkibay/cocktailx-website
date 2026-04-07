@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { trackEvent } from "@/lib/meta-pixel";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileNav from "./MobileNav";
@@ -80,10 +79,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-6">
             <LanguageSwitcher />
             <a
-              href="https://cocktailx.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("InitiateCheckout", { content_name: "Header CTA", content_category: "Festival" })}
+              href="#tickets"
               className="btn-secondary text-xs uppercase tracking-wider"
             >
               {t("getPassport")}

@@ -5,7 +5,7 @@ export interface Bar {
   address: string;
   website?: string;
   signatureCocktail: string;
-  image: string;
+  image?: string;
   logo?: string;
   description: {
     de: string;
@@ -33,8 +33,6 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/amari-bar.jpg",
-    logo: "/images/bars/amari-bar-logo.jpg",
     description: {
       de: "Die AMARi Bar verbindet italienisches Flair mit Münchner Barkultur.",
       en: "AMARi Bar combines Italian flair with Munich bar culture.",
@@ -59,7 +57,6 @@ export const bars: Bar[] = [
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/bambi.jpg",
     logo: "/images/bars/bambi-logo.svg",
     description: {
       de: "Gemütliche Bar im Herzen Münchens mit kreativen Drinks.",
@@ -72,7 +69,6 @@ export const bars: Bar[] = [
     district: "Haidhausen",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/bar-montez.jpg",
     logo: "/images/bars/bar-montez-logo.png",
     description: {
       de: "Bar Montez – wo Cocktailkunst auf Haidhausener Charme trifft.",
@@ -85,7 +81,6 @@ export const bars: Bar[] = [
     district: "Schwabing",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/bar-am-see-haus.jpg",
     logo: "/images/bars/bar-am-see-haus-logo.png",
     description: {
       de: "Entspannte Bar-Atmosphäre am Kleinhesseloher See im Englischen Garten.",
@@ -98,7 +93,6 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "Maximilianstraße 15, München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/brenner-bar.jpg",
     logo: "/images/bars/brenner-bar-logo.png",
     description: {
       de: "Stilvolle Bar an der Maximilianstraße mit erstklassiger Cocktailkarte.",
@@ -111,7 +105,6 @@ export const bars: Bar[] = [
     district: "Maxvorstadt",
     address: "Türkenstraße 33, München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/cafe-puck.jpg",
     logo: "/images/bars/cafe-puck-logo.png",
     description: {
       de: "Kultiges Café und Bar im Univiertel.",
@@ -124,7 +117,6 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/cloud-6.jpg",
     logo: "/images/bars/cloud-6-logo.svg",
     description: {
       de: "Rooftop-Bar mit Panoramablick über München.",
@@ -137,7 +129,6 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/curtain-call.jpg",
     logo: "/images/bars/curtain-call-logo.png",
     description: {
       de: "Theatralisches Ambiente trifft auf meisterhafte Mixologie.",
@@ -150,7 +141,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/die-krake.jpg",
     logo: "/images/bars/die-krake-logo.png",
     description: {
       de: "Kreative Cocktails in einzigartigem Ambiente.",
@@ -163,7 +153,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/fitzroy.jpg",
     logo: "/images/bars/fitzroy-logo.png",
     description: {
       de: "Australisch inspirierte Bar im Glockenbachviertel.",
@@ -176,7 +165,6 @@ export const bars: Bar[] = [
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/florio-bar.jpg",
     logo: "/images/bars/florio-bar-logo.png",
     description: {
       de: "Italienische Eleganz und klassische Cocktailkultur.",
@@ -189,8 +177,6 @@ export const bars: Bar[] = [
     district: "Haidhausen",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/fux.jpg",
-    logo: "/images/bars/fux-logo.jpg",
     description: {
       de: "Modern und unkompliziert – die Fux Bar in Haidhausen.",
       en: "Modern and uncomplicated – the Fux Bar in Haidhausen.",
@@ -202,7 +188,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/gorilla-bar.jpg",
     logo: "/images/bars/gorilla-bar-logo.png",
     description: {
       de: "Urbane Bar mit starkem Charakter und noch stärkeren Drinks.",
@@ -215,7 +200,6 @@ export const bars: Bar[] = [
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/graf-rumford.jpg",
     logo: "/images/bars/graf-rumford-logo.svg",
     description: {
       de: "Historisches Flair trifft auf moderne Barkultur.",
@@ -241,8 +225,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/guatemuc.jpg",
-    logo: "/images/bars/guatemuc-logo.jpg",
     description: {
       de: "Lateinamerikanische Cocktails in gemütlicher Atmosphäre.",
       en: "Latin American cocktails in a cozy atmosphere.",
@@ -267,8 +249,6 @@ export const bars: Bar[] = [
     district: "Schwabing",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/herzog-restaurant-bar.jpg",
-    logo: "/images/bars/herzog-restaurant-bar-logo.jpg",
     description: {
       de: "Restaurant und Bar mit gehobener Cocktailkarte.",
       en: "Restaurant and bar with an upscale cocktail menu.",
@@ -280,8 +260,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/home-bar.jpg",
-    logo: "/images/bars/home-bar-logo.jpg",
     description: {
       de: "Wie zuhause, nur mit besseren Cocktails.",
       en: "Like home, but with better cocktails.",
@@ -306,8 +284,6 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/juliet-rose-bar.jpg",
-    logo: "/images/bars/juliet-rose-bar-logo.jpg",
     description: {
       de: "Romantische Bar mit floralen Cocktailkreationen.",
       en: "Romantic bar with floral cocktail creations.",
@@ -319,8 +295,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/la-burrita.jpg",
-    logo: "/images/bars/la-burrita-logo.jpg",
     description: {
       de: "Mexikanisches Flair mit handgemachten Margaritas.",
       en: "Mexican flair with handcrafted margaritas.",
@@ -332,8 +306,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/lola-bar.jpg",
-    logo: "/images/bars/lola-bar-logo.jpg",
     description: {
       de: "Lebendige Bar mit Charakter im Glockenbachviertel.",
       en: "Vibrant bar with character in the Glockenbachviertel.",
@@ -345,7 +317,6 @@ export const bars: Bar[] = [
     district: "Maxvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/mister-b-s.jpg",
     logo: "/images/bars/mister-b-s-logo.svg",
     description: {
       de: "Speakeasy-Vibes und handwerkliche Cocktails.",
@@ -358,7 +329,6 @@ export const bars: Bar[] = [
     district: "Schwabing",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/monchalant-bar-vinoth-que-et-cuisinerie.jpg",
     logo: "/images/bars/monchalant-bar-vinoth-que-et-cuisinerie-logo.png",
     description: {
       de: "Bar, Vinothek und Küche – ein Gesamterlebnis.",
@@ -371,7 +341,6 @@ export const bars: Bar[] = [
     district: "Maxvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/nice-dining.jpg",
     logo: "/images/bars/nice-dining-logo.svg",
     description: {
       de: "Gehobene Küche und exquisite Cocktails.",
@@ -384,7 +353,6 @@ export const bars: Bar[] = [
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/no-mames-m-nchen.jpg",
     logo: "/images/bars/no-mames-m-nchen-logo.png",
     description: {
       de: "Authentisch mexikanisch – Tacos, Mezcal und gute Laune.",
@@ -397,8 +365,6 @@ export const bars: Bar[] = [
     district: "Maxvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/otto-25.jpg",
-    logo: "/images/bars/otto-25-logo.jpg",
     description: {
       de: "Moderne Bar in der Maxvorstadt mit saisonalen Cocktails.",
       en: "Modern bar in the Maxvorstadt with seasonal cocktails.",
@@ -410,8 +376,6 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/primo-bar.jpg",
-    logo: "/images/bars/primo-bar-logo.jpg",
     description: {
       de: "Erstklassige Cocktails in stilvollem Ambiente.",
       en: "First-class cocktails in a stylish setting.",
@@ -423,7 +387,6 @@ export const bars: Bar[] = [
     district: "Schwabing",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/quentin-s-fun-kitchen.jpg",
     logo: "/images/bars/quentin-s-fun-kitchen-logo.png",
     description: {
       de: "Fun Dining mit kreativen Cocktails in Schwabing.",
@@ -436,8 +399,6 @@ export const bars: Bar[] = [
     district: "Haidhausen",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/relax-food-drinks-you.jpg",
-    logo: "/images/bars/relax-food-drinks-you-logo.jpg",
     description: {
       de: "Entspannung pur – Food, Drinks und gute Gesellschaft.",
       en: "Pure relaxation – food, drinks and good company.",
@@ -449,8 +410,6 @@ export const bars: Bar[] = [
     district: "Altstadt-Lehel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/ruby-rosi.jpg",
-    logo: "/images/bars/ruby-rosi-logo.jpg",
     description: {
       de: "Hotelbar mit Münchner Flair und kreativer Cocktailkarte.",
       en: "Hotel bar with Munich flair and a creative cocktail menu.",
@@ -462,8 +421,6 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/salon-irkutsk.jpg",
-    logo: "/images/bars/salon-irkutsk-logo.jpg",
     description: {
       de: "Versteckte Bar mit osteuropäischem Charme und starken Drinks.",
       en: "Hidden bar with Eastern European charm and strong drinks.",
@@ -475,7 +432,6 @@ export const bars: Bar[] = [
     district: "Schwabing",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/simsalbim-bar.jpg",
     logo: "/images/bars/simsalbim-bar-logo.svg",
     description: {
       de: "Magische Cocktails und verzaubernde Atmosphäre.",
@@ -488,8 +444,6 @@ export const bars: Bar[] = [
     district: "Bogenhausen",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/sparkling-bar.jpg",
-    logo: "/images/bars/sparkling-bar-logo.jpg",
     description: {
       de: "Prickelnde Drinks und festliches Ambiente.",
       en: "Sparkling drinks and a festive ambiance.",
@@ -501,7 +455,6 @@ export const bars: Bar[] = [
     district: "Haidhausen",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/terra.jpg",
     logo: "/images/bars/terra-logo.png",
     description: {
       de: "Naturverbundene Bar mit nachhaltigen Cocktails.",
@@ -514,7 +467,6 @@ export const bars: Bar[] = [
     district: "Maxvorstadt",
     address: "München",
     signatureCocktail: "Coming Soon",
-    image: "/images/bars/wallace-bar.jpg",
     logo: "/images/bars/wallace-bar-logo.svg",
     description: {
       de: "Britisch inspirierte Bar mit Gin-Fokus und Gentleman-Flair.",

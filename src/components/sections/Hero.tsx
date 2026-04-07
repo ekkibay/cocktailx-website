@@ -3,20 +3,19 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { trackEvent } from "@/lib/meta-pixel";
 import Image from "next/image";
 import Countdown from "@/components/ui/Countdown";
 
 const bgImages = [
-  { src: "/images/L1030894_CocktailX_adriancamo.webp", top: "-2%", left: "1%", size: "w-[100px] h-[130px] md:w-[260px] md:h-[340px]", rotate: -8, delay: 0, speed: 0.3, mobileHide: false },
-  { src: "/images/festival-lounge.webp", top: "-3%", right: "1%", size: "w-[95px] h-[120px] md:w-[250px] md:h-[320px]", rotate: 6, delay: 100, speed: 0.5, mobileHide: false },
-  { src: "/images/IMG_1063.webp", top: "30%", left: "1%", size: "w-[90px] h-[115px] md:w-[235px] md:h-[300px]", rotate: 4, delay: 200, speed: 0.2, mobileHide: false },
+  { src: "/images/L1030894_CocktailX_adriancamo.webp", top: "-2%", left: "1%", size: "w-[100px] h-[130px] md:w-[260px] md:h-[340px]", rotate: -8, delay: 0, speed: 0.3, mobileHide: true },
+  { src: "/images/festival-lounge.webp", top: "-3%", right: "1%", size: "w-[95px] h-[120px] md:w-[250px] md:h-[320px]", rotate: 6, delay: 100, speed: 0.5, mobileHide: true },
+  { src: "/images/IMG_1063.webp", top: "30%", left: "1%", size: "w-[90px] h-[115px] md:w-[235px] md:h-[300px]", rotate: 4, delay: 200, speed: 0.2, mobileHide: true },
   { src: "/images/studio-berg-3.jpg", bottom: "-2%", left: "4%", size: "w-[95px] h-[120px] md:w-[245px] md:h-[315px]", rotate: -5, delay: 300, speed: 0.6, mobileHide: true },
-  { src: "/images/festival-bottles.webp", top: "18%", right: "1%", size: "w-[85px] h-[110px] md:w-[225px] md:h-[290px]", rotate: -4, delay: 150, speed: 0.35, mobileHide: false },
+  { src: "/images/festival-bottles.webp", top: "18%", right: "1%", size: "w-[85px] h-[110px] md:w-[225px] md:h-[290px]", rotate: -4, delay: 150, speed: 0.35, mobileHide: true },
   { src: "/images/L1030863_CocktailX_adriancamo.webp", top: "50%", right: "1%", size: "w-[95px] h-[120px] md:w-[250px] md:h-[320px]", rotate: 7, delay: 250, speed: 0.45, mobileHide: true },
   { src: "/images/Cocktail X_2.webp", bottom: "-3%", left: "22%", size: "w-[90px] h-[115px] md:w-[230px] md:h-[295px]", rotate: 3, delay: 350, speed: 0.55, mobileHide: true },
   { src: "/images/Cocktail X_4.webp", bottom: "-2%", right: "5%", size: "w-[92px] h-[118px] md:w-[238px] md:h-[305px]", rotate: -6, delay: 400, speed: 0.25, mobileHide: true },
-  { src: "/images/festival-cheers.webp", top: "2%", right: "20%", size: "w-[88px] h-[112px] md:w-[220px] md:h-[280px]", rotate: 5, delay: 200, speed: 0.4, mobileHide: false },
+  { src: "/images/festival-cheers.webp", top: "2%", right: "20%", size: "w-[88px] h-[112px] md:w-[220px] md:h-[280px]", rotate: 5, delay: 200, speed: 0.4, mobileHide: true },
   { src: "/images/Cocktail X_3.webp", bottom: "5%", right: "25%", size: "w-[85px] h-[108px] md:w-[210px] md:h-[270px]", rotate: -3, delay: 450, speed: 0.65, mobileHide: true },
 ];
 
@@ -147,7 +146,7 @@ export default function Hero() {
         </h1>
 
         <p
-          className="hero-fade-fast mb-6 md:mb-8 max-w-lg text-base md:text-lg font-body text-bone/85 leading-relaxed font-bold"
+          className="hero-fade-fast mb-6 md:mb-8 max-w-lg text-sm md:text-lg font-body text-bone/85 leading-relaxed font-bold hidden sm:block"
           style={{ opacity: 0, animationDelay: "550ms" }}
         >
           {t("subheadline")}
@@ -166,8 +165,7 @@ export default function Hero() {
           style={{ opacity: 0, animationDelay: "700ms" }}
         >
           <a
-            href="https://cocktailx.app/"
-            onClick={() => trackEvent("InitiateCheckout", { content_name: "Hero CTA", content_category: "Festival" })}
+            href="#tickets"
             className="btn-primary text-sm md:text-lg whitespace-nowrap"
           >
             {t("cta")}
@@ -176,7 +174,7 @@ export default function Hero() {
             href={`https://wa.me/?text=${shareText}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full border border-bone/25 text-bone font-body font-bold text-sm md:text-base hover:bg-bone/5 transition-colors whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full border border-bone/25 text-bone font-body font-bold text-sm md:text-base hover:bg-bone/5 transition-colors whitespace-nowrap"
           >
             <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -186,7 +184,7 @@ export default function Hero() {
         </div>
 
         <p
-          className="hero-fade-fast mt-4 text-xs font-body text-bone/55 tracking-wide"
+          className="hero-fade-fast mt-4 text-xs font-body text-bone/55 tracking-wide hidden sm:block"
           style={{ opacity: 0, animationDelay: "1000ms" }}
         >
           {t("guestCount")}

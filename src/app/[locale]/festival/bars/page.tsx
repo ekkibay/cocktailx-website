@@ -6,6 +6,64 @@ import { useLocale } from "next-intl";
 import Image from "next/image";
 import { bars, districts } from "@/data/bars";
 
+function BarImage({ src, alt, onError }: { src: string; alt: string; onError: () => void }) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      loading="lazy"
+      className="object-cover transition-transform duration-500 group-hover:scale-110"
+      onError={onError}
+    />
+  );
+}
+
+function BarCard({ bar, locale }: { bar: typeof bars[0]; locale: "de" | "en" }) {
+  const [imgError, setImgError] = useState(false);
+  const [logoError, setLogoError] = useState(false);
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.35 }}
+      className="group rounded-2xl bg-licorice border border-bone/10 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-tangerine/10"
+    >
+      {/* Image + Logo */}
+      <div className="relative aspect-video overflow-hidden">
+        {bar.image && !imgError ? (
+          <BarImage src={bar.image} alt={bar.name} onError={() => setImgError(true)} />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-jambalaya via-licorice to-jambalaya" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-licorice/10" />
+        {bar.logo && !logoError ? (
+          <div className="absolute inset-0 flex items-center justify-center z-[2] p-6">
+            <div className="bg-bone/90 backdrop-blur-sm rounded-xl px-5 py-4 shadow-lg">
+              <img src={bar.logo} alt={`${bar.name} Logo`} className="h-[65px] max-w-[180px] object-contain" onError={() => setLogoError(true)} />
+            </div>
+          </div>
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center z-[2]">
+            <span className="font-display text-bone tracking-widest text-xl md:text-2xl text-center px-4">{bar.name}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="text-xl font-display text-bone">{bar.name}</h3>
+        <p className="text-xs font-body text-bone/50 mt-1">{bar.district}</p>
+        <p className="text-sm font-body text-bone/80 mt-3">{bar.description[locale]}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function BarsPage() {
   const locale = useLocale() as "de" | "en";
   const [activeFilter, setActiveFilter] = useState<string>("Alle");
@@ -61,47 +119,7 @@ export default function BarsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredBars.map((bar) => (
-              <motion.div
-                key={bar.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.35 }}
-                className="group rounded-2xl bg-licorice border border-bone/10 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-tangerine/10"
-              >
-                {/* Image + Logo */}
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={bar.image}
-                    alt={bar.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    loading="lazy"
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-licorice/10" />
-                  {/* Logo */}
-                  {bar.logo && (
-                    <div className="absolute inset-0 flex items-center justify-center z-[2] p-6">
-                      <div className="bg-bone/90 backdrop-blur-sm rounded-xl px-5 py-4 shadow-lg">
-                        <img src={bar.logo} alt={`${bar.name} Logo`} className="h-[65px] max-w-[180px] object-contain" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-display text-bone">{bar.name}</h3>
-                  <p className="text-xs font-body text-bone/50 mt-1">
-                    {bar.district}
-                  </p>
-                  <p className="text-sm font-body text-bone/80 mt-3">
-                    {bar.description[locale]}
-                  </p>
-                </div>
-              </motion.div>
+              <BarCard key={bar.id} bar={bar} locale={locale} />
             ))}
           </AnimatePresence>
         </div>
