@@ -46,7 +46,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bambi.png",
-    logo: "/images/bars/bambi-logo.svg",
     description: {
       de: "Gemütliche Bar im Herzen Münchens mit kreativen Drinks.",
       en: "Cozy bar in the heart of Munich with creative drinks.",
@@ -59,7 +58,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bar-am-see-haus.png",
-    logo: "/images/bars/bar-am-see-haus-logo.png",
     description: {
       de: "Entspannte Bar-Atmosphäre am Kleinhesseloher See im Englischen Garten.",
       en: "Relaxed bar atmosphere at Kleinhesseloher See in the English Garden.",
@@ -72,7 +70,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bar-montez.png",
-    logo: "/images/bars/bar-montez-logo.png",
     description: {
       de: "Bar Montez – wo Cocktailkunst auf Haidhausener Charme trifft.",
       en: "Bar Montez – where cocktail artistry meets Haidhausen charm.",
@@ -85,7 +82,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bodeguita-bar.png",
-    logo: "/images/bars/bodeguita-bar-logo.png",
     description: {
       de: "Kubanische Vibes und handgemachte Cocktails mitten in München.",
       en: "Cuban vibes and handcrafted cocktails in the heart of Munich.",
@@ -110,7 +106,6 @@ export const bars: Bar[] = [
     address: "Maximilianstraße 15, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/brenner-bar.png",
-    logo: "/images/bars/brenner-bar-logo.png",
     description: {
       de: "Stilvolle Bar an der Maximilianstraße mit erstklassiger Cocktailkarte.",
       en: "Stylish bar on Maximilianstraße with a first-class cocktail menu.",
@@ -123,7 +118,6 @@ export const bars: Bar[] = [
     address: "Türkenstraße 33, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/cafe-puck.png",
-    logo: "/images/bars/cafe-puck-logo.png",
     description: {
       de: "Kultiges Café und Bar im Univiertel.",
       en: "Iconic café and bar in the university quarter.",
@@ -160,7 +154,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/cloud-6.png",
-    logo: "/images/bars/cloud-6-logo.svg",
     description: {
       de: "Rooftop-Bar mit Panoramablick über München.",
       en: "Rooftop bar with a panoramic view over Munich.",
@@ -185,7 +178,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/curtain-call.png",
-    logo: "/images/bars/curtain-call-logo.png",
     description: {
       de: "Theatralisches Ambiente trifft auf meisterhafte Mixologie.",
       en: "Theatrical ambiance meets masterful mixology.",
@@ -198,7 +190,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/die-krake.png",
-    logo: "/images/bars/die-krake-logo.png",
     description: {
       de: "Kreative Cocktails in einzigartigem Ambiente.",
       en: "Creative cocktails in a unique atmosphere.",
@@ -223,7 +214,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/fitzroy.png",
-    logo: "/images/bars/fitzroy-logo.png",
     description: {
       de: "Australisch inspirierte Bar im Glockenbachviertel.",
       en: "Australian-inspired bar in the Glockenbachviertel.",
@@ -236,7 +226,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/florio-bar.png",
-    logo: "/images/bars/florio-bar-logo.png",
     description: {
       de: "Italienische Eleganz und klassische Cocktailkultur.",
       en: "Italian elegance and classic cocktail culture.",
@@ -261,7 +250,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/gorilla-bar.png",
-    logo: "/images/bars/gorilla-bar-logo.png",
     description: {
       de: "Urbane Bar mit starkem Charakter und noch stärkeren Drinks.",
       en: "Urban bar with strong character and even stronger drinks.",
@@ -274,7 +262,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/graf-rumford.png",
-    logo: "/images/bars/graf-rumford-logo.svg",
     description: {
       de: "Historisches Flair trifft auf moderne Barkultur.",
       en: "Historical flair meets modern bar culture.",
@@ -287,7 +274,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/gspusi-klara.png",
-    logo: "/images/bars/gspusi-klara-logo.webp",
     description: {
       de: "Zwei Bars, ein Erlebnis – bayerischer Charme mit Cocktailkultur.",
       en: "Two bars, one experience – Bavarian charm with cocktail culture.",
@@ -336,7 +322,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/heir-beverage-house.png",
-    logo: "/images/bars/heir-beverage-house-logo.png",
     description: {
       de: "Exklusive Getränkekultur in edlem Ambiente.",
       en: "Exclusive beverage culture in an upscale setting.",
@@ -385,7 +370,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/hotel-lux.png",
-    logo: "/images/bars/hotel-lux-logo.png",
     description: {
       de: "Club und Bar mit einzigartiger Atmosphäre.",
       en: "Club and bar with a unique atmosphere.",
@@ -446,7 +430,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/mister-b-s.png",
-    logo: "/images/bars/mister-b-s-logo.svg",
     description: {
       de: "Speakeasy-Vibes und handwerkliche Cocktails.",
       en: "Speakeasy vibes and handcrafted cocktails.",
@@ -470,7 +453,6 @@ export const bars: Bar[] = [
     district: "Schwabing",
     address: "München",
     signatureCocktail: "Coming Soon",
-    logo: "/images/bars/monchalant-bar-vinoth-que-et-cuisinerie-logo.png",
     description: {
       de: "Bar, Vinothek und Küche – ein Gesamterlebnis.",
       en: "Bar, wine bar and cuisine – a complete experience.",
@@ -483,7 +465,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/nice-dining.png",
-    logo: "/images/bars/nice-dining-logo.svg",
     description: {
       de: "Gehobene Küche und exquisite Cocktails.",
       en: "Fine dining and exquisite cocktails.",
@@ -496,7 +477,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/no-mames.png",
-    logo: "/images/bars/no-mames-m-nchen-logo.png",
     description: {
       de: "Authentisch mexikanisch – Tacos, Mezcal und gute Laune.",
       en: "Authentically Mexican – tacos, mezcal and good vibes.",
@@ -532,7 +512,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/quentins.png",
-    logo: "/images/bars/quentin-s-fun-kitchen-logo.png",
     description: {
       de: "Fun Dining mit kreativen Cocktails in Schwabing.",
       en: "Fun dining with creative cocktails in Schwabing.",
@@ -592,7 +571,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/simsalbim-bar.png",
-    logo: "/images/bars/simsalbim-bar-logo.svg",
     description: {
       de: "Magische Cocktails und verzaubernde Atmosphäre.",
       en: "Magical cocktails and an enchanting atmosphere.",
@@ -617,7 +595,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/terra.png",
-    logo: "/images/bars/terra-logo.png",
     description: {
       de: "Naturverbundene Bar mit nachhaltigen Cocktails.",
       en: "Nature-inspired bar with sustainable cocktails.",
@@ -642,7 +619,6 @@ export const bars: Bar[] = [
     address: "München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/wallace-bar.png",
-    logo: "/images/bars/wallace-bar-logo.svg",
     description: {
       de: "Britisch inspirierte Bar mit Gin-Fokus und Gentleman-Flair.",
       en: "British-inspired bar with a gin focus and gentleman flair.",

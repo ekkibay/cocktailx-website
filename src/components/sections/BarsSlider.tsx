@@ -9,7 +9,6 @@ import BlurText from "@/components/ui/BlurText";
 
 function BarCard({ bar }: { bar: typeof bars[0] }) {
   const [imgError, setImgError] = useState(false);
-  const [logoError, setLogoError] = useState(false);
 
   return (
     <div
@@ -26,26 +25,11 @@ function BarCard({ bar }: { bar: typeof bars[0] }) {
           onError={() => setImgError(true)}
         />
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-jambalaya via-licorice to-jambalaya" />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/20" />
-
-      {bar.logo && !logoError ? (
-        <div className="absolute inset-0 flex items-center justify-center z-[2] p-6">
-          <div className="bg-bone/90 backdrop-blur-sm rounded-xl px-5 py-4 shadow-lg">
-            <img
-              src={bar.logo}
-              alt={`${bar.name} Logo`}
-              className="h-[65px] max-w-[150px] object-contain"
-              onError={() => setLogoError(true)}
-            />
-          </div>
-        </div>
-      ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-[2]">
+        <div className="absolute inset-0 bg-gradient-to-br from-jambalaya via-licorice to-jambalaya flex items-center justify-center">
           <span className="font-display text-bone tracking-widest text-xl md:text-2xl text-center px-4">{bar.name}</span>
         </div>
       )}
+      <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/20" />
 
       <div className="absolute inset-0 bg-gradient-to-t from-licorice via-transparent to-transparent z-[3]" />
       <div className="absolute bottom-0 left-0 right-0 z-[4] p-4 md:p-5">
