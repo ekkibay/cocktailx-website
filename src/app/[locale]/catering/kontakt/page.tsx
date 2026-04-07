@@ -19,64 +19,26 @@ export default function KontaktPage() {
     date: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   const update = (field: string, value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
-  const eventLabels: Record<string, Record<string, string>> = {
-    corporate: { de: "Firmenevent / Produktlaunch", en: "Corporate Event / Product Launch" },
-    messe: { de: "Messe / Konferenz", en: "Trade Fair / Conference" },
-    gala: { de: "Gala / VIP-Empfang", en: "Gala / VIP Reception" },
-    networking: { de: "Networking / After-Work", en: "Networking / After-Work" },
-    other: { de: "Sonstiges", en: "Other" },
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const eventLabel = form.eventType
-      ? eventLabels[form.eventType]?.[locale] || form.eventType
-      : "-";
-
-    const subject = encodeURIComponent(
-      locale === "de"
-        ? `Catering-Anfrage: ${eventLabel}${form.company ? ` — ${form.company}` : ""}`
-        : `Catering Enquiry: ${eventLabel}${form.company ? ` — ${form.company}` : ""}`
-    );
-
-    const lines = [
-      locale === "de" ? "CATERING-ANFRAGE" : "CATERING ENQUIRY",
-      "═".repeat(40),
-      "",
-      `${locale === "de" ? "Name" : "Name"}: ${form.name}`,
-      form.company ? `${locale === "de" ? "Unternehmen" : "Company"}: ${form.company}` : "",
-      `E-Mail: ${form.email}`,
-      form.phone ? `${locale === "de" ? "Telefon" : "Phone"}: ${form.phone}` : "",
-      "",
-      "─".repeat(40),
-      "",
-      `${locale === "de" ? "Event-Art" : "Event Type"}: ${eventLabel}`,
-      form.guestCount
-        ? `${locale === "de" ? "Gästeanzahl" : "Guest Count"}: ${form.guestCount}`
-        : "",
-      form.date
-        ? `${locale === "de" ? "Event-Datum" : "Event Date"}: ${form.date}`
-        : "",
-      "",
-      form.message
-        ? `${locale === "de" ? "Nachricht" : "Message"}:\n${form.message}`
-        : "",
-      "",
-      "─".repeat(40),
-      locale === "de"
-        ? "Gesendet über cocktail-x.com/catering"
-        : "Sent via cocktail-x.com/catering",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const body = encodeURIComponent(lines);
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/catering-contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("success");
+      setForm({ name: "", company: "", email: "", phone: "", eventType: "", guestCount: "", date: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   };
 
   const inputClass =
@@ -223,18 +185,28 @@ export default function KontaktPage() {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-4 rounded-full bg-ct-red text-white font-body font-bold text-sm uppercase tracking-wider hover:bg-ct-red/85 transition-all duration-200 shadow-lg shadow-ct-red/20"
-              >
-                {locale === "de" ? "Anfrage senden" : "Send Enquiry"}
-              </button>
-
-              <p className="text-xs font-body text-everglade/40 text-center">
-                {locale === "de"
-                  ? "Klickt auf Senden — euer E-Mail-Programm öffnet sich mit den vorausgefüllten Daten."
-                  : "Click send — your email client will open with pre-filled details."}
-              </p>
+              {status === "success" ? (
+                <div className="w-full py-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-body font-bold text-center text-sm">
+                  {locale === "de" ? "✓ Anfrage gesendet! Wir melden uns innerhalb von 24 Stunden." : "✓ Enquiry sent! We'll respond within 24 hours."}
+                </div>
+              ) : (
+                <>
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="w-full py-4 rounded-full bg-ct-red text-white font-body font-bold text-sm uppercase tracking-wider hover:bg-ct-red/85 transition-all duration-200 shadow-lg shadow-ct-red/20 disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {status === "sending"
+                      ? (locale === "de" ? "Wird gesendet..." : "Sending...")
+                      : (locale === "de" ? "Anfrage senden" : "Send Enquiry")}
+                  </button>
+                  {status === "error" && (
+                    <p className="text-xs font-body text-ct-red text-center">
+                      {locale === "de" ? "Fehler beim Senden. Bitte versuch es erneut." : "Failed to send. Please try again."}
+                    </p>
+                  )}
+                </>
+              )}
             </form>
           </div>
 

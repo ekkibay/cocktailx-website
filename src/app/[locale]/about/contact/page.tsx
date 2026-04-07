@@ -13,46 +13,28 @@ const socialLinks = [
 
 export default function ContactPage() {
   const locale = useLocale() as "de" | "en";
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const subject = encodeURIComponent(
-      form.subject || (locale === "de" ? "Kontaktanfrage – Cocktail X Festival" : "Contact – Cocktail X Festival")
-    );
-
-    const lines = [
-      locale === "de" ? "KONTAKTANFRAGE – COCKTAIL X FESTIVAL" : "CONTACT – COCKTAIL X FESTIVAL",
-      "═".repeat(40),
-      "",
-      `${locale === "de" ? "Name" : "Name"}: ${form.name}`,
-      `E-Mail: ${form.email}`,
-      form.subject ? `${locale === "de" ? "Betreff" : "Subject"}: ${form.subject}` : "",
-      "",
-      "─".repeat(40),
-      "",
-      `${locale === "de" ? "Nachricht" : "Message"}:\n${form.message}`,
-      "",
-      "─".repeat(40),
-      locale === "de" ? "Gesendet über cocktail-x.com/contact" : "Sent via cocktail-x.com/contact",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const body = encodeURIComponent(lines);
-    window.location.href = `mailto:info@cocktail-x.com?subject=${subject}&body=${body}`;
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("success");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   };
 
   const inputClasses =
@@ -146,14 +128,28 @@ export default function ContactPage() {
               />
             </div>
 
-            <button type="submit" className="btn-primary w-full text-lg">
-              {locale === "de" ? "NACHRICHT SENDEN" : "SEND MESSAGE"}
-            </button>
-            <p className="text-xs font-body text-bone/35 text-center">
-              {locale === "de"
-                ? "Euer E-Mail-Programm öffnet sich mit den vorausgefüllten Daten."
-                : "Your email client will open with pre-filled details."}
-            </p>
+            {status === "success" ? (
+              <div className="w-full py-4 rounded-xl bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 font-body font-bold text-center text-sm">
+                {locale === "de" ? "✓ Nachricht gesendet! Wir melden uns bald." : "✓ Message sent! We'll be in touch soon."}
+              </div>
+            ) : (
+              <>
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="btn-primary w-full text-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {status === "sending"
+                    ? (locale === "de" ? "WIRD GESENDET..." : "SENDING...")
+                    : (locale === "de" ? "NACHRICHT SENDEN" : "SEND MESSAGE")}
+                </button>
+                {status === "error" && (
+                  <p className="text-xs font-body text-hibiscus text-center">
+                    {locale === "de" ? "Fehler beim Senden. Bitte versuch es erneut." : "Failed to send. Please try again."}
+                  </p>
+                )}
+              </>
+            )}
           </motion.form>
 
           {/* Contact Info */}
