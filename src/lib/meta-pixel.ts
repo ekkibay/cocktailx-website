@@ -1,31 +1,31 @@
 /**
- * Meta Pixel helper — DSGVO-safe, typed, centralised.
+ * Meta Pixel helper — typed, centralised.
  *
  * The base pixel (PageView) is loaded via <MetaPixel /> in the root layout.
  * Use `trackEvent()` from anywhere to fire standard or custom events.
+ *
+ * TODO: Add cookie consent banner and re-enable consent gating.
  */
 
 export const META_PIXEL_ID = "1475856023819696";
 
 /* ── Consent helpers ─────────────────────────────────────────────────── */
 
-const CONSENT_KEY = "meta_pixel_consent";
-
+/**
+ * Always returns true for now — no cookie banner implemented yet.
+ * Re-enable localStorage check once a consent banner is added.
+ */
 export function hasConsent(): boolean {
-  if (typeof window === "undefined") return false;
-  return localStorage.getItem(CONSENT_KEY) === "granted";
+  return typeof window !== "undefined";
 }
 
 export function grantConsent() {
   if (typeof window === "undefined") return;
-  localStorage.setItem(CONSENT_KEY, "granted");
-  // Initialise pixel now that we have consent
   loadPixel();
 }
 
 export function revokeConsent() {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(CONSENT_KEY, "denied");
+  // TODO: implement when cookie banner is added
 }
 
 /* ── Pixel loader ────────────────────────────────────────────────────── */
@@ -34,7 +34,6 @@ let pixelLoaded = false;
 
 export function loadPixel() {
   if (typeof window === "undefined" || pixelLoaded) return;
-  if (!hasConsent()) return;
 
   /* eslint-disable */
   (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
@@ -78,7 +77,7 @@ type StandardEvent =
   | "Search";
 
 /**
- * Fire a Meta Pixel event. Only fires if consent has been granted.
+ * Fire a Meta Pixel event.
  *
  * @param event   Standard Meta event name
  * @param params  Optional event parameters (value, currency, content_name …)
@@ -88,7 +87,6 @@ export function trackEvent(
   params?: Record<string, string | number | boolean>
 ) {
   if (typeof window === "undefined") return;
-  if (!hasConsent()) return;
   if (!window.fbq) return;
 
   if (params) {

@@ -2,7 +2,7 @@
 
 import { useEffect, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { loadPixel, trackEvent, hasConsent } from "@/lib/meta-pixel";
+import { loadPixel, trackEvent } from "@/lib/meta-pixel";
 
 /**
  * Inner component — must live inside <Suspense> because useSearchParams
@@ -12,16 +12,14 @@ function MetaPixelEvents() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Load pixel on mount (respects consent)
+  // Load pixel on mount
   useEffect(() => {
     loadPixel();
   }, []);
 
   // Fire PageView on every client-side navigation
   useEffect(() => {
-    if (hasConsent()) {
-      trackEvent("PageView");
-    }
+    trackEvent("PageView");
   }, [pathname, searchParams]);
 
   return null;
