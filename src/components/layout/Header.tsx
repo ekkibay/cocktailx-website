@@ -78,12 +78,12 @@ export default function Header() {
           {/* Desktop right */}
           <div className="hidden lg:flex items-center gap-6">
             <LanguageSwitcher />
-            <a
-              href="#tickets"
+            <Link
+              href={`/${locale}/shop`}
               className="btn-secondary text-xs uppercase tracking-wider"
             >
               {t("getPassport")}
-            </a>
+            </Link>
           </div>
 
           {/* Mobile hamburger */}

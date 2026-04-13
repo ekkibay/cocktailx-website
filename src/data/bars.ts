@@ -24,14 +24,16 @@ export const districts = [
   "Ludwigsvorstadt-Isarvorstadt",
   "Bogenhausen",
   "Neuhausen",
+  "Schwanthalerhöhe",
+  "Werksviertel",
 ];
 
 export const bars: Bar[] = [
   {
     id: "amari-bar",
     name: "AMARi Bar",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Maxvorstadt",
+    address: "Dachauer Straße 90, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/amari-bar.png",
     description: {
@@ -42,8 +44,8 @@ export const bars: Bar[] = [
   {
     id: "bambi",
     name: "Bambi",
-    district: "Ludwigsvorstadt-Isarvorstadt",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Karlsplatz 5, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bambi.png",
     description: {
@@ -55,7 +57,7 @@ export const bars: Bar[] = [
     id: "bar-am-see-haus",
     name: "Bar am See / Seehaus",
     district: "Schwabing",
-    address: "München",
+    address: "Kleinhesseloher See, Englischer Garten, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bar-am-see-haus.png",
     description: {
@@ -66,32 +68,32 @@ export const bars: Bar[] = [
   {
     id: "bar-montez",
     name: "Bar Montez",
-    district: "Haidhausen",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Kardinal-Faulhaber-Straße 1, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bar-montez.png",
     description: {
-      de: "Bar Montez – wo Cocktailkunst auf Haidhausener Charme trifft.",
-      en: "Bar Montez – where cocktail artistry meets Haidhausen charm.",
+      de: "Bar Montez – wo Cocktailkunst auf Münchner Eleganz trifft.",
+      en: "Bar Montez – where cocktail artistry meets Munich elegance.",
     },
   },
   {
     id: "bodeguita-bar",
     name: "BODEGUITA Bar",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Schwabing",
+    address: "Hohenzollernstraße 120, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bodeguita-bar.png",
     description: {
-      de: "Kubanische Vibes und handgemachte Cocktails mitten in München.",
-      en: "Cuban vibes and handcrafted cocktails in the heart of Munich.",
+      de: "Kubanische Vibes und handgemachte Cocktails in Schwabing.",
+      en: "Cuban vibes and handcrafted cocktails in Schwabing.",
     },
   },
   {
     id: "boilerman-bar",
     name: "The Boilerman Bar",
-    district: "Altstadt-Lehel",
-    address: "25hours Hotel The Royal Bavarian, München",
+    district: "Ludwigsvorstadt-Isarvorstadt",
+    address: "Bahnhofplatz 1, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/boilerman-bar.png",
     description: {
@@ -126,8 +128,8 @@ export const bars: Bar[] = [
   {
     id: "call-soul",
     name: "Call Soul Breaking Bar",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Schwabing",
+    address: "Biedersteiner Straße 6, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/call-soul.png",
     description: {
@@ -138,8 +140,8 @@ export const bars: Bar[] = [
   {
     id: "casa-nostra",
     name: "Casa Nostra",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Maxvorstadt",
+    address: "Gabelsbergerstraße 97, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/casa-nostra.png",
     description: {
@@ -150,8 +152,8 @@ export const bars: Bar[] = [
   {
     id: "cloud-6",
     name: "Cloud 6",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Schwanthalerhöhe",
+    address: "Landsberger Straße 156, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/cloud-6.png",
     description: {
@@ -162,8 +164,8 @@ export const bars: Bar[] = [
   {
     id: "cole-porter",
     name: "Cole & Porter",
-    district: "Maxvorstadt",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Sendlinger Straße 10, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/cole-porter.png",
     description: {
@@ -174,8 +176,8 @@ export const bars: Bar[] = [
   {
     id: "curtain-call",
     name: "Curtain Call",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Glockenbachviertel",
+    address: "Pestalozzistraße 16, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/curtain-call.png",
     description: {
@@ -187,7 +189,7 @@ export const bars: Bar[] = [
     id: "die-krake",
     name: "die Krake",
     district: "Glockenbachviertel",
-    address: "München",
+    address: "Reichenbachstraße 22, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/die-krake.png",
     description: {
@@ -199,7 +201,7 @@ export const bars: Bar[] = [
     id: "eduards",
     name: "Eduard's by Breuninger",
     district: "Altstadt-Lehel",
-    address: "München",
+    address: "Sendlinger Straße 3, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/eduards.png",
     description: {
@@ -210,20 +212,20 @@ export const bars: Bar[] = [
   {
     id: "fitzroy",
     name: "Fitzroy",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Werksviertel",
+    address: "Atelierstraße 22, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/fitzroy.png",
     description: {
-      de: "Australisch inspirierte Bar im Glockenbachviertel.",
-      en: "Australian-inspired bar in the Glockenbachviertel.",
+      de: "Australisch inspirierte Bar im Werksviertel.",
+      en: "Australian-inspired bar in the Werksviertel.",
     },
   },
   {
     id: "florio-bar",
     name: "Florio Bar",
-    district: "Ludwigsvorstadt-Isarvorstadt",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Sophienstraße 28, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/florio-bar.png",
     description: {
@@ -234,20 +236,20 @@ export const bars: Bar[] = [
   {
     id: "fux",
     name: "Fux",
-    district: "Haidhausen",
-    address: "München",
+    district: "Maxvorstadt",
+    address: "Türkenstraße 38, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/fux.png",
     description: {
-      de: "Modern und unkompliziert – die Fux Bar in Haidhausen.",
-      en: "Modern and uncomplicated – the Fux Bar in Haidhausen.",
+      de: "Modern und unkompliziert – die Fux Bar in der Maxvorstadt.",
+      en: "Modern and uncomplicated – the Fux Bar in Maxvorstadt.",
     },
   },
   {
     id: "gorilla-bar",
     name: "Gorilla Bar",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Neuhausen",
+    address: "Hirschbergstraße 23, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/gorilla-bar.png",
     description: {
@@ -258,8 +260,8 @@ export const bars: Bar[] = [
   {
     id: "graf-rumford",
     name: "Graf Rumford",
-    district: "Ludwigsvorstadt-Isarvorstadt",
-    address: "München",
+    district: "Glockenbachviertel",
+    address: "Rumfordstraße 32, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/graf-rumford.png",
     description: {
@@ -270,8 +272,8 @@ export const bars: Bar[] = [
   {
     id: "gspusi-klara",
     name: "Gspusi & Klara",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Neuhausen",
+    address: "Elvirastraße 19, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/gspusi-klara.png",
     description: {
@@ -282,8 +284,8 @@ export const bars: Bar[] = [
   {
     id: "guatemuc",
     name: "Guatemuc",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Werksviertel",
+    address: "Atelierstraße 1, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/guatemuc.png",
     description: {
@@ -294,8 +296,8 @@ export const bars: Bar[] = [
   {
     id: "hangman",
     name: "Hangman",
-    district: "Schwabing",
-    address: "München",
+    district: "Glockenbachviertel",
+    address: "Reichenbachstraße 37, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/hangman.png",
     description: {
@@ -307,7 +309,7 @@ export const bars: Bar[] = [
     id: "havana-club",
     name: "Havana Club",
     district: "Altstadt-Lehel",
-    address: "München",
+    address: "Herrnstraße 30, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/havana-club.png",
     description: {
@@ -318,8 +320,8 @@ export const bars: Bar[] = [
   {
     id: "heir-beverage-house",
     name: "Heir Beverage House",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Ludwigsvorstadt-Isarvorstadt",
+    address: "Parkstraße 30, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/heir-beverage-house.png",
     description: {
@@ -331,7 +333,7 @@ export const bars: Bar[] = [
     id: "herrschaftszeiten",
     name: "Herrschaftszeiten",
     district: "Altstadt-Lehel",
-    address: "Das Paulaner im Tal, München",
+    address: "Tal 12, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/herrschaftszeiten.png",
     description: {
@@ -342,8 +344,8 @@ export const bars: Bar[] = [
   {
     id: "herzog-restaurant-bar",
     name: "Herzog Restaurant & Bar",
-    district: "Schwabing",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Maxburgstraße 4, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/herzog-restaurant-bar.png",
     description: {
@@ -354,8 +356,8 @@ export const bars: Bar[] = [
   {
     id: "home-bar",
     name: "Home Bar",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Maxvorstadt",
+    address: "Amalienstraße 23, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/home-bar.png",
     description: {
@@ -366,8 +368,8 @@ export const bars: Bar[] = [
   {
     id: "hotel-lux",
     name: "Hotel Lux",
-    district: "Maxvorstadt",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Ledererstraße 13, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/hotel-lux.png",
     description: {
@@ -378,8 +380,8 @@ export const bars: Bar[] = [
   {
     id: "juliet-rose-bar",
     name: "Juliet Rose Bar",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Haidhausen",
+    address: "Rosenheimer Straße 15, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/juliet-rose-bar.png",
     description: {
@@ -390,8 +392,8 @@ export const bars: Bar[] = [
   {
     id: "la-burrita",
     name: "La Burrita",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Schwabing",
+    address: "Occamstraße 7, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/la-burrita.png",
     description: {
@@ -403,7 +405,7 @@ export const bars: Bar[] = [
     id: "lola-bar",
     name: "Lola Bar",
     district: "Glockenbachviertel",
-    address: "München",
+    address: "Ickstattstraße 2a, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/lola-bar.png",
     description: {
@@ -415,7 +417,7 @@ export const bars: Bar[] = [
     id: "mi-casa",
     name: "Mi Casa",
     district: "Altstadt-Lehel",
-    address: "München",
+    address: "Am Einlaß 4, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/mi-casa.png",
     description: {
@@ -426,8 +428,8 @@ export const bars: Bar[] = [
   {
     id: "mister-b-s",
     name: "Mister B's",
-    district: "Maxvorstadt",
-    address: "München",
+    district: "Ludwigsvorstadt-Isarvorstadt",
+    address: "Herzog-Heinrich-Straße 38, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/mister-b-s.png",
     description: {
@@ -438,8 +440,8 @@ export const bars: Bar[] = [
   {
     id: "m-uniqo",
     name: "M'Uniqo Rooftop Bar",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Schwabing",
+    address: "Leopoldstraße 170, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/m-uniqo.png",
     description: {
@@ -461,8 +463,8 @@ export const bars: Bar[] = [
   {
     id: "nice-dining",
     name: "Nice Dining",
-    district: "Maxvorstadt",
-    address: "München",
+    district: "Werksviertel",
+    address: "August-Everding-Straße 24, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/nice-dining.png",
     description: {
@@ -485,13 +487,13 @@ export const bars: Bar[] = [
   {
     id: "otto-25",
     name: "Otto 25",
-    district: "Maxvorstadt",
-    address: "München",
+    district: "Werksviertel",
+    address: "Atelierstraße 1, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/otto-25.png",
     description: {
-      de: "Moderne Bar in der Maxvorstadt mit saisonalen Cocktails.",
-      en: "Modern bar in the Maxvorstadt with seasonal cocktails.",
+      de: "Moderne Bar im Werksviertel mit saisonalen Cocktails.",
+      en: "Modern bar in the Werksviertel with seasonal cocktails.",
     },
   },
   {
@@ -508,13 +510,13 @@ export const bars: Bar[] = [
   {
     id: "quentins",
     name: "Quentin's Fun & Kitchen",
-    district: "Schwabing",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Bayerstraße 3-5, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/quentins.png",
     description: {
-      de: "Fun Dining mit kreativen Cocktails in Schwabing.",
-      en: "Fun dining with creative cocktails in Schwabing.",
+      de: "Fun Dining mit kreativen Cocktails in der Innenstadt.",
+      en: "Fun dining with creative cocktails in the city centre.",
     },
   },
   {
@@ -531,8 +533,8 @@ export const bars: Bar[] = [
   {
     id: "ruby-rosi",
     name: "Ruby Rosi",
-    district: "Altstadt-Lehel",
-    address: "München",
+    district: "Ludwigsvorstadt-Isarvorstadt",
+    address: "Bayerstraße 21, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/ruby-rosi.png",
     description: {
@@ -543,8 +545,8 @@ export const bars: Bar[] = [
   {
     id: "salon-irkutsk",
     name: "Salon Irkutsk",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Maxvorstadt",
+    address: "Isabellastraße 4, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/salon-irkutsk.png",
     description: {
@@ -555,8 +557,8 @@ export const bars: Bar[] = [
   {
     id: "separee",
     name: "Séparée",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Schwabing",
+    address: "Leopoldstraße 180, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/separee.png",
     description: {
@@ -567,8 +569,8 @@ export const bars: Bar[] = [
   {
     id: "simsalbim-bar",
     name: "Simsalbim Bar",
-    district: "Schwabing",
-    address: "München",
+    district: "Altstadt-Lehel",
+    address: "Marienstraße 18, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/simsalbim-bar.png",
     description: {
@@ -580,7 +582,7 @@ export const bars: Bar[] = [
     id: "sparkling-bar",
     name: "The Louis Sparkling Bar",
     district: "Altstadt-Lehel",
-    address: "München",
+    address: "Viktualienmarkt 6, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/sparkling-bar.png",
     description: {
@@ -591,8 +593,8 @@ export const bars: Bar[] = [
   {
     id: "terra",
     name: "Terra",
-    district: "Haidhausen",
-    address: "München",
+    district: "Glockenbachviertel",
+    address: "Baaderstraße 1, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/terra.png",
     description: {
@@ -603,8 +605,8 @@ export const bars: Bar[] = [
   {
     id: "vega-bar",
     name: "Vega Bar",
-    district: "Glockenbachviertel",
-    address: "München",
+    district: "Maxvorstadt",
+    address: "Georgenstraße 56, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/vega-bar.png",
     description: {
@@ -615,8 +617,8 @@ export const bars: Bar[] = [
   {
     id: "wallace-bar",
     name: "Wallace Bar",
-    district: "Maxvorstadt",
-    address: "München",
+    district: "Schwabing",
+    address: "Occamstraße 2, München",
     signatureCocktail: "Coming Soon",
     image: "/images/bars/wallace-bar.png",
     description: {

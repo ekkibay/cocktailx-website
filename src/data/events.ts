@@ -54,7 +54,7 @@ export const events: FestivalEvent[] = [
     date: "2026-05-14",
     time: "14:00",
     timeEnd: "18:00",
-    location: "M'Uniqo Rooftop Terrace · Andaz Munich",
+    location: "M'Uniqo Rooftop Terrace · Andaz München Schwabinger Tor",
     description: {
       de: "Der exklusive Auftakt des Cocktail X Festivals 2026 – Daydrinking auf einer der schönsten Rooftop-Terrassen Münchens. All you can drink Cocktails, Fingerfood, Live DJ und professioneller Content. Limitiert auf 180 Gäste.",
       en: "The exclusive opening of Cocktail X Festival 2026 – daydrinking on one of Munich's most beautiful rooftop terraces. All you can drink cocktails, fingerfood, live DJ and professional content. Limited to 180 guests.",

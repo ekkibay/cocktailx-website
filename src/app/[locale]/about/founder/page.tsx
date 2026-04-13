@@ -172,8 +172,8 @@ export default function FounderPage() {
               <div className="text-bone/90 font-body text-base leading-relaxed space-y-4">
                 <p>
                   {locale === "de"
-                    ? "Vincent Kergers Weg begann hinter der Bar — als Bartender im Andaz Munich hat er seine Leidenschaft für Gastfreundschaft entdeckt. Das duale Studium in International Hotelmanagement an der SRH Dresden vertiefte diesen Weg und legte das Fundament für alles, was folgte."
-                    : "Vincent Kerger's journey began behind the bar — as a bartender at the Andaz Munich, he discovered his passion for hospitality. His dual degree in International Hotel Management at SRH Dresden deepened this path and laid the foundation for everything that followed."}
+                    ? "Vincent Kergers Weg begann hinter der Bar — als Bartender im Andaz München Schwabinger Tor hat er seine Leidenschaft für Gastfreundschaft entdeckt. Das duale Studium in International Hotelmanagement an der SRH Dresden vertiefte diesen Weg und legte das Fundament für alles, was folgte."
+                    : "Vincent Kerger's journey began behind the bar — as a bartender at the Andaz München Schwabinger Tor, he discovered his passion for hospitality. His dual degree in International Hotel Management at SRH Dresden deepened this path and laid the foundation for everything that followed."}
                 </p>
                 <p>
                   {locale === "de"
