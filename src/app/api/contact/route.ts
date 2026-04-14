@@ -40,7 +40,6 @@ export async function POST(req: NextRequest) {
         .filter(Boolean)
         .join("\n"),
     });
-
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("Mailgun error:", err);
