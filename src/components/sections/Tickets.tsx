@@ -45,10 +45,11 @@ type OtherTicketType = {
   tagline: { de: string; en: string };
   badge: { de: string | null; en: string | null };
   accent: string;
-  price: number;
-  strikePrice: number;
-  perPerson: number | null;
+  price?: number;
+  strikePrice?: number;
+  perPerson?: number | null;
   groupSize?: number;
+  externalUrl?: string;
 };
 
 const OTHER_TICKETS: OtherTicketType[] = [
@@ -62,6 +63,24 @@ const OTHER_TICKETS: OtherTicketType[] = [
     strikePrice: 136,
     perPerson: 25.50,
     groupSize: 4,
+  },
+  {
+    key: "opening-event",
+    name: { de: "Opening Event", en: "Opening Event" },
+    tagline: { de: "Festivalstart · 13. Mai 2026", en: "Festival Opening · May 13, 2026" },
+    badge: { de: "EVENT", en: "EVENT" },
+    accent: "hibiscus",
+    externalUrl: "https://cocktailx.app/opening-event",
+  },
+  {
+    key: "closing-event",
+    name: { de: "Closing, Award Night", en: "Closing, Award Night" },
+    tagline: { de: "31. Mai · Brenner Operngrill · 19–23 Uhr", en: "May 31 · Brenner Operngrill · 7–11 pm" },
+    badge: { de: "EVENT", en: "EVENT" },
+    accent: "everglade",
+    price: 69,
+    strikePrice: 99,
+    externalUrl: "https://cocktailx.app/closing-event",
   },
 ];
 
@@ -334,15 +353,21 @@ export default function Tickets() {
                   <h4 className="text-lg font-display text-bone mb-1 mt-1">{ticket.name[locale]}</h4>
                   <p className={`text-xs font-body font-bold mb-4 ${c.text}`}>{ticket.tagline[locale]}</p>
 
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-lg font-display text-bone/25 line-through">&euro;{ticket.strikePrice}</span>
-                    <span className={`text-3xl font-display ${c.text}`}>&euro;{ticket.price}</span>
-                    {ticket.perPerson && (
-                      <span className="text-xs font-body text-bone/50">
-                        ({locale === "de" ? `${ticket.perPerson.toFixed(2).replace(".", ",")} \u20ac/Person` : `\u20ac${ticket.perPerson.toFixed(2)}/person`})
+                  {ticket.price != null && (
+                    <div className="flex items-baseline gap-2 mb-4">
+                      {ticket.strikePrice != null && (
+                        <span className="text-lg font-display text-bone/25 line-through">&euro;{ticket.strikePrice}</span>
+                      )}
+                      <span className={`text-3xl font-display ${c.text}`}>
+                        {ticket.externalUrl && locale === "de" ? "ab " : ticket.externalUrl ? "from " : ""}&euro;{ticket.price}
                       </span>
-                    )}
-                  </div>
+                      {ticket.perPerson && (
+                        <span className="text-xs font-body text-bone/50">
+                          ({locale === "de" ? `${ticket.perPerson.toFixed(2).replace(".", ",")} \u20ac/Person` : `\u20ac${ticket.perPerson.toFixed(2)}/person`})
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   {ticket.groupSize && (
                     <p className="text-xs font-body text-emerald-400 font-bold mb-4">
@@ -353,12 +378,23 @@ export default function Tickets() {
                   )}
 
                   <div className="mt-auto">
-                    <a
-                      href={`/${locale}/shop#${ticket.key}`}
-                      className="block w-full text-center btn-primary text-sm py-3"
-                    >
-                      {locale === "de" ? `AB ${ticket.price} € KAUFEN` : `BUY FROM €${ticket.price}`}
-                    </a>
+                    {ticket.externalUrl ? (
+                      <a
+                        href={ticket.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-center btn-primary text-sm py-3"
+                      >
+                        {locale === "de" ? "TICKETS KAUFEN" : "GET TICKETS"}
+                      </a>
+                    ) : (
+                      <a
+                        href={`/${locale}/shop#${ticket.key}`}
+                        className="block w-full text-center btn-primary text-sm py-3"
+                      >
+                        {locale === "de" ? `AB ${ticket.price} € KAUFEN` : `BUY FROM €${ticket.price}`}
+                      </a>
+                    )}
                   </div>
                 </div>
               );

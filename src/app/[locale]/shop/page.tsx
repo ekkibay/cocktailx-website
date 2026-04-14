@@ -84,6 +84,37 @@ type OtherTicket = {
   }[];
 };
 
+type EventTicket = {
+  key: string;
+  name: string;
+  tagline: { de: string; en: string };
+  date: { de: string; en: string };
+  startingPrice: number;
+  accent: "hibiscus" | "tangerine" | "everglade";
+  url: string;
+};
+
+const EVENT_TICKETS: EventTicket[] = [
+  {
+    key: "opening-event",
+    name: "Opening Event",
+    tagline: { de: "Festivalstart · Brenner Operngrill", en: "Festival Opening · Brenner Operngrill" },
+    date: { de: "13. Mai 2026", en: "May 13, 2026" },
+    startingPrice: 0,
+    accent: "hibiscus",
+    url: "https://cocktailx.app/opening-event",
+  },
+  {
+    key: "closing-event",
+    name: "Closing, Award Night",
+    tagline: { de: "31. Mai · Brenner Operngrill · 19–23 Uhr", en: "May 31 · Brenner Operngrill · 7–11 pm" },
+    date: { de: "31. Mai 2026", en: "May 31, 2026" },
+    startingPrice: 69,
+    accent: "everglade",
+    url: "https://cocktailx.app/closing-event",
+  },
+];
+
 const OTHER_TICKETS: OtherTicket[] = [
   {
     key: "group",
@@ -558,6 +589,50 @@ export default function ShopPage() {
                       {locale === "de" ? "Ab 1. April verfügbar" : "Available from April 1"}
                     </div>
                   )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── EVENT TICKETS ── */}
+      <section className="py-16 md:py-24 px-4 relative border-t border-bone/10">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-display text-bone text-center mb-2">
+            {locale === "de" ? "EVENTS" : "EVENTS"}
+          </h2>
+          <p className="text-sm font-body text-bone/55 text-center mb-10">
+            {locale === "de"
+              ? "Exklusive Events rund um das Cocktail X Festival."
+              : "Exclusive events around the Cocktail X Festival."}
+          </p>
+          <div className="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto">
+            {EVENT_TICKETS.map((event) => {
+              const c = ACCENT[event.accent];
+              return (
+                <div key={event.key} className={`relative rounded-2xl border bg-licorice/60 p-6 flex flex-col ${c.border}`}>
+                  <span className={`absolute top-4 right-4 text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${c.badge}`}>
+                    EVENT
+                  </span>
+                  <h3 className="text-xl font-display text-bone mb-1 mt-1">{event.name}</h3>
+                  <p className={`text-xs font-body font-bold mb-1 ${c.text}`}>{event.tagline[locale]}</p>
+                  <p className="text-xs font-body text-bone/45 mb-4">{event.date[locale]}</p>
+                  {event.startingPrice > 0 && (
+                    <p className={`text-2xl font-display mb-4 ${c.text}`}>
+                      {locale === "de" ? `ab ${event.startingPrice} €` : `from €${event.startingPrice}`}
+                    </p>
+                  )}
+                  <div className="mt-auto">
+                    <a
+                      href={event.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center btn-primary text-sm py-3"
+                    >
+                      {locale === "de" ? "TICKETS KAUFEN" : "GET TICKETS"}
+                    </a>
+                  </div>
                 </div>
               );
             })}

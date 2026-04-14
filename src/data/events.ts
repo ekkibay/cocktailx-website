@@ -108,12 +108,12 @@ export const events: FestivalEvent[] = [
   {
     id: "closing-awards",
     title: {
-      de: "Closing & Awards",
-      en: "Closing & Awards",
+      de: "Closing, Award Night",
+      en: "Closing, Award Night",
     },
-    date: "2026-05-30",
-    time: "20:00",
-    location: "Alte Kongresshalle, München",
+    date: "2026-05-31",
+    time: "19:00",
+    location: "Brenner Bar im Brenner Operngrill, München",
     description: {
       de: "Die große Abschlussfeier mit der Verleihung der Cocktail X Awards für die besten Bars und Cocktails des Festivals.",
       en: "The grand closing celebration with the Cocktail X Awards ceremony for the best bars and cocktails of the festival.",
