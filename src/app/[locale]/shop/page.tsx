@@ -98,9 +98,9 @@ const EVENT_TICKETS: EventTicket[] = [
   {
     key: "opening-event",
     name: "Opening Event",
-    tagline: { de: "Festivalstart · Brenner Operngrill", en: "Festival Opening · Brenner Operngrill" },
-    date: { de: "13. Mai 2026", en: "May 13, 2026" },
-    startingPrice: 0,
+    tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
+    date: { de: "14. Mai 2026", en: "May 14, 2026" },
+    startingPrice: 49,
     accent: "hibiscus",
     url: "https://cocktailx.app/opening-event",
   },

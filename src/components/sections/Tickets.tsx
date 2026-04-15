@@ -66,9 +66,11 @@ const OTHER_TICKETS: OtherTicketType[] = [
   {
     key: "opening-event",
     name: { de: "Opening Event", en: "Opening Event" },
-    tagline: { de: "Festivalstart · 13. Mai 2026", en: "Festival Opening · May 13, 2026" },
+    tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
     badge: { de: "EVENT", en: "EVENT" },
     accent: "hibiscus",
+    price: 49,
+    strikePrice: 59,
     externalUrl: "https://cocktailx.app/opening-event",
   },
   {
