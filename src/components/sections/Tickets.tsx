@@ -42,6 +42,7 @@ type OtherTicketType = {
   key: string;
   name: { de: string; en: string };
   tagline: { de: string; en: string };
+  description?: { de: string; en: string };
   badge: { de: string | null; en: string | null };
   accent: string;
   price?: number;
@@ -67,6 +68,7 @@ const OTHER_TICKETS: OtherTicketType[] = [
     key: "opening-event",
     name: { de: "Opening Event", en: "Opening Event" },
     tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
+    description: { de: "All you can drink Cocktails & Canapés inklusive · Live DJ · Rooftop", en: "All you can drink cocktails & canapés included · Live DJ · Rooftop" },
     badge: { de: "EVENT", en: "EVENT" },
     accent: "hibiscus",
     price: 49,
@@ -352,7 +354,10 @@ export default function Tickets() {
                   )}
 
                   <h4 className="text-lg font-display text-bone mb-1 mt-1">{ticket.name[locale]}</h4>
-                  <p className={`text-xs font-body font-bold mb-4 ${c.text}`}>{ticket.tagline[locale]}</p>
+                  <p className={`text-xs font-body font-bold mb-2 ${c.text}`}>{ticket.tagline[locale]}</p>
+                  {ticket.description && (
+                    <p className="text-xs font-body text-bone/60 mb-4 leading-relaxed">{ticket.description[locale]}</p>
+                  )}
 
                   {ticket.price != null && (
                     <div className="flex items-baseline gap-2 mb-4">

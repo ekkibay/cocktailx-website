@@ -88,6 +88,7 @@ type EventTicket = {
   key: string;
   name: string;
   tagline: { de: string; en: string };
+  description?: { de: string; en: string };
   date: { de: string; en: string };
   startingPrice: number;
   accent: "hibiscus" | "tangerine" | "everglade";
@@ -99,6 +100,7 @@ const EVENT_TICKETS: EventTicket[] = [
     key: "opening-event",
     name: "Opening Event",
     tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
+    description: { de: "All you can drink Cocktails & Canapés inklusive · Live DJ · Rooftop", en: "All you can drink cocktails & canapés included · Live DJ · Rooftop" },
     date: { de: "14. Mai 2026", en: "May 14, 2026" },
     startingPrice: 49,
     accent: "hibiscus",
@@ -617,6 +619,9 @@ export default function ShopPage() {
                   </span>
                   <h3 className="text-xl font-display text-bone mb-1 mt-1">{event.name}</h3>
                   <p className={`text-xs font-body font-bold mb-1 ${c.text}`}>{event.tagline[locale]}</p>
+                  {event.description && (
+                    <p className="text-xs font-body text-bone/60 mb-2 leading-relaxed">{event.description[locale]}</p>
+                  )}
                   <p className="text-xs font-body text-bone/45 mb-4">{event.date[locale]}</p>
                   {event.startingPrice > 0 && (
                     <p className={`text-2xl font-display mb-4 ${c.text}`}>
