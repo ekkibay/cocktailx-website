@@ -100,7 +100,7 @@ const EVENT_TICKETS: EventTicket[] = [
     key: "opening-event",
     name: "Opening Event",
     tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
-    description: { de: "All you can drink Cocktails & Canapés inklusive · Live DJ · Rooftop", en: "All you can drink cocktails & canapés included · Live DJ · Rooftop" },
+    description: { de: "Drinks & Canapés inklusive · Live DJ · Rooftop", en: "Drinks & canapés included · Live DJ · Rooftop" },
     date: { de: "14. Mai 2026", en: "May 14, 2026" },
     startingPrice: 49,
     accent: "hibiscus",

@@ -68,7 +68,7 @@ const OTHER_TICKETS: OtherTicketType[] = [
     key: "opening-event",
     name: { de: "Opening Event", en: "Opening Event" },
     tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
-    description: { de: "All you can drink Cocktails & Canapés inklusive · Live DJ · Rooftop", en: "All you can drink cocktails & canapés included · Live DJ · Rooftop" },
+    description: { de: "Drinks & Canapés inklusive · Live DJ · Rooftop", en: "Drinks & canapés included · Live DJ · Rooftop" },
     badge: { de: "EVENT", en: "EVENT" },
     accent: "hibiscus",
     price: 49,
