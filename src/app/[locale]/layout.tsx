@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+import PlausibleProvider from "next-plausible";
 import { routing } from "@/i18n/routing";
 import LayoutShell from "@/components/layout/LayoutShell";
 import AntiFlicker from "@/components/layout/AntiFlicker";
@@ -40,6 +41,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} style={{ backgroundColor: "#1A120B" }} suppressHydrationWarning>
       <head>
+        <PlausibleProvider src="https://plausible.io/js/pa--lifWsX4RN6e3RueZzv8O.js" />
         <AntiFlicker />
       </head>
       <body className="antialiased" style={{ backgroundColor: "#1A120B" }}>
