@@ -35,7 +35,6 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
-
   const messages = await getMessages();
 
   return (
