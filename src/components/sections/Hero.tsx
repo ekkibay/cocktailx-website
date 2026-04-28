@@ -78,7 +78,7 @@ export default function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   const shareText = encodeURIComponent(
-    "58 Bars, 18 Tage, Signature Cocktails fur nur 6 Euro – Cocktail X Festival Munchen! Komm mit! https://www.cocktail-x.com"
+    "67 Bars, 18 Tage, Signature Cocktails fur nur 6 Euro – Cocktail X Festival Munchen! Komm mit! https://www.cocktail-x.com"
   );
 
   return (

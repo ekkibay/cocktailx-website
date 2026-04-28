@@ -166,7 +166,7 @@ export default function About() {
           style={stats.style}
           className="flex flex-wrap justify-center gap-8 md:gap-12 mt-16 pt-16 border-t border-bone/10 [&>div]:w-[calc(33%-1.5rem)] [&>div]:sm:w-auto"
         >
-          <AnimatedCounter target={58} label={t("bars")} />
+          <AnimatedCounter target={67} label={t("bars")} />
           <AnimatedCounter target={18} label={t("days")} />
           <AnimatedCounter target={1} label={t("passport")} />
           <AnimatedCounter target={5000} suffix="+" label={t("expectedGuests")} />

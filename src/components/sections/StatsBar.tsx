@@ -5,7 +5,7 @@ import { useReveal } from "@/hooks/useReveal";
 import { TICKET_TIERS } from "@/data/ticket-tiers";
 
 const stats = [
-  { key: "bars", value: "58" },
+  { key: "bars", value: "67" },
   { key: "days", value: "18" },
   { key: "ticket", value: "1" },
   { key: "price", value: `${TICKET_TIERS.cheapest}\u20ac` },

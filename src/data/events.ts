@@ -37,10 +37,10 @@ export const events: FestivalEvent[] = [
     },
     date: "2026-05-13",
     time: "17:00",
-    location: "58 Bars in ganz München",
+    location: "67 Bars in ganz München",
     description: {
-      de: "Der offizielle Start des Cocktail X Festivals 2026. Ab sofort öffnen alle 58 teilnehmenden Bars ihre Türen – 18 Tage Cocktailkultur beginnt.",
-      en: "The official start of Cocktail X Festival 2026. All 58 participating bars open their doors – 18 days of cocktail culture begins.",
+      de: "Der offizielle Start des Cocktail X Festivals 2026. Ab sofort öffnen alle 67 teilnehmenden Bars ihre Türen – 18 Tage Cocktailkultur beginnt.",
+      en: "The official start of Cocktail X Festival 2026. All 67 participating bars open their doors – 18 days of cocktail culture begins.",
     },
     image: "/images/festival-cheers.webp",
     type: "opening",
@@ -97,10 +97,10 @@ export const events: FestivalEvent[] = [
     date: "2026-05-13",
     dateEnd: "2026-05-30",
     time: "ab 17:00",
-    location: "58 Bars in ganz München",
+    location: "67 Bars in ganz München",
     description: {
-      de: "58 Bars, 18 Tage, 1 Ticket: Entdecke die Signature Cocktails von Münchens besten Bars – für nur 6€ pro Drink.",
-      en: "58 bars, 18 days, 1 ticket: Discover the signature cocktails of München's best bars – for just €6 per drink.",
+      de: "67 Bars, 18 Tage, 1 Ticket: Entdecke die Signature Cocktails von Münchens besten Bars – für nur 6€ pro Drink.",
+      en: "67 bars, 18 days, 1 ticket: Discover the signature cocktails of München's best bars – for just €6 per drink.",
     },
     image: "/images/festival-key-visual.jpg",
     type: "festival",
@@ -113,6 +113,7 @@ export const events: FestivalEvent[] = [
     },
     date: "2026-05-31",
     time: "19:00",
+    timeEnd: "23:00",
     location: "Brenner Bar im Brenner Operngrill, München",
     description: {
       de: "Die große Abschlussfeier mit der Verleihung der Cocktail X Awards für die besten Bars und Cocktails des Festivals.",
@@ -120,5 +121,23 @@ export const events: FestivalEvent[] = [
     },
     image: "/images/festival-dj.webp",
     type: "closing",
+    tickets: [
+      {
+        label: { de: "Early Bird", en: "Early Bird" },
+        price: 69,
+        note: { de: "Verfügbar bis 30. April", en: "Available until April 30" },
+        badge: "EARLY BIRD",
+      },
+      {
+        label: { de: "Regular", en: "Regular" },
+        price: 89,
+        note: { de: "1. – 19. Mai", en: "May 1 – 19" },
+      },
+      {
+        label: { de: "Late Bird", en: "Late Bird" },
+        price: 99,
+        note: { de: "20. – 30. Mai", en: "May 20 – 30" },
+      },
+    ],
   },
 ];
