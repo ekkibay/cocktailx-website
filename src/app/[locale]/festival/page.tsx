@@ -51,13 +51,13 @@ const history = [
 /* ── Key facts ── */
 const keyFacts = {
   de: [
-    { value: "58", label: "Bars" },
+    { value: "67", label: "Bars" },
     { value: "18", label: "Tage" },
     { value: "1", label: "Ticket" },
     { value: "5.000+", label: "Gäste erwartet" },
   ],
   en: [
-    { value: "58", label: "Bars" },
+    { value: "67", label: "Bars" },
     { value: "18", label: "Days" },
     { value: "1", label: "Ticket" },
     { value: "5,000+", label: "Guests expected" },
@@ -113,8 +113,8 @@ export default function FestivalPage() {
           <div ref={heroText.ref} style={heroText.style}>
             <p className="text-base md:text-lg font-body text-bone/85 max-w-xl mx-auto mb-8">
               {locale === "de"
-                ? "58 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival."
-                : "58 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival."}
+                ? "67 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival."
+                : "67 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival."}
             </p>
             <a
               href="https://cocktailx.app/"

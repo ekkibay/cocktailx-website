@@ -101,8 +101,8 @@ export default function DankePage() {
           className="text-base font-body text-bone/65 leading-relaxed mb-10"
         >
           {locale === "de"
-            ? "Du erhaltst in Kurze eine Bestatigung per E-Mail. Lade dir die Cocktail X App herunter, um dein Ticket zu aktivieren und alle 58 Bars zu entdecken."
-            : "You'll receive a confirmation email shortly. Download the Cocktail X App to activate your ticket and discover all 58 bars."}
+            ? "Du erhaltst in Kurze eine Bestatigung per E-Mail. Lade dir die Cocktail X App herunter, um dein Ticket zu aktivieren und alle 67 Bars zu entdecken."
+            : "You'll receive a confirmation email shortly. Download the Cocktail X App to activate your ticket and discover all 67 bars."}
         </motion.p>
 
         <motion.div
@@ -120,8 +120,8 @@ export default function DankePage() {
           <a
             href={`https://wa.me/?text=${encodeURIComponent(
               locale === "de"
-                ? "Ich hab mir gerade ein Ticket fur das Cocktail X Festival geholt! 58 Bars, 18 Tage, Signature Cocktails fur nur 6 Euro. Komm mit! https://www.cocktail-x.com/shop"
-                : "I just got a ticket for the Cocktail X Festival! 58 bars, 18 days, signature cocktails for just 6 Euro. Join me! https://www.cocktail-x.com/en/shop"
+                ? "Ich hab mir gerade ein Ticket fur das Cocktail X Festival geholt! 67 Bars, 18 Tage, Signature Cocktails fur nur 6 Euro. Komm mit! https://www.cocktail-x.com/shop"
+                : "I just got a ticket for the Cocktail X Festival! 67 bars, 18 days, signature cocktails for just 6 Euro. Join me! https://www.cocktail-x.com/en/shop"
             )}`}
             target="_blank"
             rel="noopener noreferrer"

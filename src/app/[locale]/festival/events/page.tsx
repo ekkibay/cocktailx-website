@@ -21,6 +21,7 @@ function Check() {
 export default function EventsPage() {
   const locale = useLocale() as "de" | "en";
   const opening = events.find((e) => e.id === "opening-party")!;
+  const closing = events.find((e) => e.id === "closing-awards")!;
   const otherEvents = events.filter((e) => e.id !== "opening-party");
 
   const heroReveal = useReveal({ delay: 150 });
@@ -174,7 +175,7 @@ export default function EventsPage() {
                   {ticketsAvailable ? (
                     <>
                       <a
-                        href="https://cocktailx.app/"
+                        href="https://cocktailx.app/opening-event"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-primary w-full text-sm py-4"
@@ -203,6 +204,63 @@ export default function EventsPage() {
                   )}
                 </div>
 
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════
+            CLOSING, AWARD NIGHT
+        ══════════════════════════════════════════ */}
+        <div className="mb-24">
+          <div className="relative rounded-3xl overflow-hidden aspect-[16/7] mb-0">
+            <Image src={closing.image} alt={closing.title[locale]} fill sizes="100vw" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-licorice/10" />
+            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+              <span className="inline-block text-[10px] font-body font-bold uppercase tracking-wider bg-everglade text-bone px-3 py-1 rounded-full mb-4">
+                Closing
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display text-bone mb-2">{closing.title[locale]}</h2>
+              <p className="text-base font-body text-tangerine font-bold">
+                {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr
+              </p>
+              <p className="text-sm font-body text-bone/70 mt-1">📍 {closing.location}</p>
+            </div>
+          </div>
+
+          <div className="bg-licorice/60 border border-bone/10 rounded-b-3xl border-t-0 p-8 md:p-10 mb-6">
+            <p className="font-body text-bone/80 leading-relaxed">{closing.description[locale]}</p>
+          </div>
+
+          {/* Closing Tickets */}
+          <div className="rounded-2xl border border-bone/10 bg-licorice/40 p-8 md:p-10">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+              <div className="flex-1">
+                <p className="text-sm font-body font-bold uppercase tracking-wider text-tangerine/80 mb-5">
+                  {locale === "de" ? "Tickets" : "Tickets"}
+                </p>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {closing.tickets?.map((ticket, i) => (
+                    <div key={i} className={`relative rounded-xl border p-5 ${i === 0 ? "border-tangerine/40 bg-tangerine/5" : "border-bone/10 bg-bone/[0.03]"}`}>
+                      {ticket.badge && (
+                        <span className="absolute -top-2.5 left-4 text-[10px] font-body font-bold uppercase tracking-wider bg-tangerine text-licorice px-2.5 py-0.5 rounded-full">
+                          {ticket.badge}
+                        </span>
+                      )}
+                      <p className="font-display text-bone text-sm tracking-wider mb-1 mt-1">{ticket.label[locale]}</p>
+                      <p className="font-display text-tangerine text-4xl mb-2">€{ticket.price}</p>
+                      {ticket.note && <p className="text-xs font-body text-bone/55 leading-snug">{ticket.note[locale]}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="md:min-w-[220px] flex flex-col items-center justify-center text-center md:border-l md:border-bone/10 md:pl-10 gap-4">
+                <a href="https://cocktailx.app/closing-event" target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-sm py-4">
+                  {locale === "de" ? "TICKET SICHERN" : "GET TICKET"}
+                </a>
+                <p className="text-xs font-body text-bone/40">
+                  {locale === "de" ? "Sichere dir jetzt deinen Platz" : "Secure your spot now"}
+                </p>
               </div>
             </div>
           </div>
