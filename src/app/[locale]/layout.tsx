@@ -37,7 +37,6 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
-  
   return (
     <html lang={locale} style={{ backgroundColor: "#1A120B" }} suppressHydrationWarning>
       <head>
