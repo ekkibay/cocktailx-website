@@ -35,7 +35,9 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
+
   const messages = await getMessages();
+  
   return (
     <html lang={locale} style={{ backgroundColor: "#1A120B" }} suppressHydrationWarning>
       <head>
