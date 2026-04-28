@@ -41,7 +41,7 @@ export default function SponsorsMarquee() {
                 alt={sponsor.name}
                 width={140}
                 height={56}
-                className="h-7 md:h-14 w-auto object-contain invert"
+                className="h-7 md:h-14 w-auto object-contain"
               />
             </a>
           ))}
