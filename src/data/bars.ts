@@ -853,21 +853,10 @@ export const bars: Bar[] = [
     district: "Glockenbachviertel",
     address: "München",
     signatureCocktail: "Coming Soon",
+    image: "/images/bars/suzy-b.png",
     description: {
       de: "Charmante Bar mit handverlesenen Cocktails und Wohlfühlatmosphäre.",
       en: "Charming bar with handpicked cocktails and a feel-good atmosphere.",
-    },
-  },
-  {
-    id: "hedgehog-bar",
-    name: "Hedgehog Bar",
-    district: "Schwabing",
-    address: "München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/hedgehog-bar.png",
-    description: {
-      de: "Einzigartige Bar mit unverkennbarem Charakter und kreativen Cocktails.",
-      en: "Unique bar with unmistakable character and creative cocktails.",
     },
   },
   {
