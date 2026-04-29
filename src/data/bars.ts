@@ -491,6 +491,7 @@ export const bars: Bar[] = [
     district: "Haidhausen",
     address: "München",
     signatureCocktail: "Coming Soon",
+    image: "/images/bars/relax.png",
     description: {
       de: "Entspannung pur – Food, Drinks und gute Gesellschaft.",
       en: "Pure relaxation – food, drinks and good company.",
