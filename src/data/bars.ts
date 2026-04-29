@@ -897,19 +897,6 @@ export const bars: Bar[] = [
     },
   },
   {
-    id: "goldene-bar",
-    name: "Goldene Bar",
-    district: "Altstadt-Lehel",
-    address: "Prinzregentenstraße 1, München",
-    website: "https://www.goldene-bar.de",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/goldene-bar.webp",
-    description: {
-      de: "Ikonische Bar im Haus der Kunst – Münchner Kulturleben trifft auf erstklassige Cocktails.",
-      en: "Iconic bar at the Haus der Kunst – Munich cultural life meets first-class cocktails.",
-    },
-  },
-  {
     id: "hearts-bar",
     name: "Hearts Bar",
     district: "Altstadt-Lehel",
@@ -919,56 +906,6 @@ export const bars: Bar[] = [
     description: {
       de: "Elegante Bar mit herzlichem Charakter und handgefertigten Cocktails.",
       en: "Elegant bar with a heartfelt character and handcrafted cocktails.",
-    },
-  },
-  {
-    id: "pussers-bar",
-    name: "Pusser's Bar",
-    district: "Altstadt-Lehel",
-    address: "Falkenturmstraße 9, München",
-    website: "https://www.pussers.de",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/pussers-bar.webp",
-    description: {
-      de: "Britisch-karibische Hotelbar mit legendärem Painkiller-Cocktail.",
-      en: "British-Caribbean hotel bar with the legendary Painkiller cocktail.",
-    },
-  },
-  {
-    id: "salon-rouge",
-    name: "Salon Rouge",
-    district: "Glockenbachviertel",
-    address: "München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/salon-rouge.webp",
-    description: {
-      de: "Verführerische Bar in Rot – leidenschaftliche Atmosphäre und ausgefallene Cocktails.",
-      en: "Seductive bar in red – passionate atmosphere and distinctive cocktails.",
-    },
-  },
-  {
-    id: "schumanns-bar",
-    name: "Schumann's Bar",
-    district: "Altstadt-Lehel",
-    address: "Odeonsplatz 6, München",
-    website: "https://www.schumanns.de",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/schumanns-bar.webp",
-    description: {
-      de: "Münchens bekannteste Bar – Charles Schumann's Legende am Odeonsplatz.",
-      en: "Munich's most famous bar – Charles Schumann's legend at Odeonsplatz.",
-    },
-  },
-  {
-    id: "zephyr-bar",
-    name: "Zephyr Bar",
-    district: "Glockenbachviertel",
-    address: "Baaderstraße 68, München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/zephyr-bar.webp",
-    description: {
-      de: "Ausgezeichnete Cocktailbar mit über 600 Spirits – ein Paradies für Kenner.",
-      en: "Award-winning cocktail bar with over 600 spirits – a paradise for connoisseurs.",
     },
   },
 ];
