@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "next-intl";
 import Link from "next/link";
-import { grantConsent, revokeConsent, hasConsent } from "@/lib/meta-pixel";
+import { grantConsent, revokeConsent } from "@/lib/meta-pixel";
 
 const CONSENT_KEY = "meta_pixel_consent";
 

@@ -83,6 +83,7 @@ function ParallaxImage({
 
 export default function Hero() {
   const t = useTranslations("hero");
+  const locale = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
