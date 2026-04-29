@@ -94,7 +94,6 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 0.8], [0, -200]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  const locale = useLocale();
   const tier = useMemo(getActiveTier, []);
   const headlineKey = `headline${tier.key.charAt(0).toUpperCase() + tier.key.slice(1)}` as
     | "headlineEarlyBird"
