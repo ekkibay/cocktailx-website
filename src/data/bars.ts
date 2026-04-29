@@ -1,5 +1,6 @@
 export interface Bar {
   id: string;
+  number: number;
   name: string;
   district: string;
   address: string;
@@ -31,6 +32,7 @@ export const districts = [
 export const bars: Bar[] = [
   {
     id: "amari-bar",
+    number: 2,
     name: "AMARi Bar",
     district: "Maxvorstadt",
     address: "Dachauer Straße 90, München",
@@ -43,6 +45,7 @@ export const bars: Bar[] = [
   },
   {
     id: "bambi",
+    number: 4,
     name: "Bambi",
     district: "Altstadt-Lehel",
     address: "Karlsplatz 5, München",
@@ -55,6 +58,7 @@ export const bars: Bar[] = [
   },
   {
     id: "bar-am-see-haus",
+    number: 5,
     name: "Bar am See / Seehaus",
     district: "Schwabing",
     address: "Kleinhesseloher See, Englischer Garten, München",
@@ -67,6 +71,7 @@ export const bars: Bar[] = [
   },
   {
     id: "bar-montez",
+    number: 6,
     name: "Bar Montez",
     district: "Altstadt-Lehel",
     address: "Kardinal-Faulhaber-Straße 1, München",
@@ -79,6 +84,7 @@ export const bars: Bar[] = [
   },
   {
     id: "bodeguita-bar",
+    number: 7,
     name: "BODEGUITA Bar",
     district: "Schwabing",
     address: "Hohenzollernstraße 120, München",
@@ -91,6 +97,7 @@ export const bars: Bar[] = [
   },
   {
     id: "boilerman-bar",
+    number: 64,
     name: "The Boilerman Bar",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "Bahnhofplatz 1, München",
@@ -103,6 +110,7 @@ export const bars: Bar[] = [
   },
   {
     id: "brenner-bar",
+    number: 9,
     name: "brenner Bar",
     district: "Altstadt-Lehel",
     address: "Maximilianstraße 15, München",
@@ -115,6 +123,7 @@ export const bars: Bar[] = [
   },
   {
     id: "cafe-puck",
+    number: 10,
     name: "Cafe Puck",
     district: "Maxvorstadt",
     address: "Türkenstraße 33, München",
@@ -127,6 +136,7 @@ export const bars: Bar[] = [
   },
   {
     id: "call-soul",
+    number: 11,
     name: "Call Soul Breaking Bar",
     district: "Schwabing",
     address: "Biedersteiner Straße 6, München",
@@ -139,6 +149,7 @@ export const bars: Bar[] = [
   },
   {
     id: "casa-nostra",
+    number: 12,
     name: "Casa Nostra",
     district: "Maxvorstadt",
     address: "Gabelsbergerstraße 97, München",
@@ -151,6 +162,7 @@ export const bars: Bar[] = [
   },
   {
     id: "cloud-6",
+    number: 13,
     name: "Cloud 6",
     district: "Schwanthalerhöhe",
     address: "Landsberger Straße 156, München",
@@ -163,6 +175,7 @@ export const bars: Bar[] = [
   },
   {
     id: "cole-porter",
+    number: 14,
     name: "Cole & Porter",
     district: "Altstadt-Lehel",
     address: "Sendlinger Straße 10, München",
@@ -175,6 +188,7 @@ export const bars: Bar[] = [
   },
   {
     id: "curtain-call",
+    number: 15,
     name: "Curtain Call",
     district: "Glockenbachviertel",
     address: "Pestalozzistraße 16, München",
@@ -187,6 +201,7 @@ export const bars: Bar[] = [
   },
   {
     id: "die-krake",
+    number: 17,
     name: "die Krake",
     district: "Glockenbachviertel",
     address: "Reichenbachstraße 22, München",
@@ -199,6 +214,7 @@ export const bars: Bar[] = [
   },
   {
     id: "eduards",
+    number: 18,
     name: "Eduard's by Breuninger",
     district: "Altstadt-Lehel",
     address: "Sendlinger Straße 3, München",
@@ -211,6 +227,7 @@ export const bars: Bar[] = [
   },
   {
     id: "fitzroy",
+    number: 20,
     name: "Fitzroy",
     district: "Werksviertel",
     address: "Atelierstraße 22, München",
@@ -223,6 +240,7 @@ export const bars: Bar[] = [
   },
   {
     id: "florio-bar",
+    number: 21,
     name: "Florio Bar",
     district: "Altstadt-Lehel",
     address: "Sophienstraße 28, München",
@@ -235,6 +253,7 @@ export const bars: Bar[] = [
   },
   {
     id: "gorilla-bar",
+    number: 24,
     name: "Gorilla Bar",
     district: "Neuhausen",
     address: "Hirschbergstraße 23, München",
@@ -247,6 +266,7 @@ export const bars: Bar[] = [
   },
   {
     id: "graf-rumford",
+    number: 25,
     name: "Graf Rumford",
     district: "Glockenbachviertel",
     address: "Rumfordstraße 32, München",
@@ -259,6 +279,7 @@ export const bars: Bar[] = [
   },
   {
     id: "gspusi-klara",
+    number: 26,
     name: "Gspusi & Klara",
     district: "Neuhausen",
     address: "Elvirastraße 19, München",
@@ -271,6 +292,7 @@ export const bars: Bar[] = [
   },
   {
     id: "guatemuc",
+    number: 27,
     name: "Guatemuc",
     district: "Werksviertel",
     address: "Atelierstraße 1, München",
@@ -283,6 +305,7 @@ export const bars: Bar[] = [
   },
   {
     id: "hangman",
+    number: 28,
     name: "Hangman",
     district: "Glockenbachviertel",
     address: "Reichenbachstraße 37, München",
@@ -295,6 +318,7 @@ export const bars: Bar[] = [
   },
   {
     id: "havana-club",
+    number: 30,
     name: "Havana Club",
     district: "Altstadt-Lehel",
     address: "Herrnstraße 30, München",
@@ -307,6 +331,7 @@ export const bars: Bar[] = [
   },
   {
     id: "heir-beverage-house",
+    number: 31,
     name: "Heir Beverage House",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "Parkstraße 30, München",
@@ -319,6 +344,7 @@ export const bars: Bar[] = [
   },
   {
     id: "herrschaftszeiten",
+    number: 32,
     name: "Herrschaftszeiten",
     district: "Altstadt-Lehel",
     address: "Tal 12, München",
@@ -331,6 +357,7 @@ export const bars: Bar[] = [
   },
   {
     id: "herzog-restaurant-bar",
+    number: 33,
     name: "Herzog Restaurant & Bar",
     district: "Altstadt-Lehel",
     address: "Maxburgstraße 4, München",
@@ -343,6 +370,7 @@ export const bars: Bar[] = [
   },
   {
     id: "home-bar",
+    number: 35,
     name: "Home Bar",
     district: "Maxvorstadt",
     address: "Amalienstraße 23, München",
@@ -355,6 +383,7 @@ export const bars: Bar[] = [
   },
   {
     id: "hotel-lux",
+    number: 36,
     name: "Hotel Lux",
     district: "Altstadt-Lehel",
     address: "Ledererstraße 13, München",
@@ -367,6 +396,7 @@ export const bars: Bar[] = [
   },
   {
     id: "juliet-rose-bar",
+    number: 39,
     name: "Juliet Rose Bar",
     district: "Haidhausen",
     address: "Rosenheimer Straße 15, München",
@@ -379,6 +409,7 @@ export const bars: Bar[] = [
   },
   {
     id: "la-burrita",
+    number: 41,
     name: "La Burrita",
     district: "Schwabing",
     address: "Occamstraße 7, München",
@@ -391,6 +422,7 @@ export const bars: Bar[] = [
   },
   {
     id: "lola-bar",
+    number: 43,
     name: "Lola Bar",
     district: "Glockenbachviertel",
     address: "Ickstattstraße 2a, München",
@@ -403,6 +435,7 @@ export const bars: Bar[] = [
   },
   {
     id: "mi-casa",
+    number: 46,
     name: "Mi Casa",
     district: "Altstadt-Lehel",
     address: "Am Einlaß 4, München",
@@ -415,6 +448,7 @@ export const bars: Bar[] = [
   },
   {
     id: "mister-b-s",
+    number: 47,
     name: "Mister B's",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "Herzog-Heinrich-Straße 38, München",
@@ -427,6 +461,7 @@ export const bars: Bar[] = [
   },
   {
     id: "m-uniqo",
+    number: 44,
     name: "M'Uniqo Rooftop Bar",
     district: "Schwabing",
     address: "Leopoldstraße 170, München",
@@ -439,6 +474,7 @@ export const bars: Bar[] = [
   },
   {
     id: "nice-dining",
+    number: 49,
     name: "Nice Dining",
     district: "Werksviertel",
     address: "August-Everding-Straße 24, München",
@@ -451,6 +487,7 @@ export const bars: Bar[] = [
   },
   {
     id: "no-mames",
+    number: 51,
     name: "No Mames München!",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "München",
@@ -463,6 +500,7 @@ export const bars: Bar[] = [
   },
   {
     id: "otto-25",
+    number: 52,
     name: "Otto 25",
     district: "Werksviertel",
     address: "Atelierstraße 1, München",
@@ -475,6 +513,7 @@ export const bars: Bar[] = [
   },
   {
     id: "quentins",
+    number: 55,
     name: "Quentin's Fun & Kitchen",
     district: "Altstadt-Lehel",
     address: "Bayerstraße 3-5, München",
@@ -487,6 +526,7 @@ export const bars: Bar[] = [
   },
   {
     id: "relax",
+    number: 56,
     name: "RELAX - Food, Drinks & You",
     district: "Haidhausen",
     address: "München",
@@ -499,6 +539,7 @@ export const bars: Bar[] = [
   },
   {
     id: "ruby-rosi",
+    number: 58,
     name: "Ruby Rosi",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "Bayerstraße 21, München",
@@ -511,6 +552,7 @@ export const bars: Bar[] = [
   },
   {
     id: "salon-irkutsk",
+    number: 59,
     name: "Salon Irkutsk",
     district: "Maxvorstadt",
     address: "Isabellastraße 4, München",
@@ -523,6 +565,7 @@ export const bars: Bar[] = [
   },
   {
     id: "separee",
+    number: 60,
     name: "Séparée",
     district: "Schwabing",
     address: "Leopoldstraße 180, München",
@@ -535,6 +578,7 @@ export const bars: Bar[] = [
   },
   {
     id: "simsalbim-bar",
+    number: 61,
     name: "Simsalbim Bar",
     district: "Altstadt-Lehel",
     address: "Marienstraße 18, München",
@@ -547,6 +591,7 @@ export const bars: Bar[] = [
   },
   {
     id: "sparkling-bar",
+    number: 65,
     name: "The Louis Sparkling Bar",
     district: "Altstadt-Lehel",
     address: "Viktualienmarkt 6, München",
@@ -559,6 +604,7 @@ export const bars: Bar[] = [
   },
   {
     id: "terra",
+    number: 63,
     name: "Terra",
     district: "Glockenbachviertel",
     address: "Baaderstraße 1, München",
@@ -571,6 +617,7 @@ export const bars: Bar[] = [
   },
   {
     id: "vega-bar",
+    number: 66,
     name: "Vega Bar",
     district: "Maxvorstadt",
     address: "Georgenstraße 56, München",
@@ -583,6 +630,7 @@ export const bars: Bar[] = [
   },
   {
     id: "wallace-bar",
+    number: 67,
     name: "Wallace Bar",
     district: "Schwabing",
     address: "Occamstraße 2, München",
@@ -595,6 +643,7 @@ export const bars: Bar[] = [
   },
   {
     id: "amano-bar",
+    number: 1,
     name: "Amano Bar",
     district: "Altstadt-Lehel",
     address: "Sendlinger Straße 46, München",
@@ -608,6 +657,7 @@ export const bars: Bar[] = [
   },
   {
     id: "anamesa",
+    number: 3,
     name: "Anamesa",
     district: "Schwabing",
     address: "Leopoldstraße 68, München",
@@ -621,6 +671,7 @@ export const bars: Bar[] = [
   },
   {
     id: "bolzanino",
+    number: 8,
     name: "Bolzanino",
     district: "Schwabing",
     address: "Giselastraße 10, München",
@@ -634,6 +685,7 @@ export const bars: Bar[] = [
   },
   {
     id: "daintree-pinsa-bar",
+    number: 16,
     name: "Daintree Pinsa Bar",
     district: "Maxvorstadt",
     address: "Luisenstraße 4, München",
@@ -647,6 +699,7 @@ export const bars: Bar[] = [
   },
   {
     id: "fifty-seven",
+    number: 19,
     name: "FIFTY SEVEN Burger & Bowls",
     district: "Karlsfeld",
     address: "Hochstraße 71, Karlsfeld",
@@ -660,6 +713,7 @@ export const bars: Bar[] = [
   },
   {
     id: "fux",
+    number: 22,
     name: "Fux",
     district: "Maxvorstadt",
     address: "Türkenstraße 38, München",
@@ -672,6 +726,7 @@ export const bars: Bar[] = [
   },
   {
     id: "gin-city",
+    number: 23,
     name: "Gin City",
     district: "Werksviertel",
     address: "Speicherstraße 20, München",
@@ -685,6 +740,7 @@ export const bars: Bar[] = [
   },
   {
     id: "gruenspitz",
+    number: 40,
     name: "Kiosk am Grünspitz",
     district: "Haidhausen",
     address: "Tegernseer Landstraße 104, München",
@@ -698,6 +754,7 @@ export const bars: Bar[] = [
   },
   {
     id: "hardrock-cafe",
+    number: 29,
     name: "Hard Rock Cafe Munich",
     district: "Altstadt-Lehel",
     address: "Platzl 1, München",
@@ -711,6 +768,7 @@ export const bars: Bar[] = [
   },
   {
     id: "jaadin",
+    number: 37,
     name: "Jaadin Grillhouse",
     district: "Schwabing",
     address: "Leopoldstraße 158, München",
@@ -724,6 +782,7 @@ export const bars: Bar[] = [
   },
   {
     id: "jahreszeiten-bar",
+    number: 38,
     name: "Jahreszeiten Bar",
     district: "Altstadt-Lehel",
     address: "Maximilianstraße 17, München",
@@ -737,6 +796,7 @@ export const bars: Bar[] = [
   },
   {
     id: "little-lehel",
+    number: 42,
     name: "Little Lehel Weinbar",
     district: "Altstadt-Lehel",
     address: "Seitzstraße 12, München",
@@ -749,6 +809,7 @@ export const bars: Bar[] = [
   },
   {
     id: "mercure-hotel-bar",
+    number: 45,
     name: "Mercure Hotel Bar",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "Senefelderstraße 9, München",
@@ -762,6 +823,7 @@ export const bars: Bar[] = [
   },
   {
     id: "monchalant",
+    number: 48,
     name: "Monchalant",
     district: "Haidhausen",
     address: "Pariser Straße 15, München",
@@ -775,6 +837,7 @@ export const bars: Bar[] = [
   },
   {
     id: "night-flight-bar",
+    number: 50,
     name: "Nightflight Bar",
     district: "Schwabing",
     address: "Terminalstraße Mitte 20, Flughafen München",
@@ -788,6 +851,7 @@ export const bars: Bar[] = [
   },
   {
     id: "perle-bar",
+    number: 53,
     name: "Perle Bar",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "Agnes-Bernauer-Straße 51, München",
@@ -800,6 +864,7 @@ export const bars: Bar[] = [
   },
   {
     id: "primo-bar",
+    number: 54,
     name: "Primo",
     district: "Maxvorstadt",
     address: "Erich-Kästner-Straße 14, München",
@@ -813,6 +878,7 @@ export const bars: Bar[] = [
   },
   {
     id: "robinsons-new-york-bar",
+    number: 57,
     name: "Robinson's New York Bar",
     district: "Ludwigsvorstadt-Isarvorstadt",
     address: "Corneliusstraße 14, München",
@@ -826,6 +892,7 @@ export const bars: Bar[] = [
   },
   {
     id: "soluna",
+    number: 62,
     name: "Soluno",
     district: "Altstadt-Lehel",
     address: "München",
@@ -838,6 +905,7 @@ export const bars: Bar[] = [
   },
   {
     id: "heug-eaug",
+    number: 34,
     name: "Heug Eaug",
     district: "Schwabing",
     address: "München",
@@ -846,66 +914,6 @@ export const bars: Bar[] = [
     description: {
       de: "Unverwechselbare Bar mit skulpturalem Ambiente und kreativer Cocktailkarte.",
       en: "Distinctive bar with sculptural ambiance and a creative cocktail menu.",
-    },
-  },
-  {
-    id: "suzy-b",
-    name: "Suzy B",
-    district: "Glockenbachviertel",
-    address: "München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/suzy-b.png",
-    description: {
-      de: "Charmante Bar mit handverlesenen Cocktails und Wohlfühlatmosphäre.",
-      en: "Charming bar with handpicked cocktails and a feel-good atmosphere.",
-    },
-  },
-  {
-    id: "iguana-club",
-    name: "Iguana Club",
-    district: "Altstadt-Lehel",
-    address: "München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/iguana-club.png",
-    description: {
-      de: "Lebendiger Club mit karibischem Flair und starken Drinks.",
-      en: "Lively club with Caribbean flair and strong drinks.",
-    },
-  },
-  {
-    id: "kopf",
-    name: "KOPF",
-    district: "Schwabing",
-    address: "München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/kopf.png",
-    description: {
-      de: "Moderne Bar mit minimalistischem Design und handverlesenen Cocktails.",
-      en: "Modern bar with minimalist design and handpicked cocktails.",
-    },
-  },
-  {
-    id: "ziva",
-    name: "ZIVA",
-    district: "Altstadt-Lehel",
-    address: "München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/ziva.png",
-    description: {
-      de: "Stilvolle Bar mit geometrischem Ambiente und exquisiten Cocktails.",
-      en: "Stylish bar with geometric ambiance and exquisite cocktails.",
-    },
-  },
-  {
-    id: "hearts-bar",
-    name: "Hearts Bar",
-    district: "Altstadt-Lehel",
-    address: "München",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/hearts-bar.webp",
-    description: {
-      de: "Elegante Bar mit herzlichem Charakter und handgefertigten Cocktails.",
-      en: "Elegant bar with a heartfelt character and handcrafted cocktails.",
     },
   },
 ];
