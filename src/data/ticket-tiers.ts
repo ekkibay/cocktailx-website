@@ -3,7 +3,7 @@ const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
 export const PASSPORT_PRICES = {
   earlyBird: 20,
   regular: 34,
-  late: 49,
+  late: 69,
 } as const;
 
 function getCheapestAvailable(): number {

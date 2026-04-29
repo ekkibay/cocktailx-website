@@ -48,7 +48,7 @@ const [ebActive, regActive, lmActive] = getPassportActive();
 const CALC_OPTIONS: CalcOption[] = [
   { key: "passport-eb",  label: { de: "Passport · Early Bird",      en: "Passport · Early Bird"      }, price: 20,    isGroup: false },
   { key: "passport-r",   label: { de: "Passport · Regular",         en: "Passport · Regular"         }, price: 34,    isGroup: false },
-  { key: "passport-lm",  label: { de: "Passport · Last Minute",     en: "Passport · Last Minute"     }, price: 49,    isGroup: false },
+  { key: "passport-lm",  label: { de: "Passport · Regular",         en: "Passport · Regular"         }, price: 69,    isGroup: false },
   { key: "group-r",      label: { de: "Group Ticket · Regular",     en: "Group Ticket · Regular"     }, price: 25.50, isGroup: true, groupSize: 4 },
   { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 36.75, isGroup: true, groupSize: 4 },
 ];
@@ -57,12 +57,12 @@ const PASSPORT_TIERS = {
   de: [
     { label: "Early Bird",  until: "bis 31. März", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
     { label: "Regular",     until: "bis 1. Mai",   price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
-    { label: "Last Minute", until: "bis 13. Mai",  price: 49, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
+    { label: "Regular",     until: "bis 13. Mai",  price: 69, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
   ],
   en: [
     { label: "Early Bird",  until: "until Mar 31", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
     { label: "Regular",     until: "until May 1",  price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
-    { label: "Last Minute", until: "until May 13", price: 49, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
+    { label: "Regular",     until: "until May 13", price: 69, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
   ],
 };
 
@@ -110,6 +110,7 @@ const EVENT_TICKETS: EventTicket[] = [
     key: "closing-event",
     name: "Closing, Award Night",
     tagline: { de: "31. Mai · Brenner Operngrill · 19–23 Uhr", en: "May 31 · Brenner Operngrill · 7–11 pm" },
+    description: { de: "Award Night · Live Entertainment · Dinner Ambiente", en: "Award Night · Live Entertainment · Dinner Atmosphere" },
     date: { de: "31. Mai 2026", en: "May 31, 2026" },
     startingPrice: 69,
     accent: "everglade",
@@ -390,56 +391,27 @@ export default function ShopPage() {
                     ))}
                   </ul>
 
-                  {/* Pricing tiers */}
-                  <div className="border-t border-bone/10 pt-5">
-                    <p className="text-[10px] font-body font-bold uppercase tracking-[0.12em] text-bone/30 mb-3">
-                      {locale === "de" ? "Preisentwicklung" : "Pricing schedule"}
-                    </p>
-                    <div className="space-y-2">
-                      {PASSPORT_TIERS[locale].map((tier) => (
-                        <button
-                          key={tier.calcKey}
-                          onClick={(e) => { e.stopPropagation(); selectAndScroll(tier.calcKey); }}
-                          className={`w-full flex items-center justify-between text-sm font-body rounded-lg px-2 py-1.5 transition-colors ${
-                            tier.calcKey === calcKey
-                              ? "bg-tangerine/10 text-bone"
-                              : tier.active
-                                ? "text-bone hover:bg-bone/5"
-                                : "text-bone/35 hover:bg-bone/5"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className={`w-1.5 h-1.5 rounded-full ${tier.active ? "bg-tangerine" : "bg-bone/20"}`} />
-                            <span>{tier.label}</span>
-                            <span className={`text-xs ${tier.active ? "text-bone/65" : "text-bone/25"}`}>· {tier.until}</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <span className={`text-xs ${tier.active ? "text-bone/55" : "text-bone/20"}`}>
-                              {locale === "de"
-                                ? `ab ${(tier.price / SAVINGS_PER).toFixed(1)} Cocktails`
-                                : `from ${(tier.price / SAVINGS_PER).toFixed(1)} cocktails`}
-                            </span>
-                            <span className={`font-bold tabular-nums ${tier.active ? "text-tangerine" : ""}`}>
-                              {tier.price} €
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
                 </div>
 
                 {/* Price + CTA */}
                 <div className="flex flex-col items-center justify-center md:min-w-[200px] md:border-l md:border-bone/10 md:pl-8">
                   <div className="flex items-baseline gap-3 mb-1">
-                    {activeTier.price < 49 && (
-                      <span className="text-2xl font-display text-bone/25 line-through">€49</span>
+                    {activeTier.calcKey === "passport-lm" && (
+                      <span className="text-2xl font-display text-bone/25 line-through">€99</span>
+                    )}
+                    {activeTier.calcKey === "passport-r" && (
+                      <span className="text-2xl font-display text-bone/25 line-through">€69</span>
                     )}
                     <span className="text-6xl md:text-7xl font-display text-tangerine">€{activeTier.price}</span>
                   </div>
-                  {activeTier.price < 49 && (
+                  {activeTier.calcKey === "passport-lm" && (
                     <span className="text-xs font-body text-emerald-400 font-bold mb-1">
-                      {locale === "de" ? `Du sparst ${49 - activeTier.price} €` : `You save €${49 - activeTier.price}`}
+                      {locale === "de" ? "Du sparst 30 €" : "You save €30"}
+                    </span>
+                  )}
+                  {activeTier.calcKey === "passport-r" && (
+                    <span className="text-xs font-body text-emerald-400 font-bold mb-1">
+                      {locale === "de" ? "Du sparst 35 €" : "You save €35"}
                     </span>
                   )}
                   <span className="text-[11px] font-body text-bone/55 mb-6">
@@ -451,10 +423,6 @@ export default function ShopPage() {
                     className="w-full text-center text-base py-4"
                     price={activeTier.price}
                   />
-                  <div className="flex items-center gap-1.5 mt-3 text-[11px] font-body font-bold text-tangerine/70">
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-                    {locale === "de" ? "Limitiertes Kontingent" : "Limited availability"}
-                  </div>
                 </div>
               </div>
             </div>

@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
 
 export default function StickyCountdownBanner() {
   const t = useTranslations("hero");
+  const locale = useLocale();
   const [visible, setVisible] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
@@ -73,7 +74,7 @@ export default function StickyCountdownBanner() {
                 </span>
               </div>
               <a
-                href="#tickets"
+                href={`/${locale}/shop`}
                 className="text-xs font-body font-bold text-licorice bg-tangerine hover:bg-tangerine/90 px-4 py-1.5 rounded-full transition-colors whitespace-nowrap"
               >
                 {t("cta")}
