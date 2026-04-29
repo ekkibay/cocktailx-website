@@ -2,7 +2,7 @@
 
 import { useMemo, useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import Countdown from "@/components/ui/Countdown";
 import { TICKET_TIERS } from "@/data/ticket-tiers";
@@ -83,6 +83,7 @@ function ParallaxImage({
 
 export default function Hero() {
   const t = useTranslations("hero");
+  const locale = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -191,7 +192,7 @@ export default function Hero() {
           style={{ opacity: 0, animationDelay: "700ms" }}
         >
           <a
-            href="#tickets"
+            href={`/${locale}/shop`}
             className="btn-primary text-sm md:text-lg whitespace-nowrap"
           >
             {t("cta")} — €{tier.price}

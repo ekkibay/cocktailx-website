@@ -71,7 +71,7 @@ export default function StickyCTA() {
               </p>
             </div>
             <a
-              href="#tickets"
+              href={`/${locale}/shop`}
               className="btn-primary text-sm whitespace-nowrap px-5 py-3 shrink-0"
             >
               {t("cta")}

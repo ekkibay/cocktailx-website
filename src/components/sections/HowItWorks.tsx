@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
@@ -65,6 +65,7 @@ const steps = [
 
 export default function HowItWorks() {
   const t = useTranslations("howItWorks");
+  const locale = useLocale();
   const grid = useReveal({ delay: 200 });
   const mockup = useReveal({ delay: 350, direction: "up" });
 
@@ -153,7 +154,7 @@ export default function HowItWorks() {
         {/* CTA */}
         <div className="text-center mt-12">
           <a
-            href="#tickets"
+            href={`/${locale}/shop`}
             className="btn-primary text-sm md:text-lg"
           >
             {t("cta")}
