@@ -213,27 +213,98 @@ export default function EventsPage() {
             CLOSING, AWARD NIGHT
         ══════════════════════════════════════════ */}
         <div className="mb-24">
+          {/* Hero */}
           <div className="relative rounded-3xl overflow-hidden aspect-[16/7] mb-0">
             <Image src={closing.image} alt={closing.title[locale]} fill sizes="100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-licorice/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/15" />
             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
               <span className="inline-block text-[10px] font-body font-bold uppercase tracking-wider bg-everglade text-bone px-3 py-1 rounded-full mb-4">
-                Closing
+                Closing & Award Night
               </span>
-              <h2 className="text-3xl md:text-5xl font-display text-bone mb-2">{closing.title[locale]}</h2>
-              <p className="text-base font-body text-tangerine font-bold">
-                {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr
+              {closing.tagline && (
+                <p className="text-sm md:text-base font-body font-bold uppercase tracking-[0.18em] text-tangerine/90 mb-3">
+                  {closing.tagline[locale]}
+                </p>
+              )}
+              <h2 className="text-3xl md:text-5xl font-display text-bone mb-3 leading-tight">{closing.title[locale]}</h2>
+              <p className="text-base md:text-lg font-body text-bone/85 max-w-2xl mb-3">
+                {closing.description[locale]}
               </p>
-              <p className="text-sm font-body text-bone/70 mt-1">📍 {closing.location}</p>
+              <p className="text-sm font-body text-bone/70">
+                📅 {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr · 📍 {closing.location}
+              </p>
             </div>
           </div>
 
-          <div className="bg-licorice/60 border border-bone/10 rounded-b-3xl border-t-0 p-8 md:p-10 mb-6">
-            <p className="font-body text-bone/80 leading-relaxed">{closing.description[locale]}</p>
+          {/* Eckdaten */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 bg-licorice/60 border border-bone/10 rounded-b-3xl border-t-0 overflow-hidden">
+            {[
+              { label: locale === "de" ? "Datum" : "Date", value: "31.05.2026" },
+              { label: locale === "de" ? "Gäste" : "Guests", value: `${closing.capacity ?? 500}` },
+              { label: "Dresscode", value: closing.dresscode ?? "Black Tie" },
+              { label: "Location", value: "Brenner Operngrill" },
+            ].map((cell, i) => (
+              <div key={i} className={`p-5 md:p-7 text-center ${i < 3 ? "border-r border-bone/10" : ""} ${i < 2 ? "border-b md:border-b-0 border-bone/10" : ""}`}>
+                <p className="text-[10px] font-body font-bold uppercase tracking-[0.15em] text-tangerine/70 mb-1.5">
+                  {cell.label}
+                </p>
+                <p className="font-display text-base md:text-xl text-bone leading-tight">{cell.value}</p>
+              </div>
+            ))}
           </div>
 
+          {/* Awards-Block */}
+          {closing.awards && (
+            <div className="mt-6 grid md:grid-cols-2 gap-5">
+              {closing.awards.map((award, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl border border-tangerine/25 bg-gradient-to-br from-tangerine/[0.06] to-bone/[0.02] p-7 md:p-8"
+                >
+                  <div className="w-11 h-11 rounded-full bg-tangerine/15 border border-tangerine/30 flex items-center justify-center mb-4">
+                    {award.icon === "trophy" ? (
+                      <svg className="w-5 h-5 text-tangerine" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-4.5A3.375 3.375 0 0019.875 10.875 3.375 3.375 0 0016.5 7.5h0V3.75m-9 15v-4.5A3.375 3.375 0 014.125 10.875 3.375 3.375 0 017.5 7.5h0V3.75m0 0h9m-9 0H6a2.25 2.25 0 00-2.25 2.25v0M16.5 3.75H18a2.25 2.25 0 012.25 2.25v0" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 text-tangerine" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    )}
+                  </div>
+                  <h3 className="font-display text-xl md:text-2xl text-bone mb-3 leading-tight">
+                    {award.title[locale]}
+                  </h3>
+                  <p className="text-sm font-body text-bone/75 leading-relaxed">
+                    {award.body[locale]}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Was im Ticket steckt */}
+          {closing.inclusions && (
+            <div className="mt-6 rounded-2xl border border-bone/10 bg-licorice/40 p-7 md:p-10">
+              <p className="text-sm font-body font-bold uppercase tracking-wider text-tangerine/80 mb-6">
+                {locale === "de" ? "Was im Ticket steckt" : "What's included"}
+              </p>
+              <ul className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+                {closing.inclusions.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 pb-4 border-b border-bone/5 last:border-b-0 md:[&:nth-last-child(2)]:border-b-0">
+                    <Check />
+                    <div className="min-w-0">
+                      <p className="font-body text-sm font-bold text-bone/95">{item.label[locale]}</p>
+                      <p className="text-xs font-body text-bone/55 leading-relaxed mt-0.5">{item.detail[locale]}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Closing Tickets */}
-          <div className="rounded-2xl border border-bone/10 bg-licorice/40 p-8 md:p-10">
+          <div className="mt-6 rounded-2xl border border-bone/10 bg-licorice/40 p-8 md:p-10">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
               <div className="flex-1">
                 <p className="text-sm font-body font-bold uppercase tracking-wider text-tangerine/80 mb-5">
@@ -253,13 +324,19 @@ export default function EventsPage() {
                     </div>
                   ))}
                 </div>
+                <p className="mt-4 text-xs font-body text-tangerine/80 flex items-center gap-2">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
+                  {locale === "de"
+                    ? "Early Bird 69 € sind nur noch bis zum 1. Mai verfügbar"
+                    : "Early Bird €69 only available until May 1"}
+                </p>
               </div>
               <div className="md:min-w-[220px] flex flex-col items-center justify-center text-center md:border-l md:border-bone/10 md:pl-10 gap-4">
                 <a href="https://cocktailx.app/closing-event" target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-sm py-4">
                   {locale === "de" ? "TICKET SICHERN" : "GET TICKET"}
                 </a>
                 <p className="text-xs font-body text-bone/40">
-                  {locale === "de" ? "Sichere dir jetzt deinen Platz" : "Secure your spot now"}
+                  {locale === "de" ? "Limitiert auf 500 Plätze" : "Limited to 500 seats"}
                 </p>
               </div>
             </div>

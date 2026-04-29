@@ -89,9 +89,22 @@ const OTHER_TICKETS: OtherTicketType[] = [
 
 // ── Savings Calculator (inline) ──────────────────────────────────────────
 
+const CALC_TIERS = [
+  { key: "earlyBird", price: TICKET_TIERS.earlyBird, label: { de: "Early Bird", en: "Early Bird" } },
+  { key: "regular", price: TICKET_TIERS.regular, label: { de: "Regular", en: "Regular" } },
+  { key: "late", price: TICKET_TIERS.late, label: { de: "Last Minute", en: "Last Minute" } },
+] as const;
+
 function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
   const [count, setCount] = useState(5);
-  const ticketPrice = TICKET_TIERS.cheapest;
+  const [selectedKey, setSelectedKey] = useState(() => {
+    // Default to cheapest available tier
+    const cheapest = TICKET_TIERS.cheapest;
+    return CALC_TIERS.find((t) => t.price === cheapest)?.key ?? "earlyBird";
+  });
+
+  const tier = CALC_TIERS.find((t) => t.key === selectedKey) ?? CALC_TIERS[0];
+  const ticketPrice = tier.price;
   const barTotal = count * NORMAL_PRICE;
   const festivalTotal = ticketPrice + count * FESTIVAL_PRICE;
   const savings = barTotal - festivalTotal;
@@ -102,16 +115,38 @@ function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
       <p className="text-[11px] font-body font-bold uppercase tracking-[0.15em] text-tangerine mb-1">
         {locale === "de" ? "Lohnt sich das Ticket?" : "Is the ticket worth it?"}
       </p>
-      <h3 className="text-xl md:text-2xl font-display text-bone mb-6">
+      <h3 className="text-xl md:text-2xl font-display text-bone mb-5">
         {locale === "de" ? "Dein Spar-Rechner" : "Your Savings Calculator"}
       </h3>
 
+      {/* Ticket selector pills */}
+      <div className="mb-6">
+        <p className="text-xs font-body text-bone/55 uppercase tracking-wider mb-2">
+          Ticket
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {CALC_TIERS.map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setSelectedKey(t.key)}
+              className={`text-xs font-body px-3 py-1.5 rounded-full border transition-colors ${
+                t.key === selectedKey
+                  ? "bg-tangerine text-licorice border-tangerine font-bold"
+                  : "border-bone/20 text-bone/65 hover:border-bone/40 hover:text-bone/85"
+              }`}
+            >
+              {t.label[locale]} · €{t.price}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <label className="block text-sm font-body text-bone/80 mb-3">
-        {locale === "de" ? "Wie viele Cocktails planst du in 18 Tagen mit deinen Freunden zu trinken? " : "How many cocktails are you and your friends planning to drink in 18 days? "}
+        {locale === "de" ? "Wie viele Cocktails planst du an 18 Abenden zu trinken? " : "How many cocktails are you planning over 18 nights? "}
         <span className="text-bone font-bold">{count}</span>
       </label>
       <input
-        type="range" min={1} max={30} step={1} value={count}
+        type="range" min={1} max={18} step={1} value={count}
         onChange={(e) => setCount(Number(e.target.value))}
         className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-tangerine bg-bone/10 mb-6"
       />
@@ -140,7 +175,7 @@ function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
           <span className="text-sm font-body text-bone/65">
             {locale === "de" ? "Deine Ersparnis" : "Your savings"}
           </span>
-          <span className={`text-xl font-display tabular-nums ${savings > 0 ? "text-emerald-400" : "text-hibiscus"}`}>
+          <span className={`text-2xl md:text-3xl font-display tabular-nums transition-colors ${savings > 0 ? "text-emerald-400" : "text-hibiscus"}`}>
             {savings > 0
               ? locale === "de" ? `+ ${savings} \u20ac` : `+ \u20ac${savings}`
               : locale === "de" ? `\u2212 ${Math.abs(savings)} \u20ac` : `\u2212 \u20ac${Math.abs(savings)}`}
@@ -148,10 +183,35 @@ function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
         </div>
       </div>
 
+      {/* Threshold banner */}
+      {savings > 0 ? (
+        <div className="rounded-xl border border-emerald-400/30 bg-emerald-400/[0.08] p-4 mb-3">
+          <p className="text-sm font-body font-bold text-emerald-300 text-center mb-3">
+            {locale === "de"
+              ? `Du sparst ${savings} \u20ac \u2014 Ticket lohnt sich.`
+              : `You save \u20ac${savings} \u2014 the ticket pays off.`}
+          </p>
+          <a
+            href={`/${locale}/shop#passport`}
+            className="block w-full text-center btn-primary text-sm py-3"
+          >
+            {locale === "de" ? "Ticket sichern" : "Secure your ticket"}
+          </a>
+        </div>
+      ) : (
+        <div className="rounded-xl border border-hibiscus/30 bg-hibiscus/[0.08] p-4 mb-3">
+          <p className="text-sm font-body text-bone/85 text-center">
+            {locale === "de"
+              ? `Lohnt sich noch nicht \u2014 aber ein Drink in einer Top-Bar kostet sonst ${NORMAL_PRICE}\u201316 \u20ac.`
+              : `Not worth it yet \u2014 but a drink in a top bar usually costs \u20ac${NORMAL_PRICE}\u201316.`}
+          </p>
+        </div>
+      )}
+
       <p className="text-xs font-body text-bone/35 text-center">
         {locale === "de"
-          ? `Ab ${breakEven} Cocktails lohnt sich das Ticket \u2014 du bist schon bei ${count}.`
-          : `The ticket pays off after ${breakEven} cocktails \u2014 you're already at ${count}.`}
+          ? `Ab ${breakEven} Cocktails lohnt sich das Ticket \u2014 du bist bei ${count}.`
+          : `The ticket pays off after ${breakEven} cocktails \u2014 you're at ${count}.`}
       </p>
     </div>
   );
@@ -204,6 +264,28 @@ export default function Tickets() {
           {t("subtitle")}
         </p>
 
+        {/* Honest scarcity badge — verifiable cap */}
+        <div className="flex justify-center mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-tangerine/40 bg-tangerine/5 text-xs font-body font-bold uppercase tracking-[0.15em] text-tangerine">
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            {locale === "de" ? "Limitiert auf 5.000 Tickets" : "Limited to 5,000 tickets"}
+          </span>
+        </div>
+
+        {/* Pinned testimonial for social proof above pricing */}
+        <figure className="max-w-2xl mx-auto mb-10 text-center">
+          <blockquote className="text-base md:text-lg font-body text-bone/85 italic leading-relaxed">
+            &ldquo;{locale === "de"
+              ? "Für 20€ bekommt man Zugang zu über 60+ Bars mit Signature Cocktails für 6€. Das ist unschlagbar."
+              : "For €20 you get access to over 60+ bars with signature cocktails for €6. Unbeatable."}&rdquo;
+          </blockquote>
+          <figcaption className="mt-2 text-xs font-body font-bold text-tangerine tracking-wider uppercase">
+            — Marco, 31
+          </figcaption>
+        </figure>
+
         {/* ── Passport Pricing Cards ── */}
         <div ref={cards.ref} style={cards.style} className="grid lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
           {tiersWithStatus.map((tier) => {
@@ -236,11 +318,8 @@ export default function Tickets() {
                   {t(`${tier.key}.name`)}
                 </p>
 
-                {/* Price with strikethrough */}
+                {/* Price */}
                 <div className="mt-3 mb-2 flex items-baseline justify-center gap-2.5">
-                  {!isSoldOut && tier.price < 49 && (
-                    <span className="text-xl font-display text-bone/25 line-through">&euro;49</span>
-                  )}
                   <span className={`text-5xl md:text-[3.5rem] leading-none font-display ${isSoldOut ? "text-bone/15 line-through" : isBest ? "text-tangerine" : "text-tangerine/60"}`}>
                     &euro;{tier.price}
                   </span>
@@ -317,6 +396,37 @@ export default function Tickets() {
                   {featureIcons[i]}
                 </div>
                 <span className="text-sm font-body text-bone/80 leading-snug">{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Mini-FAQ — top 3 conversion blockers ── */}
+        <div className="mt-12 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-3">
+            {[
+              {
+                q: locale === "de" ? "Ist das Ticket digital?" : "Is the ticket digital?",
+                a: locale === "de"
+                  ? "Ja, vollständig digital in der Cocktail X App. Kein Ausdrucken nötig."
+                  : "Yes, fully digital in the Cocktail X app. No printing required.",
+              },
+              {
+                q: locale === "de" ? "Kann ich stornieren?" : "Can I cancel?",
+                a: locale === "de"
+                  ? "Stornierung bis 14 Tage vor Festivalbeginn — oder Ticket einfach übertragen."
+                  : "Cancel up to 14 days before the festival — or simply transfer your ticket.",
+              },
+              {
+                q: locale === "de" ? "Muss ich alle Bars besuchen?" : "Do I have to visit every bar?",
+                a: locale === "de"
+                  ? "Nein, du wählst frei. Jede Bar bietet einen exklusiven Cocktail für 6 €."
+                  : "No, you choose freely. Every bar offers an exclusive cocktail for €6.",
+              },
+            ].map((item, i) => (
+              <div key={i} className="rounded-xl border border-bone/10 bg-bone/[0.02] p-5">
+                <p className="text-sm font-display text-bone mb-2">{item.q}</p>
+                <p className="text-xs font-body text-bone/65 leading-relaxed">{item.a}</p>
               </div>
             ))}
           </div>

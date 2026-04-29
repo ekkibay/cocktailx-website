@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Festival",
   description:
-    "Erlebe das Cocktail X Festival in München. 67 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail.",
+    "Erlebe das Cocktail X Festival in München. 60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail.",
 };
 
 export default function FestivalLayout({

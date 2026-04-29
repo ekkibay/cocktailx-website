@@ -12,10 +12,20 @@
     "title": "cocktail \u2726 festival",
     "heroHeadline": "DEUTSCHLANDS GR\u00d6SSTES COCKTAIL FESTIVAL",
     "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
-    "subheadline": "67 Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail \u2013 nur f\u00fcr das Festival.",
+    "subheadline": "60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail \u2013 nur f\u00fcr das Festival.",
+    "headlineEarlyBird": "18 ABENDE. 60+ BARS. 1 TICKET F\u00dcR {price}\u202f\u20ac.",
+    "headlineRegular": "NUR NOCH BIS 30. APRIL F\u00dcR {price}\u202f\u20ac.",
+    "headlineLate": "LETZTE TICKETS F\u00dcR {price}\u202f\u20ac.",
+    "subEarlyBird": "Cocktails f\u00fcr 6\u202f\u20ac statt 12\u201316\u202f\u20ac \u00b7 M\u00fcnchen \u00b7 13.\u201330. Mai",
+    "subRegular": "Ab 1. Mai kostet das Ticket 49\u202f\u20ac \u00b7 18 Abende, 60+ Bars, dein M\u00fcnchen",
+    "subLate": "Festival startet am 13. Mai \u00b7 18 Abende, 60+ Bars, dein M\u00fcnchen",
+    "ctaSubEarlyBird": "Noch {days} Tage zum Early-Bird-Preis",
+    "ctaSubRegular": "Noch {days} Tage zum Vorverkaufspreis",
+    "ctaSubLate": "Festival startet bald \u2013 sichere dir dein Ticket",
+    "freeCancel": "Kostenlose Stornierung bis 14 Tage vorher",
     "cta": "Jetzt Ticket sichern",
     "shareCta": "Freunden weiterleiten",
-    "trustLine": "58 Bars \u00b7 Limitierte Tickets \u00b7 Exklusive Erlebnisse",
+    "trustLine": "60+ Bars \u00b7 Limitierte Tickets \u00b7 Exklusive Erlebnisse",
     "guestCount": "5.000+ G\u00e4ste erwartet in 2026",
     "days": "Tage",
     "hours": "Stunden",
@@ -40,7 +50,7 @@
     "headline": "SO FUNKTIONIERT'S",
     "step1": {
       "title": "HOL DIR DEIN TICKET",
-      "description": "Kaufe dein Ticket und erhalte Zugang zur App mit allen teilnehmenden <strong>67 Bars</strong> und ihren Festival-Cocktails. Dein Ticket begleitet dich <strong>18 Tage</strong> lang durch das Festival."
+      "description": "Kaufe dein Ticket und erhalte Zugang zur App mit allen teilnehmenden <strong>60+ Bars</strong> und ihren Festival-Cocktails. Dein Ticket begleitet dich <strong>18 Tage</strong> lang durch das Festival."
     },
     "step2": {
       "title": "ENTDECKE DIE BARS & COCKTAILS",
@@ -60,7 +70,7 @@
   "tickets": {
     "headline": "SICHERE DIR JETZT DEINEN PASS",
     "subtitle": "13.-30. Mai 2026 · München · Alle Tickets sind identisch. Wer früher kauft, zahlt weniger.",
-    "savings": "Du sparst {amount}€",
+    "savings": "Du sparst {amount}€ gegenüber Last Minute",
     "activeBadge": "Bester Preis aktuell",
     "buyNow": "JETZT KAUFEN",
     "comingSoon": "Bald verfügbar",
@@ -118,7 +128,7 @@
   "faq": {
     "headline": "HÄUFIGE FRAGEN",
     "q1": "Was ist das Cocktail X Ticket?",
-    "a1": "Das Ticket ist dein digitaler Festivalpass. Es gibt dir 18 Tage lang Zugang zu exklusiven Cocktails in allen 67 Bars in ganz München, zu speziellen Festivalpreisen.",
+    "a1": "Das Ticket ist dein digitaler Festivalpass. Es gibt dir 18 Tage lang Zugang zu exklusiven Cocktails in allen 60+ Bars in ganz München, zu speziellen Festivalpreisen.",
     "q2": "Ist das Ticket digital oder physisch?",
     "a2": "Das Ticket ist komplett digital. Nach dem Kauf erhältst du Zugang über die Cocktail X App. Kein Ausdrucken nötig, einfach in der Bar vorzeigen.",
     "q3": "Wie funktioniert das mit den Stempeln?",
@@ -151,7 +161,7 @@
       "name": "Alex, 40"
     },
     "t4": {
-      "quote": "18 Tage, 58 Bars und jede Menge neue Lieblingscocktails. So macht man ein Cocktailfestival.",
+      "quote": "18 Tage, 60+ Bars und jede Menge neue Lieblingscocktails. So macht man ein Cocktailfestival.",
       "name": "Thomas, 38"
     },
     "t5": {
@@ -163,7 +173,7 @@
       "name": "Sarah, 29"
     },
     "t7": {
-      "quote": "Für 20€ bekommt man Zugang zu über 58 Bars mit Signature Cocktails für 6€. Das ist unschlagbar.",
+      "quote": "Für 20€ bekommt man Zugang zu über 60+ Bars mit Signature Cocktails für 6€. Das ist unschlagbar.",
       "name": "Marco, 31"
     },
     "t8": {
@@ -245,7 +255,7 @@
   "founders": {
     "badge": "VERANSTALTER",
     "headline": "Die K\u00f6pfe hinter Cocktail X",
-    "description": "Ekkehard Bay und Vincent Kerger haben Cocktail X w\u00e4hrend der Pandemie gegr\u00fcndet \u2013 inspiriert von der London Cocktail Week. Heute, in der 4. Ausgabe, mit 67 Bars und 5.000+ erwarteten G\u00e4sten.",
+    "description": "Ekkehard Bay und Vincent Kerger haben Cocktail X w\u00e4hrend der Pandemie gegr\u00fcndet \u2013 inspiriert von der London Cocktail Week. Heute, in der 4. Ausgabe, mit 60+ Bars und 5.000+ erwarteten G\u00e4sten.",
     "cta": "MEHR \u00dcBER UNS"
   },
   "footer": {

@@ -88,8 +88,8 @@ export default function FounderPage() {
           </p>
           <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed">
             {locale === "de"
-              ? "Im April 2023 öffnete Cocktail X zum ersten Mal seine Türen – mit 32 teilnehmenden Bars und der klaren Vision, Deutschlands größtes Cocktail-Festival zu werden. Heute, in der 4. Ausgabe, sind 67 Bars dabei und über 5.000 Gäste erwartet."
-              : "In April 2023, Cocktail X opened its doors for the first time — with 32 participating bars and a clear vision to become Germany's largest cocktail festival. Today, in its 4th edition, 67 bars participate and over 5,000 guests are expected."}
+              ? "Im April 2023 öffnete Cocktail X zum ersten Mal seine Türen – mit 32 teilnehmenden Bars und der klaren Vision, Deutschlands größtes Cocktail-Festival zu werden. Heute, in der 4. Ausgabe, sind 60+ Bars dabei und über 5.000 Gäste erwartet."
+              : "In April 2023, Cocktail X opened its doors for the first time — with 32 participating bars and a clear vision to become Germany's largest cocktail festival. Today, in its 4th edition, 60+ bars participate and over 5,000 guests are expected."}
           </p>
         </motion.div>
 
@@ -225,8 +225,8 @@ export default function FounderPage() {
               },
               {
                 year: "2026",
-                de: "Vierte Ausgabe: 67 Bars, 18 Tage, 5.000+ erwartete Gäste. 13.–30. Mai, München.",
-                en: "Fourth edition: 67 bars, 18 days, 5,000+ expected guests. May 13–30, Munich.",
+                de: "Vierte Ausgabe: 60+ Bars, 18 Tage, 5.000+ erwartete Gäste. 13.–30. Mai, München.",
+                en: "Fourth edition: 60+ bars, 18 days, 5,000+ expected guests. May 13–30, Munich.",
                 highlight: true,
               },
             ].map((item) => (

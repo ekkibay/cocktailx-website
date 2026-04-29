@@ -51,11 +51,11 @@ export default function StickyCountdownBanner() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 60, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-0 left-0 right-0 z-50"
+          className="fixed bottom-0 left-0 right-0 z-50 hidden md:block"
         >
           <div className="bg-licorice/95 backdrop-blur-md border-t border-bone/10">
-            <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-              <span className="text-xs font-body font-bold text-bone/70 uppercase tracking-wider">
+            <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-3">
+              <span className="text-xs font-body font-bold text-bone/70 uppercase tracking-wider whitespace-nowrap">
                 13.–30. Mai 2026
               </span>
               <div className="flex items-center gap-3">
@@ -68,13 +68,13 @@ export default function StickyCountdownBanner() {
                   <span className="text-bone/30">:</span>
                   <span className="text-tangerine">{pad(timeLeft.seconds)}</span>
                 </div>
-                <span className="text-[10px] font-body text-bone/50 uppercase tracking-wider">
+                <span className="text-[10px] font-body text-bone/50 uppercase tracking-wider hidden lg:inline">
                   {t("days")} : {t("hours")} : {t("minutes")} : {t("seconds")}
                 </span>
               </div>
               <a
                 href="#tickets"
-                className="text-xs font-body font-bold text-licorice bg-tangerine hover:bg-tangerine/90 px-4 py-1.5 rounded-full transition-colors"
+                className="text-xs font-body font-bold text-licorice bg-tangerine hover:bg-tangerine/90 px-4 py-1.5 rounded-full transition-colors whitespace-nowrap"
               >
                 {t("cta")}
               </a>

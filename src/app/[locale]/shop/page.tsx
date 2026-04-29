@@ -269,8 +269,8 @@ function Check() {
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 const trustPoints = {
-  de: ["Sofort per E-Mail", "18 Tage gültig", "67 Bars", "Kostenlose Stornierung"],
-  en: ["Instant email delivery", "Valid for 18 days", "67 Bars", "Free cancellation"],
+  de: ["Sofort per E-Mail", "18 Tage gültig", "60+ Bars", "Kostenlose Stornierung"],
+  en: ["Instant email delivery", "Valid for 18 days", "60+ Bars", "Free cancellation"],
 };
 
 const passportFeatures = {
@@ -343,8 +343,8 @@ export default function ShopPage() {
         />
         <p className="text-base font-body text-bone/65 text-center max-w-lg mb-10">
           {locale === "de"
-            ? "Dein All-Access-Pass für 67 Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
-            : "Your all-access pass for 67 bars, 18 days, countless cocktails – at the festival price of €6."}
+            ? "Dein All-Access-Pass für 60+ Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
+            : "Your all-access pass for 60+ bars, 18 days, countless cocktails – at the festival price of €6."}
         </p>
 
         <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto">

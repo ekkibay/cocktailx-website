@@ -12,10 +12,20 @@
     "title": "cocktail \u2726 festival",
     "heroHeadline": "GERMANY\u2019S BIGGEST COCKTAIL FESTIVAL",
     "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
-    "subheadline": "67 Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail \u2014 only for the festival.",
+    "subheadline": "60+ Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail \u2014 only for the festival.",
+    "headlineEarlyBird": "18 NIGHTS. 60+ BARS. 1 TICKET FOR \u20ac{price}.",
+    "headlineRegular": "ONLY UNTIL APRIL 30 FOR \u20ac{price}.",
+    "headlineLate": "LAST TICKETS FOR \u20ac{price}.",
+    "subEarlyBird": "Cocktails for \u20ac6 instead of \u20ac12\u201316 \u00b7 Munich \u00b7 May 13\u201330",
+    "subRegular": "From May 1 the ticket costs \u20ac49 \u00b7 18 nights, 60+ bars, your Munich",
+    "subLate": "Festival starts May 13 \u00b7 18 nights, 60+ bars, your Munich",
+    "ctaSubEarlyBird": "{days} days left at the Early Bird price",
+    "ctaSubRegular": "{days} days left at the pre-sale price",
+    "ctaSubLate": "Festival starts soon \u2013 secure your ticket",
+    "freeCancel": "Free cancellation up to 14 days before",
     "cta": "Get Your Ticket",
     "shareCta": "Share with friends",
-    "trustLine": "58 Bars \u00b7 Limited Tickets \u00b7 Exclusive Experiences",
+    "trustLine": "60+ Bars \u00b7 Limited Tickets \u00b7 Exclusive Experiences",
     "guestCount": "5,000+ guests expected in 2026",
     "days": "Days",
     "hours": "Hours",
@@ -60,7 +70,7 @@
   "tickets": {
     "headline": "GET YOUR PASS NOW",
     "subtitle": "Mai 13-30, 2026 · München · All tickets are identical. The earlier you buy, the less you pay.",
-    "savings": "You save €{amount}",
+    "savings": "You save €{amount} vs. Last Minute",
     "activeBadge": "Best price now",
     "buyNow": "BUY NOW",
     "comingSoon": "Coming soon",
@@ -118,7 +128,7 @@
   "faq": {
     "headline": "FAQ",
     "q1": "What is the Cocktail X Ticket?",
-    "a1": "The Ticket is your digital festival pass. It gives you 18 days of access to exclusive cocktails at all 67 bars across München, at special festival prices.",
+    "a1": "The Ticket is your digital festival pass. It gives you 18 days of access to exclusive cocktails at all 60+ bars across München, at special festival prices.",
     "q2": "Is the ticket digital or physical?",
     "a2": "The ticket is fully digital. After purchase, you get access via the Cocktail X App. No printing needed, just show it at the bar.",
     "q3": "How do the stamps work?",
@@ -151,7 +161,7 @@
       "name": "Alex, 40"
     },
     "t4": {
-      "quote": "18 days, 67 bars, and so many new favorite cocktails. This is how you do a cocktail festival.",
+      "quote": "18 days, 60+ bars, and so many new favorite cocktails. This is how you do a cocktail festival.",
       "name": "Thomas, 38"
     },
     "t5": {
@@ -163,7 +173,7 @@
       "name": "Sarah, 29"
     },
     "t7": {
-      "quote": "For €20 you get access to 67 bars with signature cocktails for €6. Unbeatable value.",
+      "quote": "For €20 you get access to 60+ bars with signature cocktails for €6. Unbeatable value.",
       "name": "Marco, 31"
     },
     "t8": {
@@ -245,7 +255,7 @@
   "founders": {
     "badge": "ORGANIZERS",
     "headline": "The minds behind Cocktail X",
-    "description": "Ekkehard Bay and Vincent Kerger founded Cocktail X during the pandemic \u2014 inspired by London Cocktail Week. Now in its 4th edition, with 67 bars and 5,000+ expected guests.",
+    "description": "Ekkehard Bay and Vincent Kerger founded Cocktail X during the pandemic \u2014 inspired by London Cocktail Week. Now in its 4th edition, with 60+ bars and 5,000+ expected guests.",
     "cta": "MORE ABOUT US"
   },
   "footer": {

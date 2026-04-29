@@ -1,6 +1,7 @@
 "use client";
 
 import Hero from "@/components/sections/Hero";
+import TrustBar from "@/components/sections/TrustBar";
 
 import About from "@/components/sections/About";
 import HowItWorks from "@/components/sections/HowItWorks";
@@ -23,6 +24,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
+      <TrustBar />
       <SponsorsMarquee />
       <About />
       <HowItWorks />

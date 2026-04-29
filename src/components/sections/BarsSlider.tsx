@@ -51,7 +51,8 @@ function ScrollRow({ bars: rowBars }: { bars: typeof bars }) {
     didInit.current = true;
     // Scroll to the start of the second copy (middle)
     requestAnimationFrame(() => {
-      const cardWidth = 300 + 16; // card width + gap
+      const isMobile = window.innerWidth < 768;
+      const cardWidth = (isMobile ? 260 : 300) + (isMobile ? 12 : 16); // card width + gap
       el.scrollLeft = cardWidth * rowBars.length;
     });
   }, [rowBars.length]);
@@ -84,9 +85,17 @@ function ScrollRow({ bars: rowBars }: { bars: typeof bars }) {
         className="flex gap-3 md:gap-4 overflow-x-auto scrollbar-hide scroll-smooth px-4"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {[...rowBars, ...rowBars, ...rowBars].map((bar, i) => (
-          <BarCard key={`${bar.id}-${i}`} bar={bar} />
-        ))}
+        {[...rowBars, ...rowBars, ...rowBars].map((bar, i) => {
+          const isOriginal = i < rowBars.length;
+          return (
+            <div
+              key={`${bar.id}-${i}`}
+              {...(isOriginal ? {} : { "aria-hidden": "true" })}
+            >
+              <BarCard bar={bar} />
+            </div>
+          );
+        })}
       </div>
 
       {/* Right arrow */}

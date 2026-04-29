@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import LayoutShell from "@/components/layout/LayoutShell";
 import AntiFlicker from "@/components/layout/AntiFlicker";
 import MetaPixel from "@/components/MetaPixel";
+import CookieConsent from "@/components/ui/CookieConsent";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Cocktail X Festival",
   },
   description:
-    "Deutschlands größtes Cocktail Festival – München, 13.–30. Mai 2026. 67 Bars, 174+ exklusive Cocktails, 18 Tage Festival.",
+    "Deutschlands größtes Cocktail Festival – München, 13.–30. Mai 2026. 60+ Bars, 174+ exklusive Cocktails, 18 Tage Festival.",
   ...(process.env.META_DOMAIN_VERIFICATION && {
     other: {
       "facebook-domain-verification": process.env.META_DOMAIN_VERIFICATION,
@@ -56,6 +57,7 @@ export default async function LocaleLayout({
         </noscript>
         <NextIntlClientProvider messages={messages}>
           <MetaPixel />
+          <CookieConsent />
           <LayoutShell>{children}</LayoutShell>
         </NextIntlClientProvider>
       </body>
