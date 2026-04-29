@@ -46,6 +46,7 @@ function BarCard({ bar, locale }: { bar: typeof bars[0]; locale: "de" | "en" }) 
 
       {/* Content */}
       <div className="p-6">
+        <p className="text-xs font-body text-tangerine/80 font-bold tracking-widest mb-1">#{bar.number}</p>
         <h3 className="text-xl font-display text-bone">{bar.name}</h3>
         <p className="text-xs font-body text-bone/50 mt-1">{bar.district}</p>
         <p className="text-sm font-body text-bone/80 mt-3">{bar.description[locale]}</p>
