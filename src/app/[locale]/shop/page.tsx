@@ -271,20 +271,20 @@ function Check() {
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 const trustPoints = {
-  de: ["Sofort per E-Mail", "18 Tage gültig", "67 Bars", "Kostenlose Stornierung"],
-  en: ["Instant email delivery", "Valid for 18 days", "67 Bars", "Free cancellation"],
+  de: ["Sofort per E-Mail", "18 Tage gültig", "60+ Bars", "Kostenlose Stornierung"],
+  en: ["Instant email delivery", "Valid for 18 days", "60+ Bars", "Free cancellation"],
 };
 
 const passportFeatures = {
   de: [
-    "Zugang zu allen 67 teilnehmenden Bars",
+    "Zugang zu allen 60+ teilnehmenden Bars",
     "Signature Cocktails für nur 6 € statt 12–16 €",
     "Gilt für alle 18 Festivaltage – 1 Signature Cocktail pro Bar",
     "Digitaler Stempelpass mit Belohnungen",
     "Exklusive Events",
   ],
   en: [
-    "Access to all 67 participating bars",
+    "Access to all 60+ participating bars",
     "Signature cocktails for just €6 instead of €12–16",
     "Valid for all 18 festival days – 1 signature cocktail per bar",
     "Digital stamp passport with rewards",
@@ -347,8 +347,8 @@ export default function ShopPage() {
         />
         <p className="text-base font-body text-bone/65 text-center max-w-lg mb-10">
           {locale === "de"
-            ? "Dein All-Access-Pass für 67 Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
-            : "Your all-access pass for 67 bars, 18 days, countless cocktails – at the festival price of €6."}
+            ? "Dein All-Access-Pass für 60+ Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
+            : "Your all-access pass for 60+ bars, 18 days, countless cocktails – at the festival price of €6."}
         </p>
 
         <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto">

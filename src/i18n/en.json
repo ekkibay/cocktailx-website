@@ -18,8 +18,8 @@
     "headlineRegular": "ONLY UNTIL APRIL 30 FOR \u20ac{price}.",
     "headlineLate": "LAST TICKETS FOR \u20ac{price}.",
     "subEarlyBird": "Cocktails for \u20ac6 instead of \u20ac12\u201316 \u00b7 Munich \u00b7 May 13\u201330",
-    "subRegular": "From May 1 the ticket costs \u20ac34 \u00b7 18 nights, 67 bars, your Munich",
-    "subLate": "Festival starts May 13 \u00b7 18 nights, 67 bars, your Munich",
+    "subRegular": "From May 1 the ticket costs \u20ac34 \u00b7 18 nights, 60+ bars, your Munich",
+    "subLate": "Festival starts May 13 \u00b7 18 nights, 60+ bars, your Munich",
     "ctaSubEarlyBird": "{days} days left at the Early Bird price",
     "ctaSubRegular": "{days} days left at the pre-sale price",
     "ctaSubLate": "Festival starts soon \u2013 secure your ticket",
@@ -51,7 +51,7 @@
     "headline": "HOW IT WORKS",
     "step1": {
       "title": "GET YOUR TICKET",
-      "description": "Buy your ticket and get access to the app with all <strong>67 participating bars</strong> and their festival cocktails. Your ticket accompanies you for <strong>18 days</strong> through the festival."
+      "description": "Buy your ticket and get access to the app with all <strong>60+ participating bars</strong> and their festival cocktails. Your ticket accompanies you for <strong>18 days</strong> through the festival."
     },
     "step2": {
       "title": "DISCOVER THE BARS & COCKTAILS",
@@ -90,7 +90,7 @@
       "name": "LAST MINUTE",
       "info": "From May 1 at full price"
     },
-    "feature1": "Access to 67 participating bars",
+    "feature1": "Access to 60+ participating bars",
     "feature2": "Signature cocktails for just €6 instead of €12-16",
     "feature3": "Valid for all 18 festival days, any bar – 1 signature cocktail per bar",
     "feature4": "Collect stamps & unlock rewards",
