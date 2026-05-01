@@ -35,6 +35,7 @@ export const sponsors: Sponsor[] = [
   { id: "ferrand", name: "Ferrand", logo: "/images/sponsors-opt/ferrand.webp", url: "https://www.ferrands.com", tier: "gold", displayH: 109, displayW: 109 },
   { id: "san-cosme", name: "San Cosme", logo: "/images/sponsors-opt/san-cosme.webp", url: "#", tier: "silver", displayH: 100, displayW: 100 },
   { id: "belsazar", name: "Belsazar", logo: "/images/sponsors-opt/belsazar.webp", url: "https://www.belsazar.com", tier: "gold", displayH: 100, displayW: 100 },
+  { id: "bergkristall", name: "Bergkristall", logo: "/images/sponsors-opt/bergkristall.png", url: "#", tier: "silver", displayH: 40, displayW: 93 },
 ];
 
 export interface PressLogo {
