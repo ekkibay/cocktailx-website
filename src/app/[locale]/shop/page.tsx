@@ -47,11 +47,8 @@ const [ebActive, regActive, lmActive] = getPassportActive();
 // ── Calculator options ───────────────────────────────────────────────────────
 
 const CALC_OPTIONS: CalcOption[] = [
-  { key: "passport-eb",  label: { de: "Passport · Early Bird",      en: "Passport · Early Bird"      }, price: 20,    isGroup: false },
-  { key: "passport-r",   label: { de: "Passport · Regular",         en: "Passport · Regular"         }, price: 34,    isGroup: false },
-  { key: "passport-lm",  label: { de: "Passport · Regular",         en: "Passport · Regular"         }, price: 34,    isGroup: false },
-  { key: "group-r",      label: { de: "Group Ticket · Regular",     en: "Group Ticket · Regular"     }, price: 25.50, isGroup: true, groupSize: 4 },
-  { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 36.75, isGroup: true, groupSize: 4 },
+  { key: "passport-lm",  label: { de: "Festival Ticket · 34 €",     en: "Festival Ticket · €34"      }, price: 34,    isGroup: false },
+  { key: "group-lm",     label: { de: "Group Ticket · 4 Personen",  en: "Group Ticket · 4 People"    }, price: 36.75, isGroup: true, groupSize: 4 },
 ];
 
 const PASSPORT_TIERS = {
