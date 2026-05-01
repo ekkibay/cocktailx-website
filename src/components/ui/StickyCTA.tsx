@@ -3,7 +3,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
-import { TICKET_TIERS } from "@/data/ticket-tiers";
+import { TICKET_TIERS, getTicketsLeft } from "@/data/ticket-tiers";
 
 const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
 const EB_END_DAYS = 42;
@@ -25,6 +25,7 @@ export default function StickyCTA() {
   const locale = useLocale();
   const [visible, setVisible] = useState(false);
   const tier = useMemo(getActiveTier, []);
+  const ticketsLeft = useMemo(getTicketsLeft, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +45,9 @@ export default function StickyCTA() {
 
   const subHint =
     tier.key === "late"
-      ? locale === "de" ? "Festival startet bald" : "Festival starts soon"
+      ? ticketsLeft < 30
+        ? locale === "de" ? `⚡ Fast ausverkauft – noch ${ticketsLeft}` : `⚡ Almost sold out – ${ticketsLeft} left`
+        : locale === "de" ? `Noch ${ticketsLeft} Tickets verfügbar` : `${ticketsLeft} tickets left`
       : tier.key === "earlyBird"
       ? locale === "de" ? `Noch ${tier.daysLeft} Tage zum Early-Bird-Preis` : `${tier.daysLeft} days at Early Bird`
       : locale === "de" ? `Noch ${tier.daysLeft} Tage zum Vorverkaufspreis` : `${tier.daysLeft} days at pre-sale`;

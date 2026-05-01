@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import Countdown from "@/components/ui/Countdown";
-import { TICKET_TIERS } from "@/data/ticket-tiers";
+import { TICKET_TIERS, getTicketsLeft } from "@/data/ticket-tiers";
 
 const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
 const EB_END_DAYS = 42;
@@ -95,6 +95,7 @@ export default function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   const tier = useMemo(getActiveTier, []);
+  const ticketsLeft = useMemo(getTicketsLeft, []);
   const headlineKey = `headline${tier.key.charAt(0).toUpperCase() + tier.key.slice(1)}` as
     | "headlineEarlyBird"
     | "headlineRegular"
@@ -197,12 +198,19 @@ export default function Hero() {
           >
             {t("cta")} — €{tier.price}
           </a>
-          {tier.daysLeft > 0 && (
+          {tier.key === "late" ? (
+            <p className="text-xs md:text-sm font-body font-bold text-bone/70 tracking-wide flex items-center gap-2">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
+              {ticketsLeft < 30
+                ? locale === "de" ? `⚡ Fast ausverkauft – noch ${ticketsLeft} Tickets` : `⚡ Almost sold out – ${ticketsLeft} left`
+                : locale === "de" ? `Noch ${ticketsLeft} von 1.000 Tickets verfügbar` : `${ticketsLeft} of 1,000 tickets remaining`}
+            </p>
+          ) : tier.daysLeft > 0 ? (
             <p className="text-xs md:text-sm font-body font-bold text-bone/70 tracking-wide flex items-center gap-2">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
               {t(ctaSubKey, { days: tier.daysLeft })}
             </p>
-          )}
+          ) : null}
           <p className="text-[11px] md:text-xs font-body text-bone/50 flex items-center gap-1.5">
             <svg className="w-3 h-3 text-bone/55" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />

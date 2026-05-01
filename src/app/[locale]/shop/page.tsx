@@ -7,6 +7,7 @@ import ShopifyBuyButton from "@/components/ui/ShopifyBuyButton";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 import { trackEvent } from "@/lib/meta-pixel";
+import { getTicketsLeft } from "@/data/ticket-tiers";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -48,7 +49,7 @@ const [ebActive, regActive, lmActive] = getPassportActive();
 const CALC_OPTIONS: CalcOption[] = [
   { key: "passport-eb",  label: { de: "Passport · Early Bird",      en: "Passport · Early Bird"      }, price: 20,    isGroup: false },
   { key: "passport-r",   label: { de: "Passport · Regular",         en: "Passport · Regular"         }, price: 34,    isGroup: false },
-  { key: "passport-lm",  label: { de: "Passport · Regular",         en: "Passport · Regular"         }, price: 69,    isGroup: false },
+  { key: "passport-lm",  label: { de: "Passport · Regular",         en: "Passport · Regular"         }, price: 34,    isGroup: false },
   { key: "group-r",      label: { de: "Group Ticket · Regular",     en: "Group Ticket · Regular"     }, price: 25.50, isGroup: true, groupSize: 4 },
   { key: "group-lm",     label: { de: "Group Ticket · Last Minute", en: "Group Ticket · Last Minute" }, price: 36.75, isGroup: true, groupSize: 4 },
 ];
@@ -57,12 +58,12 @@ const PASSPORT_TIERS = {
   de: [
     { label: "Early Bird",  until: "bis 31. März", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
     { label: "Regular",     until: "bis 1. Mai",   price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
-    { label: "Regular",     until: "bis 13. Mai",  price: 69, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
+    { label: "Regular",     until: "bis 13. Mai",  price: 34, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
   ],
   en: [
     { label: "Early Bird",  until: "until Mar 31", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
     { label: "Regular",     until: "until May 1",  price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
-    { label: "Regular",     until: "until May 13", price: 69, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
+    { label: "Regular",     until: "until May 13", price: 34, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
   ],
 };
 
@@ -296,6 +297,8 @@ export default function ShopPage() {
   const activeTier = PASSPORT_TIERS[locale].find((t) => t.active)!;
   const [calcKey, setCalcKey] = useState(activeTier.calcKey);
   const calcRef = useRef<HTMLDivElement>(null);
+  const ticketsLeft = getTicketsLeft();
+  const almostSoldOut = ticketsLeft < 30;
 
   const heroReveal = useReveal({ delay: 150 });
   const trustReveal = useReveal({ delay: 250 });
@@ -364,11 +367,14 @@ export default function ShopPage() {
 
             <div className="relative p-6 md:p-10">
               <div className="flex flex-wrap items-center gap-3 mb-5">
-                <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-tangerine px-3 py-1 rounded-full">
-                  {locale === "de" ? "BESTER PREIS JETZT" : "BEST PRICE NOW"}
+                <span className={`text-[10px] font-body font-bold uppercase tracking-wider px-3 py-1 rounded-full ${almostSoldOut ? "text-licorice bg-hibiscus" : "text-licorice bg-tangerine"}`}>
+                  {almostSoldOut
+                    ? locale === "de" ? "⚡ FAST AUSVERKAUFT" : "⚡ ALMOST SOLD OUT"
+                    : locale === "de" ? "LIMITIERTES KONTINGENT" : "LIMITED AVAILABILITY"}
                 </span>
-                <span className="text-[10px] font-body font-bold uppercase tracking-wider text-tangerine/80 bg-tangerine/10 border border-tangerine/20 px-3 py-1 rounded-full">
-                  {activeTier.label} · {activeTier.until}
+                <span className="text-[10px] font-body font-bold uppercase tracking-wider text-tangerine/80 bg-tangerine/10 border border-tangerine/20 px-3 py-1 rounded-full flex items-center gap-1.5">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
+                  {locale === "de" ? `Noch ${ticketsLeft} von 1.000 verfügbar` : `${ticketsLeft} of 1,000 remaining`}
                 </span>
                 {calcKey.startsWith("passport") && (
                   <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-emerald-400 px-3 py-1 rounded-full">
@@ -396,24 +402,8 @@ export default function ShopPage() {
                 {/* Price + CTA */}
                 <div className="flex flex-col items-center justify-center md:min-w-[200px] md:border-l md:border-bone/10 md:pl-8">
                   <div className="flex items-baseline gap-3 mb-1">
-                    {activeTier.calcKey === "passport-lm" && (
-                      <span className="text-2xl font-display text-bone/25 line-through">€99</span>
-                    )}
-                    {activeTier.calcKey === "passport-r" && (
-                      <span className="text-2xl font-display text-bone/25 line-through">€69</span>
-                    )}
                     <span className="text-6xl md:text-7xl font-display text-tangerine">€{activeTier.price}</span>
                   </div>
-                  {activeTier.calcKey === "passport-lm" && (
-                    <span className="text-xs font-body text-emerald-400 font-bold mb-1">
-                      {locale === "de" ? "Du sparst 30 €" : "You save €30"}
-                    </span>
-                  )}
-                  {activeTier.calcKey === "passport-r" && (
-                    <span className="text-xs font-body text-emerald-400 font-bold mb-1">
-                      {locale === "de" ? "Du sparst 35 €" : "You save €35"}
-                    </span>
-                  )}
                   <span className="text-[11px] font-body text-bone/55 mb-6">
                     {locale === "de" ? "pro Person" : "per person"}
                   </span>
