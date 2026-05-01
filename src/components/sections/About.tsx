@@ -51,6 +51,7 @@ export default function About() {
     observer.observe(video);
     return () => observer.disconnect();
   }, []);
+  
 
   function toggleMute() {
     const video = videoRef.current;
