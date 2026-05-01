@@ -271,13 +271,13 @@ function Check() {
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 const trustPoints = {
-  de: ["Sofort per E-Mail", "18 Tage gültig", "60+ Bars", "Kostenlose Stornierung"],
-  en: ["Instant email delivery", "Valid for 18 days", "60+ Bars", "Free cancellation"],
+  de: ["Sofort per E-Mail", "18 Tage gültig", "67 Bars", "Kostenlose Stornierung"],
+  en: ["Instant email delivery", "Valid for 18 days", "67 Bars", "Free cancellation"],
 };
 
 const passportFeatures = {
   de: [
-    "Zugang zu allen 58 teilnehmenden Bars",
+    "Zugang zu allen 67 teilnehmenden Bars",
     "Signature Cocktails für nur 6 € statt 12–16 €",
     "Gilt für alle 18 Festivaltage – 1 Signature Cocktail pro Bar",
     "Digitaler Stempelpass mit Belohnungen",
@@ -347,8 +347,8 @@ export default function ShopPage() {
         />
         <p className="text-base font-body text-bone/65 text-center max-w-lg mb-10">
           {locale === "de"
-            ? "Dein All-Access-Pass für 60+ Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
-            : "Your all-access pass for 60+ bars, 18 days, countless cocktails – at the festival price of €6."}
+            ? "Dein All-Access-Pass für 67 Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
+            : "Your all-access pass for 67 bars, 18 days, countless cocktails – at the festival price of €6."}
         </p>
 
         <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto">
@@ -432,6 +432,11 @@ export default function ShopPage() {
         </div>
       </section>
 
+
+      {/* ── SAVINGS CALCULATOR ── */}
+      <section className="pb-16 md:pb-24 px-4 relative" ref={calcRef}>
+        <SavingsCalculator locale={locale} selectedKey={calcKey} onKeyChange={setCalcKey} />
+      </section>
 
       {/* ── WEITERE TICKETS ── */}
       <section className="py-16 md:py-24 px-4 relative">
@@ -601,11 +606,6 @@ export default function ShopPage() {
             })}
           </div>
         </div>
-      </section>
-
-      {/* ── SAVINGS CALCULATOR ── */}
-      <section className="pb-16 md:pb-24 px-4 relative" ref={calcRef}>
-        <SavingsCalculator locale={locale} selectedKey={calcKey} onKeyChange={setCalcKey} />
       </section>
 
       {/* ── BOTTOM CTA ── */}
