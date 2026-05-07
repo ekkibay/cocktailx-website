@@ -87,8 +87,8 @@
       "info": "1. April – 30. April"
     },
     "late": {
-      "name": "LAST MINUTE",
-      "info": "Ab 1. Mai zum vollen Preis"
+      "name": "FESTIVAL TICKET",
+      "info": "München · 13.–30. Mai 2026"
     },
     "feature1": "Zugang zu 60+ Bars",
     "feature2": "Signature Cocktails für nur 6€ statt 12-16€",
@@ -97,7 +97,7 @@
     "feature5": "Exklusive Events",
     "timerLabel": "Noch {days} Tage zum Early-Bird-Preis",
     "timerLabelRegular": "Noch {days} Tage zum Regular-Preis",
-    "lateHint": "Voller Preis · Keine Ermäßigung"
+    "lateHint": "Alle 18 Festivaltage gültig"
   },
   "map": {
     "headline": "ENTDECKE M\u00dcNCHEN",
@@ -174,7 +174,7 @@
       "name": "Sarah, 29"
     },
     "t7": {
-      "quote": "Für 20€ bekommt man Zugang zu über 60+ Bars mit Signature Cocktails für 6€. Das ist unschlagbar.",
+      "quote": "Ein Ticket, 18 Tage, über 60 Bars – und überall Signature Cocktails für 6€. So lernt man München kennen.",
       "name": "Marco, 31"
     },
     "t8": {

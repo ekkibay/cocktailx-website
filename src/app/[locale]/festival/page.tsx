@@ -10,6 +10,7 @@ import { bars, Bar } from "@/data/bars";
 import { events } from "@/data/events";
 import { sponsors, pressLogos } from "@/data/sponsors";
 import { trackEvent } from "@/lib/meta-pixel";
+import { TICKET_TIERS } from "@/data/ticket-tiers";
 
 function FestivalBarCard({ bar }: { bar: Bar }) {
   const [imgError, setImgError] = useState(false);
@@ -51,13 +52,13 @@ const history = [
 /* ── Key facts ── */
 const keyFacts = {
   de: [
-    { value: "67", label: "Bars" },
+    { value: "60+", label: "Bars" },
     { value: "18", label: "Tage" },
     { value: "1", label: "Ticket" },
     { value: "5.000+", label: "Gäste erwartet" },
   ],
   en: [
-    { value: "67", label: "Bars" },
+    { value: "60+", label: "Bars" },
     { value: "18", label: "Days" },
     { value: "1", label: "Ticket" },
     { value: "5,000+", label: "Guests expected" },
@@ -126,7 +127,7 @@ export default function FestivalPage() {
                 content_category: "Festival",
                 content_ids: "festival-2026",
                 currency: "EUR",
-                value: 20,
+                value: TICKET_TIERS.cheapest,
                 num_items: 1,
               })}
             >
@@ -365,11 +366,11 @@ export default function FestivalPage() {
                 content_category: "Festival",
                 content_ids: "festival-2026",
                 currency: "EUR",
-                value: 20,
+                value: TICKET_TIERS.cheapest,
                 num_items: 1,
               })}
             >
-              {locale === "de" ? "TICKET KAUFEN — AB 20€" : "BUY TICKET — FROM €20"}
+              {locale === "de" ? `TICKET KAUFEN — AB ${TICKET_TIERS.cheapest}€` : `BUY TICKET — FROM €${TICKET_TIERS.cheapest}`}
             </a>
             <Link href={`/${locale}/app`} className="btn-secondary text-base px-8 py-4 text-center">
               {locale === "de" ? "ZUR APP" : "OPEN APP"}

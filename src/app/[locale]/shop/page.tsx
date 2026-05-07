@@ -42,7 +42,7 @@ function getPassportActive(): [boolean, boolean, boolean] {
   return [false, false, true];
 }
 
-const [ebActive, regActive, lmActive] = getPassportActive();
+const [, , lmActive] = getPassportActive();
 
 // ── Calculator options ───────────────────────────────────────────────────────
 
@@ -53,14 +53,10 @@ const CALC_OPTIONS: CalcOption[] = [
 
 const PASSPORT_TIERS = {
   de: [
-    { label: "Early Bird",  until: "bis 31. März", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
-    { label: "Regular",     until: "bis 1. Mai",   price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
-    { label: "Regular",     until: "bis 13. Mai",  price: 34, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
+    { label: "Festival Ticket", until: "bis 13. Mai", price: 34, calcKey: "passport-lm", productId: "passport-late", active: lmActive },
   ],
   en: [
-    { label: "Early Bird",  until: "until Mar 31", price: 20, calcKey: "passport-eb", productId: "passport-early-bird", active: ebActive  },
-    { label: "Regular",     until: "until May 1",  price: 34, calcKey: "passport-r",  productId: "passport-regular",    active: regActive },
-    { label: "Regular",     until: "until May 13", price: 34, calcKey: "passport-lm", productId: "passport-late",       active: lmActive  },
+    { label: "Festival Ticket", until: "until May 13", price: 34, calcKey: "passport-lm", productId: "passport-late", active: lmActive },
   ],
 };
 
@@ -128,8 +124,7 @@ const OTHER_TICKETS: OtherTicket[] = [
     badge: { de: null, en: null },
     accent: "tangerine",
     tiers: [
-      { label: "Regular",     until: { de: "bis 1. Mai",  en: "until May 1"  }, price: 102, perPerson: 25.50, calcKey: "group-r",  productId: "group-regular", active: regActive  },
-      { label: "Last Minute", until: { de: "bis 13. Mai", en: "until May 13" }, price: 147, perPerson: 36.75, calcKey: "group-lm", productId: "group-late",    active: lmActive  },
+      { label: "Festival Ticket", until: { de: "bis 13. Mai", en: "until May 13" }, price: 102, perPerson: 25.50, calcKey: "group-lm", productId: "group-late", active: lmActive },
     ],
   },
 ];

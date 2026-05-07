@@ -12,9 +12,9 @@ const FESTIVAL_PRICE = 6;
 const SAVINGS_PER = NORMAL_PRICE - FESTIVAL_PRICE;
 
 const tiers = [
-  { key: "earlyBird", price: 20, productId: "passport-early-bird", soldOutDaysBefore: 42 },
-  { key: "regular", price: 34, productId: "passport-regular", soldOutDaysBefore: 13 },
-  { key: "late", price: 49, productId: "passport-late", soldOutDaysBefore: -18 },
+  { key: "earlyBird", price: TICKET_TIERS.earlyBird, productId: "passport-early-bird", soldOutDaysBefore: 42 },
+  { key: "regular", price: TICKET_TIERS.regular, productId: "passport-regular", soldOutDaysBefore: 13 },
+  { key: "late", price: TICKET_TIERS.late, productId: "passport-late", soldOutDaysBefore: -18 },
 ];
 
 function getTierStatus(soldOutDaysBefore: number) {
@@ -90,20 +90,12 @@ const OTHER_TICKETS: OtherTicketType[] = [
 // ── Savings Calculator (inline) ──────────────────────────────────────────
 
 const CALC_TIERS = [
-  { key: "earlyBird", price: TICKET_TIERS.earlyBird, label: { de: "Early Bird", en: "Early Bird" } },
-  { key: "regular", price: TICKET_TIERS.regular, label: { de: "Regular", en: "Regular" } },
-  { key: "late", price: TICKET_TIERS.late, label: { de: "Last Minute", en: "Last Minute" } },
+  { key: "late", price: TICKET_TIERS.late, label: { de: "Festival Ticket", en: "Festival Ticket" } },
 ] as const;
 
 function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
   const [count, setCount] = useState(5);
-  const [selectedKey, setSelectedKey] = useState(() => {
-    // Default to cheapest available tier
-    const cheapest = TICKET_TIERS.cheapest;
-    return CALC_TIERS.find((t) => t.price === cheapest)?.key ?? "earlyBird";
-  });
-
-  const tier = CALC_TIERS.find((t) => t.key === selectedKey) ?? CALC_TIERS[0];
+  const tier = CALC_TIERS[0];
   const ticketPrice = tier.price;
   const barTotal = count * NORMAL_PRICE;
   const festivalTotal = ticketPrice + count * FESTIVAL_PRICE;
@@ -119,26 +111,12 @@ function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
         {locale === "de" ? "Dein Spar-Rechner" : "Your Savings Calculator"}
       </h3>
 
-      {/* Ticket selector pills */}
+      {/* Current ticket label */}
       <div className="mb-6">
-        <p className="text-xs font-body text-bone/55 uppercase tracking-wider mb-2">
-          Ticket
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {CALC_TIERS.map((t) => (
-            <button
-              key={t.key}
-              onClick={() => setSelectedKey(t.key)}
-              className={`text-xs font-body px-3 py-1.5 rounded-full border transition-colors ${
-                t.key === selectedKey
-                  ? "bg-tangerine text-licorice border-tangerine font-bold"
-                  : "border-bone/20 text-bone/65 hover:border-bone/40 hover:text-bone/85"
-              }`}
-            >
-              {t.label[locale]} · €{t.price}
-            </button>
-          ))}
-        </div>
+        <p className="text-xs font-body text-bone/55 uppercase tracking-wider mb-2">Ticket</p>
+        <span className="inline-block text-xs font-body px-3 py-1.5 rounded-full border bg-tangerine text-licorice border-tangerine font-bold">
+          {tier.label[locale]} · €{tier.price}
+        </span>
       </div>
 
       <label className="block text-sm font-body text-bone/80 mb-3">
@@ -264,13 +242,13 @@ export default function Tickets() {
           {t("subtitle")}
         </p>
 
-        {/* Honest scarcity badge — verifiable cap */}
+        {/* Scarcity badge */}
         <div className="flex justify-center mb-6">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-tangerine/40 bg-tangerine/5 text-xs font-body font-bold uppercase tracking-[0.15em] text-tangerine">
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            {locale === "de" ? "Limitiert auf 5.000 Tickets" : "Limited to 5,000 tickets"}
+            {locale === "de" ? "Letzte verfügbare Tickets" : "Last tickets available"}
           </span>
         </div>
 
@@ -278,8 +256,8 @@ export default function Tickets() {
         <figure className="max-w-2xl mx-auto mb-10 text-center">
           <blockquote className="text-base md:text-lg font-body text-bone/85 italic leading-relaxed">
             &ldquo;{locale === "de"
-              ? "Für 20€ bekommt man Zugang zu über 60+ Bars mit Signature Cocktails für 6€. Das ist unschlagbar."
-              : "For €20 you get access to over 60+ bars with signature cocktails for €6. Unbeatable."}&rdquo;
+              ? "Ein Ticket, 18 Tage, über 60 Bars – und überall Signature Cocktails für 6€. So lernt man München kennen."
+              : "One ticket, 18 days, 60+ bars – signature cocktails for €6 everywhere. This is how you experience Munich."}&rdquo;
           </blockquote>
           <figcaption className="mt-2 text-xs font-body font-bold text-tangerine tracking-wider uppercase">
             — Marco, 31
@@ -287,91 +265,40 @@ export default function Tickets() {
         </figure>
 
         {/* ── Passport Pricing Cards ── */}
-        <div ref={cards.ref} style={cards.style} className="grid lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-          {tiersWithStatus.map((tier) => {
-            const isBest = tier.key === bestAvailableKey;
-            const isSoldOut = tier.status === "soldOut";
-
-            return (
+        <div ref={cards.ref} style={cards.style} className="flex justify-center">
+          {tiersWithStatus.filter((tier) => tier.status === "available").map((tier) => (
               <div
                 key={tier.key}
-                className={`relative rounded-2xl px-6 md:px-8 pt-8 pb-6 flex flex-col items-center text-center transition-all duration-300 ease-out ${
-                  isSoldOut
-                    ? "bg-licorice/90 border border-bone/5 opacity-50"
-                    : isBest
-                    ? "bg-licorice/95 border-2 border-tangerine md:scale-[1.04] hover:shadow-[0_0_40px_rgba(227,168,62,0.12)]"
-                    : "bg-licorice/90 border border-bone/10 hover:border-bone/20"
-                }`}
+                className="relative rounded-2xl px-8 md:px-12 pt-8 pb-6 flex flex-col items-center text-center bg-licorice/95 border-2 border-tangerine hover:shadow-[0_0_40px_rgba(227,168,62,0.12)] transition-all duration-300 ease-out w-full max-w-sm"
               >
-                {isSoldOut && (
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-bone/20 text-bone text-[10px] font-body font-bold tracking-wider px-3 py-0.5 rounded-full uppercase whitespace-nowrap">
-                    {t("soldOut")}
-                  </div>
-                )}
-                {isBest && !isSoldOut && (
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-tangerine text-licorice text-[10px] font-body font-bold tracking-wider px-3 py-0.5 rounded-full uppercase whitespace-nowrap">
-                    {t("activeBadge")}
-                  </div>
-                )}
-
-                <p className={`text-sm font-display tracking-[0.15em] ${isSoldOut ? "text-bone/25 line-through" : isBest ? "text-bone/90" : "text-bone/80"}`}>
+                <p className="text-sm font-display tracking-[0.15em] text-bone/90">
                   {t(`${tier.key}.name`)}
                 </p>
 
-                {/* Price */}
                 <div className="mt-3 mb-2 flex items-baseline justify-center gap-2.5">
-                  <span className={`text-5xl md:text-[3.5rem] leading-none font-display ${isSoldOut ? "text-bone/15 line-through" : isBest ? "text-tangerine" : "text-tangerine/60"}`}>
+                  <span className="text-5xl md:text-[3.5rem] leading-none font-display text-tangerine">
                     &euro;{tier.price}
                   </span>
                 </div>
 
-                <div className="h-[40px] flex flex-col items-center justify-center">
-                  {!isSoldOut && tier.price < 49 && (
-                    <span className="text-xs font-body text-emerald-400 font-bold leading-tight">
-                      {t("savings", { amount: 49 - tier.price })}
-                    </span>
-                  )}
-                  <p className={`text-xs font-body leading-tight ${isSoldOut ? "text-bone/15" : "text-bone/45"}`}>
-                    {t(`${tier.key}.info`)}
-                  </p>
-                </div>
+                <p className="text-xs font-body leading-tight text-bone/45 h-[24px] flex items-center">
+                  {t(`${tier.key}.info`)}
+                </p>
 
-                {/* CTA — scroll anchor, not external link */}
-                <div className="w-full mt-1">
-                  {isSoldOut ? (
-                    <span className="block text-xs font-body text-bone/15 uppercase tracking-wider py-3">{t("soldOut")}</span>
-                  ) : (
-                    <>
-                      <a
-                        href={`/${locale}/shop#passport`}
-                        className="block w-full text-center btn-primary text-sm py-3"
-                      >
-                        {t("buyNow")}
-                      </a>
-                      <div className={`mt-2.5 flex items-center justify-center gap-1.5 text-[11px] font-body font-bold ${tier.key !== "late" && tier.daysLeft > 0 ? "text-tangerine/70" : "text-bone/30"}`}>
-                        {tier.key === "earlyBird" && tier.daysLeft > 0 ? (
-                          <>
-                            <span className="inline-block w-1 h-1 rounded-full bg-tangerine animate-pulse" />
-                            {t("timerLabel", { days: tier.daysLeft })}
-                          </>
-                        ) : tier.key === "regular" && tier.daysLeft > 0 ? (
-                          <>
-                            <span className="inline-block w-1 h-1 rounded-full bg-tangerine animate-pulse" />
-                            {t("timerLabelRegular", { days: tier.daysLeft })}
-                          </>
-                        ) : tier.key === "late" ? (
-                          <>
-                            <span className="inline-block w-1 h-1 rounded-full bg-bone/25" />
-                            {t("lateHint")}
-                          </>
-                        ) : null}
-                      </div>
-                    </>
-                  )}
+                <div className="w-full mt-4">
+                  <a
+                    href={`/${locale}/shop#passport`}
+                    className="block w-full text-center btn-primary text-sm py-3"
+                  >
+                    {t("buyNow")}
+                  </a>
+                  <div className="mt-2.5 flex items-center justify-center gap-1.5 text-[11px] font-body font-bold text-bone/30">
+                    <span className="inline-block w-1 h-1 rounded-full bg-bone/25" />
+                    {t("lateHint")}
+                  </div>
                 </div>
               </div>
-            );
-          })}
+            ))}
         </div>
 
         {/* Benefits */}

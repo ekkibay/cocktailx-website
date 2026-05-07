@@ -219,7 +219,7 @@ export default function MapSection() {
       <div className="max-w-6xl mx-auto text-center">
         <div className="flex items-center justify-center gap-2 mb-4">
           <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
-          <span className="text-xs font-body font-bold text-tangerine uppercase tracking-widest">50+ Bars</span>
+          <span className="text-xs font-body font-bold text-tangerine uppercase tracking-widest">60+ Bars</span>
         </div>
         <BlurText
           text={t("headline")}

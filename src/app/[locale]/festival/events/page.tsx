@@ -324,12 +324,6 @@ export default function EventsPage() {
                     </div>
                   ))}
                 </div>
-                <p className="mt-4 text-xs font-body text-tangerine/80 flex items-center gap-2">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-                  {locale === "de"
-                    ? "Early Bird 69 € sind nur noch bis zum 1. Mai verfügbar"
-                    : "Early Bird €69 only available until May 1"}
-                </p>
               </div>
               <div className="md:min-w-[220px] flex flex-col items-center justify-center text-center md:border-l md:border-bone/10 md:pl-10 gap-4">
                 <a href="https://cocktailx.app/closing-event" target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-sm py-4">

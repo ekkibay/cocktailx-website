@@ -87,8 +87,8 @@
       "info": "April 1 – April 30"
     },
     "late": {
-      "name": "LAST MINUTE",
-      "info": "From May 1 at full price"
+      "name": "FESTIVAL TICKET",
+      "info": "Munich · May 13–30, 2026"
     },
     "feature1": "Access to 60+ participating bars",
     "feature2": "Signature cocktails for just €6 instead of €12-16",
@@ -97,7 +97,7 @@
     "feature5": "Exclusive events",
     "timerLabel": "{days} days left at Early Bird price",
     "timerLabelRegular": "{days} days left at Regular price",
-    "lateHint": "Full price · No discount"
+    "lateHint": "Valid for all 18 festival days"
   },
   "map": {
     "headline": "DISCOVER MÜNCHEN",
@@ -174,7 +174,7 @@
       "name": "Sarah, 29"
     },
     "t7": {
-      "quote": "For €20 you get access to 60+ bars with signature cocktails for €6. Unbeatable value.",
+      "quote": "One ticket, 18 days, 60+ bars – signature cocktails for €6 everywhere. This is how you experience Munich.",
       "name": "Marco, 31"
     },
     "t8": {
