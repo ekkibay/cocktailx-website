@@ -78,13 +78,7 @@ export const events: FestivalEvent[] = [
     ],
     tickets: [
       {
-        label: { de: "Early Bird", en: "Early Bird" },
-        price: 49,
-        note: { de: "Limitiert · Drinks & Canapés inkl.", en: "Limited · Drinks & canapés incl." },
-        badge: "LIMITIERT",
-      },
-      {
-        label: { de: "Regular", en: "Regular" },
+        label: { de: "Ticket", en: "Ticket" },
         price: 59,
         note: { de: "Drinks & Canapés inkl.", en: "Drinks & canapés incl." },
       },
@@ -216,18 +210,13 @@ export const events: FestivalEvent[] = [
     ],
     tickets: [
       {
-        label: { de: "Early Bird", en: "Early Bird" },
-        price: 69,
-        note: { de: "Nur noch bis 1. Mai", en: "Only until May 1" },
-        badge: "EARLY BIRD",
-      },
-      {
-        label: { de: "Regular", en: "Regular" },
+        label: { de: "Ticket", en: "Ticket" },
         price: 89,
-        note: { de: "Solange verfügbar", en: "While available" },
+        note: { de: "Wenige verfügbar · Nächster Preis: 99 €", en: "Few left · Next price: €99" },
+        badge: "FAST WEG",
       },
       {
-        label: { de: "Last Call", en: "Last Call" },
+        label: { de: "Nächster Preis", en: "Next Price" },
         price: 99,
         note: { de: "Letzte Tickets", en: "Final tickets" },
       },
