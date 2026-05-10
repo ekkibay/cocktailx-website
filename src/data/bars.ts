@@ -903,5 +903,18 @@ export const bars: Bar[] = [
       en: "British-inspired bar with a gin focus and gentleman flair.",
     },
   },
+  {
+    id: "suzy-bs",
+    number: 68,
+    name: "Suzy B's",
+    district: "Maxvorstadt",
+    address: "Schellingstraße 32, 80799 München",
+    signatureCocktail: "Coming Soon",
+    image: "/images/bars/suzy-bs.png",
+    description: {
+      de: "Lässige Bar in der Maxvorstadt mit kreativem Drinks-Programm.",
+      en: "Laid-back bar in Maxvorstadt with a creative drinks programme.",
+    },
+  },
 
 ];
