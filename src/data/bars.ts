@@ -546,20 +546,7 @@ export const bars: Bar[] = [
       en: "Romantic bar with floral cocktail creations.",
     },
   },
-  {
-    id: "gruenspitz",
-    number: 40,
-    name: "Kiosk am Grünspitz",
-    district: "Giesing",
-    address: "Tegernseer Landstraße 104, München",
-    website: "https://www.kioskamgruenspitz.com",
-    signatureCocktail: "Coming Soon",
-    image: "/images/bars/kiosk-am-gruenspitz.png",
-    description: {
-      de: "Urbaner Outdoor-Kiosk in Giesing – entspanntes Trinken unter freiem Himmel.",
-      en: "Urban outdoor kiosk in Giesing – relaxed drinks under the open sky.",
-    },
-  },
+
   {
     id: "la-burrita",
     number: 41,
