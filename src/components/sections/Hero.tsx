@@ -179,24 +179,16 @@ export default function Hero() {
           {t(subKey)}
         </p>
 
-        {/* Festival live — Festival-Infos */}
+        {/* Festival live indicator */}
         <div
-          className="hero-fade-fast mb-6 md:mb-8 flex flex-col items-center gap-4"
+          className="hero-fade-fast mb-6 md:mb-8 flex items-center gap-2"
           style={{ opacity: 0, animationDelay: "600ms" }}
         >
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
-            <span className="text-xs font-body font-bold uppercase tracking-[0.25em] text-tangerine">
-              {locale === "de" ? "Läuft jetzt" : "Live now"}
-            </span>
-            <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
-          </div>
-          <p className="text-3xl sm:text-4xl md:text-5xl font-display text-tangerine text-center leading-tight">
-            {locale === "de" ? "65 SIGNATURE COCKTAILS · 6 €" : "65 SIGNATURE COCKTAILS · €6"}
-          </p>
-          <p className="text-xl sm:text-2xl md:text-3xl font-display text-bone/80 text-center leading-tight">
-            {locale === "de" ? "ERLEBE MÜNCHEN NEU" : "EXPERIENCE MUNICH DIFFERENTLY"}
-          </p>
+          <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
+          <span className="text-xs font-body font-bold uppercase tracking-[0.25em] text-tangerine">
+            {locale === "de" ? "Läuft jetzt" : "Live now"}
+          </span>
+          <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
         </div>
 
         {/* Single CTA + sub-hint */}
@@ -208,7 +200,7 @@ export default function Hero() {
             href={`/${locale}/shop`}
             className="btn-primary text-sm md:text-lg whitespace-nowrap"
           >
-            {t("cta")} — €{tier.price}
+            {t("cta")}
           </a>
           <p className="text-xs md:text-sm font-body font-bold text-bone/70 tracking-wide flex items-center gap-2">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
