@@ -108,7 +108,7 @@ export default function EventsTimeline() {
               <div className="flex items-center gap-4 flex-wrap">
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-sm font-body text-bone/50">ab</span>
-                  <span className="text-3xl font-display text-tangerine">€49</span>
+                  <span className="text-3xl font-display text-tangerine">€59</span>
                 </div>
                 <Link
                   href={`/${locale}/festival/events`}

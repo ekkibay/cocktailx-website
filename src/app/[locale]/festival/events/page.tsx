@@ -9,6 +9,8 @@ import { useReveal } from "@/hooks/useReveal";
 
 const TICKET_SALE_START = new Date("2026-04-13T00:00:00+02:00");
 const ticketsAvailable = new Date() >= TICKET_SALE_START;
+const OPENING_END = new Date("2026-05-14T18:00:00+02:00");
+const openingPast = new Date() >= OPENING_END;
 
 function Check() {
   return (
@@ -172,7 +174,16 @@ export default function EventsPage() {
 
                 {/* CTA */}
                 <div className="md:min-w-[220px] flex flex-col items-center justify-center text-center md:border-l md:border-bone/10 md:pl-10 gap-4">
-                  {ticketsAvailable ? (
+                  {openingPast ? (
+                    <>
+                      <div className="w-full rounded-full border border-bone/15 py-4 text-sm font-body font-bold uppercase tracking-wider text-bone/30 cursor-not-allowed text-center">
+                        {locale === "de" ? "VERANSTALTUNG BEENDET" : "EVENT ENDED"}
+                      </div>
+                      <p className="text-xs font-body text-bone/40">
+                        {locale === "de" ? "Das Opening hat stattgefunden" : "The opening has taken place"}
+                      </p>
+                    </>
+                  ) : ticketsAvailable ? (
                     <>
                       <a
                         href="https://cocktailx.app/opening-event"

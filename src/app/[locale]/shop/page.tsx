@@ -87,6 +87,7 @@ type EventTicket = {
   startingPrice: number;
   accent: "hibiscus" | "tangerine" | "everglade";
   url: string;
+  endsAt?: Date;
 };
 
 const EVENT_TICKETS: EventTicket[] = [
@@ -99,6 +100,7 @@ const EVENT_TICKETS: EventTicket[] = [
     startingPrice: 59,
     accent: "hibiscus",
     url: "https://cocktailx.app/opening-event",
+    endsAt: new Date("2026-05-14T18:00:00+02:00"),
   },
   {
     key: "closing-event",
@@ -567,31 +569,38 @@ export default function ShopPage() {
           <div className="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto">
             {EVENT_TICKETS.map((event) => {
               const c = ACCENT[event.accent];
+              const isPast = event.endsAt ? new Date() >= event.endsAt : false;
               return (
-                <div key={event.key} className={`relative rounded-2xl border bg-licorice/60 p-6 flex flex-col ${c.border}`}>
-                  <span className={`absolute top-4 right-4 text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${c.badge}`}>
-                    EVENT
+                <div key={event.key} className={`relative rounded-2xl border p-6 flex flex-col transition-all ${isPast ? "bg-licorice/30 border-bone/[0.06] opacity-50 grayscale" : `bg-licorice/60 ${c.border}`}`}>
+                  <span className={`absolute top-4 right-4 text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${isPast ? "bg-bone/15 text-bone/50" : c.badge}`}>
+                    {isPast ? (locale === "de" ? "VORBEI" : "ENDED") : "EVENT"}
                   </span>
                   <h3 className="text-xl font-display text-bone mb-1 mt-1">{event.name}</h3>
-                  <p className={`text-xs font-body font-bold mb-1 ${c.text}`}>{event.tagline[locale]}</p>
+                  <p className={`text-xs font-body font-bold mb-1 ${isPast ? "text-bone/45" : c.text}`}>{event.tagline[locale]}</p>
                   {event.description && (
                     <p className="text-xs font-body text-bone/60 mb-2 leading-relaxed">{event.description[locale]}</p>
                   )}
                   <p className="text-xs font-body text-bone/45 mb-4">{event.date[locale]}</p>
-                  {event.startingPrice > 0 && (
+                  {event.startingPrice > 0 && !isPast && (
                     <p className={`text-2xl font-display mb-4 ${c.text}`}>
                       {locale === "de" ? `ab ${event.startingPrice} €` : `from €${event.startingPrice}`}
                     </p>
                   )}
                   <div className="mt-auto">
-                    <a
-                      href={event.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center btn-primary text-sm py-3"
-                    >
-                      {locale === "de" ? "TICKETS KAUFEN" : "GET TICKETS"}
-                    </a>
+                    {isPast ? (
+                      <div className="block w-full text-center rounded-full border border-bone/15 py-3 text-sm font-body font-bold uppercase tracking-wider text-bone/30 cursor-not-allowed">
+                        {locale === "de" ? "VERANSTALTUNG BEENDET" : "EVENT ENDED"}
+                      </div>
+                    ) : (
+                      <a
+                        href={event.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-center btn-primary text-sm py-3"
+                      >
+                        {locale === "de" ? "TICKETS KAUFEN" : "GET TICKETS"}
+                      </a>
+                    )}
                   </div>
                 </div>
               );
