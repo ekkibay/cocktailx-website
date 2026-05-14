@@ -4,12 +4,16 @@ import { useMemo, useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
-import Countdown from "@/components/ui/Countdown";
-import { TICKET_TIERS, getTicketsLeft } from "@/data/ticket-tiers";
+import { TICKET_TIERS } from "@/data/ticket-tiers";
 
 const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
+const FESTIVAL_END = new Date("2026-05-30T23:59:59+02:00");
 const EB_END_DAYS = 42;
 const REG_END_DAYS = 13;
+
+function getDaysUntilEnd(): number {
+  return Math.max(0, Math.ceil((FESTIVAL_END.getTime() - Date.now()) / 86_400_000));
+}
 
 function getActiveTier(): { key: "earlyBird" | "regular" | "late"; price: number; daysLeft: number } {
   const now = new Date();
@@ -95,7 +99,7 @@ export default function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   const tier = useMemo(getActiveTier, []);
-  const ticketsLeft = useMemo(getTicketsLeft, []);
+  const daysUntilEnd = useMemo(getDaysUntilEnd, []);
   const headlineKey = `headline${tier.key.charAt(0).toUpperCase() + tier.key.slice(1)}` as
     | "headlineEarlyBird"
     | "headlineRegular"
@@ -104,11 +108,6 @@ export default function Hero() {
     | "subEarlyBird"
     | "subRegular"
     | "subLate";
-  const ctaSubKey = `ctaSub${tier.key.charAt(0).toUpperCase() + tier.key.slice(1)}` as
-    | "ctaSubEarlyBird"
-    | "ctaSubRegular"
-    | "ctaSubLate";
-
   return (
     <section
       ref={sectionRef}
@@ -180,11 +179,21 @@ export default function Hero() {
           {t(subKey)}
         </p>
 
+        {/* Festival live — ersetzt Countdown */}
         <div
-          className="hero-fade-fast mb-6 md:mb-8"
+          className="hero-fade-fast mb-6 md:mb-8 flex flex-col items-center gap-3"
           style={{ opacity: 0, animationDelay: "600ms" }}
         >
-          <Countdown />
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
+            <span className="text-xs font-body font-bold uppercase tracking-[0.25em] text-tangerine">
+              {locale === "de" ? "Läuft jetzt" : "Live now"}
+            </span>
+            <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
+          </div>
+          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display text-bone tracking-wide text-center leading-tight">
+            {t("heroHeadline")}
+          </p>
         </div>
 
         {/* Single CTA + sub-hint */}
@@ -198,19 +207,12 @@ export default function Hero() {
           >
             {t("cta")} — €{tier.price}
           </a>
-          {tier.key === "late" ? (
-            <p className="text-xs md:text-sm font-body font-bold text-bone/70 tracking-wide flex items-center gap-2">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-              {ticketsLeft < 30
-                ? locale === "de" ? `⚡ Fast ausverkauft – noch ${ticketsLeft} Tickets` : `⚡ Almost sold out – ${ticketsLeft} left`
-                : locale === "de" ? `Noch ${ticketsLeft} von 1.000 Tickets verfügbar` : `${ticketsLeft} of 1,000 tickets remaining`}
-            </p>
-          ) : tier.daysLeft > 0 ? (
-            <p className="text-xs md:text-sm font-body font-bold text-bone/70 tracking-wide flex items-center gap-2">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-              {t(ctaSubKey, { days: tier.daysLeft })}
-            </p>
-          ) : null}
+          <p className="text-xs md:text-sm font-body font-bold text-bone/70 tracking-wide flex items-center gap-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
+            {locale === "de"
+              ? `Letzte Chance · Festival endet in ${daysUntilEnd} Tagen`
+              : `Last chance · Festival ends in ${daysUntilEnd} days`}
+          </p>
           <p className="text-[11px] md:text-xs font-body text-bone/50 flex items-center gap-1.5">
             <svg className="w-3 h-3 text-bone/55" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
