@@ -216,8 +216,6 @@ export default function Tickets() {
     }));
   }, []);
 
-  const bestAvailableKey = tiersWithStatus.find((t) => t.status === "available")?.key;
-
   return (
     <section id="tickets" className="py-20 bg-licorice relative">
       {/* CI background — same as Hero */}
