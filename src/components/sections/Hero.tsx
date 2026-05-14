@@ -169,7 +169,7 @@ export default function Hero() {
           className="hero-fade-fast mb-4 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-tangerine leading-[1.1]"
           style={{ opacity: 0, animationDelay: "400ms" }}
         >
-          {t(headlineKey, { price: tier.price })}
+          {t(headlineKey)}
         </h1>
 
         <p
@@ -179,9 +179,9 @@ export default function Hero() {
           {t(subKey)}
         </p>
 
-        {/* Festival live — ersetzt Countdown */}
+        {/* Festival live — Festival-Infos */}
         <div
-          className="hero-fade-fast mb-6 md:mb-8 flex flex-col items-center gap-3"
+          className="hero-fade-fast mb-6 md:mb-8 flex flex-col items-center gap-4"
           style={{ opacity: 0, animationDelay: "600ms" }}
         >
           <div className="flex items-center gap-2">
@@ -191,8 +191,11 @@ export default function Hero() {
             </span>
             <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
           </div>
-          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display text-bone tracking-wide text-center leading-tight">
-            {t("heroHeadline")}
+          <p className="text-3xl sm:text-4xl md:text-5xl font-display text-tangerine text-center leading-tight">
+            {locale === "de" ? "65 SIGNATURE COCKTAILS · 6 €" : "65 SIGNATURE COCKTAILS · €6"}
+          </p>
+          <p className="text-xl sm:text-2xl md:text-3xl font-display text-bone/80 text-center leading-tight">
+            {locale === "de" ? "ERLEBE MÜNCHEN NEU" : "EXPERIENCE MUNICH DIFFERENTLY"}
           </p>
         </div>
 
