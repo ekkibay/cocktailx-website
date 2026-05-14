@@ -26,6 +26,7 @@ export default function About() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
   const [playing, setPlaying] = useState(false);
+  
 
   useEffect(() => {
     if (videoRef.current) {
