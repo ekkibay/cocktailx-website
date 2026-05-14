@@ -50,9 +50,22 @@ type OtherTicketType = {
   perPerson?: number | null;
   groupSize?: number;
   externalUrl?: string;
+  past?: boolean;
+  featured?: boolean;
 };
 
 const OTHER_TICKETS: OtherTicketType[] = [
+  {
+    key: "closing-event",
+    name: { de: "Closing, Award Night", en: "Closing, Award Night" },
+    tagline: { de: "31. Mai · Brenner Operngrill · 19–23 Uhr", en: "May 31 · Brenner Operngrill · 7–11 pm" },
+    description: { de: "Wenige Tickets verfügbar · Nächster Preis: 99 €", en: "Few tickets left · Next price: €99" },
+    badge: { de: "FAST WEG", en: "SELLING OUT" },
+    accent: "everglade",
+    price: 89,
+    externalUrl: "https://cocktailx.app/closing-event",
+    featured: true,
+  },
   {
     key: "group",
     name: { de: "Group Ticket", en: "Group Ticket" },
@@ -69,20 +82,11 @@ const OTHER_TICKETS: OtherTicketType[] = [
     name: { de: "Opening Event", en: "Opening Event" },
     tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
     description: { de: "Drinks & Canapés inklusive · Live DJ · Rooftop", en: "Drinks & canapés included · Live DJ · Rooftop" },
-    badge: { de: "EVENT", en: "EVENT" },
+    badge: { de: "VORBEI", en: "ENDED" },
     accent: "hibiscus",
     price: 59,
     externalUrl: "https://cocktailx.app/opening-event",
-  },
-  {
-    key: "closing-event",
-    name: { de: "Closing, Award Night", en: "Closing, Award Night" },
-    tagline: { de: "31. Mai · Brenner Operngrill · 19–23 Uhr", en: "May 31 · Brenner Operngrill · 7–11 pm" },
-    description: { de: "Wenige Tickets verfügbar · Nächster Preis: 99 €", en: "Few tickets left · Next price: €99" },
-    badge: { de: "FAST WEG", en: "SELLING OUT" },
-    accent: "everglade",
-    price: 89,
-    externalUrl: "https://cocktailx.app/closing-event",
+    past: true,
   },
 ];
 
@@ -379,10 +383,18 @@ export default function Tickets() {
               return (
                 <div
                   key={ticket.key}
-                  className={`relative rounded-2xl border bg-licorice/90 p-6 flex flex-col ${c.border}`}
+                  className={`relative rounded-2xl border p-6 flex flex-col transition-all duration-300 ${
+                    ticket.past
+                      ? "bg-licorice/50 border-bone/5 opacity-40 grayscale"
+                      : ticket.featured
+                      ? `bg-licorice/95 border-2 ${c.border} md:scale-[1.04] hover:shadow-[0_0_40px_rgba(62,143,100,0.15)]`
+                      : `bg-licorice/90 ${c.border}`
+                  }`}
                 >
                   {ticket.badge[locale] && (
-                    <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-body font-bold uppercase tracking-wider px-3 py-0.5 rounded-full ${c.badge}`}>
+                    <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-body font-bold uppercase tracking-wider px-3 py-0.5 rounded-full ${
+                      ticket.past ? "bg-bone/20 text-bone/50" : c.badge
+                    }`}>
                       {ticket.badge[locale]}
                     </span>
                   )}
@@ -418,7 +430,11 @@ export default function Tickets() {
                   )}
 
                   <div className="mt-auto">
-                    {ticket.externalUrl ? (
+                    {ticket.past ? (
+                      <span className="block w-full text-center text-xs font-body text-bone/25 uppercase tracking-wider py-3">
+                        {locale === "de" ? "Veranstaltung beendet" : "Event ended"}
+                      </span>
+                    ) : ticket.externalUrl ? (
                       <a
                         href={ticket.externalUrl}
                         target="_blank"
