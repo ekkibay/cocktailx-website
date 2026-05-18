@@ -29,7 +29,7 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
   const [isMounted, setIsMounted] = useState(false);
 
   const {
-    threshold = 0.1,
+    threshold = 0,
     once = true,
     delay = 0,
     blur = true,
