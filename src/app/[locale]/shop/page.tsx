@@ -48,7 +48,7 @@ const [, , lmActive] = getPassportActive();
 
 const CALC_OPTIONS: CalcOption[] = [
   { key: "passport-lm",  label: { de: "Festival Ticket · 34 €",     en: "Festival Ticket · €34"      }, price: 34,    isGroup: false },
-  { key: "group-lm",     label: { de: "Group Ticket · 4 Personen",  en: "Group Ticket · 4 People"    }, price: 36.75, isGroup: true, groupSize: 4 },
+  { key: "group-lm",     label: { de: "Group Ticket · 4 Personen",  en: "Group Ticket · 4 People"    }, price: 25.50, isGroup: true, groupSize: 4 },
 ];
 
 const PASSPORT_TIERS = {
@@ -105,10 +105,10 @@ const EVENT_TICKETS: EventTicket[] = [
   {
     key: "closing-event",
     name: "Closing, Award Night",
-    tagline: { de: "31. Mai · Brenner Operngrill · 19–23 Uhr", en: "May 31 · Brenner Operngrill · 7–11 pm" },
-    description: { de: "Wenige Tickets verfügbar · Nächster Preis: 99 €", en: "Few tickets left · Next price: €99" },
+    tagline: { de: "31. Mai · Brenner Operngrill · presented by RAUCH", en: "May 31 · Brenner Operngrill · presented by RAUCH" },
+    description: { de: "Limitierter Access · Nur noch 80 Plätze · Award Night · Red Carpet", en: "Limited access · Only 80 seats left · Award Night · Red Carpet" },
     date: { de: "31. Mai 2026", en: "May 31, 2026" },
-    startingPrice: 89,
+    startingPrice: 99,
     accent: "everglade",
     url: "https://cocktailx.app/closing-event",
   },

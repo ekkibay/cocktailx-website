@@ -49,6 +49,8 @@ type OtherTicketType = {
   strikePrice?: number;
   perPerson?: number | null;
   groupSize?: number;
+  remaining?: number;
+  remainingNextPrice?: number;
   externalUrl?: string;
   past?: boolean;
   featured?: boolean;
@@ -58,11 +60,12 @@ const OTHER_TICKETS: OtherTicketType[] = [
   {
     key: "closing-event",
     name: { de: "Closing, Award Night", en: "Closing, Award Night" },
-    tagline: { de: "31. Mai · Brenner Operngrill · 19–23 Uhr", en: "May 31 · Brenner Operngrill · 7–11 pm" },
-    description: { de: "Wenige Tickets verfügbar · Nächster Preis: 99 €", en: "Few tickets left · Next price: €99" },
-    badge: { de: "FAST WEG", en: "SELLING OUT" },
+    tagline: { de: "31. Mai · Brenner Operngrill · presented by RAUCH", en: "May 31 · Brenner Operngrill · presented by RAUCH" },
+    description: { de: "Award Night · Red Carpet · All-Inclusive", en: "Award Night · Red Carpet · All-Inclusive" },
+    badge: { de: "LIMITIERT", en: "LIMITED" },
     accent: "everglade",
-    price: 89,
+    price: 99,
+    remaining: 80,
     externalUrl: "https://cocktailx.app/closing-event",
     featured: true,
   },
@@ -426,6 +429,19 @@ export default function Tickets() {
                       {locale === "de"
                         ? `25% Gruppenrabatt \u00b7 ${ticket.groupSize} Personen`
                         : `25% group discount \u00b7 ${ticket.groupSize} people`}
+                    </p>
+                  )}
+
+                  {ticket.remaining != null && (
+                    <p className={`text-xs font-body font-bold mb-4 flex items-center gap-1.5 ${c.text}`}>
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+                      {ticket.remainingNextPrice != null
+                        ? locale === "de"
+                          ? `Noch ${ticket.remaining} St\u00fcck \u00b7 danach \u20ac${ticket.remainingNextPrice}`
+                          : `${ticket.remaining} tickets left \u00b7 then \u20ac${ticket.remainingNextPrice}`
+                        : locale === "de"
+                          ? `Nur noch ${ticket.remaining} Pl\u00e4tze verf\u00fcgbar`
+                          : `Only ${ticket.remaining} seats left`}
                     </p>
                   )}
 

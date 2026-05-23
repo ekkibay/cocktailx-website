@@ -22,12 +22,14 @@ export interface FestivalEvent {
     price: number;
     note?: { de: string; en: string };
     badge?: string;
+    remaining?: number;
   }[];
   ticketSaleStart?: string; // ISO date
   capacity?: number;
   vibe?: { de: string; en: string };
   dresscode?: string;
   tagline?: { de: string; en: string };
+  presentedBy?: { name: string; logo: string };
   awards?: {
     title: { de: string; en: string };
     body: { de: string; en: string };
@@ -130,6 +132,7 @@ export const events: FestivalEvent[] = [
     featured: true,
     capacity: 500,
     dresscode: "Black Tie",
+    presentedBy: { name: "RAUCH", logo: "/images/sponsors-opt/rauch-v3.webp" },
     vibe: {
       de: "Black Tie · 500 Bar-Profis · Red Carpet · Award Night",
       en: "Black Tie · 500 Bar Professionals · Red Carpet · Award Night",
@@ -211,14 +214,10 @@ export const events: FestivalEvent[] = [
     tickets: [
       {
         label: { de: "Ticket", en: "Ticket" },
-        price: 89,
-        note: { de: "Wenige verfügbar · Nächster Preis: 99 €", en: "Few left · Next price: €99" },
-        badge: "FAST WEG",
-      },
-      {
-        label: { de: "Nächster Preis", en: "Next Price" },
         price: 99,
-        note: { de: "Letzte Tickets", en: "Final tickets" },
+        note: { de: "Limitierter Access · 500 Gäste max.", en: "Limited access · 500 guests max." },
+        badge: "LIMITIERT",
+        remaining: 80,
       },
     ],
   },

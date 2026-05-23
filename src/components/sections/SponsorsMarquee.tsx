@@ -28,27 +28,39 @@ export default function SponsorsMarquee() {
           className="flex items-center animate-marquee-left"
           style={{ animationDuration: "120s", width: "max-content" }}
         >
-          {repeated.map((sponsor, i) => (
-            <a
-              key={`${sponsor.id}-${i}`}
-              href={sponsor.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 mx-4 opacity-80 hover:opacity-100 transition-opacity duration-300"
-            >
-              <div className="h-16 w-40 flex items-center justify-center overflow-hidden">
-                <Image
-                  src={sponsor.logo}
-                  alt={sponsor.name}
-                  width={sponsor.displayW}
-                  height={sponsor.displayH}
-                  loading="eager"
-                  className="block flex-shrink-0"
-                  style={{ width: sponsor.displayW, height: sponsor.displayH }}
-                />
-              </div>
-            </a>
-          ))}
+          {repeated.map((sponsor, i) => {
+            const boosted = sponsor.id === "rauch" || sponsor.id === "bergkristall";
+            const box = boosted ? { width: 240, height: 88 } : { width: 144, height: 48 };
+            return (
+              <a
+                key={`${sponsor.id}-${i}`}
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 mx-12 opacity-80 hover:opacity-100 transition-opacity duration-300"
+              >
+                <div
+                  className="flex items-center justify-center"
+                  style={box}
+                >
+                  <Image
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    width={sponsor.displayW}
+                    height={sponsor.displayH}
+                    loading="eager"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      width: "auto",
+                      height: "auto",
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

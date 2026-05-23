@@ -18,7 +18,6 @@ import FAQ from "@/components/sections/FAQ";
 import SocialFeed from "@/components/sections/SocialFeed";
 import Newsletter from "@/components/sections/Newsletter";
 import StickyCTA from "@/components/ui/StickyCTA";
-import StickyCountdownBanner from "@/components/ui/StickyCountdownBanner";
 
 export default function HomePage() {
   return (
@@ -40,7 +39,6 @@ export default function HomePage() {
       <SocialFeed />
       <Newsletter />
       <StickyCTA />
-      <StickyCountdownBanner />
     </main>
   );
 }
