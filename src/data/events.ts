@@ -127,7 +127,7 @@ export const events: FestivalEvent[] = [
       de: "500 Gäste. Zwei Award-Verleihungen. Red Carpet. All-Inclusive bis zum letzten Toast.",
       en: "500 guests. Two award ceremonies. Red carpet. All-inclusive until the last toast.",
     },
-    image: "/images/festival-dj.webp",
+    image: "/images/closing-key-visual.webp",
     type: "closing",
     featured: true,
     capacity: 500,
@@ -205,10 +205,6 @@ export const events: FestivalEvent[] = [
           de: "500 Bar-Profis, Gastronomen & 20 Lifestyle-Influencer (4 Mio. Reach).",
           en: "500 bar professionals, restaurateurs & 20 lifestyle influencers (4M reach).",
         },
-      },
-      {
-        label: { de: "Foto-Wall & Social Content", en: "Photo Wall & Social Content" },
-        detail: { de: "Dein Abend, dein Content.", en: "Your night, your content." },
       },
     ],
     tickets: [

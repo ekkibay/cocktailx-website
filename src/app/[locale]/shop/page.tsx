@@ -2,12 +2,14 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useLocale } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
 import ShopifyBuyButton from "@/components/ui/ShopifyBuyButton";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 import { trackEvent } from "@/lib/meta-pixel";
 import { getTicketsLeft } from "@/data/ticket-tiers";
+import { events } from "@/data/events";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -78,41 +80,6 @@ type OtherTicket = {
   }[];
 };
 
-type EventTicket = {
-  key: string;
-  name: string;
-  tagline: { de: string; en: string };
-  description?: { de: string; en: string };
-  date: { de: string; en: string };
-  startingPrice: number;
-  accent: "hibiscus" | "tangerine" | "everglade";
-  url: string;
-  endsAt?: Date;
-};
-
-const EVENT_TICKETS: EventTicket[] = [
-  {
-    key: "opening-event",
-    name: "Opening Event",
-    tagline: { de: "14. Mai · Andaz München · 14–18 Uhr", en: "May 14 · Andaz München · 2–6 pm" },
-    description: { de: "Drinks & Canapés inklusive · Live DJ · Rooftop", en: "Drinks & canapés included · Live DJ · Rooftop" },
-    date: { de: "14. Mai 2026", en: "May 14, 2026" },
-    startingPrice: 59,
-    accent: "hibiscus",
-    url: "https://cocktailx.app/opening-event",
-    endsAt: new Date("2026-05-14T18:00:00+02:00"),
-  },
-  {
-    key: "closing-event",
-    name: "Closing, Award Night",
-    tagline: { de: "31. Mai · Brenner Operngrill · presented by RAUCH", en: "May 31 · Brenner Operngrill · presented by RAUCH" },
-    description: { de: "Limitierter Access · Nur noch 80 Plätze · Award Night · Red Carpet", en: "Limited access · Only 80 seats left · Award Night · Red Carpet" },
-    date: { de: "31. Mai 2026", en: "May 31, 2026" },
-    startingPrice: 99,
-    accent: "everglade",
-    url: "https://cocktailx.app/closing-event",
-  },
-];
 
 const OTHER_TICKETS: OtherTicket[] = [
   {
@@ -286,6 +253,23 @@ const passportFeatures = {
   ],
 };
 
+const closingFeatures = {
+  de: [
+    "Red Carpet Empfang · Black Tie Dresscode",
+    "All-Inclusive Drinks · Top-Bartender",
+    "3-Gang-Menü aus der Brenner-Küche",
+    "2 Live Award-Verleihungen (Top 30 + Cocktail X Awards)",
+    "Networking mit 500 Bar-Profis · Live DJ",
+  ],
+  en: [
+    "Red carpet welcome · Black tie dresscode",
+    "All-inclusive drinks · Top bartenders",
+    "3-course menu from the Brenner kitchen",
+    "2 live award ceremonies (Top 30 + Cocktail X Awards)",
+    "Networking with 500 bar pros · Live DJ",
+  ],
+};
+
 export default function ShopPage() {
   const locale = useLocale() as "de" | "en";
   const activeTier = PASSPORT_TIERS[locale].find((t) => t.active)!;
@@ -293,6 +277,8 @@ export default function ShopPage() {
   const calcRef = useRef<HTMLDivElement>(null);
   const ticketsLeft = getTicketsLeft();
   const almostSoldOut = ticketsLeft < 30;
+  const closing = events.find((e) => e.id === "closing-awards");
+  const closingTicket = closing?.tickets?.[0];
 
   const heroReveal = useReveal({ delay: 150 });
   const trustReveal = useReveal({ delay: 250 });
@@ -345,7 +331,88 @@ export default function ShopPage() {
             : "Your all-access pass for 60+ bars, 18 days, countless cocktails – at the festival price of €6."}
         </p>
 
-        <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto">
+        <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto space-y-6">
+          {/* Closing & Award Night card */}
+          {closing && (
+            <a
+              href="https://cocktailx.app/closing-event"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block relative rounded-3xl overflow-hidden border-2 border-everglade/50 hover:border-everglade/80 bg-licorice transition-all duration-200 group"
+            >
+              <div className="grid sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-0">
+                {/* Image */}
+                <div className="relative aspect-[3/4] sm:aspect-auto sm:min-h-[360px]">
+                  <Image
+                    src={closing.image}
+                    alt={closing.title[locale]}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 40vw"
+                    className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-licorice/30 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:to-licorice/30" />
+                  {closingTicket?.remaining != null && (
+                    <div className="absolute top-5 left-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-hibiscus text-bone shadow-lg shadow-hibiscus/30">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-bone animate-pulse" />
+                      <span className="text-[10px] font-body font-bold uppercase tracking-[0.15em]">
+                        {locale === "de" ? `Nur noch ${closingTicket.remaining} Plätze` : `Only ${closingTicket.remaining} seats left`}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-6 md:p-8 flex flex-col">
+                  {closing.presentedBy && (
+                    <div className="inline-flex self-start items-center gap-2.5 px-3 py-1.5 rounded-full bg-licorice/80 backdrop-blur-md border border-bone/15 mb-4">
+                      <span className="text-[9px] font-body font-bold uppercase tracking-[0.18em] text-bone/70">
+                        {locale === "de" ? "Presented by" : "Presented by"}
+                      </span>
+                      <Image
+                        src={closing.presentedBy.logo}
+                        alt={closing.presentedBy.name}
+                        width={796}
+                        height={72}
+                        sizes="200px"
+                        quality={95}
+                        className="h-5 w-auto object-contain"
+                      />
+                    </div>
+                  )}
+                  <span className="inline-block self-start text-[10px] font-body font-bold uppercase tracking-wider bg-everglade text-bone px-3 py-1 rounded-full mb-3">
+                    Closing & Award Night
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-display text-bone mb-1 leading-tight">
+                    {closing.title[locale]}
+                  </h2>
+                  <p className="text-xs font-body text-bone/55 mb-5">
+                    {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr · Brenner Operngrill
+                  </p>
+
+                  <ul className="space-y-2.5 mb-6">
+                    {closingFeatures[locale].map((f, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-sm font-body text-bone/85">
+                        <Check />{f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex items-center justify-between gap-4 mt-auto pt-4 border-t border-bone/10">
+                    <div>
+                      <span className="text-3xl md:text-4xl font-display text-tangerine">€{closingTicket?.price ?? 99}</span>
+                      <span className="block text-[10px] font-body text-bone/55 uppercase tracking-wider mt-0.5">
+                        {locale === "de" ? "pro Person" : "per person"}
+                      </span>
+                    </div>
+                    <span className="btn-primary text-xs md:text-sm whitespace-nowrap px-6 py-3 group-hover:scale-105">
+                      {locale === "de" ? "TICKET SICHERN" : "GET TICKET"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          )}
+
           {/* Passport card */}
           <div
             className={`relative rounded-3xl overflow-hidden border-2 bg-gradient-to-br from-tangerine/[0.10] via-licorice to-licorice cursor-pointer transition-all duration-200 ${
@@ -548,60 +615,6 @@ export default function ShopPage() {
                       {locale === "de" ? "Ab 1. April verfügbar" : "Available from April 1"}
                     </div>
                   )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── EVENT TICKETS ── */}
-      <section className="py-16 md:py-24 px-4 relative border-t border-bone/10">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-display text-bone text-center mb-2">
-            {locale === "de" ? "EVENTS" : "EVENTS"}
-          </h2>
-          <p className="text-sm font-body text-bone/55 text-center mb-10">
-            {locale === "de"
-              ? "Exklusive Events rund um das Cocktail X Festival."
-              : "Exclusive events around the Cocktail X Festival."}
-          </p>
-          <div className="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto">
-            {EVENT_TICKETS.map((event) => {
-              const c = ACCENT[event.accent];
-              const isPast = event.endsAt ? new Date() >= event.endsAt : false;
-              return (
-                <div key={event.key} className={`relative rounded-2xl border p-6 flex flex-col transition-all ${isPast ? "bg-licorice/30 border-bone/[0.06] opacity-50 grayscale" : `bg-licorice/60 ${c.border}`}`}>
-                  <span className={`absolute top-4 right-4 text-[10px] font-body font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${isPast ? "bg-bone/15 text-bone/50" : c.badge}`}>
-                    {isPast ? (locale === "de" ? "VORBEI" : "ENDED") : "EVENT"}
-                  </span>
-                  <h3 className="text-xl font-display text-bone mb-1 mt-1">{event.name}</h3>
-                  <p className={`text-xs font-body font-bold mb-1 ${isPast ? "text-bone/45" : c.text}`}>{event.tagline[locale]}</p>
-                  {event.description && (
-                    <p className="text-xs font-body text-bone/60 mb-2 leading-relaxed">{event.description[locale]}</p>
-                  )}
-                  <p className="text-xs font-body text-bone/45 mb-4">{event.date[locale]}</p>
-                  {event.startingPrice > 0 && !isPast && (
-                    <p className={`text-2xl font-display mb-4 ${c.text}`}>
-                      {locale === "de" ? `ab ${event.startingPrice} €` : `from €${event.startingPrice}`}
-                    </p>
-                  )}
-                  <div className="mt-auto">
-                    {isPast ? (
-                      <div className="block w-full text-center rounded-full border border-bone/15 py-3 text-sm font-body font-bold uppercase tracking-wider text-bone/30 cursor-not-allowed">
-                        {locale === "de" ? "VERANSTALTUNG BEENDET" : "EVENT ENDED"}
-                      </div>
-                    ) : (
-                      <a
-                        href={event.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block w-full text-center btn-primary text-sm py-3"
-                      >
-                        {locale === "de" ? "TICKETS KAUFEN" : "GET TICKETS"}
-                      </a>
-                    )}
-                  </div>
                 </div>
               );
             })}

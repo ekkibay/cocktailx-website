@@ -50,39 +50,54 @@ export default function EventsPage() {
             FEATURED: CLOSING, AWARD NIGHT
         ══════════════════════════════════════════ */}
         <div className="mb-24">
-          {/* Hero */}
-          <div className="relative rounded-3xl overflow-hidden aspect-[16/7] mb-0">
-            <Image src={closing.image} alt={closing.title[locale]} fill sizes="100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/15" />
+          {/* Hero — portrait image side-by-side with content */}
+          <div className="grid md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-0 rounded-3xl overflow-hidden bg-licorice/60 border border-bone/10">
+            {/* Portrait image */}
+            <div className="relative aspect-[3/4] md:aspect-auto md:min-h-[520px]">
+              <Image
+                src={closing.image}
+                alt={closing.title[locale]}
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-licorice/30 via-transparent to-licorice/10 md:bg-gradient-to-r md:from-transparent md:to-licorice/40" />
 
-            {/* FOMO badge */}
-            {closing.tickets?.[0]?.remaining != null && (
-              <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-hibiscus text-bone shadow-lg shadow-hibiscus/30">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-bone animate-pulse" />
-                <span className="text-[11px] font-body font-bold uppercase tracking-[0.15em]">
-                  {locale === "de"
-                    ? `Nur noch ${closing.tickets[0].remaining} Plätze`
-                    : `Only ${closing.tickets[0].remaining} seats left`}
-                </span>
-              </div>
-            )}
+              {/* FOMO badge */}
+              {closing.tickets?.[0]?.remaining != null && (
+                <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-hibiscus text-bone shadow-lg shadow-hibiscus/30">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-bone animate-pulse" />
+                  <span className="text-[11px] font-body font-bold uppercase tracking-[0.15em]">
+                    {locale === "de"
+                      ? `Nur noch ${closing.tickets[0].remaining} Plätze`
+                      : `Only ${closing.tickets[0].remaining} seats left`}
+                  </span>
+                </div>
+              )}
+            </div>
 
-            {closing.presentedBy && (
-              <div className="absolute top-6 right-6 flex items-center gap-3 px-4 py-2 rounded-full bg-licorice/70 backdrop-blur-md border border-bone/15">
-                <span className="text-[10px] font-body font-bold uppercase tracking-[0.18em] text-bone/70">
-                  {locale === "de" ? "Presented by" : "Presented by"}
-                </span>
-                <Image
-                  src={closing.presentedBy.logo}
-                  alt={closing.presentedBy.name}
-                  width={70}
-                  height={28}
-                  className="h-6 w-auto object-contain"
-                />
-              </div>
-            )}
-            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-              <span className="inline-block text-[10px] font-body font-bold uppercase tracking-wider bg-everglade text-bone px-3 py-1 rounded-full mb-4">
+            {/* Content side */}
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              {/* Presented-by pill */}
+              {closing.presentedBy && (
+                <div className="inline-flex self-start items-center gap-3 px-4 py-2 rounded-full bg-licorice/80 backdrop-blur-md border border-bone/15 mb-6">
+                  <span className="text-[10px] font-body font-bold uppercase tracking-[0.18em] text-bone/70">
+                    {locale === "de" ? "Presented by" : "Presented by"}
+                  </span>
+                  <Image
+                    src={closing.presentedBy.logo}
+                    alt={closing.presentedBy.name}
+                    width={796}
+                    height={72}
+                    sizes="(max-width: 768px) 200px, 300px"
+                    quality={95}
+                    className="h-6 md:h-7 w-auto object-contain"
+                  />
+                </div>
+              )}
+
+              <span className="inline-block self-start text-[10px] font-body font-bold uppercase tracking-wider bg-everglade text-bone px-3 py-1 rounded-full mb-4">
                 Closing & Award Night
               </span>
               {closing.tagline && (
@@ -90,26 +105,28 @@ export default function EventsPage() {
                   {closing.tagline[locale]}
                 </p>
               )}
-              <h2 className="text-3xl md:text-5xl font-display text-bone mb-3 leading-tight">
+              <h2 className="text-3xl md:text-5xl font-display text-bone mb-4 leading-tight">
                 {closing.title[locale]}
-                {closing.presentedBy && (
-                  <span className="block text-sm md:text-base font-body font-bold uppercase tracking-[0.2em] text-bone/55 mt-2">
-                    {locale === "de" ? "presented by" : "presented by"}{" "}
-                    <span className="text-tangerine">{closing.presentedBy.name}</span>
-                  </span>
-                )}
               </h2>
-              <p className="text-base md:text-lg font-body text-bone/85 max-w-2xl mb-3">
-                {closing.description[locale]}
+              <p className="text-sm font-body text-bone/70 mb-6">
+                📅 {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr
+                <br className="md:hidden" />
+                <span className="hidden md:inline"> · </span>
+                📍 {closing.location}
               </p>
-              <p className="text-sm font-body text-bone/70">
-                📅 {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr · 📍 {closing.location}
-              </p>
+              <a
+                href="https://cocktailx.app/closing-event"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary self-start text-sm md:text-base"
+              >
+                {locale === "de" ? "Ticket sichern" : "Get Ticket"}
+              </a>
             </div>
           </div>
 
           {/* Eckdaten */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 bg-licorice/60 border border-bone/10 rounded-b-3xl border-t-0 overflow-hidden">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 mt-4 bg-licorice/60 border border-bone/10 rounded-2xl overflow-hidden">
             {[
               { label: locale === "de" ? "Datum" : "Date", value: "31.05.2026" },
               { label: locale === "de" ? "Gäste" : "Guests", value: `${closing.capacity ?? 500}` },

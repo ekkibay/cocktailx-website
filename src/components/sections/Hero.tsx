@@ -169,7 +169,7 @@ export default function Hero() {
           className="hero-fade-fast mb-4 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-tangerine leading-[1.1]"
           style={{ opacity: 0, animationDelay: "400ms" }}
         >
-          {t(headlineKey)}
+          {t(headlineKey, { price: tier.price })}
         </h1>
 
         <p
