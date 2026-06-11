@@ -102,7 +102,7 @@ export default function FestivalPage() {
 
         <div className="relative z-10 px-4 py-32">
           <span className="text-[11px] font-body font-bold text-tangerine uppercase tracking-[0.2em] mb-4 block">
-            13.–30. Mai 2026 · München
+            05.–22. Mai 2027 · München
           </span>
           <BlurText
             text={locale === "de" ? "DAS FESTIVAL" : "THE FESTIVAL"}
@@ -197,7 +197,7 @@ export default function FestivalPage() {
           />
 
           <div ref={eventsReveal.ref} style={eventsReveal.style} className="space-y-6">
-            {events.map((event) => (
+            {events.filter((event) => event.type !== "closing").map((event) => (
               <div
                 key={event.id}
                 className="grid md:grid-cols-[140px,1fr] gap-4 md:gap-8 items-start p-5 md:p-6 rounded-2xl bg-licorice/50 border border-bone/[0.06]"

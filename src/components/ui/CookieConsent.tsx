@@ -23,11 +23,13 @@ export default function CookieConsent() {
   function handleAccept() {
     grantConsent();
     setVisible(false);
+    window.dispatchEvent(new Event("cc:resolved"));
   }
 
   function handleDecline() {
     revokeConsent();
     setVisible(false);
+    window.dispatchEvent(new Event("cc:resolved"));
   }
 
   const de = locale === "de";

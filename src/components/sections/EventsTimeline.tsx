@@ -7,7 +7,7 @@ import { events } from "@/data/events";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 
-const TICKET_SALE_START = new Date("2026-04-13T00:00:00+02:00");
+const TICKET_SALE_START = new Date("2027-04-13T00:00:00+02:00");
 const ticketsAvailable = new Date() >= TICKET_SALE_START;
 
 const TYPE_LABEL: Record<string, { de: string; en: string }> = {

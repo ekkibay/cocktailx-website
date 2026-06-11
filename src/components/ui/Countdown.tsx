@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 
-const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
+const FESTIVAL_DATE = new Date("2027-05-05T19:00:00+02:00");
 
 function CountdownUnit({ value, label }: { value: number; label: string }) {
   const display = String(value).padStart(2, "0");

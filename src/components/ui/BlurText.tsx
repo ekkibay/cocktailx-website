@@ -35,8 +35,15 @@ export default function BlurText({
   const [inView, setInView] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  // SSR-safe: mount after first paint
+  // SSR-safe: mount after first paint. Respect reduced-motion: stay visible.
   useEffect(() => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setInView(true);
+      return;
+    }
     const raf = requestAnimationFrame(() => {
       setIsMounted(true);
     });
@@ -46,6 +53,15 @@ export default function BlurText({
   // Intersection Observer
   useEffect(() => {
     if (!isMounted || !ref.current) return;
+
+    // Fallback so headings never get stuck invisible (dark text on dark bg)
+    // if the observer never fires.
+    const fallback = setTimeout(() => setInView(true), 1400);
+
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return () => clearTimeout(fallback);
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -58,7 +74,10 @@ export default function BlurText({
     );
 
     observer.observe(ref.current);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, [isMounted, threshold]);
 
   const elements = useMemo(() => {

@@ -13,8 +13,8 @@ export default function TrustBar() {
       sub: locale === "de" ? "Seit 2022" : "Since 2022",
     },
     {
-      label: locale === "de" ? "2.500+ Gäste" : "2,500+ guests",
-      sub: locale === "de" ? "in 2025" : "in 2025",
+      label: locale === "de" ? "3.500+ Gäste" : "3,500+ guests",
+      sub: locale === "de" ? "zuletzt" : "last edition",
     },
     {
       label: "60+ Bars",
@@ -22,7 +22,7 @@ export default function TrustBar() {
     },
     {
       label: "18 Tage",
-      sub: locale === "de" ? "13.–30. Mai 2026" : "May 13–30, 2026",
+      sub: locale === "de" ? "jedes Festival" : "every festival",
     },
   ];
 

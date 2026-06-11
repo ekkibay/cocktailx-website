@@ -12,22 +12,21 @@
   "hero": {
     "title": "cocktail \u2726 festival",
     "heroHeadline": "GERMANY\u2019S BIGGEST COCKTAIL FESTIVAL",
-    "subtitle": "M\u00dcNCHEN \u00b7 13.\u201330. MAI \u00b7 2026",
+    "subtitle": "MUNICH \u00b7 MAY 5\u201322, 2027",
     "subheadline": "60+ Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail \u2014 only for the festival.",
-    "headlineEarlyBird": "18 NIGHTS. 60+ BARS. 1 TICKET FOR \u20ac{price}.",
-    "headlineRegular": "ONLY UNTIL APRIL 30 FOR \u20ac{price}.",
-    "headlineLate": "LAST CHANCE. GET YOUR TICKET NOW.",
-    "subEarlyBird": "Cocktails for \u20ac6 instead of \u20ac12\u201316 \u00b7 Munich \u00b7 May 13\u201330",
-    "subRegular": "From May 1 the ticket costs \u20ac34 \u00b7 18 nights, 60+ bars, your Munich",
-    "subLate": "Festival runs until May 30 \u00b7 60+ bars \u00b7 65 signature drinks for \u20ac6",
-    "ctaSubEarlyBird": "{days} days left at the Early Bird price",
-    "ctaSubRegular": "{days} days left at the pre-sale price",
-    "ctaSubLate": "Festival starts soon \u2013 secure your ticket",
-    "freeCancel": "Free cancellation up to 14 days before",
-    "cta": "Get Your Ticket",
+    "postFestival": "Cocktail X 2026 is over \u2013 2027 is coming back",
+    "headline2027": "EARLY BIRD 2027",
+    "sub2027": "18 nights \u00b7 60+ bars \u00b7 1 ticket \u2013 your Munich.",
+    "savingsBadge": "save {pct}%",
+    "scarcity": "Only {count} of {count} tickets left at \u20ac{price}",
+    "priceWindow": "Available until Friday midnight",
+    "freeCancel": "Free cancellation \u2013 if the date doesn\u2019t work, we refund you in full",
+    "freeCancelShort": "Free cancellation",
+    "cta": "Get your 2027 Early-Bird ticket",
+    "newsletterCta": "Not sure yet? Subscribe to the newsletter",
     "shareCta": "Share with friends",
-    "trustLine": "60+ Bars \u00b7 Limited Tickets \u00b7 Exclusive Experiences",
-    "guestCount": "5,000+ guests expected in 2026",
+    "trustLine": "60+ Bars \u00b7 Limited Early-Bird Tickets \u00b7 Exclusive Experiences",
+
     "days": "Days",
     "hours": "Hours",
     "minutes": "Minutes",
@@ -39,11 +38,11 @@
     "cocktails": "Cocktails",
     "days": "Days",
     "passport": "Ticket",
-    "expectedGuests": "Guests expected",
+    "expectedGuests": "Guests",
     "ticketPrice": "Ticket price",
     "description": "Imagine: for 18 days, over 60 of Munich\u2019s finest bars open their doors just for you. Each one creates a unique signature cocktail available only during the festival \u2013 for just \u20ac6 instead of \u20ac12\u201316. Whether it\u2019s after-work drinks with friends, a romantic date night, or a solo adventure through Munich\u2019s bar scene \u2013 one ticket lets you experience the city like never before.",
     "edition": "Now in its 4th edition",
-    "visitors": "2,500 guests in 2025",
+    "visitors": "3,500 guests last edition",
     "cta": "LEARN MORE",
     "videoLabel": "Watch Festival Highlights"
   },
@@ -69,35 +68,36 @@
     "cta": "Get Your Ticket"
   },
   "tickets": {
-    "headline": "GET YOUR PASS NOW",
-    "subtitle": "Mai 13-30, 2026 · München · All tickets are identical. The earlier you buy, the less you pay.",
-    "savings": "You save €{amount} vs. Last Minute",
-    "activeBadge": "Best price now",
-    "buyNow": "BUY NOW",
+    "headline": "GET YOUR 2027 EARLY-BIRD PASS",
+    "subtitle": "Cocktail X 2027 · Munich · May 5–22, 2027. Lock in the Early-Bird price now – only the first {count} tickets at €{price} instead of €{anchor}.",
+    "scarcityBadge": "Early Bird · only the first {count} tickets at €{price}",
+    "priceWindow": "Only {count} of {count} tickets left at €{price} · available until Friday midnight",
+    "savings": "You save {pct}% vs. the later price",
+    "anchorNote": "Later €{anchor}",
+    "activeBadge": "Best price – Early Bird",
+    "buyNow": "GET EARLY-BIRD TICKET",
     "comingSoon": "Coming soon",
     "soldOut": "Sold out",
     "includedHeadline": "Included in every ticket",
-    "afterBuy": "After purchase, you'll receive your ticket directly in the Cocktail X App.",
+    "afterBuy": "After purchase, you'll receive your ticket directly in the Cocktail X App. Festival: May 5–22, 2027 – if the date doesn't suit you, cancel for free.",
     "earlyBird": {
-      "name": "EARLY BIRD",
-      "info": "Until March 31"
+      "name": "EARLY BIRD 2027",
+      "info": "Early-Bird price – strictly limited"
     },
     "regular": {
       "name": "REGULAR",
-      "info": "April 1 – April 30"
+      "info": "Later regular price"
     },
     "late": {
       "name": "FESTIVAL TICKET",
-      "info": "Munich · May 13–30, 2026"
+      "info": "Munich · 2027"
     },
     "feature1": "Access to 60+ participating bars",
     "feature2": "Signature cocktails for just €6 instead of €12-16",
     "feature3": "Valid for all 18 festival days, any bar – 1 signature cocktail per bar",
     "feature4": "Collect stamps & unlock rewards",
-    "feature5": "Exclusive events",
-    "timerLabel": "{days} days left at Early Bird price",
-    "timerLabelRegular": "{days} days left at Regular price",
-    "lateHint": "Valid for all 18 festival days"
+    "freeCancelHint": "Free cancellation – no risk",
+    "lateHint": "Valid for the entire 2027 festival"
   },
   "map": {
     "headline": "DISCOVER MÜNCHEN",
@@ -108,13 +108,14 @@
     "headline": "Our Partners"
   },
   "newsletter": {
-    "headline": "EARLY ACCESS & EXCLUSIVE DEALS",
-    "subheadline": "Be the first to get Early Bird tickets, bar previews and exclusive festival content.",
-    "incentive": "Subscribers hear about new bars & deals 24h before everyone else.",
+    "headline": "BE FIRST IN LINE – 2027",
+    "subheadline": "Not ready for a ticket yet? Sign up and be the first to know about new bars and tickets for Cocktail X 2027 (May 5–22).",
+    "incentive": "Subscribers hear about new bars & Early-Bird deals before everyone else.",
     "placeholder": "Your email address",
     "submit": "SUBSCRIBE",
     "trust": "No spam · Unsubscribe anytime · Max. 2× per month",
-    "socialProof": "Join {count}+ cocktail fans"
+    "socialProof": "Join {count}+ cocktail fans",
+    "success": "✓ You're in! We'll be in touch as soon as there's 2027 news."
   },
   "barsSlider": {
     "headline": "PARTICIPATING BARS",
@@ -140,8 +141,8 @@
     "a5": "Yes! The ticket makes a perfect gift for cocktail lovers. You can simply transfer it to another person after purchase.",
     "q6": "Do I need the app?",
     "a6": "Yes, the Cocktail X App is your companion during the festival. It holds your ticket, lists all participating bars, tracks your stamps, and offers exclusive content.",
-    "q7": "Can I cancel my ticket?",
-    "a7": "Cancellations are possible up to 14 days before the festival starts. Alternatively, you can transfer your ticket to another person at any time.",
+    "q7": "When does Cocktail X 2027 take place?",
+    "a7": "Cocktail X 2027 runs May 5–22, 2027 in Munich. You lock in your Early-Bird ticket now at the best price – and if the date doesn't work for you, cancel for free up to 14 days before for a full refund. You can also transfer your ticket to another person at any time.",
     "q8": "Do I need to make a reservation?",
     "a8": "No, you can visit any bar spontaneously. The bars operate as usual and your signature cocktail is guaranteed to be available.",
     "q9": "Is there a minimum age?",
@@ -215,7 +216,7 @@
     "subheadline": "Whether cocktail pro or newcomer, there's something for everyone.",
     "cocktailLovers": {
       "title": "COCKTAIL FANS",
-      "description": "67 exclusive signature cocktails at München's best bars — 1 ticket, 18 days."
+      "description": "60+ exclusive signature cocktails at München's best bars — 1 ticket, 18 days."
     },
     "friends": {
       "title": "FRIEND GROUPS",
@@ -231,13 +232,14 @@
     }
   },
   "stickyCta": {
-    "label": "Tickets from",
-    "cta": "GET YOURS"
+    "label": "Early Bird 2027",
+    "cta": "GET EARLY BIRD",
+    "scarcity": "Only the first {count} · free cancellation"
   },
   "gallery": {
     "badge": "LOOKING BACK",
-    "headline": "2025 HIGHLIGHTS",
-    "subheadline": "2,500 guests, 45 bars and 26,000 signature cocktails served – that was Cocktail X 2025.",
+    "headline": "THIS WAS COCKTAIL X",
+    "subheadline": "3,500 guests. 65 bars. Over 40,000 signature cocktails served. 2027 turns it up even louder – be there.",
     "statGuests": "Guests",
     "statBars": "Bars",
     "statCocktails": "Cocktails Served"
@@ -256,7 +258,7 @@
   "founders": {
     "badge": "ORGANIZERS",
     "headline": "The minds behind Cocktail X",
-    "description": "Ekkehard Bay and Vincent Kerger founded Cocktail X during the pandemic \u2014 inspired by London Cocktail Week. Now in its 4th edition, with 60+ bars and 5,000+ expected guests.",
+    "description": "Ekkehard Bay and Vincent Kerger founded Cocktail X during the pandemic \u2014 inspired by London Cocktail Week. Most recently with 65 bars and over 3,500 guests \u2013 and it returns in 2027.",
     "cta": "MORE ABOUT US"
   },
   "footer": {
@@ -264,9 +266,9 @@
     "becomeSponsor": "Become a Sponsor",
     "becomeBar": "Become a Bar",
     "becomeGuest": "Become a Guest",
-    "becomeExcelerator": "Become an Excelerator",
+    "becomeExcelerator": "Become an Accelerator",
     "events": "Events",
-    "grandOpening": "Grand Opening",
+    "grandOpening": "Opening Party",
     "closingAwards": "Closing & Awards",
     "app": "App",
     "login": "Login",

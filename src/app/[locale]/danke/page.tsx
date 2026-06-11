@@ -150,13 +150,13 @@ export default function DankePage() {
                   "Bestatigungsmail checken",
                   "Cocktail X App herunterladen",
                   "Ticket in der App aktivieren",
-                  "Ab 13. Mai: Bars entdecken & Cocktails geniessen!",
+                  "Ab 5. Mai 2027: Bars entdecken & Cocktails geniessen!",
                 ]
               : [
                   "Check your confirmation email",
                   "Download the Cocktail X App",
                   "Activate your ticket in the app",
-                  "From May 13: Discover bars & enjoy cocktails!",
+                  "From May 5, 2027: Discover bars & enjoy cocktails!",
                 ]
             ).map((step, i) => (
               <div key={i} className="flex items-center gap-3">

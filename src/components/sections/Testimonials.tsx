@@ -11,28 +11,19 @@ interface Testimonial {
   image?: string;
 }
 
+// Curated to 8 distinct, strong quotes across 2 rows (was ~15 repeated).
 const row1: Testimonial[] = [
   { key: "t1", image: "/images/testimonials/jennifer-mindl.webp" },
   { key: "t4", image: "/images/festival-cheers.webp" },
-  { key: "t10", image: "/images/festival-lounge.webp" },
-  { key: "t7", image: "/images/festival-bar-life.webp" },
   { key: "t3", image: "/images/testimonials/alex-kratena.webp" },
+  { key: "t6", image: "/images/festival-bottles.webp" },
 ];
 
 const row2: Testimonial[] = [
   { key: "t5", image: "/images/festival-friends.webp" },
-  { key: "t11", image: "/images/festival-cocktails-duo.webp" },
-  { key: "t2", image: "/images/testimonials/simone-caporale.webp" },
   { key: "t8", image: "/images/festival-laugh.webp" },
-  { key: "t12", image: "/images/festival-dj.webp" },
-];
-
-const row3: Testimonial[] = [
   { key: "t9", image: "/images/festival-bar-scene.webp" },
-  { key: "t13", image: "/images/festival-bartender-pour.webp" },
-  { key: "t6", image: "/images/festival-bottles.webp" },
-  { key: "t14", image: "/images/festival-bartenders.webp" },
-  { key: "t15", image: "/images/festival-lounge.webp" },
+  { key: "t10", image: "/images/festival-lounge.webp" },
 ];
 
 function TestimonialCard({ item, t }: { item: Testimonial; t: ReturnType<typeof useTranslations> }) {
@@ -170,11 +161,11 @@ export default function Testimonials() {
   const t = useTranslations("testimonials");
 
   return (
-    <section className="py-20 md:py-28 overflow-hidden">
+    <section className="py-14 md:py-16 overflow-hidden">
       <BlurText
         text={t("headline")}
         tag="h2"
-        className="text-3xl md:text-4xl font-display text-bone mb-12 md:mb-16 text-center"
+        className="text-3xl md:text-4xl font-display text-bone mb-10 md:mb-12 text-center"
         delay={70}
         duration={0.7}
       />
@@ -187,7 +178,6 @@ export default function Testimonials() {
         <div className="flex flex-col gap-5">
           <MarqueeRow items={row1} direction="left" speed={1.2} t={t} />
           <MarqueeRow items={row2} direction="right" speed={1} t={t} />
-          <MarqueeRow items={row3} direction="left" speed={1.4} t={t} />
         </div>
       </div>
     </section>

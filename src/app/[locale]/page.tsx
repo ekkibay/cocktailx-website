@@ -8,7 +8,6 @@ import HowItWorks from "@/components/sections/HowItWorks";
 import BarsSlider from "@/components/sections/BarsSlider";
 import Testimonials from "@/components/sections/Testimonials";
 import FestivalGallery from "@/components/sections/FestivalGallery";
-import EventsTimeline from "@/components/sections/EventsTimeline";
 import Tickets from "@/components/sections/Tickets";
 import MapSection from "@/components/sections/MapSection";
 import FoundersBanner from "@/components/sections/FoundersBanner";
@@ -25,15 +24,14 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <SponsorsMarquee />
+      <FestivalGallery />
       <About />
       <HowItWorks />
-      <BarsSlider />
       <Testimonials />
-      <EventsTimeline />
       <Tickets />
+      <BarsSlider />
       <MapSection />
       <FoundersBanner />
-      <FestivalGallery />
       <PressQuotes />
       <FAQ />
       <SocialFeed />

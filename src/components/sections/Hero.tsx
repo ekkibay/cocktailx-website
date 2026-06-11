@@ -1,30 +1,15 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
-import { TICKET_TIERS } from "@/data/ticket-tiers";
-
-const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
-const FESTIVAL_END = new Date("2026-05-30T23:59:59+02:00");
-const EB_END_DAYS = 42;
-const REG_END_DAYS = 13;
-
-function getDaysUntilEnd(): number {
-  return Math.max(0, Math.ceil((FESTIVAL_END.getTime() - Date.now()) / 86_400_000));
-}
-
-function getActiveTier(): { key: "earlyBird" | "regular" | "late"; price: number; daysLeft: number } {
-  const now = new Date();
-  const ebEnd = new Date(FESTIVAL_DATE); ebEnd.setDate(ebEnd.getDate() - EB_END_DAYS);
-  const regEnd = new Date(FESTIVAL_DATE); regEnd.setDate(regEnd.getDate() - REG_END_DAYS);
-  const daysUntil = (d: Date) => Math.max(0, Math.ceil((d.getTime() - now.getTime()) / 86_400_000));
-
-  if (now < ebEnd) return { key: "earlyBird", price: TICKET_TIERS.earlyBird, daysLeft: daysUntil(ebEnd) };
-  if (now < regEnd) return { key: "regular", price: TICKET_TIERS.regular, daysLeft: daysUntil(regEnd) };
-  return { key: "late", price: TICKET_TIERS.late, daysLeft: daysUntil(FESTIVAL_DATE) };
-}
+import {
+  EARLY_BIRD_PRICE,
+  ANCHOR_PRICE,
+  EARLY_BIRD_SAVINGS_PCT,
+  EARLY_BIRD_CONTINGENT,
+} from "@/data/ticket-tiers";
 
 const bgImages = [
   { src: "/images/L1030894_CocktailX_adriancamo.webp", top: "-2%", left: "1%", size: "w-[100px] h-[130px] md:w-[260px] md:h-[340px]", rotate: -8, delay: 0, speed: 0.3, mobileHide: true },
@@ -98,16 +83,6 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 0.8], [0, -200]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  const tier = useMemo(getActiveTier, []);
-  const daysUntilEnd = useMemo(getDaysUntilEnd, []);
-  const headlineKey = `headline${tier.key.charAt(0).toUpperCase() + tier.key.slice(1)}` as
-    | "headlineEarlyBird"
-    | "headlineRegular"
-    | "headlineLate";
-  const subKey = `sub${tier.key.charAt(0).toUpperCase() + tier.key.slice(1)}` as
-    | "subEarlyBird"
-    | "subRegular"
-    | "subLate";
   return (
     <section
       ref={sectionRef}
@@ -155,8 +130,9 @@ export default function Hero() {
         className="relative z-10 flex flex-col items-center text-center px-4 md:px-8 w-full max-w-4xl mx-auto pt-24 md:pt-28"
         style={{ y: contentY, opacity: contentOpacity }}
       >
+        {/* Edition / date badge */}
         <div
-          className="hero-fade-fast mb-6 md:mb-8"
+          className="hero-fade-fast mb-5 md:mb-6"
           style={{ opacity: 0, animationDelay: "200ms" }}
         >
           <span className="inline-block px-4 py-1.5 border border-tangerine/60 rounded-full text-xs md:text-sm font-body text-tangerine tracking-[0.25em] uppercase font-bold backdrop-blur-md bg-licorice/60">
@@ -164,64 +140,65 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Main headline — tier-dynamic */}
+        {/* Main headline — short, the price block carries the offer */}
         <h1
-          className="hero-fade-fast mb-4 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-tangerine leading-[1.1]"
-          style={{ opacity: 0, animationDelay: "400ms" }}
+          className="hero-fade-fast mb-5 md:mb-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-tangerine leading-[1.05]"
+          style={{ opacity: 0, animationDelay: "350ms" }}
         >
-          {t(headlineKey, { price: tier.price })}
+          {t("headline2027")}
         </h1>
 
-        <p
-          className="hero-fade-fast mb-6 md:mb-8 max-w-xl text-sm md:text-lg font-body text-bone/85 leading-relaxed font-bold hidden sm:block"
-          style={{ opacity: 0, animationDelay: "550ms" }}
-        >
-          {t(subKey)}
-        </p>
-
-        {/* Festival live indicator */}
+        {/* Price anchor row — the visual hero of the offer */}
         <div
-          className="hero-fade-fast mb-6 md:mb-8 flex items-center gap-2"
-          style={{ opacity: 0, animationDelay: "600ms" }}
+          className="hero-fade-fast mb-5 md:mb-6 flex items-center justify-center gap-3 md:gap-4"
+          style={{ opacity: 0, animationDelay: "450ms" }}
         >
-          <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
-          <span className="text-xs font-body font-bold uppercase tracking-[0.25em] text-tangerine">
-            {locale === "de" ? "Läuft jetzt" : "Live now"}
+          <span className="text-4xl md:text-5xl font-display text-tangerine leading-none">€{EARLY_BIRD_PRICE}</span>
+          <span className="text-2xl md:text-3xl font-display text-bone/35 line-through leading-none">€{ANCHOR_PRICE}</span>
+          <span className="text-xs md:text-sm font-body font-bold uppercase tracking-wider bg-tangerine text-licorice px-3 py-1.5 rounded-full">
+            {t("savingsBadge", { pct: EARLY_BIRD_SAVINGS_PCT })}
           </span>
-          <span className="w-2 h-2 rounded-full bg-tangerine animate-pulse" />
         </div>
 
-        {/* Single CTA + sub-hint */}
+        <p
+          className="hero-fade-fast mb-7 md:mb-8 max-w-md text-sm md:text-base font-body text-bone/80 leading-relaxed font-bold"
+          style={{ opacity: 0, animationDelay: "550ms" }}
+        >
+          {t("sub2027")}
+        </p>
+
+        {/* Primary CTA + one compact support line */}
         <div
           className="hero-fade-fast flex flex-col items-center gap-3"
-          style={{ opacity: 0, animationDelay: "700ms" }}
+          style={{ opacity: 0, animationDelay: "650ms" }}
         >
           <a
-            href={`/${locale}/shop`}
-            className="btn-primary text-sm md:text-lg whitespace-nowrap"
+            href={`/${locale}/shop#passport`}
+            className="btn-primary text-sm md:text-lg whitespace-normal text-center"
           >
             {t("cta")}
           </a>
-          <p className="text-xs md:text-sm font-body font-bold text-bone/70 tracking-wide flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-            {locale === "de"
-              ? `Letzte Chance · Festival endet in ${daysUntilEnd} Tagen`
-              : `Last chance · Festival ends in ${daysUntilEnd} days`}
-          </p>
-          <p className="text-[11px] md:text-xs font-body text-bone/50 flex items-center gap-1.5">
-            <svg className="w-3 h-3 text-bone/55" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            {t("freeCancel")}
+          <p className="text-[11px] md:text-xs font-body text-bone/60 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine" />
+              {t("scarcity", { count: EARLY_BIRD_CONTINGENT, price: EARLY_BIRD_PRICE })}
+            </span>
+            <span className="hidden sm:inline text-bone/25">·</span>
+            <span className="flex items-center gap-1.5">
+              <svg className="w-3 h-3 text-tangerine" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2M12 22a10 10 0 100-20 10 10 0 000 20z" />
+              </svg>
+              {t("priceWindow")}
+            </span>
+            <span className="hidden sm:inline text-bone/25">·</span>
+            <span className="flex items-center gap-1.5">
+              <svg className="w-3 h-3 text-tangerine" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              {t("freeCancelShort")}
+            </span>
           </p>
         </div>
-
-        <p
-          className="hero-fade-fast mt-4 text-xs font-body text-bone/55 tracking-wide hidden sm:block"
-          style={{ opacity: 0, animationDelay: "1000ms" }}
-        >
-          {t("guestCount")}
-        </p>
       </motion.div>
 
       {/* Scroll indicator */}

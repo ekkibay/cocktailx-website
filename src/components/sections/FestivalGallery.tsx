@@ -51,9 +51,9 @@ export default function FestivalGallery() {
           style={stats.style}
           className="grid grid-cols-3 gap-6 md:gap-12 mb-16 pt-8 pb-8 border-y border-bone/10"
         >
-          <AnimatedCounter target={2500} label={t("statGuests")} />
-          <AnimatedCounter target={45} label={t("statBars")} />
-          <AnimatedCounter target={26000} label={t("statCocktails")} />
+          <AnimatedCounter target={3500} label={t("statGuests")} />
+          <AnimatedCounter target={65} label={t("statBars")} />
+          <AnimatedCounter target={40000} suffix="+" label={t("statCocktails")} />
         </div>
 
         {/* Gallery grid — 2 Reihen, abwechselnd groß/klein */}

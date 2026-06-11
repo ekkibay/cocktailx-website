@@ -1,39 +1,31 @@
-const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
+// ── 2027 Early-Bird campaign ─────────────────────────────────────────────────
+// Cocktail X 2026 is over. The site now sells the 2027 Early-Bird ticket.
+// Honest scarcity: a fixed contingent of Early-Bird tickets at €19 (no fake countdowns).
 
 export const PASSPORT_PRICES = {
-  earlyBird: 20,
-  regular: 34,
+  earlyBird: 19, // 2027 Early-Bird price
+  regular: 34, // later regular price (anchor)
   late: 34,
 } as const;
 
-function getCheapestAvailable(): number {
-  const now = new Date();
-
-  const ebEnd = new Date(FESTIVAL_DATE);
-  ebEnd.setDate(ebEnd.getDate() - 42);
-  if (now < ebEnd) return PASSPORT_PRICES.earlyBird;
-
-  const regEnd = new Date(FESTIVAL_DATE);
-  regEnd.setDate(regEnd.getDate() - 13);
-  if (now < regEnd) return PASSPORT_PRICES.regular;
-
-  return PASSPORT_PRICES.late;
-}
+// Anchor / savings shown next to the Early-Bird price
+export const EARLY_BIRD_PRICE = PASSPORT_PRICES.earlyBird;
+export const ANCHOR_PRICE = PASSPORT_PRICES.regular;
+export const EARLY_BIRD_SAVINGS_PCT = Math.round(
+  (1 - EARLY_BIRD_PRICE / ANCHOR_PRICE) * 100
+); // 44
 
 export const TICKET_TIERS = {
   ...PASSPORT_PRICES,
-  cheapest: getCheapestAvailable(),
+  cheapest: PASSPORT_PRICES.earlyBird,
 } as const;
 
-// ── Scarcity counter ─────────────────────────────────────────────────────────
-// Linear decay: 500 tickets on May 1 → 0 by May 13 festival start
-const SCARCITY_START = new Date("2026-05-01T00:00:00+02:00");
-const SCARCITY_START_COUNT = 1000;
-const SCARCITY_TOTAL_MS = FESTIVAL_DATE.getTime() - SCARCITY_START.getTime();
+// ── Scarcity: fixed contingent (honest, no live fake counter) ────────────────
+// "Nur die ersten 500 Tickets zu 19 €"
+export const EARLY_BIRD_CONTINGENT = 500;
 
+// Backwards-compatible export: returns the fixed Early-Bird contingent
+// (kept stable instead of a fake live countdown).
 export function getTicketsLeft(): number {
-  const elapsed = Date.now() - SCARCITY_START.getTime();
-  if (elapsed <= 0) return SCARCITY_START_COUNT;
-  const remaining = Math.round(SCARCITY_START_COUNT * (1 - elapsed / SCARCITY_TOTAL_MS));
-  return Math.max(1, remaining);
+  return EARLY_BIRD_CONTINGENT;
 }

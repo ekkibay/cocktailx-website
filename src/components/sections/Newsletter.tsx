@@ -23,7 +23,7 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section id="newsletter" className="relative scroll-mt-24 py-14 md:py-16 overflow-hidden">
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 opacity-20 bg-[url('/images/placeholder/newsletter-bg.svg')] bg-cover bg-center" />
       <div className="absolute inset-0 bg-gradient-to-b from-licorice via-licorice/80 to-licorice" />
@@ -51,7 +51,7 @@ export default function Newsletter() {
             animate={{ opacity: 1, y: 0 }}
             className="text-tangerine font-body font-bold text-lg py-4"
           >
-            ✓ Du bist dabei! Wir melden uns bald.
+            {t("success")}
           </motion.p>
         ) : (
           <form

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 
-export default function ExceleratorPage() {
+export default function AcceleratorPage() {
   const locale = useLocale() as "de" | "en";
   const [form, setForm] = useState({
     name: "",
@@ -22,7 +22,7 @@ export default function ExceleratorPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Excelerator form submitted:", form);
+    console.log("Accelerator form submitted:", form);
   };
 
   const inputClasses =
@@ -57,7 +57,7 @@ export default function ExceleratorPage() {
             : "Join the Cocktail X network. Recommend tickets, earn commission, and experience the festival up close."}
         </motion.p>
 
-        {/* Why Excelerator */}
+        {/* Why Accelerator */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,19 +65,19 @@ export default function ExceleratorPage() {
           className="mb-16"
         >
           <p className="text-[11px] font-body font-bold uppercase tracking-[0.2em] text-tangerine text-center mb-8">
-            {locale === "de" ? "Warum Excelerator werden?" : "Why become an Excelerator?"}
+            {locale === "de" ? "Warum Accelerator werden?" : "Why become an Accelerator?"}
           </p>
 
           {/* Benefits grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
             {(locale === "de" ? [
               { icon: "✦", title: "Provision auf jedes Ticket", desc: "Für jedes Ticket, das über deinen persönlichen Link verkauft wird, erhältst du eine Provision. Je mehr du empfiehlst, desto mehr verdienst du." },
-              { icon: "✦", title: "Exklusiver Festivaleintritt", desc: "Als Excelerator erhältst du ein kostenloses Ticket zum Cocktail X Festival und erlebst die Eventkultur Münchens hautnah." },
+              { icon: "✦", title: "Exklusiver Festivaleintritt", desc: "Als Accelerator erhältst du ein kostenloses Ticket zum Cocktail X Festival und erlebst die Eventkultur Münchens hautnah." },
               { icon: "✦", title: "Netzwerk & Community", desc: "Du wirst Teil eines wachsenden Netzwerks aus Cocktail-Enthusiasten, Bartender-Profis und Event-Insidern." },
               { icon: "✦", title: "Exklusive Previews", desc: "Erfahre als Erster, welche Bars und Cocktails beim Festival dabei sind — noch bevor es öffentlich bekannt gegeben wird." },
             ] : [
               { icon: "✦", title: "Commission on every ticket", desc: "For every ticket sold through your personal link, you earn a commission. The more you recommend, the more you earn." },
-              { icon: "✦", title: "Exclusive festival access", desc: "As an Excelerator you receive a free ticket to the Cocktail X Festival and experience München's cocktail culture first-hand." },
+              { icon: "✦", title: "Exclusive festival access", desc: "As an Accelerator you receive a free ticket to the Cocktail X Festival and experience München's cocktail culture first-hand." },
               { icon: "✦", title: "Network & community", desc: "You become part of a growing network of cocktail enthusiasts, bartender professionals, and event insiders." },
               { icon: "✦", title: "Exclusive previews", desc: "Be the first to know which bars and cocktails will be part of the festival — before it's announced publicly." },
             ]).map((benefit) => (
@@ -97,12 +97,12 @@ export default function ExceleratorPage() {
             <div className="space-y-5">
               {(locale === "de" ? [
                 { step: "01", text: "Bewirb dich mit dem Formular unten — wir melden uns innerhalb von 48 Stunden." },
-                { step: "02", text: "Du erhältst deinen persönlichen Empfehlungslink und dein Excelerator-Kit." },
+                { step: "02", text: "Du erhältst deinen persönlichen Empfehlungslink und dein Accelerator-Kit." },
                 { step: "03", text: "Teile den Link in deinem Netzwerk — auf Instagram, im Freundeskreis, wo immer du willst." },
                 { step: "04", text: "Für jedes verkaufte Ticket über deinen Link erhältst du deine Provision automatisch ausgezahlt." },
               ] : [
                 { step: "01", text: "Apply using the form below — we'll get back to you within 48 hours." },
-                { step: "02", text: "You receive your personal referral link and your Excelerator kit." },
+                { step: "02", text: "You receive your personal referral link and your Accelerator kit." },
                 { step: "03", text: "Share the link in your network — on Instagram, with friends, wherever you like." },
                 { step: "04", text: "For every ticket sold via your link, your commission is automatically paid out." },
               ]).map((item) => (
@@ -192,8 +192,8 @@ export default function ExceleratorPage() {
           <div>
             <label className="block text-bone/80 font-body text-sm mb-2">
               {locale === "de"
-                ? "Warum moechtest du Excelerator werden?"
-                : "Why do you want to be an Excelerator?"}
+                ? "Warum moechtest du Accelerator werden?"
+                : "Why do you want to be an Accelerator?"}
             </label>
             <textarea
               name="why"

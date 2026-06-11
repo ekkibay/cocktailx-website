@@ -1,31 +1,22 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
-import { TICKET_TIERS, getTicketsLeft } from "@/data/ticket-tiers";
+import {
+  EARLY_BIRD_PRICE,
+  ANCHOR_PRICE,
+  EARLY_BIRD_CONTINGENT,
+} from "@/data/ticket-tiers";
 
-const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
-const EB_END_DAYS = 42;
-const REG_END_DAYS = 13;
-
-function getActiveTier() {
-  const now = new Date();
-  const ebEnd = new Date(FESTIVAL_DATE); ebEnd.setDate(ebEnd.getDate() - EB_END_DAYS);
-  const regEnd = new Date(FESTIVAL_DATE); regEnd.setDate(regEnd.getDate() - REG_END_DAYS);
-  const daysUntil = (d: Date) => Math.max(0, Math.ceil((d.getTime() - now.getTime()) / 86_400_000));
-
-  if (now < ebEnd) return { key: "earlyBird" as const, price: TICKET_TIERS.earlyBird, daysLeft: daysUntil(ebEnd) };
-  if (now < regEnd) return { key: "regular" as const, price: TICKET_TIERS.regular, daysLeft: daysUntil(regEnd) };
-  return { key: "late" as const, price: TICKET_TIERS.late, daysLeft: 0 };
-}
+const CONSENT_KEY = "meta_pixel_consent";
 
 export default function StickyCTA() {
   const t = useTranslations("stickyCta");
   const locale = useLocale();
   const [visible, setVisible] = useState(false);
-  const tier = useMemo(getActiveTier, []);
-  const ticketsLeft = useMemo(getTicketsLeft, []);
+  // While the cookie banner is open we lift the bar so the two don't overlap.
+  const [cookieOpen, setCookieOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,14 +34,12 @@ export default function StickyCTA() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const subHint =
-    tier.key === "late"
-      ? ticketsLeft < 30
-        ? locale === "de" ? `⚡ Fast ausverkauft – noch ${ticketsLeft}` : `⚡ Almost sold out – ${ticketsLeft} left`
-        : locale === "de" ? `Noch ${ticketsLeft} Tickets verfügbar` : `${ticketsLeft} tickets left`
-      : tier.key === "earlyBird"
-      ? locale === "de" ? `Noch ${tier.daysLeft} Tage zum Early-Bird-Preis` : `${tier.daysLeft} days at Early Bird`
-      : locale === "de" ? `Noch ${tier.daysLeft} Tage zum Vorverkaufspreis` : `${tier.daysLeft} days at pre-sale`;
+  useEffect(() => {
+    const sync = () => setCookieOpen(localStorage.getItem(CONSENT_KEY) === null);
+    sync();
+    window.addEventListener("cc:resolved", sync);
+    return () => window.removeEventListener("cc:resolved", sync);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -60,21 +49,24 @@ export default function StickyCTA() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
+          className={`fixed left-0 right-0 z-40 md:hidden transition-[bottom] duration-300 ${
+            cookieOpen ? "bottom-[148px]" : "bottom-0"
+          }`}
         >
           <div className="bg-licorice/95 backdrop-blur-md border-t border-bone/10 px-4 py-3 flex items-center justify-between gap-3">
             <div className="min-w-0">
               <div className="flex items-baseline gap-2">
                 <span className="text-xs font-body text-bone/65">{t("label")}</span>
-                <span className="text-2xl font-display text-tangerine leading-none">€{tier.price}</span>
+                <span className="text-2xl font-display text-tangerine leading-none">€{EARLY_BIRD_PRICE}</span>
+                <span className="text-sm font-display text-bone/40 line-through leading-none">€{ANCHOR_PRICE}</span>
               </div>
               <p className="text-[11px] font-body text-bone/55 mt-0.5 flex items-center gap-1.5 truncate">
-                <span className="inline-block w-1 h-1 rounded-full bg-tangerine animate-pulse shrink-0" />
-                {subHint}
+                <span className="inline-block w-1 h-1 rounded-full bg-tangerine shrink-0" />
+                {t("scarcity", { count: EARLY_BIRD_CONTINGENT })}
               </p>
             </div>
             <a
-              href={`/${locale}/shop`}
+              href={`/${locale}/shop#passport`}
               className="btn-primary text-sm whitespace-nowrap px-5 py-3 shrink-0"
             >
               {t("cta")}

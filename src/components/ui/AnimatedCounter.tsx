@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { useLocale } from "next-intl";
 
 interface AnimatedCounterProps {
   target: number;
@@ -21,6 +22,8 @@ export default function AnimatedCounter({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [count, setCount] = useState(0);
+  const locale = useLocale();
+  const formatted = count.toLocaleString(locale === "de" ? "de-DE" : "en-US");
 
   useEffect(() => {
     if (!isInView) return;
@@ -54,7 +57,7 @@ export default function AnimatedCounter({
       className="flex flex-col items-center"
     >
       <span className="text-5xl md:text-6xl font-display text-tangerine">
-        {prefix}{count}{suffix}
+        {prefix}{formatted}{suffix}
       </span>
       <span className="text-sm font-body font-bold text-bone/80 mt-2 uppercase tracking-wider">{label}</span>
     </motion.div>

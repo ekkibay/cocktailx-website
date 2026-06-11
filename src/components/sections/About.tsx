@@ -76,7 +76,7 @@ export default function About() {
     <section className="section-padding">
       <div className="max-w-7xl mx-auto">
         {/* Two-column grid */}
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left: text */}
           <div>
             <BlurText
@@ -166,16 +166,16 @@ export default function About() {
         <div
           ref={stats.ref}
           style={stats.style}
-          className="flex flex-wrap justify-center gap-8 md:gap-12 mt-16 pt-16 border-t border-bone/10 [&>div]:w-[calc(33%-1.5rem)] [&>div]:sm:w-auto"
+          className="flex flex-wrap justify-center gap-8 md:gap-12 mt-10 pt-10 border-t border-bone/10 [&>div]:w-[calc(33%-1.5rem)] [&>div]:sm:w-auto"
         >
-          <AnimatedCounter target={67} label={t("bars")} />
+          <AnimatedCounter target={60} suffix="+" label={t("bars")} />
           <AnimatedCounter target={18} label={t("days")} />
           <AnimatedCounter target={1} label={t("passport")} />
-          <AnimatedCounter target={5000} suffix="+" label={t("expectedGuests")} />
+          <AnimatedCounter target={3500} suffix="+" label={t("expectedGuests")} />
         </div>
 
         {/* For Whom — integrated */}
-        <div className="mt-16 pt-16 border-t border-bone/10">
+        <div className="mt-10 pt-10 border-t border-bone/10">
           <h3 className="text-2xl md:text-3xl font-display text-bone text-center mb-3">
             {fw("headline")}
           </h3>

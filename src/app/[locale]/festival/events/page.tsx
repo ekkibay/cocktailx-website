@@ -63,18 +63,6 @@ export default function EventsPage() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-licorice/30 via-transparent to-licorice/10 md:bg-gradient-to-r md:from-transparent md:to-licorice/40" />
-
-              {/* FOMO badge */}
-              {closing.tickets?.[0]?.remaining != null && (
-                <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-hibiscus text-bone shadow-lg shadow-hibiscus/30">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-bone animate-pulse" />
-                  <span className="text-[11px] font-body font-bold uppercase tracking-[0.15em]">
-                    {locale === "de"
-                      ? `Nur noch ${closing.tickets[0].remaining} Plätze`
-                      : `Only ${closing.tickets[0].remaining} seats left`}
-                  </span>
-                </div>
-              )}
             </div>
 
             {/* Content side */}
@@ -108,20 +96,12 @@ export default function EventsPage() {
               <h2 className="text-3xl md:text-5xl font-display text-bone mb-4 leading-tight">
                 {closing.title[locale]}
               </h2>
-              <p className="text-sm font-body text-bone/70 mb-6">
+              <p className="text-sm font-body text-bone/70">
                 📅 {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr
                 <br className="md:hidden" />
                 <span className="hidden md:inline"> · </span>
                 📍 {closing.location}
               </p>
-              <a
-                href="https://cocktailx.app/closing-event"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary self-start text-sm md:text-base"
-              >
-                {locale === "de" ? "Ticket sichern" : "Get Ticket"}
-              </a>
             </div>
           </div>
 
@@ -192,43 +172,16 @@ export default function EventsPage() {
             </div>
           )}
 
-          {/* Closing Tickets */}
-          <div className="mt-6 rounded-2xl border border-bone/10 bg-licorice/40 p-8 md:p-10">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-              <div className="flex-1">
-                <p className="text-sm font-body font-bold uppercase tracking-wider text-tangerine/80 mb-5">
-                  {locale === "de" ? "Tickets" : "Tickets"}
-                </p>
-                <div className={`grid gap-4 ${(closing.tickets?.length ?? 0) > 1 ? "sm:grid-cols-2" : ""}`}>
-                  {closing.tickets?.map((ticket, i) => (
-                    <div key={i} className="relative rounded-xl border border-tangerine/40 bg-tangerine/5 p-5">
-                      {ticket.badge && (
-                        <span className="absolute -top-2.5 left-4 text-[10px] font-body font-bold uppercase tracking-wider bg-tangerine text-licorice px-2.5 py-0.5 rounded-full">
-                          {ticket.badge}
-                        </span>
-                      )}
-                      <p className="font-display text-bone text-sm tracking-wider mb-1 mt-1">{ticket.label[locale]}</p>
-                      <p className="font-display text-tangerine text-4xl mb-2">€{ticket.price}</p>
-                      {ticket.remaining != null && (
-                        <p className="text-xs font-body font-bold text-tangerine flex items-center gap-1.5 mb-1">
-                          <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-                          {locale === "de" ? `Nur noch ${ticket.remaining} Plätze verfügbar` : `Only ${ticket.remaining} seats left`}
-                        </p>
-                      )}
-                      {ticket.note && <p className="text-xs font-body text-bone/55 leading-snug">{ticket.note[locale]}</p>}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="md:min-w-[220px] flex flex-col items-center justify-center text-center md:border-l md:border-bone/10 md:pl-10 gap-4">
-                <a href="https://cocktailx.app/closing-event" target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-sm py-4">
-                  {locale === "de" ? "TICKET SICHERN" : "GET TICKET"}
-                </a>
-                <p className="text-xs font-body text-bone/40">
-                  {locale === "de" ? "Limitiert auf 500 Plätze" : "Limited to 500 seats"}
-                </p>
-              </div>
-            </div>
+          {/* Danke — die Closing & Award Night ist gelaufen */}
+          <div className="mt-6 rounded-2xl border border-everglade/30 bg-everglade/[0.06] p-8 md:p-12 text-center">
+            <p className="text-2xl md:text-3xl font-display text-bone mb-3">
+              {locale === "de" ? "Vielen Dank für die tolle Veranstaltung!" : "Thank you for the wonderful event!"}
+            </p>
+            <p className="text-sm font-body text-bone/65 max-w-xl mx-auto leading-relaxed">
+              {locale === "de"
+                ? "Die Closing & Award Night war ein unvergesslicher Abschluss – danke an alle Gäste, Bars und Partner, die mit uns gefeiert haben."
+                : "The Closing & Award Night was an unforgettable finale – thank you to all the guests, bars and partners who celebrated with us."}
+            </p>
           </div>
         </div>
 

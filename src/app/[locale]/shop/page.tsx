@@ -2,14 +2,18 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useLocale } from "next-intl";
-import Image from "next/image";
 import Link from "next/link";
 import ShopifyBuyButton from "@/components/ui/ShopifyBuyButton";
 import BlurText from "@/components/ui/BlurText";
 import { useReveal } from "@/hooks/useReveal";
 import { trackEvent } from "@/lib/meta-pixel";
-import { getTicketsLeft } from "@/data/ticket-tiers";
-import { events } from "@/data/events";
+import {
+  getTicketsLeft,
+  EARLY_BIRD_PRICE,
+  ANCHOR_PRICE,
+  EARLY_BIRD_SAVINGS_PCT,
+  EARLY_BIRD_CONTINGENT,
+} from "@/data/ticket-tiers";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -31,34 +35,23 @@ type CalcOption = {
 
 // ── Ticket data ───────────────────────────────────────────────────────────────
 
-const FESTIVAL_DATE = new Date("2026-05-13T19:00:00+02:00");
-
-// Cutoff dates (same as landing page): Early Bird until Mar 31, Regular until Apr 30
-const EB_END = new Date(FESTIVAL_DATE); EB_END.setDate(EB_END.getDate() - 42);  // Apr 1
-const REG_END = new Date(FESTIVAL_DATE); REG_END.setDate(REG_END.getDate() - 13); // Apr 30
-
-function getPassportActive(): [boolean, boolean, boolean] {
-  const now = new Date();
-  if (now < EB_END) return [true, false, false];
-  if (now < REG_END) return [false, true, false];
-  return [false, false, true];
-}
-
-const [, , lmActive] = getPassportActive();
+// Early-Bird 2027: 4 Passports for the price of 3 → group per person from the EB price
+const GROUP_TOTAL = EARLY_BIRD_PRICE * 3;        // 4 for the price of 3
+const GROUP_PER_PERSON = GROUP_TOTAL / 4;
 
 // ── Calculator options ───────────────────────────────────────────────────────
 
 const CALC_OPTIONS: CalcOption[] = [
-  { key: "passport-lm",  label: { de: "Festival Ticket · 34 €",     en: "Festival Ticket · €34"      }, price: 34,    isGroup: false },
-  { key: "group-lm",     label: { de: "Group Ticket · 4 Personen",  en: "Group Ticket · 4 People"    }, price: 25.50, isGroup: true, groupSize: 4 },
+  { key: "passport-lm",  label: { de: `Early Bird · ${EARLY_BIRD_PRICE} €`, en: `Early Bird · €${EARLY_BIRD_PRICE}` }, price: EARLY_BIRD_PRICE, isGroup: false },
+  { key: "group-lm",     label: { de: "Group Ticket · 4 Personen",          en: "Group Ticket · 4 People"           }, price: GROUP_PER_PERSON, isGroup: true, groupSize: 4 },
 ];
 
 const PASSPORT_TIERS = {
   de: [
-    { label: "Festival Ticket", until: "bis 13. Mai", price: 34, calcKey: "passport-lm", productId: "passport-late", active: lmActive },
+    { label: "Early Bird 2027", until: "05.–22. Mai 2027", price: EARLY_BIRD_PRICE, calcKey: "passport-lm", productId: "passport-earlybird", active: true },
   ],
   en: [
-    { label: "Festival Ticket", until: "until May 13", price: 34, calcKey: "passport-lm", productId: "passport-late", active: lmActive },
+    { label: "Early Bird 2027", until: "May 5–22, 2027", price: EARLY_BIRD_PRICE, calcKey: "passport-lm", productId: "passport-earlybird", active: true },
   ],
 };
 
@@ -93,7 +86,7 @@ const OTHER_TICKETS: OtherTicket[] = [
     badge: { de: null, en: null },
     accent: "tangerine",
     tiers: [
-      { label: "Festival Ticket", until: { de: "bis 13. Mai", en: "until May 13" }, price: 102, perPerson: 25.50, calcKey: "group-lm", productId: "group-late", active: lmActive },
+      { label: "Early Bird 2027", until: { de: "05.–22. Mai 2027", en: "May 5–22, 2027" }, price: GROUP_TOTAL, perPerson: GROUP_PER_PERSON, calcKey: "group-lm", productId: "group-earlybird", active: true },
     ],
   },
 ];
@@ -242,31 +235,12 @@ const passportFeatures = {
     "Signature Cocktails für nur 6 € statt 12–16 €",
     "Gilt für alle 18 Festivaltage – 1 Signature Cocktail pro Bar",
     "Digitaler Stempelpass mit Belohnungen",
-    "Exklusive Events",
   ],
   en: [
     "Access to all 60+ participating bars",
     "Signature cocktails for just €6 instead of €12–16",
     "Valid for all 18 festival days – 1 signature cocktail per bar",
     "Digital stamp passport with rewards",
-    "Exclusive events",
-  ],
-};
-
-const closingFeatures = {
-  de: [
-    "Red Carpet Empfang · Black Tie Dresscode",
-    "All-Inclusive Drinks · Top-Bartender",
-    "3-Gang-Menü aus der Brenner-Küche",
-    "2 Live Award-Verleihungen (Top 30 + Cocktail X Awards)",
-    "Networking mit 500 Bar-Profis · Live DJ",
-  ],
-  en: [
-    "Red carpet welcome · Black tie dresscode",
-    "All-inclusive drinks · Top bartenders",
-    "3-course menu from the Brenner kitchen",
-    "2 live award ceremonies (Top 30 + Cocktail X Awards)",
-    "Networking with 500 bar pros · Live DJ",
   ],
 };
 
@@ -277,8 +251,6 @@ export default function ShopPage() {
   const calcRef = useRef<HTMLDivElement>(null);
   const ticketsLeft = getTicketsLeft();
   const almostSoldOut = ticketsLeft < 30;
-  const closing = events.find((e) => e.id === "closing-awards");
-  const closingTicket = closing?.tickets?.[0];
 
   const heroReveal = useReveal({ delay: 150 });
   const trustReveal = useReveal({ delay: 250 });
@@ -314,9 +286,9 @@ export default function ShopPage() {
       </div>
 
       {/* ── HERO — COCKTAIL X PASSPORT ── */}
-      <section className="section-padding min-h-[80vh] flex flex-col items-center justify-center relative">
+      <section className="section-padding pt-32 md:pt-40 min-h-[80vh] flex flex-col items-center justify-center relative">
         <p className="text-[11px] font-body font-bold uppercase tracking-[0.2em] text-tangerine mb-3">
-          13.–30. Mai 2026 · München
+          05.–22. Mai 2027 · München
         </p>
         <BlurText
           text={locale === "de" ? "SICHERE DIR DEIN TICKET" : "GET YOUR TICKET"}
@@ -332,87 +304,6 @@ export default function ShopPage() {
         </p>
 
         <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto space-y-6">
-          {/* Closing & Award Night card */}
-          {closing && (
-            <a
-              href="https://cocktailx.app/closing-event"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block relative rounded-3xl overflow-hidden border-2 border-everglade/50 hover:border-everglade/80 bg-licorice transition-all duration-200 group"
-            >
-              <div className="grid sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-0">
-                {/* Image */}
-                <div className="relative aspect-[3/4] sm:aspect-auto sm:min-h-[360px]">
-                  <Image
-                    src={closing.image}
-                    alt={closing.title[locale]}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 40vw"
-                    className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-licorice/30 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:to-licorice/30" />
-                  {closingTicket?.remaining != null && (
-                    <div className="absolute top-5 left-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-hibiscus text-bone shadow-lg shadow-hibiscus/30">
-                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-bone animate-pulse" />
-                      <span className="text-[10px] font-body font-bold uppercase tracking-[0.15em]">
-                        {locale === "de" ? `Nur noch ${closingTicket.remaining} Plätze` : `Only ${closingTicket.remaining} seats left`}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-6 md:p-8 flex flex-col">
-                  {closing.presentedBy && (
-                    <div className="inline-flex self-start items-center gap-2.5 px-3 py-1.5 rounded-full bg-licorice/80 backdrop-blur-md border border-bone/15 mb-4">
-                      <span className="text-[9px] font-body font-bold uppercase tracking-[0.18em] text-bone/70">
-                        {locale === "de" ? "Presented by" : "Presented by"}
-                      </span>
-                      <Image
-                        src={closing.presentedBy.logo}
-                        alt={closing.presentedBy.name}
-                        width={796}
-                        height={72}
-                        sizes="200px"
-                        quality={95}
-                        className="h-5 w-auto object-contain"
-                      />
-                    </div>
-                  )}
-                  <span className="inline-block self-start text-[10px] font-body font-bold uppercase tracking-wider bg-everglade text-bone px-3 py-1 rounded-full mb-3">
-                    Closing & Award Night
-                  </span>
-                  <h2 className="text-2xl md:text-3xl font-display text-bone mb-1 leading-tight">
-                    {closing.title[locale]}
-                  </h2>
-                  <p className="text-xs font-body text-bone/55 mb-5">
-                    {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr · Brenner Operngrill
-                  </p>
-
-                  <ul className="space-y-2.5 mb-6">
-                    {closingFeatures[locale].map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm font-body text-bone/85">
-                        <Check />{f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex items-center justify-between gap-4 mt-auto pt-4 border-t border-bone/10">
-                    <div>
-                      <span className="text-3xl md:text-4xl font-display text-tangerine">€{closingTicket?.price ?? 99}</span>
-                      <span className="block text-[10px] font-body text-bone/55 uppercase tracking-wider mt-0.5">
-                        {locale === "de" ? "pro Person" : "per person"}
-                      </span>
-                    </div>
-                    <span className="btn-primary text-xs md:text-sm whitespace-nowrap px-6 py-3 group-hover:scale-105">
-                      {locale === "de" ? "TICKET SICHERN" : "GET TICKET"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </a>
-          )}
-
           {/* Passport card */}
           <div
             className={`relative rounded-3xl overflow-hidden border-2 bg-gradient-to-br from-tangerine/[0.10] via-licorice to-licorice cursor-pointer transition-all duration-200 ${
@@ -435,7 +326,9 @@ export default function ShopPage() {
                 </span>
                 <span className="text-[10px] font-body font-bold uppercase tracking-wider text-tangerine/80 bg-tangerine/10 border border-tangerine/20 px-3 py-1 rounded-full flex items-center gap-1.5">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-tangerine animate-pulse" />
-                  {locale === "de" ? `Noch ${ticketsLeft} von 1.000 verfügbar` : `${ticketsLeft} of 1,000 remaining`}
+                  {locale === "de"
+                    ? `Nur die ersten ${EARLY_BIRD_CONTINGENT} Tickets zu ${EARLY_BIRD_PRICE} €`
+                    : `Only the first ${EARLY_BIRD_CONTINGENT} tickets at €${EARLY_BIRD_PRICE}`}
                 </span>
                 {calcKey.startsWith("passport") && (
                   <span className="text-[10px] font-body font-bold uppercase tracking-wider text-licorice bg-emerald-400 px-3 py-1 rounded-full">
@@ -464,7 +357,11 @@ export default function ShopPage() {
                 <div className="flex flex-col items-center justify-center md:min-w-[200px] md:border-l md:border-bone/10 md:pl-8">
                   <div className="flex items-baseline gap-3 mb-1">
                     <span className="text-6xl md:text-7xl font-display text-tangerine">€{activeTier.price}</span>
+                    <span className="text-2xl md:text-3xl font-display text-bone/35 line-through">€{ANCHOR_PRICE}</span>
                   </div>
+                  <span className="text-[10px] font-body font-bold uppercase tracking-wider bg-tangerine text-licorice px-2.5 py-1 rounded-full mb-2">
+                    {locale === "de" ? `${EARLY_BIRD_SAVINGS_PCT} % sparen` : `Save ${EARLY_BIRD_SAVINGS_PCT}%`}
+                  </span>
                   <span className="text-[11px] font-body text-bone/55 mb-6">
                     {locale === "de" ? "pro Person" : "per person"}
                   </span>

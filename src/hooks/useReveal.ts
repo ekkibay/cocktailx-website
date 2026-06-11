@@ -40,8 +40,15 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
     scale,
   } = options ?? {};
 
-  // Mark as mounted after hydration
+  // Mark as mounted after hydration. Respect reduced-motion: never hide.
   useEffect(() => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setIsVisible(true);
+      return;
+    }
     const raf = requestAnimationFrame(() => {
       setIsMounted(true);
     });
@@ -54,6 +61,16 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
 
     const el = ref.current;
     if (!el) return;
+
+    // Fallback: if the observer never fires (no IO support, fast scroll past,
+    // element already off-screen, etc.) force the content visible so it can
+    // never get stuck as an empty dark area.
+    const fallback = setTimeout(() => setIsVisible(true), 1400 + delay);
+
+    if (typeof IntersectionObserver === "undefined") {
+      setIsVisible(true);
+      return () => clearTimeout(fallback);
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -70,11 +87,15 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
           setIsVisible(false);
         }
       },
-      { threshold }
+      // rootMargin reveals content slightly before it scrolls fully into view
+      { threshold, rootMargin: "0px 0px -10% 0px" }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, [isMounted, threshold, once, delay]);
 
   // Build transform string based on direction
