@@ -5,6 +5,11 @@ out/
 .DS_Store
 tsconfig.tsbuildinfo
 
+# Einkaufspreise und Margen. Dürfen das Repo nicht verlassen.
+# Werden von scripts/sync-easybill-positions.mjs erzeugt. Fehlen sie in der
+# Produktion, entfällt nur die Margenprüfung, die Angebotspreise bleiben korrekt.
+src/data/*.internal.json
+
 # Large original image folders
 public/images/007 CX 2026/
 public/images/2025/

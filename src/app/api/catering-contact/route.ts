@@ -29,12 +29,12 @@ export async function POST(req: NextRequest) {
     const eventLabel = eventLabels[eventType] || eventType;
 
     await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
-      from: `Cocktail X Catering Website <noreply@${process.env.MAILGUN_DOMAIN}>`,
+      from: `Cocktail X Eventcatering Website <noreply@${process.env.MAILGUN_DOMAIN}>`,
       to: ["info@bayundco.com"],
       "h:Reply-To": email,
       subject: `Catering-Anfrage: ${eventLabel}${company ? ` — ${company}` : ""}`,
       text: [
-        "CATERING-ANFRAGE – COCKTAIL X CATERING",
+        "ANFRAGE – COCKTAIL X EVENTCATERING",
         "═".repeat(40),
         "",
         `Name: ${name}`,

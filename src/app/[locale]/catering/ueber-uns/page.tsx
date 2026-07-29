@@ -33,10 +33,10 @@ export default function UeberUnsPage() {
               {locale === "de" ? (
                 <>
                   <p>
-                    Cocktail X Catering entstand aus einer einfachen Überzeugung: Gute Cocktails gehören nicht nur ins Restaurant — sie gehören zu jedem außergewöhnlichen Event.
+                    Cocktail X Eventcatering entstand aus einer einfachen Überzeugung: Gute Cocktails gehören nicht nur ins Restaurant, sondern zu jedem außergewöhnlichen Event.
                   </p>
                   <p>
-                    Was als Idee von Ekkehard Bay und Vincent Kerger begann, hat sich zu einem der profiliertesten Cocktail-Catering-Unternehmen Münchens entwickelt. Die Erfahrung aus dem Betrieb des Cocktail X Festivals — mit bis zu 60+ Bars gleichzeitig — fließt direkt in jeden Catering-Auftrag ein.
+                    Was als Idee von Ekkehard Bay und Vincent Kerger begann, ist heute ein Eventcatering-Unternehmen, das ein Firmenevent vollständig trägt: Bar, Food, Personal und Eventmanagement. Die Erfahrung aus dem Betrieb des Cocktail X Festivals, mit bis zu 60 Bars gleichzeitig, fließt direkt in jeden Auftrag ein.
                   </p>
                   <p>
                     Wir glauben: Ein unvergessliches Event beginnt mit dem ersten Drink. Deshalb gehen wir keine Kompromisse bei Qualität, Kreativität und Service ein.
@@ -45,10 +45,10 @@ export default function UeberUnsPage() {
               ) : (
                 <>
                   <p>
-                    Cocktail X Catering was born from a simple conviction: great cocktails don&apos;t belong only in restaurants — they belong at every extraordinary event.
+                    Cocktail X Eventcatering was born from a simple conviction: great cocktails don&apos;t belong only in restaurants, they belong at every extraordinary event.
                   </p>
                   <p>
-                    What started as an idea by Ekkehard Bay and Vincent Kerger has grown into one of Munich&apos;s most distinguished cocktail catering companies. The experience from operating the Cocktail X Festival — with up to 60+ bars simultaneously — feeds directly into every catering engagement.
+                    What started as an idea by Ekkehard Bay and Vincent Kerger is today an event catering company that carries a corporate event end to end: bar, food, staff and event management. The experience from operating the Cocktail X Festival, with up to 60 bars simultaneously, feeds directly into every engagement.
                   </p>
                   <p>
                     We believe: an unforgettable event begins with the first drink. That&apos;s why we make no compromises on quality, creativity, and service.

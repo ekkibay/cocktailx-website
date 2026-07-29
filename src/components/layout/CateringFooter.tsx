@@ -20,15 +20,15 @@ export default function CateringFooter() {
           <div className="col-span-2 md:col-span-1">
             <Image
               src="/images/logo-catering-white.png"
-              alt="Cocktail X Catering"
+              alt="Cocktail X Eventcatering"
               width={140}
               height={36}
               className="h-7 w-auto object-contain mb-4 opacity-85"
             />
             <p className="text-xs font-body text-ct-cream/55 leading-relaxed mb-4">
               {locale === "de"
-                ? "Premium Cocktail Catering für Corporate Events & Messen in München."
-                : "Premium cocktail catering for corporate events & trade fairs in Munich."}
+                ? "Eventcatering für Firmenevents & Messen in München. Bar, Food, Personal und Eventmanagement aus einer Hand."
+                : "Event catering for corporate events & trade fairs in Munich. Bar, food, staff and event management from one source."}
             </p>
             <p className="text-xs font-body text-ct-cream/40 leading-relaxed">
               München · 015255709985
@@ -101,7 +101,7 @@ export default function CateringFooter() {
         <div className="mt-12 border-t border-white/[0.06] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <p className="text-xs text-ct-cream/40 font-body">
-              © {new Date().getFullYear()} Cocktail X Catering · Bay und Co. GmbH
+              © {new Date().getFullYear()} Cocktail X Eventcatering · Bay und Co. GmbH
             </p>
             <span className="text-ct-cream/15">·</span>
             <p className="text-xs text-ct-cream/40 font-body">

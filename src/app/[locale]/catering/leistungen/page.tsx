@@ -52,7 +52,7 @@ export default function LeistungenPage() {
     <main className="min-h-screen bg-ct-cream">
       {/* ── HERO ── */}
       <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden">
-        <Image src="/images/catering/ct-cocktail-flowers.jpg" alt="Cocktail X Catering Services" fill priority className="object-cover object-[center_40%]" />
+        <Image src="/images/catering/ct-cocktail-flowers.jpg" alt="Cocktail X Eventcatering Leistungen" fill priority className="object-cover object-[center_40%]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-ct-cream to-transparent" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">

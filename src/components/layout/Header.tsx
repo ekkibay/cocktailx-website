@@ -42,7 +42,7 @@ export default function Header() {
               href={`/${locale}/catering`}
               className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full text-bone/45 hover:text-bone/75 transition-colors"
             >
-              cocktail ✦ catering
+              cocktail ✦ eventcatering
             </Link>
           </div>
         </div>

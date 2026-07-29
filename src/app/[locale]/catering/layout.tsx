@@ -2,38 +2,41 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Cocktail X Catering | Premium Cocktail Catering München",
-    template: "%s | Cocktail X Catering München",
+    default: "Cocktail X Eventcatering | Firmenevents & Messen München",
+    template: "%s | Cocktail X Eventcatering München",
   },
   description:
-    "Premium Cocktail Catering für Corporate Events & Messen in München. Nitro-Technologie, 500+ Events, Angebot in 24h. Von den Machern des Cocktail X Festivals.",
+    "Eventcatering für Firmenevents, Messen und Produktlaunches in München. Bar, Food, Personal und Eventmanagement aus einer Hand. 500+ Events, Richtpreis in 60 Sekunden.",
   keywords: [
-    "Cocktail Catering München",
-    "Messe Catering München",
-    "Corporate Event Bar",
-    "Mobile Bar München",
-    "Cocktail Catering Firma",
+    // Eventcatering als Anker, Cocktail-Begriffe bleiben als Long-Tail erhalten,
+    // weil sie echtes Suchvolumen mit Kaufabsicht tragen.
+    "Eventcatering München",
     "Event Catering München",
-    "Firmenfeier Cocktails",
-    "Messestand Cocktails",
+    "Messe Catering München",
+    "Firmenevent Catering München",
+    "Barcatering Firmenevent",
+    "Mobile Bar München",
+    "Corporate Event Bar",
+    "Cocktail Catering München",
+    "Messestand Catering",
     "Nitro Cocktails Event",
-    "Premium Bar Service München",
-    "Cocktail X Catering",
+    "Eventcatering Firma München",
+    "Cocktail X Eventcatering",
   ],
   openGraph: {
-    title: "Cocktail X Catering | Premium Cocktail Catering München",
+    title: "Cocktail X Eventcatering | Firmenevents & Messen München",
     description:
-      "Corporate Events & Messen — professionell, zuverlässig, unvergesslich. 500+ Events, Nitro-Technologie, Angebot in 24h.",
+      "Bar, Food, Personal und Eventmanagement aus einer Hand. Von 20 bis 3.000 Gästen. 500+ Events in München und Umgebung.",
     url: "https://cocktail-x.com/de/catering",
-    siteName: "Cocktail X Catering",
+    siteName: "Cocktail X Eventcatering",
     locale: "de_DE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cocktail X Catering | Premium Cocktail Catering München",
+    title: "Cocktail X Eventcatering | Firmenevents & Messen München",
     description:
-      "Corporate Events & Messen — professionell, zuverlässig, unvergesslich. Von den Machern des Cocktail X Festivals.",
+      "Bar, Food, Personal und Eventmanagement aus einer Hand. Von den Machern des Cocktail X Festivals.",
   },
   alternates: {
     canonical: "https://cocktail-x.com/de/catering",

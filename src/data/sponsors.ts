@@ -41,7 +41,6 @@ export const sponsors: Sponsor[] = [
   { id: "dionys", name: "Dionys", logo: "/images/sponsors-opt/dionys-v3.webp", url: "#", tier: "silver", displayH: 128, displayW: 743 },
   { id: "evoila", name: "EvoilA", logo: "/images/sponsors-opt/evoila-v3.webp", url: "#", tier: "silver", displayH: 57, displayW: 52 },
   { id: "maison-acme", name: "Maison ACME", logo: "/images/sponsors-opt/maison-acme-v3.webp", url: "#", tier: "silver", displayH: 128, displayW: 270 },
-  { id: "ye", name: "YE", logo: "/images/sponsors-opt/ye-v3.webp", url: "#", tier: "silver", displayH: 20, displayW: 28 },
   { id: "nbm", name: "NBM", logo: "/images/sponsors-opt/nbm-v3.webp", url: "#", tier: "silver", displayH: 128, displayW: 111 },
 ];
 

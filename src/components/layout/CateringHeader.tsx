@@ -6,9 +6,13 @@ import Image from "next/image";
 import { useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
 
+// "Leistungen" ist bewusst raus: Die Landingpage trägt den Leistungsumfang jetzt selbst,
+// und /catering/leistungen führt noch mit Masterclass und der Pop-Up Eventreihe, also
+// mit Formaten, die dem B2B-Fokus widersprechen. Die Seite muss überarbeitet oder
+// abgeschaltet werden, bis dahin ist sie nicht verlinkt.
 const navLinks = [
-  { key: "leistungen", href: "/catering/leistungen", de: "Leistungen", en: "Services" },
-  { key: "events", href: "/catering/events", de: "Events", en: "Events" },
+  { key: "pakete", href: "/catering/pakete", de: "Pakete & Preise", en: "Packages" },
+  { key: "events", href: "/catering/events", de: "Referenzen", en: "References" },
   { key: "ueber-uns", href: "/catering/ueber-uns", de: "Über uns", en: "About" },
   { key: "kontakt", href: "/catering/kontakt", de: "Kontakt", en: "Contact" },
 ];
@@ -43,7 +47,7 @@ export default function CateringHeader() {
             </Link>
             <span className="text-ct-cream/20 text-sm">·</span>
             <span className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-ct-green/20 text-ct-cream border border-ct-green/40">
-              cocktail ✦ catering
+              cocktail ✦ eventcatering
             </span>
           </div>
         </div>
@@ -53,7 +57,7 @@ export default function CateringHeader() {
           <Link href={`/${locale}/catering`} className="flex items-center">
             <Image
               src="/images/logo-catering-white.png"
-              alt="Cocktail X Catering"
+              alt="Cocktail X Eventcatering"
               width={160}
               height={40}
               className="h-9 md:h-11 w-auto object-contain"
@@ -86,7 +90,7 @@ export default function CateringHeader() {
               {locale === "de" ? "EN" : "DE"}
             </Link>
             <Link
-              href={`/${locale}/catering/kontakt`}
+              href={`/${locale}/catering/anfrage`}
               className="text-xs uppercase tracking-wider px-5 py-2 rounded-full bg-ct-green text-white hover:bg-ct-green/85 transition-all duration-200 font-body font-bold"
             >
               {locale === "de" ? "Anfrage" : "Enquire"}
@@ -122,7 +126,7 @@ export default function CateringHeader() {
                 </Link>
               ))}
               <Link
-                href={`/${locale}/catering/kontakt`}
+                href={`/${locale}/catering/anfrage`}
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 text-xs uppercase tracking-wider px-5 py-2.5 rounded-full border border-ct-green text-ct-cream text-center font-body font-bold"
               >

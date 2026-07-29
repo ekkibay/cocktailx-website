@@ -1,0 +1,193 @@
+{
+  "syncedFrom": "easybill /rest/v1/positions",
+  "currency": "EUR",
+  "amountsIn": "cents",
+  "net": true,
+  "note": "Nur Verkaufspreise. Einkaufspreise stehen in price-catalog.internal.json und sind gitignored.",
+  "positions": [
+    {
+      "number": "10001",
+      "description": "Barequipment pro Barkeeper",
+      "salePrice": 3900,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "10002",
+      "description": "BOH Equipment pro 50 Pax",
+      "salePrice": 6500,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "10003",
+      "description": "Gläserpauschale",
+      "salePrice": 340,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "20001",
+      "description": "Projektleitung",
+      "salePrice": 69000,
+      "unit": "Tagessatz",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "20002",
+      "description": "Servicekraft",
+      "salePrice": 3540,
+      "unit": "Stunde",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "20003",
+      "description": "Barschankkraft",
+      "salePrice": 3840,
+      "unit": "Stunde",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "20004",
+      "description": "Barkeeper",
+      "salePrice": 5400,
+      "unit": "Stunde",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "20005",
+      "description": "Logistiker",
+      "salePrice": 4560,
+      "unit": "Stunde",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "20006",
+      "description": "Logistikleitung",
+      "salePrice": 4920,
+      "unit": "Stunde",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "30001",
+      "description": "Cocktail",
+      "salePrice": 750,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "30002",
+      "description": "Signature Cocktail",
+      "salePrice": 750,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "30003",
+      "description": "Nitro Cocktail",
+      "salePrice": 650,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "30004",
+      "description": "HighBalls",
+      "salePrice": 800,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "30005",
+      "description": "5 Stunden Getränkepauschale Softs | Wasser",
+      "salePrice": 750,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "40001",
+      "description": "One Bites - Fingerfood",
+      "salePrice": 585,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "40002",
+      "description": "Flying Buffet",
+      "salePrice": 4180,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "49380",
+      "description": "Noam Lager Bier 24x0,34l",
+      "salePrice": 3630,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "50186",
+      "description": "Coca Cola 24x0,33l",
+      "salePrice": 2069,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "50213",
+      "description": "Coca Cola Zero 24x0,33l",
+      "salePrice": 2069,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "51605",
+      "description": "Aqua Monaco Blau Perlend 12x0,75l",
+      "salePrice": 1290,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "51606",
+      "description": "Aqua Monaco Rot still 12x0,75l",
+      "salePrice": 1290,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "60006",
+      "description": "Transport",
+      "salePrice": 26000,
+      "unit": "Pauschal",
+      "vatPercent": 19,
+      "tiers": []
+    },
+    {
+      "number": "80133",
+      "description": "Kühlwagen 5x2,5m",
+      "salePrice": 25000,
+      "unit": "1",
+      "vatPercent": 19,
+      "tiers": []
+    }
+  ]
+}

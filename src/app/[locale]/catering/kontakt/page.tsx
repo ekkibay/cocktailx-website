@@ -262,8 +262,8 @@ export default function KontaktPage() {
               <div className="mt-8 pt-6 border-t border-ct-cream/10">
                 <p className="font-body text-xs text-ct-cream/50 leading-relaxed">
                   {locale === "de"
-                    ? "Cocktail X Catering · Bay und Co. GmbH"
-                    : "Cocktail X Catering · Bay und Co. GmbH"}
+                    ? "Cocktail X Eventcatering · Bay und Co. GmbH"
+                    : "Cocktail X Eventcatering · Bay und Co. GmbH"}
                 </p>
               </div>
             </div>

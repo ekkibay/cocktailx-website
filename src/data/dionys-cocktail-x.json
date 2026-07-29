@@ -1,0 +1,704 @@
+{
+  "_about": "Paketmodell Cocktail X Eventcatering, im Dionys-kompatiblen Schema (eventPackages + packagePricings). Preise in EUR netto als Dezimalstring. Kosten- und Margendaten stehen in dionys-cocktail-x.internal.json und sind gitignored.",
+  "_priceBasis": "Alle Kalkulationen auf Basis src/data/price-catalog.json (easybill, Netto, Cent) und der Betriebsannahmen in src/lib/pricing/assumptions.ts. Referenzevent: 4 Stunden, 7 bezahlte Personalstunden, 1 Barkeeper je 75 Gaeste, 1 Barschankkraft je 2 Barkeeper.",
+  "_weekdayConvention": "0=Sonntag, 1=Montag ... 6=Samstag (JS-Konvention, wie bei Dionys)",
+  "packageCategories": [
+    {
+      "categoryKey": "drinks",
+      "categoryName": "Getraenke",
+      "sortOrder": 1
+    },
+    {
+      "categoryKey": "food",
+      "categoryName": "Food",
+      "sortOrder": 2
+    },
+    {
+      "categoryKey": "experience",
+      "categoryName": "Erlebnis",
+      "sortOrder": 3
+    },
+    {
+      "categoryKey": "equipment",
+      "categoryName": "Zusatzleistungen",
+      "sortOrder": 4
+    }
+  ],
+  "eventPackages": [
+    {
+      "key": "bar-essentials",
+      "title": "Bar Essentials",
+      "description": "Kuratierte Cocktailkarte, klassisch geschuettelt. 3 Drinks pro Gast, Glaswerk, Barequipment und das komplette Barteam.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "drinks"
+      ],
+      "price": "36.00",
+      "priceType": "person",
+      "pricingLabel": "from",
+      "minPersons": 20,
+      "maxPersons": 2000,
+      "maxQuantity": 1,
+      "sortOrder": 1,
+      "packagePricings": [
+        {
+          "weekdays": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "price": "36.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        },
+        {
+          "weekdays": [
+            5,
+            6
+          ],
+          "price": "40.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        },
+        {
+          "weekdays": [
+            0
+          ],
+          "price": "41.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        }
+      ],
+      "images": [
+        "/images/catering/ct-barkeeper-station.jpg"
+      ],
+      "imagePosition": "object-[center_35%]",
+      "highlights": [
+        "3 Cocktails pro Gast",
+        "Kuratierte Karte aus 8 Klassikern",
+        "Glaswerk & Barequipment",
+        "Barkeeper und Barschankkraft im Preis"
+      ]
+    },
+    {
+      "key": "bar-nitro",
+      "title": "Bar Nitro High-Volume",
+      "description": "Nitro-Ausgabe fuer hohen Durchsatz. 4 Drinks pro Gast, bis 180 Cocktails pro Stunde und Barkeeper, kuerzeste Wartezeit an der Bar.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "drinks"
+      ],
+      "price": "39.00",
+      "priceType": "person",
+      "pricingLabel": "from",
+      "minPersons": 50,
+      "maxPersons": 3000,
+      "maxQuantity": 1,
+      "sortOrder": 2,
+      "isRecommended": true,
+      "packagePricings": [
+        {
+          "weekdays": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "price": "39.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        },
+        {
+          "weekdays": [
+            5,
+            6
+          ],
+          "price": "43.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        },
+        {
+          "weekdays": [
+            0
+          ],
+          "price": "45.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        }
+      ],
+      "images": [
+        "/images/catering/ct-molecular.jpg"
+      ],
+      "imagePosition": "object-center",
+      "highlights": [
+        "4 Cocktails pro Gast",
+        "Bis 180 Drinks pro Stunde und Barkeeper",
+        "Keine Wartezeit an der Bar",
+        "Die Wahl für Messen und große Bühnen"
+      ]
+    },
+    {
+      "key": "bar-premium",
+      "title": "Bar Premium",
+      "description": "4 Drinks pro Gast, darunter Signature Cocktails aus unserer Entwicklung. Glaswerk, Barequipment und Barteam inklusive.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "drinks"
+      ],
+      "price": "44.00",
+      "priceType": "person",
+      "pricingLabel": "from",
+      "minPersons": 20,
+      "maxPersons": 2000,
+      "maxQuantity": 1,
+      "sortOrder": 3,
+      "packagePricings": [
+        {
+          "weekdays": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "price": "44.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        },
+        {
+          "weekdays": [
+            5,
+            6
+          ],
+          "price": "48.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        },
+        {
+          "weekdays": [
+            0
+          ],
+          "price": "51.00",
+          "priceType": "person",
+          "pricingLabel": "from"
+        }
+      ],
+      "images": [
+        "/images/catering/ct-bartender-pour.jpg"
+      ],
+      "imagePosition": "object-[center_30%]",
+      "highlights": [
+        "4 Cocktails pro Gast",
+        "Signature Drinks aus eigener Entwicklung",
+        "Premium-Spirituosen und frische Garnitur",
+        "Glaswerk, Equipment und Barteam inklusive"
+      ]
+    },
+    {
+      "key": "bar-unlimited",
+      "title": "Bar Unlimited",
+      "description": "Cocktails ohne Limit fuer die gesamte Eventdauer. Kalkuliert mit 6 Drinks pro Gast, abgerechnet als Flatrate.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "drinks"
+      ],
+      "price": "56.00",
+      "priceType": "person",
+      "pricingLabel": "exact",
+      "minPersons": 20,
+      "maxPersons": 1000,
+      "maxQuantity": 1,
+      "sortOrder": 4,
+      "packagePricings": [
+        {
+          "weekdays": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "price": "56.00",
+          "priceType": "person",
+          "pricingLabel": "exact"
+        },
+        {
+          "weekdays": [
+            5,
+            6
+          ],
+          "price": "62.00",
+          "priceType": "person",
+          "pricingLabel": "exact"
+        },
+        {
+          "weekdays": [
+            0
+          ],
+          "price": "64.00",
+          "priceType": "person",
+          "pricingLabel": "exact"
+        }
+      ],
+      "images": [
+        "/images/catering/ct-sommerfest-terrasse.jpg"
+      ],
+      "imagePosition": "object-[center_45%]",
+      "highlights": [
+        "Cocktails ohne Limit über die gesamte Eventdauer",
+        "Volle Kostensicherheit für euer Budget",
+        "Komplette Karte freigeschaltet",
+        "Ideal für lange Abende"
+      ]
+    },
+    {
+      "key": "welcome-drink",
+      "title": "Welcome Drink",
+      "description": "Jeder Gast wird am Eingang mit einem Drink empfangen. Auch einzeln buchbar, etwa vor einem Dinner.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "drinks"
+      ],
+      "price": "8.50",
+      "priceType": "person",
+      "pricingLabel": "exact",
+      "minPersons": 20,
+      "maxPersons": 3000,
+      "maxQuantity": 1,
+      "applyOnce": true,
+      "sortOrder": 5,
+      "packagePricings": [],
+      "images": [
+        "/images/catering/ct-welcome-tablett.jpg"
+      ],
+      "imagePosition": "object-[center_45%]",
+      "highlights": [
+        "Ein Drink pro Gast am Empfang",
+        "Auch vor einem Dinner buchbar",
+        "Alkoholfreie Variante immer dabei"
+      ]
+    },
+    {
+      "key": "softs-flat",
+      "title": "Softdrinks & Wasser Flat",
+      "description": "Wasser, Softdrinks und Kaffee unbegrenzt fuer 5 Stunden. Separat buchbar, weil viele Locations das selbst stellen.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "drinks"
+      ],
+      "price": "11.00",
+      "priceType": "person",
+      "pricingLabel": "exact",
+      "minPersons": 20,
+      "maxPersons": 3000,
+      "maxQuantity": 2,
+      "sortOrder": 6,
+      "packagePricings": [],
+      "images": [
+        "/images/catering/ct-softs-kuehlschrank.jpg"
+      ],
+      "imagePosition": "object-center",
+      "highlights": [
+        "Wasser, Softdrinks und Kaffee unbegrenzt",
+        "Deckt 5 Stunden ab",
+        "Separat buchbar, falls die Location selbst stellt"
+      ]
+    },
+    {
+      "key": "one-bites",
+      "title": "One Bites",
+      "description": "Mundgerechtes Fingerfood, einhaendig zu essen. Passend zu einem Format, bei dem alle stehen und ein Glas halten.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "food"
+      ],
+      "price": "14.00",
+      "priceType": "person",
+      "pricingLabel": "from",
+      "minPersons": 20,
+      "maxPersons": 1000,
+      "minQuantityPercent": 80,
+      "maxQuantity": 1,
+      "sortOrder": 7,
+      "autoBookingTriggerPackageIds": [
+        "service-staff"
+      ],
+      "packagePricings": [],
+      "images": [
+        "/images/catering/ct-table-cocktails.jpg"
+      ],
+      "imagePosition": "object-[center_50%]",
+      "highlights": [
+        "Mundgerecht, einhändig zu essen",
+        "Kein Besteck, kein Teller, kein Sitzplatz nötig",
+        "Wechselnde Auswahl, vegetarisch und vegan dabei",
+        "Passt zu jedem Stehempfang"
+      ]
+    },
+    {
+      "key": "flying-buffet",
+      "title": "Flying Buffet",
+      "description": "Warme und kalte Gaenge, am Gast serviert. Ersetzt eine vollstaendige Mahlzeit.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "food"
+      ],
+      "price": "69.00",
+      "priceType": "person",
+      "pricingLabel": "from",
+      "minPersons": 30,
+      "maxPersons": 500,
+      "minQuantityPercent": 90,
+      "maxQuantity": 1,
+      "sortOrder": 8,
+      "autoBookingTriggerPackageIds": [
+        "service-staff"
+      ],
+      "packagePricings": [],
+      "images": [
+        "/images/catering/ct-event-obvs.jpg"
+      ],
+      "imagePosition": "object-[center_45%]",
+      "highlights": [
+        "Warme und kalte Gänge, am Gast serviert",
+        "Ersetzt eine vollständige Mahlzeit",
+        "Servicekräfte werden automatisch eingeplant"
+      ]
+    },
+    {
+      "key": "masterclass",
+      "title": "Cocktail Masterclass",
+      "description": "Zweieinhalb bis dreieinhalb Stunden an der eigenen Station. Drei Klassiker selbst gemixt, professionell angeleitet, Rezeptkarten zum Mitnehmen.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "experience"
+      ],
+      "price": "99.00",
+      "priceType": "person",
+      "pricingLabel": "from",
+      "minPersons": 15,
+      "maxPersons": 30,
+      "maxQuantity": 1,
+      "prepTime": 90,
+      "followUpTime": 60,
+      "sortOrder": 9,
+      "packagePricings": [
+        {
+          "weekdays": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "price": "99.00",
+          "priceType": "person",
+          "pricingLabel": "from",
+          "minPersons": 15
+        },
+        {
+          "weekdays": [
+            5,
+            6
+          ],
+          "price": "109.00",
+          "priceType": "person",
+          "pricingLabel": "from",
+          "minPersons": 15
+        }
+      ],
+      "images": [
+        "/images/catering/ct-bartender-glasses.jpg"
+      ],
+      "imagePosition": "object-[center_40%]",
+      "highlights": [
+        "Jeder an der eigenen Station",
+        "Drei Klassiker selbst gemixt",
+        "Profi-Barkeeper als Moderator",
+        "Rezeptkarten zum Mitnehmen"
+      ]
+    },
+    {
+      "key": "team-experience",
+      "title": "Team Experience",
+      "description": "Teams treten in einer kreativen Challenge gegeneinander an. Wer kreiert den besten Signature Drink? Mit Voting und Siegerehrung.",
+      "packageCategory": "catering",
+      "subCategories": [
+        "experience"
+      ],
+      "price": "95.00",
+      "priceType": "person",
+      "pricingLabel": "from",
+      "minPersons": 12,
+      "maxPersons": 20,
+      "maxQuantity": 1,
+      "prepTime": 90,
+      "followUpTime": 60,
+      "sortOrder": 10,
+      "packagePricings": [
+        {
+          "weekdays": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "price": "95.00",
+          "priceType": "person",
+          "pricingLabel": "from",
+          "minPersons": 12
+        },
+        {
+          "weekdays": [
+            5,
+            6
+          ],
+          "price": "105.00",
+          "priceType": "person",
+          "pricingLabel": "from",
+          "minPersons": 12
+        }
+      ],
+      "images": [
+        "/images/catering/ct-bar-2.jpg"
+      ],
+      "imagePosition": "object-[center_45%]",
+      "highlights": [
+        "Teams treten gegeneinander an",
+        "Eigener Signature Drink pro Team",
+        "Voting und Siegerehrung",
+        "Entspannter Ausklang an der Bar"
+      ]
+    },
+    {
+      "key": "base-fee",
+      "title": "Anfahrt, Aufbau & Projektleitung",
+      "description": "Transport, Logistikteam, Aufbau und Abbau sowie die Projektleitung vor Ort. Gestaffelt nach Eventgroesse, Anfahrt innerhalb Muenchens enthalten.",
+      "packageCategory": "equipment",
+      "subCategories": [
+        "equipment"
+      ],
+      "price": "780.00",
+      "priceType": "once",
+      "pricingLabel": "exact",
+      "maxQuantity": 1,
+      "autoBooking": true,
+      "autoBookingExcludePackageIds": [
+        "masterclass",
+        "team-experience"
+      ],
+      "sortOrder": 11,
+      "packagePricings": [
+        {
+          "weekdays": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "minPersons": 20,
+          "maxPersons": 149,
+          "price": "780.00",
+          "priceType": "once",
+          "pricingLabel": "exact"
+        },
+        {
+          "weekdays": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "minPersons": 150,
+          "maxPersons": 299,
+          "price": "1620.00",
+          "priceType": "once",
+          "pricingLabel": "exact"
+        },
+        {
+          "weekdays": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "minPersons": 300,
+          "maxPersons": 500,
+          "price": "2180.00",
+          "priceType": "once",
+          "pricingLabel": "exact"
+        },
+        {
+          "weekdays": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "minPersons": 501,
+          "maxPersons": 1000,
+          "price": "2480.00",
+          "priceType": "once",
+          "pricingLabel": "exact"
+        },
+        {
+          "weekdays": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "minPersons": 1001,
+          "maxPersons": 3000,
+          "price": "0.00",
+          "priceType": "once",
+          "pricingLabel": "onRequest"
+        }
+      ],
+      "highlights": [
+        "Transport, Auf- und Abbau",
+        "Logistikteam und Projektleitung vor Ort",
+        "Anfahrt innerhalb Münchens enthalten"
+      ]
+    },
+    {
+      "key": "signature-development",
+      "title": "Signature-Drink-Entwicklung",
+      "description": "Zwei Drinks, die eure Marke ins Glas bringen. Rezeptur, Namensfindung, Tasting und Menuekarten in eurer CI.",
+      "packageCategory": "equipment",
+      "subCategories": [
+        "equipment"
+      ],
+      "price": "1290.00",
+      "priceType": "once",
+      "pricingLabel": "from",
+      "maxQuantity": 1,
+      "isUpsell": true,
+      "upsellTriggerPackageIds": [
+        "bar-premium",
+        "bar-unlimited"
+      ],
+      "sortOrder": 12,
+      "packagePricings": [],
+      "images": [
+        "/images/catering/ct-cocktail-green.jpg"
+      ],
+      "imagePosition": "object-[center_50%]",
+      "highlights": [
+        "Zwei Drinks in eurer Markenwelt",
+        "Rezeptur, Name und Tasting",
+        "Menükarten in eurer CI"
+      ]
+    },
+    {
+      "key": "bar-branding",
+      "title": "Bar-Branding",
+      "description": "Bar, Glaeser, Menuekarten und Garnituren in eurer Markenwelt. Voll white-label, auch fuer Messeauftritte.",
+      "packageCategory": "equipment",
+      "subCategories": [
+        "equipment"
+      ],
+      "price": "890.00",
+      "priceType": "once",
+      "pricingLabel": "from",
+      "maxQuantity": 1,
+      "sortOrder": 13,
+      "packagePricings": [],
+      "images": [
+        "/images/catering/ct-bar-2.jpg"
+      ],
+      "imagePosition": "object-[center_50%]",
+      "highlights": [
+        "Bar, Gläser und Karten in eurem Design",
+        "Voll white-label",
+        "Auch für Messeauftritte"
+      ]
+    },
+    {
+      "key": "service-staff",
+      "title": "Servicekraefte & Hostessen",
+      "description": "Gastgeber, die den Raum lesen. Empfang, Foodausgabe, Garderobe.",
+      "packageCategory": "equipment",
+      "subCategories": [
+        "equipment"
+      ],
+      "price": "49.00",
+      "priceType": "hour",
+      "pricingLabel": "from",
+      "sortOrder": 14,
+      "packagePricings": [],
+      "highlights": [
+        "Empfang, Foodausgabe, Garderobe"
+      ]
+    },
+    {
+      "key": "dj",
+      "title": "DJ",
+      "description": "Kuratiertes Set, abgestimmt auf Anlass und Uhrzeit. Inklusive eigener Technik.",
+      "packageCategory": "equipment",
+      "subCategories": [
+        "equipment"
+      ],
+      "price": "149.00",
+      "priceType": "hour",
+      "pricingLabel": "from",
+      "sortOrder": 15,
+      "packagePricings": [],
+      "highlights": [
+        "Kuratiertes Set",
+        "Eigene Technik inklusive"
+      ]
+    },
+    {
+      "key": "photo-wall",
+      "title": "Photo Wall",
+      "description": "Branded Hintergrund mit Licht, optional mit Sofortdruck.",
+      "packageCategory": "equipment",
+      "subCategories": [
+        "equipment"
+      ],
+      "price": "490.00",
+      "priceType": "once",
+      "pricingLabel": "from",
+      "maxQuantity": 1,
+      "sortOrder": 16,
+      "packagePricings": [],
+      "highlights": [
+        "Branded Hintergrund mit Licht",
+        "Optional mit Sofortdruck"
+      ]
+    },
+    {
+      "key": "media-tech",
+      "title": "Medientechnik & Sound",
+      "description": "Soundanlage, Mikrofonie und Beleuchtung fuer Ansprachen und Programmpunkte.",
+      "packageCategory": "equipment",
+      "subCategories": [
+        "equipment"
+      ],
+      "price": "120.00",
+      "priceType": "once",
+      "pricingLabel": "from",
+      "maxQuantity": 1,
+      "sortOrder": 17,
+      "packagePricings": [],
+      "highlights": [
+        "Sound, Mikrofonie und Licht",
+        "Für Ansprachen und Programmpunkte"
+      ]
+    }
+  ]
+}
