@@ -197,8 +197,29 @@ export function needsReview(quote: Quote): boolean {
   return hasCostData && quote.internal.marginPercent < A.MARGIN_WARN_BELOW;
 }
 
-/** Strips internal cost data — use this for anything that crosses to the client. */
+/**
+ * Baut das Angebot für den Client neu auf. Bewusst als Positivliste statt als
+ * "internal wegwerfen": So kann ein neu hinzugefügtes internes Feld nicht
+ * versehentlich mit hinausgehen, weil es hier explizit fehlen würde.
+ */
 export function publicQuote(quote: Quote): PublicQuote {
-  const { internal: _internal, ...rest } = quote;
-  return { ...rest, items: rest.items.map(({ cost: _cost, ...i }) => i) };
+  return {
+    items: quote.items.map((i) => ({
+      number: i.number,
+      label: i.label,
+      qty: i.qty,
+      unitLabel: i.unitLabel,
+      unitPrice: i.unitPrice,
+      total: i.total,
+      group: i.group,
+    })),
+    net: quote.net,
+    vat: quote.vat,
+    gross: quote.gross,
+    netPerGuest: quote.netPerGuest,
+    drinkDiscount: quote.drinkDiscount,
+    notes: quote.notes,
+    blockers: quote.blockers,
+    staffing: quote.staffing,
+  };
 }

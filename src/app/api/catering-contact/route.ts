@@ -1,13 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import FormData from "form-data";
-import Mailgun from "mailgun.js";
-
-const mailgun = new Mailgun(FormData);
-const mg = mailgun.client({
-  username: "api",
-  key: process.env.MAILGUN_API_KEY!,
-  url: "https://api.eu.mailgun.net", // EU region — change to https://api.mailgun.net if US
-});
+import { MAIL_NOT_CONFIGURED, mailClient } from "@/lib/mailgun";
 
 const eventLabels: Record<string, string> = {
   corporate: "Firmenevent / Produktlaunch",
@@ -28,8 +20,14 @@ export async function POST(req: NextRequest) {
 
     const eventLabel = eventLabels[eventType] || eventType;
 
-    await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
-      from: `Cocktail X Eventcatering Website <noreply@${process.env.MAILGUN_DOMAIN}>`,
+    const mail = mailClient();
+    if (!mail) {
+      console.error("[catering-contact] Mailgun nicht konfiguriert. Anfrage nicht versendet von:", email);
+      return NextResponse.json(MAIL_NOT_CONFIGURED, { status: 503 });
+    }
+
+    await mail.mg.messages.create(mail.domain, {
+      from: `Cocktail X Eventcatering Website <noreply@${mail.domain}>`,
       to: ["info@bayundco.com"],
       "h:Reply-To": email,
       subject: `Catering-Anfrage: ${eventLabel}${company ? ` — ${company}` : ""}`,

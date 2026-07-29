@@ -1,27 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import FormData from "form-data";
-import Mailgun from "mailgun.js";
+import { MAIL_NOT_CONFIGURED, mailClient } from "@/lib/mailgun";
 import {
   calculatePackageQuote,
   packageQuoteNeedsReview,
   parseSelection,
 } from "@/lib/pricing/packageQuote";
-
-/**
- * Der Client wird erst im Handler gebaut, nicht auf Modulebene.
- * Mailgun wirft ohne Key sofort ("Parameter \"key\" is required"), und auf Modulebene
- * scheitert dadurch der Import der ganzen Route: Next liefert dann eine leere 500
- * ohne Log, statt einer Meldung, mit der man etwas anfangen kann.
- */
-function mailClient() {
-  const key = process.env.MAILGUN_API_KEY;
-  const domain = process.env.MAILGUN_DOMAIN;
-  if (!key || !domain) return null;
-  return {
-    mg: new Mailgun(FormData).client({ username: "api", key, url: "https://api.eu.mailgun.net" }),
-    domain,
-  };
-}
 
 const euro = (cents: number) =>
   (cents / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" });
@@ -94,10 +77,7 @@ export async function POST(req: NextRequest) {
     if (!mail) {
       // Die Anfrage darf nicht still verloren gehen, deshalb landet sie im Log.
       console.error("[anfrage] MAILGUN_API_KEY oder MAILGUN_DOMAIN fehlt. Anfrage nicht versendet:\n" + text);
-      return NextResponse.json(
-        { error: "Mailversand ist nicht konfiguriert (MAILGUN_API_KEY / MAILGUN_DOMAIN fehlen)." },
-        { status: 503 },
-      );
+      return NextResponse.json(MAIL_NOT_CONFIGURED, { status: 503 });
     }
 
     await mail.mg.messages.create(mail.domain, {

@@ -1,13 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import FormData from "form-data";
-import Mailgun from "mailgun.js";
-
-const mailgun = new Mailgun(FormData);
-const mg = mailgun.client({
-  username: "api",
-  key: process.env.MAILGUN_API_KEY!,
-  url: "https://api.eu.mailgun.net", // EU region — change to https://api.mailgun.net if US
-});
+import { MAIL_NOT_CONFIGURED, mailClient } from "@/lib/mailgun";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,8 +9,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
-      from: `Cocktail X Website <noreply@${process.env.MAILGUN_DOMAIN}>`,
+    const mail = mailClient();
+    if (!mail) {
+      console.error("[contact] Mailgun nicht konfiguriert. Anfrage nicht versendet von:", email);
+      return NextResponse.json(MAIL_NOT_CONFIGURED, { status: 503 });
+    }
+
+    await mail.mg.messages.create(mail.domain, {
+      from: `Cocktail X Website <noreply@${mail.domain}>`,
       to: ["info@cocktail-x.com"],
       "h:Reply-To": email,
       subject: subject || `Kontaktanfrage von ${name}`,
