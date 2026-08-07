@@ -12,7 +12,6 @@ import {
   EVENT,
   SUMMER_PROOF,
   TIERS,
-  corporateMailto,
   currentTier,
 } from "@/config/pricing";
 
