@@ -4,20 +4,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "next-intl";
 import Link from "next/link";
-import { grantConsent, revokeConsent } from "@/lib/meta-pixel";
-
-const CONSENT_KEY = "meta_pixel_consent";
+import { grantConsent, readConsent, revokeConsent } from "@/lib/meta-pixel";
 
 export default function CookieConsent() {
   const locale = useLocale();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Show banner only if user hasn't made a choice yet
-    const stored = localStorage.getItem(CONSENT_KEY);
-    if (stored === null) {
-      setVisible(true);
-    }
+    // Banner nur zeigen, solange keine Entscheidung gespeichert ist.
+    // grantConsent/revokeConsent schreiben sie, deshalb erscheint es danach nicht wieder.
+    if (readConsent() === null) setVisible(true);
   }, []);
 
   function handleAccept() {

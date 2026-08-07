@@ -45,16 +45,11 @@ export default async function LocaleLayout({
         <AntiFlicker />
       </head>
       <body className="antialiased" style={{ backgroundColor: "#1A120B" }}>
-        {/* Meta Pixel noscript fallback — tracks PageView for users without JS */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1475856023819696&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
+        {/*
+          Kein noscript-Pixel mehr. Der feuerte einen PageView an Meta, bevor
+          irgendeine Einwilligung vorlag, und ohne JavaScript lässt sich eine
+          Einwilligung technisch nicht abfragen. Damit war er nicht zulässig.
+        */}
         <NextIntlClientProvider messages={messages}>
           <MetaPixel />
           <CookieConsent />

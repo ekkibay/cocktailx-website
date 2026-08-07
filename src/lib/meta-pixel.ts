@@ -1,31 +1,66 @@
 /**
- * Meta Pixel helper — typed, centralised.
+ * Meta Pixel helper — typed, centralised, einwilligungsgesteuert.
  *
- * The base pixel (PageView) is loaded via <MetaPixel /> in the root layout.
- * Use `trackEvent()` from anywhere to fire standard or custom events.
+ * Der Pixel lädt ausschließlich nach aktiver Einwilligung. Ohne Einwilligung wird
+ * kein Script nachgeladen und kein Event gesendet, auch kein PageView.
  *
- * TODO: Add cookie consent banner and re-enable consent gating.
+ * Plausible läuft davon unabhängig weiter: cookielos, ohne personenbezogene
+ * Speicherung, deshalb nicht einwilligungspflichtig.
  */
 
 export const META_PIXEL_ID = "1475856023819696";
 
-/* ── Consent helpers ─────────────────────────────────────────────────── */
+/** Einzige Quelle für den gespeicherten Einwilligungsstand. */
+export const CONSENT_KEY = "meta_pixel_consent";
+export type ConsentState = "granted" | "denied" | null;
 
-/**
- * Always returns true for now — no cookie banner implemented yet.
- * Re-enable localStorage check once a consent banner is added.
- */
+/* ── Consent ─────────────────────────────────────────────────────────── */
+
+export function readConsent(): ConsentState {
+  if (typeof window === "undefined") return null;
+  try {
+    const v = window.localStorage.getItem(CONSENT_KEY);
+    return v === "granted" || v === "denied" ? v : null;
+  } catch {
+    // localStorage kann blockiert sein (Private Mode, Policies). Dann gilt:
+    // keine Einwilligung nachweisbar, also kein Tracking.
+    return null;
+  }
+}
+
 export function hasConsent(): boolean {
-  return typeof window !== "undefined";
+  return readConsent() === "granted";
+}
+
+function writeConsent(state: Exclude<ConsentState, null>) {
+  try {
+    window.localStorage.setItem(CONSENT_KEY, state);
+  } catch {
+    /* Speichern nicht möglich: Banner erscheint erneut, getrackt wird trotzdem nicht. */
+  }
 }
 
 export function grantConsent() {
   if (typeof window === "undefined") return;
+  writeConsent("granted");
   loadPixel();
 }
 
 export function revokeConsent() {
-  // TODO: implement when cookie banner is added
+  if (typeof window === "undefined") return;
+  writeConsent("denied");
+  // Bereits geladener Pixel wird stillgelegt und seine Cookies entfernt.
+  pixelLoaded = false;
+  try {
+    delete (window as unknown as Record<string, unknown>).fbq;
+    delete (window as unknown as Record<string, unknown>)._fbq;
+  } catch {
+    /* nicht löschbar, trackEvent() blockt trotzdem über hasConsent() */
+  }
+  for (const name of ["_fbp", "_fbc"]) {
+    document.cookie = `${name}=; Max-Age=0; path=/; domain=.${window.location.hostname.replace(/^www\./, "")}`;
+    document.cookie = `${name}=; Max-Age=0; path=/`;
+  }
 }
 
 /* ── Pixel loader ────────────────────────────────────────────────────── */
@@ -34,6 +69,7 @@ let pixelLoaded = false;
 
 export function loadPixel() {
   if (typeof window === "undefined" || pixelLoaded) return;
+  if (!hasConsent()) return;
 
   /* eslint-disable */
   (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
@@ -51,12 +87,7 @@ export function loadPixel() {
     t.src = v;
     s = b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t, s);
-  })(
-    window,
-    document,
-    "script",
-    "https://connect.facebook.net/en_US/fbevents.js"
-  );
+  })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
   /* eslint-enable */
 
   window.fbq("init", META_PIXEL_ID);
@@ -77,16 +108,11 @@ type StandardEvent =
   | "Search";
 
 /**
- * Fire a Meta Pixel event.
- *
- * @param event   Standard Meta event name
- * @param params  Optional event parameters (value, currency, content_name …)
+ * Fire a Meta Pixel event. Ohne Einwilligung passiert nichts.
  */
-export function trackEvent(
-  event: StandardEvent,
-  params?: Record<string, string | number | boolean>
-) {
+export function trackEvent(event: StandardEvent, params?: Record<string, string | number | boolean>) {
   if (typeof window === "undefined") return;
+  if (!hasConsent()) return;
   if (!window.fbq) return;
 
   if (params) {

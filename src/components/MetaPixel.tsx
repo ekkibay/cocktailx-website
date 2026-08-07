@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { loadPixel, trackEvent } from "@/lib/meta-pixel";
+import { hasConsent, loadPixel, trackEvent } from "@/lib/meta-pixel";
 
 /**
  * Inner component — must live inside <Suspense> because useSearchParams
@@ -11,23 +11,33 @@ import { loadPixel, trackEvent } from "@/lib/meta-pixel";
 function MetaPixelEvents() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [consented, setConsented] = useState(false);
 
-  // Load pixel on mount
+  // Einwilligungsstand lesen und auf die Entscheidung im Banner reagieren.
+  // Vorher wird nichts geladen und nichts gesendet.
   useEffect(() => {
-    loadPixel();
+    const sync = () => setConsented(hasConsent());
+    sync();
+    window.addEventListener("cc:resolved", sync);
+    return () => window.removeEventListener("cc:resolved", sync);
   }, []);
 
-  // Fire PageView on every client-side navigation
   useEffect(() => {
-    trackEvent("PageView");
-  }, [pathname, searchParams]);
+    if (consented) loadPixel();
+  }, [consented]);
+
+  // PageView bei jeder clientseitigen Navigation, aber nur mit Einwilligung.
+  // loadPixel() feuert den ersten PageView selbst, deshalb hier nur die Folgeaufrufe.
+  useEffect(() => {
+    if (consented) trackEvent("PageView");
+  }, [consented, pathname, searchParams]);
 
   return null;
 }
 
 /**
- * Mounts in root layout. Loads the pixel (if consent granted) and
- * fires PageView on every client-side navigation.
+ * Mounts in root layout. Lädt den Pixel nur nach Einwilligung und
+ * feuert PageView bei jeder clientseitigen Navigation.
  */
 export default function MetaPixel() {
   return (
