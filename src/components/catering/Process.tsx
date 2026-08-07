@@ -1,6 +1,6 @@
 "use client";
 
-import { MaskReveal, Reveal, StaggerGroup, StaggerItem } from "./Motion";
+import { MaskReveal, Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Motion";
 
 const steps = [
   {

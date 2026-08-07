@@ -5,6 +5,17 @@ import CheckoutButton from "@/components/onice/CheckoutButton";
 import PriceCountdown from "@/components/onice/PriceCountdown";
 import FaqAccordion from "@/components/onice/FaqAccordion";
 import StickyPass from "@/components/onice/StickyPass";
+import {
+  CountUp,
+  LiftCard,
+  Marquee,
+  ParallaxImage,
+  Reveal,
+  ScrollProgress,
+  StaggerGroup,
+  StaggerItem,
+  WordReveal,
+} from "@/components/ui/Motion";
 import { BAR_SILHOUETTES, CHAPTERS, FAQ, HOW_IT_WORKS, TRAILS, TRAILS_BADGE } from "@/config/onice";
 import {
   BUNDLES,
@@ -33,16 +44,18 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
 
   return (
     <main className="bg-licorice text-bone pb-16 lg:pb-0">
+      <ScrollProgress />
       <StickyPass serverNow={now} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        <Image
-          src="/images/onice/onice-hero.jpg"
-          alt="Barkeeper an der Station, Cocktail X ON ICE"
-          fill
+        {/* Gaeste auf der Strasse, nachts in Muenchen, Drinks in der Hand.
+            Emotion und viele Menschen statt Produktdetail. Das Bild driftet
+            beim Scrollen leicht mit, dadurch wirkt der Einstieg lebendiger. */}
+        <ParallaxImage
+          src="/images/onice/onice-crowd-street.jpg"
+          alt="Gäste mit Drinks auf der Straße in München, Cocktail X ON ICE"
+          objectPosition="object-[center_35%]"
           priority
-          sizes="100vw"
-          className="object-cover object-[center_38%]"
         />
         {/* Zwei Verläufe: einer für die Lesbarkeit unten, einer für das kalte Klima */}
         <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/70 to-licorice/30" />
@@ -59,18 +72,24 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           />
 
           <h1 className="font-display text-[15vw] leading-[0.85] sm:text-7xl md:text-8xl lg:text-[7rem] tracking-[-0.02em] mb-6">
-            <span className="block text-bone">COCKTAIL X</span>
-            <span className="block text-tangerine">ON ICE</span>
+            <span className="block text-bone">
+              <WordReveal text="COCKTAIL X" />
+            </span>
+            <span className="block text-tangerine">
+              <WordReveal text="ON ICE" />
+            </span>
           </h1>
 
-          <p className="font-display text-2xl md:text-4xl text-bone mb-3 leading-tight">
-            {EVENT.nights} Nächte. {EVENT.barsLabel} Bars. Ein Pass.
-          </p>
-          <p className="font-body text-base md:text-lg text-muted mb-9">
-            {EVENT.dateLabel}, {EVENT.city}
-          </p>
+          <Reveal delay={0.35}>
+            <p className="font-display text-2xl md:text-4xl text-bone mb-3 leading-tight">
+              {EVENT.nights} Nächte. {EVENT.barsLabel} Bars. Ein Pass.
+            </p>
+            <p className="font-body text-base md:text-lg text-muted mb-9">
+              {EVENT.dateLabel}, {EVENT.city}
+            </p>
+          </Reveal>
 
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <Reveal delay={0.5} className="flex flex-col sm:flex-row sm:items-center gap-4">
             <CheckoutButton
               href={CHECKOUT.single}
               label={`Pass sichern, ${price} €`}
@@ -79,30 +98,45 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               className="btn-primary text-sm md:text-base"
             />
             <PriceCountdown serverNow={now} className="font-body text-sm text-bone/80" />
-          </div>
+          </Reveal>
+        </div>
+
+        {/* Laufband mit den Anlaessen: gibt dem Hero-Fuss Bewegung, ohne Video */}
+        <div className="relative z-10 border-t border-white/10 bg-licorice/40 backdrop-blur-sm py-3">
+          <Marquee speed={34}>
+            {[...CHAPTERS.map((c) => c.title), ...TRAILS.map((t) => t.title)].map((label, i) => (
+              <span
+                key={`${label}-${i}`}
+                className="flex items-center gap-5 px-5 font-display text-base md:text-lg text-bone/35 whitespace-nowrap uppercase"
+              >
+                {label}
+                <span className="text-tangerine/60 text-xs">✦</span>
+              </span>
+            ))}
+          </Marquee>
         </div>
       </section>
 
       {/* ══ Sommer-Proof ══ */}
       <section className="border-y border-hairline bg-deep/0">
-        <div className="max-w-6xl mx-auto px-5 py-8 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-6 items-start">
-          <div>
+        <StaggerGroup className="max-w-6xl mx-auto px-5 py-8 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-6 items-start">
+          <StaggerItem>
             <p className="font-display text-3xl md:text-4xl text-tangerine leading-none tabular-nums">
-              {SUMMER_PROOF.guests.toLocaleString("de-DE")}
+              <CountUp value={SUMMER_PROOF.guests} />
             </p>
             <p className="font-body text-[11px] uppercase tracking-wider text-muted mt-2">Gäste im Sommer</p>
-          </div>
-          <div>
+          </StaggerItem>
+          <StaggerItem>
             <p className="font-display text-3xl md:text-4xl text-tangerine leading-none tabular-nums">
-              {SUMMER_PROOF.bars}
+              <CountUp value={SUMMER_PROOF.bars} />
             </p>
             <p className="font-body text-[11px] uppercase tracking-wider text-muted mt-2">Bars im Sommer</p>
-          </div>
-          <div className="col-span-2">
+          </StaggerItem>
+          <StaggerItem className="col-span-2">
             <p className="font-body text-[11px] uppercase tracking-wider text-muted mb-2">Gesehen in</p>
             <p className="font-display text-lg md:text-xl text-bone/70">{SUMMER_PROOF.press.join(" · ")}</p>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerGroup>
       </section>
 
       {/* ══ So funktioniert's ══ */}
@@ -138,9 +172,9 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
 
         <div className="space-y-5">
           {CHAPTERS.map((c, i) => (
-            <article
+            <LiftCard
               key={c.key}
-              className={`grid md:grid-cols-2 rounded-2xl overflow-hidden ring-1 ring-hairline ${
+              className={`group grid md:grid-cols-2 rounded-2xl overflow-hidden ring-1 ring-hairline ${
                 i % 2 === 1 ? "md:grid-flow-dense" : ""
               }`}
             >
@@ -150,7 +184,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                   alt={c.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className={`object-cover ${c.imagePosition}`}
+                  className={`object-cover ${c.imagePosition} transition-transform duration-[1100ms] ease-out group-hover:scale-[1.06]`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-licorice/70 to-transparent" />
               </div>
@@ -162,7 +196,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                 <p className="font-display text-lg md:text-xl text-tangerine mb-4">{c.claim}</p>
                 <p className="font-body text-sm md:text-base text-muted leading-relaxed">{c.text}</p>
               </div>
-            </article>
+            </LiftCard>
           ))}
         </div>
       </section>
@@ -184,17 +218,17 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             </span>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StaggerGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {TRAILS.map((t) => (
-              <div
+              <StaggerItem
                 key={t.key}
-                className="rounded-2xl bg-surface ring-1 ring-hairline p-6 flex flex-col min-h-[180px]"
+                className="rounded-2xl bg-surface ring-1 ring-hairline p-6 flex flex-col min-h-[180px] hover:ring-tangerine/40 transition-colors duration-300"
               >
                 <h3 className={`font-display text-xl mb-3 uppercase ${t.accent}`}>{t.title}</h3>
                 <p className="font-body text-sm text-muted leading-relaxed mt-auto">{t.promise}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
         </div>
       </section>
 
@@ -330,25 +364,36 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       <section id="bars" className="border-y border-hairline scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 py-20 md:py-28">
           <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">Bars</p>
-          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-4 max-w-2xl">
-            {EVENT.barsLabel} Bars. <span className="text-muted">Reveal ab {EVENT.barsRevealLabel}.</span>
+          <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-5 max-w-3xl">
+            Über 40 Bars. <span className="text-tangerine">Die erste am {EVENT.barsRevealLabel}.</span>
           </h2>
-          <p className="font-body text-base text-muted leading-relaxed max-w-xl mb-12">
-            Wir veröffentlichen keine Namen, solange die Vereinbarungen nicht unterschrieben sind. Ab dem{" "}
-            {EVENT.barsRevealLabel} kommt täglich eine dazu.
+          <p className="font-body text-base md:text-lg text-muted leading-relaxed max-w-xl mb-3">
+            Von der Hotelbar bis zum Kellerlokal, verteilt über die ganze Stadt. Ab dem{" "}
+            {EVENT.barsRevealLabel} geben wir jeden Tag eine neue bekannt, bis alle stehen.
+          </p>
+          <p className="font-body text-base text-bone/70 leading-relaxed max-w-xl mb-12">
+            Wer den Pass jetzt sichert, zahlt {TIERS.early.price} € und kann ab dem ersten Tag planen.
           </p>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
             {Array.from({ length: BAR_SILHOUETTES }).map((_, i) => (
               <div
                 key={i}
-                className="aspect-[4/3] rounded-xl bg-surface ring-1 ring-hairline flex items-center justify-center"
+                className="aspect-[4/3] rounded-xl bg-surface ring-1 ring-hairline overflow-hidden relative"
                 aria-hidden
               >
-                <span className="font-display text-2xl text-hairline">?</span>
+                {/* Schimmer statt Fragezeichen: wirkt wie etwas, das gleich kommt,
+                    nicht wie eine leere Kachel. Versetzt, damit es lebt. */}
+                <div
+                  className="absolute inset-0 shimmer"
+                  style={{ animationDelay: `${(i % 6) * 0.35}s` }}
+                />
               </div>
             ))}
           </div>
+          <p className="font-body text-sm text-muted mt-5">
+            {BAR_SILHOUETTES} von über 40. Der Rest folgt bis zum Festivalstart.
+          </p>
         </div>
       </section>
 

@@ -12,7 +12,7 @@ import {
   StaggerGroup,
   StaggerItem,
   WordReveal,
-} from "@/components/catering/Motion";
+} from "@/components/ui/Motion";
 import { Occasions } from "@/components/catering/Occasions";
 import { Process } from "@/components/catering/Process";
 import { Faq } from "@/components/catering/Faq";

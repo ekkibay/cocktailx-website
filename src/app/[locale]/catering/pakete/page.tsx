@@ -13,7 +13,7 @@ import {
   StaggerGroup,
   StaggerItem,
   WordReveal,
-} from "@/components/catering/Motion";
+} from "@/components/ui/Motion";
 import {
   PRICE_TYPE_SUFFIX,
   formatEuroExact,

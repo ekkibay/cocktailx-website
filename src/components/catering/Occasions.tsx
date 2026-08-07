@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { DrawLine, MaskReveal, Reveal, useRevealTrigger } from "./Motion";
+import { DrawLine, MaskReveal, Reveal, useRevealTrigger } from "@/components/ui/Motion";
 
 /**
  * Anlaesse statt Leistungen. Der Einkaeufer kommt mit einem Anlass, nicht mit einer

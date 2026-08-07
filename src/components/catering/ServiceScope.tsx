@@ -1,7 +1,7 @@
 "use client";
 
 import { Building2, ClipboardList, MapPin, Martini, UtensilsCrossed, Users } from "lucide-react";
-import { DrawLine, Reveal, StaggerGroup, StaggerItem } from "./Motion";
+import { DrawLine, Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Motion";
 
 /**
  * Der tatsaechliche Leistungsumfang. Full-Service ist die Klammer darueber,

@@ -20,6 +20,10 @@ const SRC_BASE =
   "c:/Users/kerge/OneDrive - Hospitality Circle GmbH/003 bayundco/002 ABTEILUNGEN/030 OPERATIVES GESCHÄFT/031 OPERATIONS/006 EVENTS 2026/05 MAI/13.-30.05.2026 - Cocktail X Festival/Cocktail X FESTIVAL 2026";
 const SRC_PHOTOS = `${SRC_BASE}/CX25 Pictures`;
 const SRC_LOGO = `${SRC_BASE}/CX26 Logo`;
+// Zweite Quelle: Festivaltag-Strecke mit Gaesten. Die CX25-Bilder zeigen fast
+// nur Details und Personal, hier gibt es Gruppen mit Drinks in der Hand.
+const SRC_CROWD =
+  "c:/Users/kerge/OneDrive - Hospitality Circle GmbH/003 bayundco/002 ABTEILUNGEN/020 VERTRIEB UND MARKETING/022 MARKETING PR/001 AUFRÄUMEN/005 MATERIAL/CX FESTIVAL FOTAGE/2024 MATERIAL/PatrickVomBerg_Cocktail_X_Tag_5_Bilder_240428";
 
 /**
  * @param {string} file      Quelldatei
@@ -41,10 +45,26 @@ const PHOTOS = [
   { file: "OBVS X COcktailX-02128.jpg", dest: "onice-bar.jpg", width: 1800, sat: 0.4, coldness: 0.55 },
 ];
 
+/**
+ * Gaeste-Motive: viele Leute, gute Stimmung, Drink im Vordergrund.
+ * Die werden weniger stark entsaettigt als die Detailaufnahmen, weil die
+ * Waerme hier die Emotion traegt und nicht stoert.
+ */
+const CROWD = [
+  // Paar, lachend, Drinks nach vorn gehalten
+  { file: "STUDIO VOM BERG_-1042307.jpg", dest: "onice-crowd-cheers.jpg", width: 2000, sat: 0.92, coldness: 0.24 },
+  // Drei Gaeste stossen an, Glaeser im Vordergrund
+  { file: "STUDIO VOM BERG_-1042310.jpg", dest: "onice-crowd-toast.jpg", width: 2000, sat: 0.92, coldness: 0.24 },
+  // Gruppe drinnen, alle mit Glas, warmes Licht
+  { file: "STUDIO VOM BERG_-1042327.jpg", dest: "onice-crowd-group.jpg", width: 2000, sat: 0.9, coldness: 0.26 },
+  // Gruppe auf der Strasse bei Nacht, Muenchen, Drinks in der Hand
+  { file: "STUDIO VOM BERG_-1042330.jpg", dest: "onice-crowd-street.jpg", width: 2400, sat: 0.9, coldness: 0.28 },
+];
+
 mkdirSync(OUT, { recursive: true });
 
-async function grade({ file, dest, width, sat, coldness }) {
-  const base = sharp(path.join(SRC_PHOTOS, file)).rotate().resize({ width, withoutEnlargement: true });
+async function grade({ file, dest, width, sat, coldness }, srcDir = SRC_PHOTOS) {
+  const base = sharp(path.join(srcDir, file)).rotate().resize({ width, withoutEnlargement: true });
   const { width: w, height: h } = await base.clone().toBuffer({ resolveWithObject: true }).then((r) => r.info);
 
   // Kaltes Overlay im Weich-Licht-Modus: kippt vor allem die Schatten ins Blaue
@@ -70,6 +90,14 @@ async function grade({ file, dest, width, sat, coldness }) {
 for (const p of PHOTOS) {
   try {
     await grade(p);
+  } catch (e) {
+    console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
+  }
+}
+
+for (const p of CROWD) {
+  try {
+    await grade(p, SRC_CROWD);
   } catch (e) {
     console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
   }

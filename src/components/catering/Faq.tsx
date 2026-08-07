@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
-import { MaskReveal, Reveal } from "./Motion";
+import { MaskReveal, Reveal } from "@/components/ui/Motion";
 
 /**
  * Nimmt die Einwaende vorweg, die sonst im Erstgespraech Zeit kosten.

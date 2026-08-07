@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AnfrageWizard } from "@/components/catering/AnfrageWizard";
-import { ScrollProgress } from "@/components/catering/Motion";
+import { ScrollProgress } from "@/components/ui/Motion";
 import { publicPackages } from "@/lib/pricing/packages";
 
 export const metadata: Metadata = {

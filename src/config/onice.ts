@@ -28,8 +28,8 @@ export const CHAPTERS: Chapter[] = [
     dates: "17.–19. November",
     claim: "Die Stadt taut an.",
     text: "Der Auftakt liegt bewusst unter der Woche. Weniger Andrang, mehr Zeit an der Bar, und die Barkeeper haben noch Lust auf ein Gespräch. Wer die Karte in Ruhe durchprobieren will, fängt hier an.",
-    image: "/images/onice/onice-pour.jpg",
-    imagePosition: "object-[center_45%]",
+    image: "/images/onice/onice-crowd-cheers.jpg",
+    imagePosition: "object-[center_35%]",
   },
   {
     key: "city-trails",
@@ -38,7 +38,7 @@ export const CHAPTERS: Chapter[] = [
     dates: "20.–24. November",
     claim: "Vier Viertel. Eine Nacht.",
     text: "Kuratierte Routen aus je drei Bars, die zusammenpassen und zu Fuß erreichbar sind. Du bekommst eine Reihenfolge vorgeschlagen, keine Reservierung. Wo du wirklich hängen bleibst, entscheidest du.",
-    image: "/images/onice/onice-bar.jpg",
+    image: "/images/onice/onice-crowd-group.jpg",
     imagePosition: "object-[center_40%]",
   },
   {
@@ -49,8 +49,8 @@ export const CHAPTERS: Chapter[] = [
     claim: "Wenn der Weihnachtsmarkt schließt, fängt Cocktail X an.",
     // Formulierung ist vorgegeben und darf nicht als Partnerschaft klingen.
     text: "Unsere Bars liegen in Laufweite der Märkte, nach Marktschluss. Du gehst vom Glühwein zwei Ecken weiter und der Abend fängt nochmal von vorn an.",
-    image: "/images/onice/onice-ice.jpg",
-    imagePosition: "object-[center_50%]",
+    image: "/images/onice/onice-crowd-toast.jpg",
+    imagePosition: "object-[center_35%]",
   },
 ];
 

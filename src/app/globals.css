@@ -63,7 +63,10 @@
   --c-surface: 17 24 35; /* #111823  Karten */
   --c-line: 28 40 54; /* #1C2836  Trennlinien */
   --c-text: 232 241 248; /* #E8F1F8  Text, kaltes Weiss */
-  --c-muted: 147 167 184; /* #93A7B8  Sekundaertext */
+  /* Sekundaertext bewusst hell: auf fast schwarzem Grund war der vorherige
+     Wert (#93A7B8) zwar knapp ausreichend, wirkte in der Displayschrift aber
+     ausgewaschen und schwer lesbar. #B7C7D4 liegt bei rund 11:1 Kontrast. */
+  --c-muted: 183 199 212; /* #B7C7D4  Sekundaertext */
   --c-accent: 111 211 238; /* #6FD3EE  Eisblau */
   --c-accent-soft: 62 124 147; /* #3E7C93  gedaempfter Akzent */
 }
@@ -110,6 +113,36 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Schimmer fuer noch nicht enthuellte Inhalte. Reine CSS-Animation, kein JS. */
+  .shimmer {
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      rgb(var(--c-accent) / 0.09) 40%,
+      rgb(var(--c-accent) / 0.16) 50%,
+      rgb(var(--c-accent) / 0.09) 60%,
+      transparent 80%
+    );
+    background-size: 220% 100%;
+    animation: shimmer-sweep 3.2s ease-in-out infinite;
+  }
+
+  @keyframes shimmer-sweep {
+    0% {
+      background-position: 140% 0;
+    }
+    100% {
+      background-position: -40% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shimmer {
+      animation: none;
+      background: rgb(var(--c-accent) / 0.07);
+    }
   }
 }
 
