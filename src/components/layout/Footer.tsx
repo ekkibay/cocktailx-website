@@ -80,34 +80,48 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* EVENTS */}
+          {/* ON ICE — ersetzt die alte Events-Spalte, deren Ziele archiviert sind */}
           <div>
-            <h4 className="font-display text-sm text-tangerine mb-4">
-              {t("events")}
-            </h4>
+            <h4 className="font-display text-sm text-tangerine mb-4">ON ICE &rsquo;26</h4>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href={`/${locale}/festival/bars`}
+                  href={`/${locale}/#pass`}
                   className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
-                  {locale === "de" ? "Alle Bars" : "All Bars"}
+                  {locale === "de" ? "Der Pass" : "The Pass"}
                 </Link>
               </li>
               <li>
                 <Link
-                  href={`/${locale}/festival/events`}
+                  href={`/${locale}/#trails`}
                   className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
-                  {t("grandOpening")}
+                  Trails
                 </Link>
               </li>
               <li>
                 <Link
-                  href={`/${locale}/festival/events`}
+                  href={`/${locale}/#bars`}
                   className="text-sm text-bone/80 hover:text-bone transition-colors"
                 >
-                  {t("closingAwards")}
+                  {locale === "de" ? "Bars" : "Bars"}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`/${locale}/corporate`}
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
+                >
+                  {locale === "de" ? "Team Nights" : "Team Nights"}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`/${locale}/presse`}
+                  className="text-sm text-bone/80 hover:text-bone transition-colors"
+                >
+                  {locale === "de" ? "Presse" : "Press"}
                 </Link>
               </li>
             </ul>

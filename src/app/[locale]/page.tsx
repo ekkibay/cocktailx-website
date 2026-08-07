@@ -4,6 +4,7 @@ import Link from "next/link";
 import CheckoutButton from "@/components/onice/CheckoutButton";
 import PriceCountdown from "@/components/onice/PriceCountdown";
 import FaqAccordion from "@/components/onice/FaqAccordion";
+import StickyPass from "@/components/onice/StickyPass";
 import { BAR_SILHOUETTES, CHAPTERS, FAQ, HOW_IT_WORKS, TRAILS, TRAILS_BADGE } from "@/config/onice";
 import {
   BUNDLES,
@@ -31,7 +32,8 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
   const price = TIERS[tier].price;
 
   return (
-    <main className="bg-licorice text-bone">
+    <main className="bg-licorice text-bone pb-16 lg:pb-0">
+      <StickyPass serverNow={now} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
         <Image
@@ -166,7 +168,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       </section>
 
       {/* ══ Trails ══ */}
-      <section className="border-y border-hairline">
+      <section id="trails" className="border-y border-hairline scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 py-20 md:py-28">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
             <div>
@@ -197,7 +199,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       </section>
 
       {/* ══ Preise ══ */}
-      <section id="pass" className="max-w-6xl mx-auto px-5 py-20 md:py-28">
+      <section id="pass" className="max-w-6xl mx-auto px-5 py-20 md:py-28 scroll-mt-24">
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
           Der Pass
         </p>
@@ -325,7 +327,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       </section>
 
       {/* ══ Bars ══ */}
-      <section className="border-y border-hairline">
+      <section id="bars" className="border-y border-hairline scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 py-20 md:py-28">
           <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">Bars</p>
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-4 max-w-2xl">

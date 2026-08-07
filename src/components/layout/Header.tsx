@@ -6,13 +6,16 @@ import Link from "next/link";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileNav from "./MobileNav";
+import CheckoutButton from "@/components/onice/CheckoutButton";
 import { navLinks } from "@/lib/nav";
+import { CHECKOUT, TIERS, currentTier } from "@/config/pricing";
 
 export default function Header() {
   const locale = useLocale();
   const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const price = TIERS[currentTier()].price;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,11 +34,11 @@ export default function Header() {
             : "bg-transparent"
         }`}
       >
-        {/* Brand switcher strip */}
+        {/* Markenumschalter */}
         <div className="border-b border-bone/[0.06] bg-licorice/30 backdrop-blur-sm">
           <div className="mx-auto max-w-7xl px-4 md:px-8 flex items-center gap-1.5 py-1.5 justify-start">
             <span className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-tangerine/15 text-bone border border-tangerine/30">
-              cocktail ✦ festival
+              cocktail ✦ on ice
             </span>
             <span className="text-bone/20 text-sm">·</span>
             <Link
@@ -53,11 +56,11 @@ export default function Header() {
             className="block"
           >
             <Image
-              src="/images/logo-festival-white.png"
-              alt="Cocktail X Festival"
+              src="/images/onice/logo-onice-white.png"
+              alt="Cocktail X"
               width={160}
-              height={40}
-              className="h-9 md:h-11 w-auto"
+              height={57}
+              className="h-8 md:h-10 w-auto"
               priority
             />
           </Link>
@@ -78,12 +81,15 @@ export default function Header() {
           {/* Desktop right */}
           <div className="hidden lg:flex items-center gap-6">
             <LanguageSwitcher />
-            <Link
-              href={`/${locale}/shop`}
+            {/* Kauf-CTA: Ziel und Preis kommen aus der Preis-Config, damit die
+                Umstellung am 1. November auch hier ohne Deployment greift. */}
+            <CheckoutButton
+              href={CHECKOUT.single}
+              label={`${t("getPassport")}, ${price} €`}
+              value={price}
+              contentName="ON ICE Pass (Header)"
               className="btn-secondary text-xs uppercase tracking-wider"
-            >
-              {t("getPassport")}
-            </Link>
+            />
           </div>
 
           {/* Mobile hamburger */}

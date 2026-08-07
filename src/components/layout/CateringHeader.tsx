@@ -43,7 +43,7 @@ export default function CateringHeader() {
               href={`/${locale}`}
               className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full text-ct-cream/50 hover:text-ct-cream/80 transition-colors"
             >
-              cocktail ✦ festival
+              cocktail ✦ on ice
             </Link>
             <span className="text-ct-cream/20 text-sm">·</span>
             <span className="text-xs font-body font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-ct-green/20 text-ct-cream border border-ct-green/40">

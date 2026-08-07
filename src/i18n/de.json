@@ -7,40 +7,42 @@
     "app": "APP",
     "shop": "SHOP",
     "blog": "BLOG",
-    "getPassport": "TICKET KAUFEN"
+    "getPassport": "PASS SICHERN",
+    "pass": "DER PASS",
+    "trails": "TRAILS",
+    "teams": "FÜR TEAMS"
   },
   "hero": {
-    "title": "cocktail \u2726 festival",
-    "heroHeadline": "DEUTSCHLANDS GR\u00d6SSTES COCKTAIL FESTIVAL",
-    "subtitle": "M\u00dcNCHEN \u00b7 05.\u201322. MAI 2027",
-    "subheadline": "60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail \u2013 nur f\u00fcr das Festival.",
-    "postFestival": "Cocktail X 2026 ist vorbei \u2013 2027 kommt zur\u00fcck",
+    "title": "cocktail ✦ on ice",
+    "heroHeadline": "DEUTSCHLANDS GRÖSSTES COCKTAIL FESTIVAL",
+    "subtitle": "MÜNCHEN · 05.–22. MAI 2027",
+    "subheadline": "60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival.",
+    "postFestival": "Cocktail X 2026 ist vorbei – 2027 kommt zurück",
     "headline2027": "EARLY BIRD 2027",
-    "sub2027": "18 Abende \u00b7 60+ Bars \u00b7 1 Ticket \u2013 dein M\u00fcnchen.",
-    "savingsBadge": "{pct}\u202f% sparen",
-    "scarcity": "Nur noch {count} von {count} Tickets zu {price}\u202f\u20ac",
-    "priceWindow": "Verf\u00fcgbar bis Freitag 24:00 Uhr",
-    "freeCancel": "Kostenlose Stornierung \u2013 passt der Termin nicht, erstatten wir voll zur\u00fcck",
+    "sub2027": "18 Abende · 60+ Bars · 1 Ticket – dein München.",
+    "savingsBadge": "{pct} % sparen",
+    "scarcity": "Nur noch {count} von {count} Tickets zu {price} €",
+    "priceWindow": "Verfügbar bis Freitag 24:00 Uhr",
+    "freeCancel": "Kostenlose Stornierung – passt der Termin nicht, erstatten wir voll zurück",
     "freeCancelShort": "Kostenlose Stornierung",
-    "cta": "Early-Bird-Ticket f\u00fcr 2027 sichern",
+    "cta": "Early-Bird-Ticket für 2027 sichern",
     "newsletterCta": "Noch unsicher? Newsletter abonnieren",
     "shareCta": "Freunden weiterleiten",
-    "trustLine": "60+ Bars \u00b7 Limitierte Fr\u00fchbucher-Tickets \u00b7 Exklusive Erlebnisse",
-
+    "trustLine": "60+ Bars · Limitierte Frühbucher-Tickets · Exklusive Erlebnisse",
     "days": "Tage",
     "hours": "Stunden",
     "minutes": "Minuten",
     "seconds": "Sekunden"
   },
   "about": {
-    "headline": "DEUTSCHLANDS GR\u00d6SSTES COCKTAIL FESTIVAL",
+    "headline": "DEUTSCHLANDS GRÖSSTES COCKTAIL FESTIVAL",
     "bars": "Bars",
     "cocktails": "Cocktails",
     "days": "Tage",
     "passport": "Ticket",
     "expectedGuests": "Gäste",
     "ticketPrice": "Ticketpreis",
-    "description": "Stell dir vor: 18 Tage lang öffnen über 60 der besten Bars Münchens ihre Türen für dich. Jede kreiert einen einzigartigen Signature Cocktail, den es nur während des Festivals gibt \u2013 für nur 6\u20ac statt 12\u201316\u20ac. Ob After-Work mit Freunden, romantische Date Night oder Solo-Entdeckungstour durch Münchens Barszene \u2013 mit einem einzigen Ticket erlebst du die Stadt so, wie du sie noch nie gesehen hast.",
+    "description": "Stell dir vor: 18 Tage lang öffnen über 60 der besten Bars Münchens ihre Türen für dich. Jede kreiert einen einzigartigen Signature Cocktail, den es nur während des Festivals gibt – für nur 6€ statt 12–16€. Ob After-Work mit Freunden, romantische Date Night oder Solo-Entdeckungstour durch Münchens Barszene – mit einem einzigen Ticket erlebst du die Stadt so, wie du sie noch nie gesehen hast.",
     "edition": "Bereits die 4. Ausgabe",
     "visitors": "3.500 Gäste zuletzt",
     "cta": "MEHR ERFAHREN",
@@ -100,7 +102,7 @@
     "lateHint": "Gilt für das gesamte Festival 2027"
   },
   "map": {
-    "headline": "ENTDECKE M\u00dcNCHEN",
+    "headline": "ENTDECKE MÜNCHEN",
     "subtitle": "Alle Bars im Münchner Stadtgebiet. Die meisten in Gehweite zueinander.",
     "cta": "ALLE BARS ENTDECKEN"
   },
@@ -257,9 +259,9 @@
   },
   "founders": {
     "badge": "VERANSTALTER",
-    "headline": "Die K\u00f6pfe hinter Cocktail X",
-    "description": "Ekkehard Bay und Vincent Kerger haben Cocktail X w\u00e4hrend der Pandemie gegr\u00fcndet \u2013 inspiriert von der London Cocktail Week. Zuletzt mit 65 Bars und \u00fcber 3.500 G\u00e4sten \u2013 2027 geht es weiter.",
-    "cta": "MEHR \u00dcBER UNS"
+    "headline": "Die Köpfe hinter Cocktail X",
+    "description": "Ekkehard Bay und Vincent Kerger haben Cocktail X während der Pandemie gegründet – inspiriert von der London Cocktail Week. Zuletzt mit 65 Bars und über 3.500 Gästen – 2027 geht es weiter.",
+    "cta": "MEHR ÜBER UNS"
   },
   "footer": {
     "connect": "Verbinde dich",
@@ -272,15 +274,15 @@
     "closingAwards": "Closing & Awards",
     "app": "App",
     "login": "Login",
-    "aboutUs": "\u00dcber uns",
+    "aboutUs": "Über uns",
     "catering": "Catering",
-    "founder": "Gr\u00fcnder",
+    "founder": "Gründer",
     "contact": "Kontakt",
     "legal": "Rechtliches",
     "privacy": "Datenschutz",
     "cookies": "Cookies",
     "imprint": "Impressum",
     "ageNotice": "Festival ab 18 Jahren",
-    "copyright": "\u00a9 2026 Cocktail X. Alle Rechte vorbehalten."
+    "copyright": "© 2026 Cocktail X. Alle Rechte vorbehalten."
   }
 }

@@ -7,40 +7,42 @@
     "app": "APP",
     "shop": "SHOP",
     "blog": "BLOG",
-    "getPassport": "BUY TICKET"
+    "getPassport": "GET YOUR PASS",
+    "pass": "THE PASS",
+    "trails": "TRAILS",
+    "teams": "FOR TEAMS"
   },
   "hero": {
-    "title": "cocktail \u2726 festival",
-    "heroHeadline": "GERMANY\u2019S BIGGEST COCKTAIL FESTIVAL",
-    "subtitle": "MUNICH \u00b7 MAY 5\u201322, 2027",
-    "subheadline": "60+ Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail \u2014 only for the festival.",
-    "postFestival": "Cocktail X 2026 is over \u2013 2027 is coming back",
+    "title": "cocktail ✦ on ice",
+    "heroHeadline": "GERMANY’S BIGGEST COCKTAIL FESTIVAL",
+    "subtitle": "MUNICH · MAY 5–22, 2027",
+    "subheadline": "60+ Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival.",
+    "postFestival": "Cocktail X 2026 is over – 2027 is coming back",
     "headline2027": "EARLY BIRD 2027",
-    "sub2027": "18 nights \u00b7 60+ bars \u00b7 1 ticket \u2013 your Munich.",
+    "sub2027": "18 nights · 60+ bars · 1 ticket – your Munich.",
     "savingsBadge": "save {pct}%",
-    "scarcity": "Only {count} of {count} tickets left at \u20ac{price}",
+    "scarcity": "Only {count} of {count} tickets left at €{price}",
     "priceWindow": "Available until Friday midnight",
-    "freeCancel": "Free cancellation \u2013 if the date doesn\u2019t work, we refund you in full",
+    "freeCancel": "Free cancellation – if the date doesn’t work, we refund you in full",
     "freeCancelShort": "Free cancellation",
     "cta": "Get your 2027 Early-Bird ticket",
     "newsletterCta": "Not sure yet? Subscribe to the newsletter",
     "shareCta": "Share with friends",
-    "trustLine": "60+ Bars \u00b7 Limited Early-Bird Tickets \u00b7 Exclusive Experiences",
-
+    "trustLine": "60+ Bars · Limited Early-Bird Tickets · Exclusive Experiences",
     "days": "Days",
     "hours": "Hours",
     "minutes": "Minutes",
     "seconds": "Seconds"
   },
   "about": {
-    "headline": "GERMANY\u2019S BIGGEST COCKTAIL FESTIVAL",
+    "headline": "GERMANY’S BIGGEST COCKTAIL FESTIVAL",
     "bars": "Bars",
     "cocktails": "Cocktails",
     "days": "Days",
     "passport": "Ticket",
     "expectedGuests": "Guests",
     "ticketPrice": "Ticket price",
-    "description": "Imagine: for 18 days, over 60 of Munich\u2019s finest bars open their doors just for you. Each one creates a unique signature cocktail available only during the festival \u2013 for just \u20ac6 instead of \u20ac12\u201316. Whether it\u2019s after-work drinks with friends, a romantic date night, or a solo adventure through Munich\u2019s bar scene \u2013 one ticket lets you experience the city like never before.",
+    "description": "Imagine: for 18 days, over 60 of Munich’s finest bars open their doors just for you. Each one creates a unique signature cocktail available only during the festival – for just €6 instead of €12–16. Whether it’s after-work drinks with friends, a romantic date night, or a solo adventure through Munich’s bar scene – one ticket lets you experience the city like never before.",
     "edition": "Now in its 4th edition",
     "visitors": "3,500 guests last edition",
     "cta": "LEARN MORE",
@@ -258,7 +260,7 @@
   "founders": {
     "badge": "ORGANIZERS",
     "headline": "The minds behind Cocktail X",
-    "description": "Ekkehard Bay and Vincent Kerger founded Cocktail X during the pandemic \u2014 inspired by London Cocktail Week. Most recently with 65 bars and over 3,500 guests \u2013 and it returns in 2027.",
+    "description": "Ekkehard Bay and Vincent Kerger founded Cocktail X during the pandemic — inspired by London Cocktail Week. Most recently with 65 bars and over 3,500 guests – and it returns in 2027.",
     "cta": "MORE ABOUT US"
   },
   "footer": {
@@ -281,6 +283,6 @@
     "cookies": "Cookies",
     "imprint": "Imprint",
     "ageNotice": "Festival for ages 18+",
-    "copyright": "\u00a9 2026 Cocktail X. All rights reserved."
+    "copyright": "© 2026 Cocktail X. All rights reserved."
   }
 }

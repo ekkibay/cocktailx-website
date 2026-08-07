@@ -1,7 +1,14 @@
+/**
+ * Navigation COCKTAIL X ON ICE '26.
+ *
+ * Die Sommer-Routen (/festival, /shop) sind archiviert und leiten um, deshalb
+ * stehen sie hier nicht mehr. Ankerpunkte zeigen auf Abschnitte der Startseite,
+ * das haelt die Navigation auf einer Verkaufsseite kurz.
+ */
 export const navLinks = [
-  { key: "festival", href: "/festival" },
-  { key: "events", href: "/festival/events" },
-  { key: "bars", href: "/festival/bars" },
+  { key: "pass", href: "/#pass" },
+  { key: "trails", href: "/#trails" },
+  { key: "bars", href: "/#bars" },
   { key: "app", href: "/app" },
-  { key: "shop", href: "/shop" },
+  { key: "teams", href: "/corporate" },
 ] as const;
