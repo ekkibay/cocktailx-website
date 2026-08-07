@@ -39,12 +39,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   
   return (
-    <html lang={locale} style={{ backgroundColor: "#1A120B" }} suppressHydrationWarning>
+    // Kein hartcodierter Hintergrund mehr: der Grund kommt aus dem Farbklima
+    // (--c-ground in globals.css), damit ON ICE und Catering je ihren eigenen haben.
+    <html lang={locale} className="bg-licorice" suppressHydrationWarning>
       <head>
         <PlausibleProvider src="https://plausible.io/js/pa--lifWsX4RN6e3RueZzv8O.js" />
         <AntiFlicker />
       </head>
-      <body className="antialiased" style={{ backgroundColor: "#1A120B" }}>
+      <body className="antialiased bg-licorice">
         {/*
           Kein noscript-Pixel mehr. Der feuerte einen PageView an Meta, bevor
           irgendeine Einwilligung vorlag, und ohne JavaScript lässt sich eine

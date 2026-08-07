@@ -56,5 +56,8 @@ export default function CateringLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  // Catering ist eine eigene Marke mit eigener, warmer CI. Der Klassenname
+  // haelt hier das alte Farbklima fest, waehrend der Rest der Seite auf
+  // COCKTAIL X ON ICE umgestellt ist. Siehe globals.css.
+  return <div className="legacy-warm">{children}</div>;
 }

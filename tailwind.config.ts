@@ -9,13 +9,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        licorice: "#191513",
-        jambalaya: "#523113",
-        tangerine: "#f39200",
+        /* Klima-gesteuert: zeigen auf die CSS-Variablen aus globals.css.
+           :root ist ON ICE, .legacy-warm haelt das alte Klima fuer Catering.
+           Deshalb hier nichts hartcodieren. */
+        licorice: "rgb(var(--c-ground) / <alpha-value>)",
+        jambalaya: "rgb(var(--c-deep) / <alpha-value>)",
+        tangerine: "rgb(var(--c-accent) / <alpha-value>)",
+        bone: "rgb(var(--c-text) / <alpha-value>)",
+        /* Neue Rollen, die es im Sommer-CI nicht gab */
+        surface: "rgb(var(--c-surface) / <alpha-value>)",
+        hairline: "rgb(var(--c-line) / <alpha-value>)",
+        muted: "rgb(var(--c-muted) / <alpha-value>)",
+        "accent-soft": "rgb(var(--c-accent-soft) / <alpha-value>)",
+        /* Klimafest: Akzente, die in beiden Welten gleich bleiben */
         hibiscus: "#bd256e",
         "bay-of-many": "#223a7b",
         everglade: "#1a4620",
-        bone: "#e4d6c5",
         /* Cocktail X Catering CI */
         "ct-cream": "#F6E6C9",
         "ct-green": "#00674F",

@@ -43,6 +43,43 @@
 }
 
 /* ------------------------------------------------
+   Farbklima
+   ------------------------------------------------
+   Die CI liegt als CSS-Variablen vor, die Tailwind-Tokens zeigen darauf.
+   Dadurch schaltet ein Klassenwechsel die gesamte Seite um, statt dass jede
+   Komponente angefasst werden muss.
+
+   :root ist COCKTAIL X ON ICE: fast schwarzer Grund mit kaltem Blaustich,
+   ein Akzent in Eisblau. Waerme kommt aus den Fotos, nicht aus der UI.
+
+   .legacy-warm haelt das alte warme Klima und liegt ausschliesslich auf dem
+   Catering-Bereich, der eine eigene Marke mit eigener CI ist.
+
+   Werte als RGB-Kanaele, damit Tailwind-Transparenzen (bg-licorice/60) wirken.
+   ------------------------------------------------ */
+:root {
+  --c-ground: 5 7 11; /* #05070B  Seitengrund */
+  --c-deep: 10 15 22; /* #0A0F16  abgesetzte Flaeche */
+  --c-surface: 17 24 35; /* #111823  Karten */
+  --c-line: 28 40 54; /* #1C2836  Trennlinien */
+  --c-text: 232 241 248; /* #E8F1F8  Text, kaltes Weiss */
+  --c-muted: 147 167 184; /* #93A7B8  Sekundaertext */
+  --c-accent: 111 211 238; /* #6FD3EE  Eisblau */
+  --c-accent-soft: 62 124 147; /* #3E7C93  gedaempfter Akzent */
+}
+
+.legacy-warm {
+  --c-ground: 25 21 19; /* #191513 */
+  --c-deep: 82 49 19; /* #523113 */
+  --c-surface: 36 26 16;
+  --c-line: 60 48 36;
+  --c-text: 228 214 197; /* #e4d6c5 */
+  --c-muted: 168 154 137;
+  --c-accent: 243 146 0; /* #f39200 */
+  --c-accent-soft: 227 168 62;
+}
+
+/* ------------------------------------------------
    Base layer
    ------------------------------------------------ */
 @layer base {
@@ -105,7 +142,10 @@
   .btn-primary:hover {
     filter: brightness(1.1);
     transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(227, 168, 62, 0.3), 0 0 80px rgba(227, 168, 62, 0.15);
+    /* Glow folgt dem Akzent des Farbklimas statt einem festen Bernsteinton */
+    box-shadow:
+      0 0 40px rgb(var(--c-accent) / 0.3),
+      0 0 80px rgb(var(--c-accent) / 0.15);
   }
 
   .btn-primary:hover::before {
