@@ -478,11 +478,11 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             </p>
             <div className="relative mt-8 rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[4/5] hidden lg:block">
               <Image
-                src="/images/onice/onice-laugh2.jpg"
-                alt="Zwei Gäste lachen an der Bar"
+                src="/images/onice/onice-smile.jpg"
+                alt="Gast lacht, Drink in der Hand"
                 fill
                 sizes="33vw"
-                className="object-cover object-[center_30%]"
+                className="object-cover object-[center_25%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-licorice/70 to-transparent" />
             </div>

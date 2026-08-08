@@ -75,9 +75,19 @@ const CLOSING = [
   { file: "CocktailX -09007.jpg", dest: "onice-ice-logo.jpg", width: 2000 },
   // Reihe hinterleuchteter Drinks am Tresen: Geschmack und Handwerk
   { file: "CocktailX -09037.jpg", dest: "onice-drinks-row.jpg", width: 1400 },
-  // Paar lacht, warm, nah
-  { file: "CocktailX -09042.jpg", dest: "onice-laugh.jpg", width: 1700 },
-  { file: "CocktailX -09044.jpg", dest: "onice-laugh2.jpg", width: 1400 },
+  // -09042 und -09044 sind raus: dort steht eine Sektflasche im Eiskuebel und
+  // dahinter ein fremd gebrandeter Kuehlschrank. Beides hat mit Cocktail X
+  // nichts zu tun und laesst das Bild nach Sektempfang aussehen.
+  // Zwei Gaeste heben ihre Drinks, Grapefruit im Glas, Blick in die Kamera
+  { file: "CocktailX -09104.jpg", dest: "onice-toast-two.jpg", width: 1700 },
+  // Lachen mit Drink in der Hand vor der blauen Nacht
+  { file: "CocktailX -09133.jpg", dest: "onice-smile.jpg", width: 1400 },
+  // Arm in Arm, beide mit Drink. Miteinander statt Produktaufnahme
+  { file: "CocktailX -09154.jpg", dest: "onice-arm-in-arm.jpg", width: 1700 },
+  // Zwei Gaeste lachen miteinander
+  { file: "CocktailX -09216.jpg", dest: "onice-two-women.jpg", width: 1400 },
+  // Runde am Gelaender, dahinter die Lichter der Stadt. Stadt erkunden.
+  { file: "CocktailX -09202.jpg", dest: "onice-skyline.jpg", width: 1700 },
   // Gaeste im Gespraech, Drinks in der Hand, dahinter die blaue Nachtfront.
   // Warme Gesichter vor kalter Stadt: genau das Klima von ON ICE. Hero.
   { file: "CocktailX -08927.jpg", dest: "onice-talk.jpg", width: 2400 },

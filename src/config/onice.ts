@@ -49,8 +49,8 @@ export const CHAPTERS: Chapter[] = [
     claim: "Wenn der Weihnachtsmarkt schließt, fängt Cocktail X an.",
     // Formulierung ist vorgegeben und darf nicht als Partnerschaft klingen.
     text: "Unsere Bars liegen in Laufweite der Märkte, nach Marktschluss. Du gehst vom Glühwein zwei Ecken weiter und der Abend fängt nochmal von vorn an.",
-    image: "/images/onice/onice-laugh.jpg",
-    imagePosition: "object-[center_30%]",
+    image: "/images/onice/onice-arm-in-arm.jpg",
+    imagePosition: "object-[center_42%]",
   },
 ];
 
