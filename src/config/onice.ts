@@ -1,5 +1,5 @@
 /**
- * COCKTAIL X ON ICE '26 — Inhaltsdaten.
+ * COCKTAIL X ON ICE '26, Inhaltsdaten.
  *
  * Chapters und Trails sind Arbeitsstand und aendern sich noch. Deshalb stehen
  * sie hier und nicht in den Komponenten. Preise liegen getrennt in pricing.ts.
@@ -25,7 +25,7 @@ export const CHAPTERS: Chapter[] = [
     key: "first-frost",
     index: "01",
     title: "First Frost",
-    dates: "17.–19. November",
+    dates: "17. bis 19. November",
     claim: "Die Stadt taut an.",
     text: "Der Auftakt liegt bewusst unter der Woche. Weniger Andrang, mehr Zeit an der Bar, und die Barkeeper haben noch Lust auf ein Gespräch. Wer die Karte in Ruhe durchprobieren will, fängt hier an.",
     image: "/images/onice/onice-crowd-cheers.jpg",
@@ -35,7 +35,7 @@ export const CHAPTERS: Chapter[] = [
     key: "city-trails",
     index: "02",
     title: "City Trails",
-    dates: "20.–24. November",
+    dates: "20. bis 24. November",
     claim: "Vier Viertel. Eine Nacht.",
     text: "Kuratierte Routen aus je drei Bars, die zusammenpassen und zu Fuß erreichbar sind. Du bekommst eine Reihenfolge vorgeschlagen, keine Reservierung. Wo du wirklich hängen bleibst, entscheidest du.",
     image: "/images/onice/onice-crowd-group.jpg",
@@ -45,7 +45,7 @@ export const CHAPTERS: Chapter[] = [
     key: "after-market-hours",
     index: "03",
     title: "After Market Hours",
-    dates: "25.–28. November",
+    dates: "25. bis 28. November",
     claim: "Wenn der Weihnachtsmarkt schließt, fängt Cocktail X an.",
     // Formulierung ist vorgegeben und darf nicht als Partnerschaft klingen.
     text: "Unsere Bars liegen in Laufweite der Märkte, nach Marktschluss. Du gehst vom Glühwein zwei Ecken weiter und der Abend fängt nochmal von vorn an.",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Datenschutz — Cocktail X",
+  title: "Datenschutz, Cocktail X",
   description: "Datenschutzerklärung der bayundco GmbH (Cocktail X), München.",
 };
 
@@ -226,8 +226,8 @@ export default function DatenschutzPage() {
             </h2>
             <p className="mb-4">
               Wir verwenden Cookies und ähnliche Technologien, um unsere Dienste bereitzustellen, zu
-              verbessern und zu personalisieren. Dazu gehören technisch notwendige Cookies sowie — mit
-              Ihrer Einwilligung — Analyse- und Marketing-Cookies.
+              verbessern und zu personalisieren. Dazu gehören technisch notwendige Cookies sowie, mit
+              Ihrer Einwilligung, Analyse- und Marketing-Cookies.
             </p>
             <p>
               Weitere Informationen sowie die Möglichkeit, Ihre Cookie-Einstellungen zu verwalten, finden

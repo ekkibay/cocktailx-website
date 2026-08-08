@@ -60,7 +60,7 @@ export default function UeberUnsPage() {
           <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
             <Image
               src="/images/founders.jpg"
-              alt="Ekkehard Bay & Vincent Kerger — Cocktail X"
+              alt="Ekkehard Bay & Vincent Kerger, Cocktail X"
               fill
               className="object-cover object-top opacity-80"
             />
@@ -93,8 +93,8 @@ export default function UeberUnsPage() {
               },
               {
                 icon: "◉",
-                de: { title: "Verlässlichkeit", text: "Pünktlich, professionell, perfekt vorbereitet. Ihr könnt euch auf uns verlassen — immer." },
-                en: { title: "Reliability", text: "On time, professional, perfectly prepared. You can count on us — always." },
+                de: { title: "Verlässlichkeit", text: "Pünktlich, professionell, perfekt vorbereitet. Ihr könnt euch auf uns verlassen, immer." },
+                en: { title: "Reliability", text: "On time, professional, perfectly prepared. You can count on us, always." },
               },
             ].map((value, i) => (
               <div key={i} className="p-6 rounded-2xl border border-ct-green/15 bg-ct-green/[0.03]">

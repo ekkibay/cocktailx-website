@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { hasConsent, loadPixel, trackEvent } from "@/lib/meta-pixel";
 
 /**
- * Inner component — must live inside <Suspense> because useSearchParams
+ * Inner component, must live inside <Suspense> because useSearchParams
  * requires it in Next.js App Router.
  */
 function MetaPixelEvents() {

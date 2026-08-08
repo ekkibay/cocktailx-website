@@ -41,7 +41,7 @@ export default function EventsTimeline() {
     const short: Intl.DateTimeFormatOptions = { day: "numeric", month: "long" };
     const loc = locale === "de" ? "de-DE" : "en-US";
     if (dateEndStr) {
-      return `${new Date(dateStr).toLocaleDateString(loc, short)} – ${new Date(dateEndStr).toLocaleDateString(loc, opts)}`;
+      return `${new Date(dateStr).toLocaleDateString(loc, short)}, ${new Date(dateEndStr).toLocaleDateString(loc, opts)}`;
     }
     return new Date(dateStr).toLocaleDateString(loc, opts);
   };
@@ -74,7 +74,7 @@ export default function EventsTimeline() {
                   (e.target as HTMLImageElement).src = opening.image;
                 }}
               />
-              {/* Dark gradient overlay — stronger at bottom */}
+              {/* Dark gradient overlay, stronger at bottom */}
               <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-licorice/30 to-transparent" />
             </div>
@@ -98,7 +98,7 @@ export default function EventsTimeline() {
                 {opening.title[locale]}
               </h3>
               <p className="text-base md:text-lg font-body text-tangerine font-bold mb-1">
-                {formatDate(opening.date)} · {opening.time}–{opening.timeEnd} Uhr
+                {formatDate(opening.date)} · {opening.time}-{opening.timeEnd} Uhr
               </p>
               <p className="text-sm font-body text-bone/60 mb-6">
                 📍 {opening.location}

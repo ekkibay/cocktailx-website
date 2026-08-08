@@ -65,7 +65,7 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav — centered absolutely */}
+          {/* Desktop nav, centered absolutely */}
           <nav className="hidden lg:flex items-center gap-6 lg:gap-8 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <Link

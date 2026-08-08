@@ -4,7 +4,9 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import LanguageSwitcher from "./LanguageSwitcher";
+import CheckoutButton from "@/components/onice/CheckoutButton";
 import { navLinks } from "@/lib/nav";
+import { CHECKOUT, TIERS, currentTier } from "@/config/pricing";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -14,6 +16,7 @@ interface MobileNavProps {
 export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const locale = useLocale();
   const t = useTranslations("nav");
+  const price = TIERS[currentTier()].price;
 
   return (
     <AnimatePresence>
@@ -26,9 +29,10 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           transition={{ duration: 0.3 }}
           className="fixed inset-0 z-50 bg-licorice flex flex-col items-center justify-center overflow-hidden"
         >
-          {/* Decorative blurred shapes */}
+          {/* Dekorative Flaechen, beide aus dem Farbklima. Vorher war die zweite
+              hibiscus, also Pink, was gegen das Eisblau lief. */}
           <div className="absolute top-20 -left-20 w-64 h-64 rounded-full bg-tangerine/20 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-32 -right-16 w-48 h-48 bg-hibiscus/20 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-32 -right-16 w-48 h-48 rounded-full bg-accent-soft/25 blur-3xl pointer-events-none" />
 
           {/* Close button */}
           <button
@@ -59,15 +63,20 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
             ))}
           </nav>
 
-          {/* CTA + Language switcher */}
+          {/* CTA und Sprachumschalter.
+              Vorher zeigte der Button auf #tickets, einen Anker, den es auf
+              keiner ON-ICE-Seite gibt: Er schloss das Menue und tat sonst
+              nichts. Bei ueberwiegend mobilem Traffic war das der wichtigste
+              tote Weg der Seite. */}
           <div className="absolute bottom-12 flex flex-col items-center gap-6">
-            <a
-              href="#tickets"
-              onClick={onClose}
+            <CheckoutButton
+              href={CHECKOUT.single}
+              label={`${t("getPassport")}, ${price} €`}
+              value={price}
+              contentName="ON ICE Pass (Mobile Menue)"
               className="btn-primary text-sm uppercase tracking-wider"
-            >
-              {t("getPassport")}
-            </a>
+              onNavigate={onClose}
+            />
             <LanguageSwitcher />
           </div>
         </motion.div>

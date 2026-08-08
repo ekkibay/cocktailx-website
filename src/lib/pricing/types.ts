@@ -2,7 +2,7 @@
  * Shared pricing types.
  *
  * Deliberately free of any catalog import: the client bundle must never contain
- * price-catalog.json, because that file carries cost_price — our purchase prices.
+ * price-catalog.json, because that file carries cost_price, our purchase prices.
  * Client components import from here; only server code imports ./engine.
  */
 
@@ -41,7 +41,7 @@ export interface Staffing {
   staffHours: number;
 }
 
-/** What the browser is allowed to see — no cost or margin data. */
+/** What the browser is allowed to see, no cost or margin data. */
 export interface PublicQuote {
   items: PublicLineItem[];
   net: number;

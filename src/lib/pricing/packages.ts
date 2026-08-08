@@ -84,7 +84,7 @@ export function publicPackages(): PublicPackage[] {
 }
 
 /**
- * Cost in cents for a selection. SERVER ONLY — never expose the result to the client.
+ * Cost in cents for a selection. SERVER ONLY, never expose the result to the client.
  *
  * Die Kosten kommen aus der gitignorierten dionys-cocktail-x.internal.json. Fehlt sie,
  * liefert das 0 und die aufrufende Stelle überspringt die Margenprüfung.

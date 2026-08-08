@@ -47,7 +47,7 @@ export default function FounderPage() {
         >
           <Image
             src="/images/founders.jpg"
-            alt="Ekkehard Bay & Vincent Kerger — Gründer Cocktail X"
+            alt="Ekkehard Bay & Vincent Kerger, Gründer Cocktail X"
             fill
             className="object-cover object-center"
             sizes="(max-width: 768px) 100vw, 768px"
@@ -78,18 +78,18 @@ export default function FounderPage() {
           </p>
           <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed mb-5">
             {locale === "de"
-              ? "Während der Pandemie lag Münchens Gastronomie am Boden. Bars geschlossen, Bartender ohne Bühne, eine ganze Kulturszene im Wartezustand. Genau in dieser Zeit entwickelten Ekkehard Bay und Vincent Kerger eine Idee, die größer war als der Moment: ein Festival, das Münchens Barszene sichtbar macht – für alle."
-              : "During the pandemic, Munich's gastronomy scene was at a standstill. Bars closed, bartenders without a stage, an entire cultural scene on hold. It was precisely in this moment that Ekkehard Bay and Vincent Kerger developed an idea bigger than the crisis: a festival that puts Munich's bar scene in the spotlight — for everyone."}
+              ? "Während der Pandemie lag Münchens Gastronomie am Boden. Bars geschlossen, Bartender ohne Bühne, eine ganze Kulturszene im Wartezustand. Genau in dieser Zeit entwickelten Ekkehard Bay und Vincent Kerger eine Idee, die größer war als der Moment: ein Festival, das Münchens Barszene sichtbar macht, für alle."
+              : "During the pandemic, Munich's gastronomy scene was at a standstill. Bars closed, bartenders without a stage, an entire cultural scene on hold. It was precisely in this moment that Ekkehard Bay and Vincent Kerger developed an idea bigger than the crisis: a festival that puts Munich's bar scene in the spotlight, for everyone."}
           </p>
           <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed mb-5">
             {locale === "de"
-              ? "Die Inspiration kam aus London: Die London Cocktail Week zeigt, wie ein dezentrales Festival-Format funktioniert – Gäste besuchen mit einem einzigen Ticket zahlreiche Bars und entdecken die Stadt neu. Bay und Kerger übertrugen dieses Konzept auf München und schufen etwas Eigenes: ein Festival, bei dem jede Bar einen exklusiven Signature Cocktail kreiert – nur für diese 18 Tage."
-              : "The inspiration came from London: London Cocktail Week demonstrates how a decentralised festival format works — guests visit numerous bars with a single ticket and rediscover the city. Bay and Kerger adapted this concept for Munich and created something of their own: a festival where every bar creates an exclusive signature cocktail — only for these 18 days."}
+              ? "Die Inspiration kam aus London: Die London Cocktail Week zeigt, wie ein dezentrales Festival-Format funktioniert, Gäste besuchen mit einem einzigen Ticket zahlreiche Bars und entdecken die Stadt neu. Bay und Kerger übertrugen dieses Konzept auf München und schufen etwas Eigenes: ein Festival, bei dem jede Bar einen exklusiven Signature Cocktail kreiert, nur für diese 18 Tage."
+              : "The inspiration came from London: London Cocktail Week demonstrates how a decentralised festival format works, guests visit numerous bars with a single ticket and rediscover the city. Bay and Kerger adapted this concept for Munich and created something of their own: a festival where every bar creates an exclusive signature cocktail, only for these 18 days."}
           </p>
           <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed">
             {locale === "de"
-              ? "Im April 2023 öffnete Cocktail X zum ersten Mal seine Türen – mit 32 teilnehmenden Bars und der klaren Vision, Deutschlands größtes Cocktail-Festival zu werden. Heute, in der 4. Ausgabe, sind 60+ Bars dabei und über 5.000 Gäste erwartet."
-              : "In April 2023, Cocktail X opened its doors for the first time — with 32 participating bars and a clear vision to become Germany's largest cocktail festival. Today, in its 4th edition, 60+ bars participate and over 5,000 guests are expected."}
+              ? "Im April 2023 öffnete Cocktail X zum ersten Mal seine Türen, mit 32 teilnehmenden Bars und der klaren Vision, Deutschlands größtes Cocktail-Festival zu werden. Heute, in der 4. Ausgabe, sind 60+ Bars dabei und über 5.000 Gäste erwartet."
+              : "In April 2023, Cocktail X opened its doors for the first time, with 32 participating bars and a clear vision to become Germany's largest cocktail festival. Today, in its 4th edition, 60+ bars participate and over 5,000 guests are expected."}
           </p>
         </motion.div>
 
@@ -107,7 +107,7 @@ export default function FounderPage() {
               <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden relative">
                 <Image
                   src="/images/founder-ekki.jpg"
-                  alt="Ekkehard Bay — Co-Gründer Cocktail X"
+                  alt="Ekkehard Bay, Co-Gründer Cocktail X"
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 250px"
@@ -124,8 +124,8 @@ export default function FounderPage() {
               <div className="text-bone/90 font-body text-base leading-relaxed space-y-4">
                 <p>
                   {locale === "de"
-                    ? "Für Ekkehard Bay war Gastfreundschaft schon immer mehr als ein Beruf — sie ist Haltung, Leidenschaft und Herzenssache. Als preisgekrönter Mixologe und einer der bekannten Köpfe der Münchner Barszene schafft er Orte und Momente, in denen Menschen sich begegnen, wohlfühlen und in Erinnerung bleiben."
-                    : "For Ekkehard Bay, hospitality has always been more than a profession — it is an attitude, a passion, and a matter of the heart. As an award-winning mixologist and one of the well-known figures of Munich's bar scene, he creates places and moments where people connect, feel at ease, and create lasting memories."}
+                    ? "Für Ekkehard Bay war Gastfreundschaft schon immer mehr als ein Beruf, sie ist Haltung, Leidenschaft und Herzenssache. Als preisgekrönter Mixologe und einer der bekannten Köpfe der Münchner Barszene schafft er Orte und Momente, in denen Menschen sich begegnen, wohlfühlen und in Erinnerung bleiben."
+                    : "For Ekkehard Bay, hospitality has always been more than a profession, it is an attitude, a passion, and a matter of the heart. As an award-winning mixologist and one of the well-known figures of Munich's bar scene, he creates places and moments where people connect, feel at ease, and create lasting memories."}
                 </p>
                 <p>
                   {locale === "de"
@@ -134,8 +134,8 @@ export default function FounderPage() {
                 </p>
                 <p>
                   {locale === "de"
-                    ? "Mit Dionys trägt Ekkehard Bay seinen Gedanken von modernem Gastgebertum nun auch ins Digitale. Dabei ist ihm eines immer wichtig geblieben: Menschen mit Offenheit, Wärme und echter Wertschätzung zu begegnen. Am meisten stolz ist er auf die Menschen, die ihn privat tragen und begleiten — seine Freunde und seine Familie."
-                    : "With Dionys, Ekkehard Bay is now bringing his vision of modern hospitality into the digital space. One thing has always remained important to him: meeting people with openness, warmth, and genuine appreciation. What he is most proud of are the people who support and accompany him in his personal life — his friends and his family."}
+                    ? "Mit Dionys trägt Ekkehard Bay seinen Gedanken von modernem Gastgebertum nun auch ins Digitale. Dabei ist ihm eines immer wichtig geblieben: Menschen mit Offenheit, Wärme und echter Wertschätzung zu begegnen. Am meisten stolz ist er auf die Menschen, die ihn privat tragen und begleiten, seine Freunde und seine Familie."
+                    : "With Dionys, Ekkehard Bay is now bringing his vision of modern hospitality into the digital space. One thing has always remained important to him: meeting people with openness, warmth, and genuine appreciation. What he is most proud of are the people who support and accompany him in his personal life, his friends and his family."}
                 </p>
               </div>
             </div>
@@ -155,7 +155,7 @@ export default function FounderPage() {
               <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden relative">
                 <Image
                   src="/images/founder-vincent.jpg"
-                  alt="Vincent Kerger — Co-Gründer Cocktail X"
+                  alt="Vincent Kerger, Co-Gründer Cocktail X"
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 250px"
@@ -172,18 +172,18 @@ export default function FounderPage() {
               <div className="text-bone/90 font-body text-base leading-relaxed space-y-4">
                 <p>
                   {locale === "de"
-                    ? "Vincent Kergers Weg begann hinter der Bar — als Bartender im Andaz München Schwabinger Tor hat er seine Leidenschaft für Gastfreundschaft entdeckt. Das duale Studium in International Hotelmanagement an der SRH Dresden vertiefte diesen Weg und legte das Fundament für alles, was folgte."
-                    : "Vincent Kerger's journey began behind the bar — as a bartender at the Andaz München Schwabinger Tor, he discovered his passion for hospitality. His dual degree in International Hotel Management at SRH Dresden deepened this path and laid the foundation for everything that followed."}
+                    ? "Vincent Kergers Weg begann hinter der Bar, als Bartender im Andaz München Schwabinger Tor hat er seine Leidenschaft für Gastfreundschaft entdeckt. Das duale Studium in International Hotelmanagement an der SRH Dresden vertiefte diesen Weg und legte das Fundament für alles, was folgte."
+                    : "Vincent Kerger's journey began behind the bar, as a bartender at the Andaz München Schwabinger Tor, he discovered his passion for hospitality. His dual degree in International Hotel Management at SRH Dresden deepened this path and laid the foundation for everything that followed."}
                 </p>
                 <p>
                   {locale === "de"
-                    ? "Als die Gründung von bayundco und Cocktail X konkret wurde, merkte er schnell, wie viel Wissen ihm in Steuern und Finanzen fehlte. Also ging er parallel in eine Steuerberatungskanzlei und eignete sich an, was er brauchte — nicht aus der Theorie, sondern aus der Praxis. Dieses Wissen setzt er heute ein, um eine Lücke zu füllen, die er in der Gastronomie immer wieder gesehen hat: solide Strukturen, die kreative Ideen erst tragfähig machen."
-                    : "When the founding of bayundco and Cocktail X became real, he quickly realised how much knowledge he lacked in tax and finance. So he joined a tax consultancy firm in parallel and learned what he needed — not from theory, but from practice. Today he uses that knowledge to fill a gap he kept seeing in hospitality: solid structures that make creative ideas sustainable."}
+                    ? "Als die Gründung von bayundco und Cocktail X konkret wurde, merkte er schnell, wie viel Wissen ihm in Steuern und Finanzen fehlte. Also ging er parallel in eine Steuerberatungskanzlei und eignete sich an, was er brauchte, nicht aus der Theorie, sondern aus der Praxis. Dieses Wissen setzt er heute ein, um eine Lücke zu füllen, die er in der Gastronomie immer wieder gesehen hat: solide Strukturen, die kreative Ideen erst tragfähig machen."
+                    : "When the founding of bayundco and Cocktail X became real, he quickly realised how much knowledge he lacked in tax and finance. So he joined a tax consultancy firm in parallel and learned what he needed, not from theory, but from practice. Today he uses that knowledge to fill a gap he kept seeing in hospitality: solid structures that make creative ideas sustainable."}
                 </p>
                 <p>
                   {locale === "de"
-                    ? "Mit Dionys bringt er diese Erfahrung jetzt ins Digitale — eine KI-Plattform, die Event- und Reservierungsprozesse in der Gastronomie automatisiert. Was ihn antreibt, ist am Ende immer dasselbe: Gastfreundschaft besser machen, für Gäste und für Gastgeber."
-                    : "With Dionys, he is now bringing this experience into the digital space — an AI platform that automates event and reservation processes in hospitality. What drives him is always the same thing: making hospitality better, for guests and for hosts alike."}
+                    ? "Mit Dionys bringt er diese Erfahrung jetzt ins Digitale, eine KI-Plattform, die Event- und Reservierungsprozesse in der Gastronomie automatisiert. Was ihn antreibt, ist am Ende immer dasselbe: Gastfreundschaft besser machen, für Gäste und für Gastgeber."
+                    : "With Dionys, he is now bringing this experience into the digital space, an AI platform that automates event and reservation processes in hospitality. What drives him is always the same thing: making hospitality better, for guests and for hosts alike."}
                 </p>
               </div>
             </div>
@@ -225,8 +225,8 @@ export default function FounderPage() {
               },
               {
                 year: "2026",
-                de: "Vierte Ausgabe: 60+ Bars, 18 Tage, 5.000+ erwartete Gäste. 13.–30. Mai, München.",
-                en: "Fourth edition: 60+ bars, 18 days, 5,000+ expected guests. May 13–30, Munich.",
+                de: "Vierte Ausgabe: 60+ Bars, 18 Tage, 5.000+ erwartete Gäste. 13. bis 30. Mai, München.",
+                en: "Fourth edition: 60+ bars, 18 days, 5,000+ expected guests. May 13 bis 30, Munich.",
                 highlight: true,
               },
             ].map((item) => (

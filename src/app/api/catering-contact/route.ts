@@ -30,9 +30,9 @@ export async function POST(req: NextRequest) {
       from: `Cocktail X Eventcatering Website <noreply@${mail.domain}>`,
       to: ["info@bayundco.com"],
       "h:Reply-To": email,
-      subject: `Catering-Anfrage: ${eventLabel}${company ? ` — ${company}` : ""}`,
+      subject: `Catering-Anfrage: ${eventLabel}${company ? `, ${company}` : ""}`,
       text: [
-        "ANFRAGE – COCKTAIL X EVENTCATERING",
+        "ANFRAGE, COCKTAIL X EVENTCATERING",
         "═".repeat(40),
         "",
         `Name: ${name}`,

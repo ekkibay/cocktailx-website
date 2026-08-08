@@ -67,8 +67,8 @@ export default function LeistungenPage() {
           <RevealDiv delay={250}>
             <p className="font-body text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
               {locale === "de"
-                ? "Von der Masterclass bis zum Großevent — jedes Format individuell, jedes Detail durchdacht."
-                : "From masterclass to large-scale event — every format individual, every detail thought through."}
+                ? "Von der Masterclass bis zum Großevent, jedes Format individuell, jedes Detail durchdacht."
+                : "From masterclass to large-scale event, every format individual, every detail thought through."}
             </p>
           </RevealDiv>
         </div>
@@ -81,7 +81,7 @@ export default function LeistungenPage() {
         </motion.div>
       </section>
 
-      {/* ── WHY US — TRUST BAR ── */}
+      {/* ── WHY US, TRUST BAR ── */}
       <section className="py-10 md:py-14 px-4 bg-licorice">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8">
@@ -114,7 +114,7 @@ export default function LeistungenPage() {
           <div className="grid md:grid-cols-[1fr,320px] gap-8 items-start">
             <div>
               <RevealDiv>
-                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">01 — Masterclass</p>
+                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">01, Masterclass</p>
                 <h2 className="font-display text-3xl md:text-4xl text-licorice mb-2">
                   {locale === "de" ? "Das Team-Erlebnis, das niemand vergisst." : "The Team Experience No One Forgets."}
                 </h2>
@@ -125,8 +125,8 @@ export default function LeistungenPage() {
                 </p>
                 <p className="font-body text-sm text-everglade/65 leading-relaxed mb-6">
                   {locale === "de"
-                    ? "Unsere Masterclasses sind gemacht für Teams, die gemeinsam etwas Neues erleben wollen — ganz ohne Vorkenntnisse. Spaß, Teamgeist und der Moment, wenn der erste selbst gemixter Cocktail schmeckt. Lachen ist garantiert."
-                    : "Our masterclasses are made for teams who want to experience something new together — no prior knowledge required. Fun, team spirit and the moment when your first cocktail actually tastes incredible."}
+                    ? "Unsere Masterclasses sind gemacht für Teams, die gemeinsam etwas Neues erleben wollen, ganz ohne Vorkenntnisse. Spaß, Teamgeist und der Moment, wenn der erste selbst gemixter Cocktail schmeckt. Lachen ist garantiert."
+                    : "Our masterclasses are made for teams who want to experience something new together, no prior knowledge required. Fun, team spirit and the moment when your first cocktail actually tastes incredible."}
                 </p>
               </RevealDiv>
               <RevealDiv delay={100} className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
@@ -149,7 +149,7 @@ export default function LeistungenPage() {
                     <span key={i} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-everglade/5 text-[11px] font-body text-everglade/65"><Check /> {item}</span>
                   ))}
                 </div>
-                <p className="font-body text-xs font-bold text-licorice/70 mb-2">2,5–3,5 Std. · 10–30 Personen · Keine Vorkenntnisse</p>
+                <p className="font-body text-xs font-bold text-licorice/70 mb-2">2,5 bis 3,5 Std. · 10 bis 30 Personen · Keine Vorkenntnisse</p>
                 <SectionCTA locale={locale} />
               </RevealDiv>
             </div>
@@ -175,7 +175,7 @@ export default function LeistungenPage() {
             </RevealDiv>
             <div>
               <RevealDiv>
-                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">02 — Team Experience</p>
+                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">02, Team Experience</p>
                 <h2 className="font-display text-3xl md:text-4xl text-licorice mb-2">
                   {locale === "de" ? "Shaken, nicht gerührt." : "Shaken, Not Stirred."}
                 </h2>
@@ -184,7 +184,7 @@ export default function LeistungenPage() {
                 </p>
                 <p className="font-body text-sm text-everglade/65 leading-relaxed mb-6">
                   {locale === "de"
-                    ? "Unter professioneller Anleitung lernen eure Teilnehmer die Grundlagen der Barkultur — vom richtigen Shaken bis zur perfekten Garnitur. Teams treten in einer kreativen Challenge gegeneinander an: Wer kreiert den besten Signature Drink?"
+                    ? "Unter professioneller Anleitung lernen eure Teilnehmer die Grundlagen der Barkultur, vom richtigen Shaken bis zur perfekten Garnitur. Teams treten in einer kreativen Challenge gegeneinander an: Wer kreiert den besten Signature Drink?"
                     : "Guided by a professional bartender, participants learn bar culture fundamentals. Teams compete in a creative challenge: Who can craft the best signature drink?"}
                 </p>
                 <p className="font-body text-xs font-bold text-licorice/70 mb-2">ca. 3 Stunden · bis 20 Personen</p>
@@ -203,7 +203,7 @@ export default function LeistungenPage() {
           <div className="grid md:grid-cols-[1fr,320px] gap-8 items-start">
             <div>
               <RevealDiv>
-                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">03 — Cocktail X x Your Brand</p>
+                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">03, Cocktail X x Your Brand</p>
                 <h2 className="font-display text-3xl md:text-4xl text-licorice mb-2">
                   {locale === "de" ? "Euer Event. Unsere Bar. Ein gemeinsames Statement." : "Your Event. Our Bar. One Shared Statement."}
                 </h2>
@@ -277,7 +277,7 @@ export default function LeistungenPage() {
             </RevealDiv>
             <div>
               <RevealDiv>
-                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">04 — Pop-Up Eventreihe</p>
+                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">04, Pop-Up Eventreihe</p>
                 <h2 className="font-display text-3xl md:text-4xl text-licorice mb-2">
                   {locale === "de" ? "Drinks. Beats. Atmosphäre." : "Drinks. Beats. Atmosphere."}
                 </h2>
@@ -298,7 +298,7 @@ export default function LeistungenPage() {
                 ))}
               </RevealDiv>
               <RevealDiv delay={150}>
-                <p className="font-body text-xs font-bold text-licorice/70 mb-2">4–5 Std. · 80–300 Personen · Quartalsweise</p>
+                <p className="font-body text-xs font-bold text-licorice/70 mb-2">4 bis 5 Std. · 80 bis 300 Personen · Quartalsweise</p>
                 <SectionCTA locale={locale} label={locale === "de" ? "Partner werden" : "Become a Partner"} />
               </RevealDiv>
             </div>
@@ -314,18 +314,18 @@ export default function LeistungenPage() {
           <div className="grid md:grid-cols-[1fr,320px] gap-8 items-start">
             <div>
               <RevealDiv>
-                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">05 — Event Catering</p>
+                <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-ct-red mb-3">05, Event Catering</p>
                 <h2 className="font-display text-3xl md:text-4xl text-licorice mb-2">
                   {locale === "de" ? "Für Anlässe, die nach mehr schmecken." : "For Occasions That Deserve More."}
                 </h2>
                 <p className="font-body text-base text-everglade/75 italic mb-5">
-                  {locale === "de" ? "Von 20 bis 3.000 Gäste — wir liefern nicht nur Drinks, wir liefern den richtigen Vibe." : "From 20 to 3,000 guests — we don't just deliver drinks, we deliver the right vibe."}
+                  {locale === "de" ? "Von 20 bis 3.000 Gäste, wir liefern nicht nur Drinks, wir liefern den richtigen Vibe." : "From 20 to 3,000 guests, we don't just deliver drinks, we deliver the right vibe."}
                 </p>
               </RevealDiv>
               <RevealDiv delay={100} className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                 {(locale === "de"
-                  ? [{ t: "Corporate Events", s: "bis 3.000 Pers." }, { t: "Messe-Events", s: "Hoher Durchlauf" }, { t: "Productlaunches", s: "Drink = Produktstory" }, { t: "Store Caterings", s: "Nahtlos im Design" }, { t: "Afterwork", s: "20–150 Pers." }, { t: "Networking", s: "Bar als Brücke" }]
-                  : [{ t: "Corporate Events", s: "up to 3,000" }, { t: "Trade Fair Events", s: "High throughput" }, { t: "Product Launches", s: "Drink = product story" }, { t: "Store Caterings", s: "Seamless design" }, { t: "Afterwork", s: "20–150 people" }, { t: "Networking", s: "Bar as bridge" }]
+                  ? [{ t: "Corporate Events", s: "bis 3.000 Pers." }, { t: "Messe-Events", s: "Hoher Durchlauf" }, { t: "Productlaunches", s: "Drink = Produktstory" }, { t: "Store Caterings", s: "Nahtlos im Design" }, { t: "Afterwork", s: "20 bis 150 Pers." }, { t: "Networking", s: "Bar als Brücke" }]
+                  : [{ t: "Corporate Events", s: "up to 3,000" }, { t: "Trade Fair Events", s: "High throughput" }, { t: "Product Launches", s: "Drink = product story" }, { t: "Store Caterings", s: "Seamless design" }, { t: "Afterwork", s: "20 bis 150 people" }, { t: "Networking", s: "Bar as bridge" }]
                 ).map((sub, i) => (
                   <div key={i} className="p-3 rounded-xl bg-white/60 border border-everglade/8">
                     <h4 className="font-display text-xs text-licorice mb-0.5">{sub.t}</h4>

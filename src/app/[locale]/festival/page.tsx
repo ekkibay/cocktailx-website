@@ -44,9 +44,9 @@ function FestivalBarCard({ bar }: { bar: Bar }) {
 
 /* ── History stats ── */
 const history = [
-  { year: "2023", bars: 32, visitors: "1.400", cocktails: "—", days: 5 },
-  { year: "2024", bars: 42, visitors: "1.200", cocktails: "—", days: 5 },
-  { year: "2025", bars: 45, visitors: "2.500", cocktails: "—", days: 12 },
+  { year: "2023", bars: 32, visitors: "1.400", cocktails: "-", days: 5 },
+  { year: "2024", bars: 42, visitors: "1.200", cocktails: "-", days: 5 },
+  { year: "2025", bars: 45, visitors: "2.500", cocktails: "-", days: 12 },
 ];
 
 /* ── Key facts ── */
@@ -93,7 +93,7 @@ export default function FestivalPage() {
         {/* BG image */}
         <Image
           src="/images/festival-hero-obvs.jpg"
-          alt="Premium Cocktails — Cocktail X Festival München"
+          alt="Premium Cocktails, Cocktail X Festival München"
           fill
           priority
           className="object-cover"
@@ -102,7 +102,7 @@ export default function FestivalPage() {
 
         <div className="relative z-10 px-4 py-32">
           <span className="text-[11px] font-body font-bold text-tangerine uppercase tracking-[0.2em] mb-4 block">
-            05.–22. Mai 2027 · München
+            05. bis 22. Mai 2027 · München
           </span>
           <BlurText
             text={locale === "de" ? "DAS FESTIVAL" : "THE FESTIVAL"}
@@ -114,8 +114,8 @@ export default function FestivalPage() {
           <div ref={heroText.ref} style={heroText.style}>
             <p className="text-base md:text-lg font-body text-bone/85 max-w-xl mx-auto mb-8">
               {locale === "de"
-                ? "60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival."
-                : "60+ Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail — only for the festival."}
+                ? "60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail, nur für das Festival."
+                : "60+ Bars. 18 Days. 1 Ticket. Each bar creates an exclusive signature cocktail, only for the festival."}
             </p>
             <a
               href="https://cocktailx.app/"
@@ -165,8 +165,8 @@ export default function FestivalPage() {
           />
           <p className="text-sm font-body text-bone/65 text-center mb-12 max-w-lg mx-auto">
             {locale === "de"
-              ? "Jede Bar kreiert einen exklusiven Signature Cocktail — nur während des Festivals für 6€ erhältlich."
-              : "Each bar creates an exclusive signature cocktail — available only during the festival for €6."}
+              ? "Jede Bar kreiert einen exklusiven Signature Cocktail, nur während des Festivals für 6€ erhältlich."
+              : "Each bar creates an exclusive signature cocktail, available only during the festival for €6."}
           </p>
 
           <div ref={barsReveal.ref} style={barsReveal.style} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -245,7 +245,7 @@ export default function FestivalPage() {
       </section>
 
       {/* ╔══════════════════════════════════════╗
-          ║  5. HISTORY — 3-Jahres-Wachstum       ║
+          ║  5. HISTORY, 3-Jahres-Wachstum       ║
           ╚══════════════════════════════════════╝ */}
       <section className="py-16 md:py-24 px-4" id="history">
         <div className="max-w-5xl mx-auto">
@@ -258,8 +258,8 @@ export default function FestivalPage() {
           />
           <p className="text-sm font-body text-bone/65 text-center mb-12 max-w-md mx-auto">
             {locale === "de"
-              ? "Von der Idee zum größten Cocktail-Festival Deutschlands — in nur 3 Jahren."
-              : "From idea to Germany's biggest cocktail festival — in just 3 years."}
+              ? "Von der Idee zum größten Cocktail-Festival Deutschlands, in nur 3 Jahren."
+              : "From idea to Germany's biggest cocktail festival, in just 3 years."}
           </p>
 
           <div ref={historyReveal.ref} style={historyReveal.style} className="grid grid-cols-3 gap-4 md:gap-8">
@@ -321,7 +321,7 @@ export default function FestivalPage() {
                 ))}
             </div>
 
-            {/* Press — bekannt aus */}
+            {/* Press, bekannt aus */}
             <p className="text-[11px] font-body text-bone/55 uppercase tracking-[0.15em] text-center mb-6">
               {locale === "de" ? "Bekannt aus" : "As seen in"}
             </p>
@@ -370,7 +370,7 @@ export default function FestivalPage() {
                 num_items: 1,
               })}
             >
-              {locale === "de" ? `TICKET KAUFEN — AB ${TICKET_TIERS.cheapest}€` : `BUY TICKET — FROM €${TICKET_TIERS.cheapest}`}
+              {locale === "de" ? `TICKET KAUFEN, AB ${TICKET_TIERS.cheapest}€` : `BUY TICKET, FROM €${TICKET_TIERS.cheapest}`}
             </a>
             <Link href={`/${locale}/app`} className="btn-secondary text-base px-8 py-4 text-center">
               {locale === "de" ? "ZUR APP" : "OPEN APP"}

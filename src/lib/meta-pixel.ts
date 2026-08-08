@@ -1,5 +1,5 @@
 /**
- * Meta Pixel helper — typed, centralised, einwilligungsgesteuert.
+ * Meta Pixel helper, typed, centralised, einwilligungsgesteuert.
  *
  * Der Pixel lädt ausschließlich nach aktiver Einwilligung. Ohne Einwilligung wird
  * kein Script nachgeladen und kein Event gesendet, auch kein PageView.

@@ -1,5 +1,6 @@
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import { CHECKOUT } from "@/config/pricing";
 
 const socialLinks = [
   {
@@ -39,9 +40,12 @@ export default function Footer() {
               {t("connect")}
             </h4>
             <ul className="space-y-2">
+              {/* Ziele geprueft: /sponsor und /bar lieferten nur die leere App-Huelle,
+                  /guest war ein 404. Die echten Registrierungen liegen unter
+                  /de/auth/signup-*, Gaeste kaufen direkt ueber die Ticketseite. */}
               <li>
                 <a
-                  href="https://cocktailx.app/sponsor"
+                  href="https://cocktailx.app/de/auth/signup-sponsor"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-bone/80 hover:text-bone transition-colors"
@@ -51,7 +55,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://cocktailx.app/bar"
+                  href="https://cocktailx.app/de/auth/signup-bar"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-bone/80 hover:text-bone transition-colors"
@@ -61,7 +65,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://cocktailx.app/guest"
+                  href={CHECKOUT.single}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-bone/80 hover:text-bone transition-colors"
@@ -80,7 +84,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ON ICE — ersetzt die alte Events-Spalte, deren Ziele archiviert sind */}
+          {/* ON ICE, ersetzt die alte Events-Spalte, deren Ziele archiviert sind */}
           <div>
             <h4 className="font-display text-sm text-tangerine mb-4">ON ICE &rsquo;26</h4>
             <ul className="space-y-2">

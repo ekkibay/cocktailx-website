@@ -27,8 +27,8 @@ export default function ProduktePage() {
           className="text-center text-sm md:text-base font-body text-bone/65 mb-16 max-w-lg mx-auto"
         >
           {locale === "de"
-            ? "Jede teilnehmende Bar kreiert einen exklusiven Signature Cocktail — nur während des Festivals erhältlich."
-            : "Each participating bar creates an exclusive signature cocktail — only available during the festival."}
+            ? "Jede teilnehmende Bar kreiert einen exklusiven Signature Cocktail, nur während des Festivals erhältlich."
+            : "Each participating bar creates an exclusive signature cocktail, only available during the festival."}
         </p>
 
         {/* Cocktails Grid */}
@@ -95,7 +95,7 @@ export default function ProduktePage() {
 
               {/* Content */}
               <div className="p-5 md:p-6">
-                {/* Bar name — small label */}
+                {/* Bar name, small label */}
                 <p
                   className="text-[11px] font-body font-bold uppercase tracking-[0.12em] mb-2"
                   style={{ color: cocktail.accentColor }}

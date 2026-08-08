@@ -174,7 +174,7 @@ export default function About() {
           <AnimatedCounter target={3500} suffix="+" label={t("expectedGuests")} />
         </div>
 
-        {/* For Whom — integrated */}
+        {/* For Whom, integrated */}
         <div className="mt-10 pt-10 border-t border-bone/10">
           <h3 className="text-2xl md:text-3xl font-display text-bone text-center mb-3">
             {fw("headline")}

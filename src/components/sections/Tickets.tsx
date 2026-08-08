@@ -23,7 +23,7 @@ const featureIcons = [
   <svg key="events" className="w-5 h-5 text-tangerine" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" /></svg>,
 ];
 
-// ── Savings Calculator (inline) — 2027 Early-Bird logic ───────────────────
+// ── Savings Calculator (inline), 2027 Early-Bird logic ───────────────────
 
 function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
   const [count, setCount] = useState(5);
@@ -97,8 +97,8 @@ function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
         <div className="rounded-xl border border-emerald-400/30 bg-emerald-400/[0.08] p-4 mb-3">
           <p className="text-sm font-body font-bold text-emerald-300 text-center mb-3">
             {locale === "de"
-              ? `Du sparst ${savings} € — Ticket lohnt sich.`
-              : `You save €${savings} — the ticket pays off.`}
+              ? `Du sparst ${savings} €, Ticket lohnt sich.`
+              : `You save €${savings}, the ticket pays off.`}
           </p>
           <a
             href={`/${locale}/shop#passport`}
@@ -111,16 +111,16 @@ function SavingsCalculator({ locale }: { locale: "de" | "en" }) {
         <div className="rounded-xl border border-hibiscus/30 bg-hibiscus/[0.08] p-4 mb-3">
           <p className="text-sm font-body text-bone/85 text-center">
             {locale === "de"
-              ? `Lohnt sich schon ab wenigen Drinks — ein Cocktail in einer Top-Bar kostet sonst ${NORMAL_PRICE}–16 €.`
-              : `Pays off after just a few drinks — a cocktail in a top bar usually costs €${NORMAL_PRICE}–16.`}
+              ? `Lohnt sich schon ab wenigen Drinks, ein Cocktail in einer Top-Bar kostet sonst ${NORMAL_PRICE}-16 €.`
+              : `Pays off after just a few drinks, a cocktail in a top bar usually costs €${NORMAL_PRICE}-16.`}
           </p>
         </div>
       )}
 
       <p className="text-xs font-body text-bone/60 text-center">
         {locale === "de"
-          ? `Ab ${breakEven} Cocktails lohnt sich das Ticket — du bist bei ${count}.`
-          : `The ticket pays off after ${breakEven} cocktails — you're at ${count}.`}
+          ? `Ab ${breakEven} Cocktails lohnt sich das Ticket, du bist bei ${count}.`
+          : `The ticket pays off after ${breakEven} cocktails, you're at ${count}.`}
       </p>
     </div>
   );
@@ -141,7 +141,7 @@ export default function Tickets() {
 
   return (
     <section id="tickets" className="py-14 md:py-16 bg-licorice relative scroll-mt-24">
-      {/* CI background — same as Hero */}
+      {/* CI background, same as Hero */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
         <div style={{ position:"absolute", inset:0, backgroundImage:"url(/images/pattern-bg.svg)", backgroundSize:"200px 200px", backgroundRepeat:"repeat", opacity:0.45 }} />
         <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(26,18,11,0.4) 0%, rgba(26,18,11,0.15) 30%, rgba(26,18,11,0.15) 70%, rgba(26,18,11,0.5) 100%)" }} />
@@ -162,7 +162,7 @@ export default function Tickets() {
           {t("subtitle", { count: EARLY_BIRD_CONTINGENT, price: EARLY_BIRD_PRICE, anchor: ANCHOR_PRICE })}
         </p>
 
-        {/* Honest scarcity badge — fixed contingent, no fake countdown */}
+        {/* Honest scarcity badge, fixed contingent, no fake countdown */}
         <div className="flex justify-center mb-8">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-tangerine/40 bg-tangerine/5 text-xs font-body font-bold uppercase tracking-[0.15em] text-tangerine text-center">
             <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -176,11 +176,10 @@ export default function Tickets() {
         <figure className="max-w-2xl mx-auto mb-10 text-center">
           <blockquote className="text-base md:text-lg font-body text-bone/85 italic leading-relaxed">
             &ldquo;{locale === "de"
-              ? "Ein Ticket, 18 Tage, über 60 Bars – und überall Signature Cocktails für 6€. So lernt man München kennen."
-              : "One ticket, 18 days, 60+ bars – signature cocktails for €6 everywhere. This is how you experience Munich."}&rdquo;
+              ? "Ein Ticket, 18 Tage, über 60 Bars, und überall Signature Cocktails für 6€. So lernt man München kennen."
+              : "One ticket, 18 days, 60+ bars, signature cocktails for €6 everywhere. This is how you experience Munich."}&rdquo;
           </blockquote>
-          <figcaption className="mt-2 text-xs font-body font-bold text-tangerine tracking-wider uppercase">
-            — Marco, 31
+          <figcaption className="mt-2 text-xs font-body font-bold text-tangerine tracking-wider uppercase">, Marco, 31
           </figcaption>
         </figure>
 
@@ -263,7 +262,7 @@ export default function Tickets() {
           </div>
         </div>
 
-        {/* ── Mini-FAQ — top 3 conversion blockers ── */}
+        {/* ── Mini-FAQ, top 3 conversion blockers ── */}
         <div className="mt-12 max-w-3xl mx-auto">
           <div className="grid md:grid-cols-3 gap-3">
             {[
@@ -276,8 +275,8 @@ export default function Tickets() {
               {
                 q: locale === "de" ? "Wann findet das Festival statt?" : "When is the festival?",
                 a: locale === "de"
-                  ? "Cocktail X 2027 läuft vom 05.–22. Mai 2027. Passt der Termin nicht, stornierst du kostenlos – volle Rückerstattung."
-                  : "Cocktail X 2027 runs May 5–22, 2027. If it doesn't suit you, cancel for free – full refund.",
+                  ? "Cocktail X 2027 läuft vom 05. bis 22. Mai 2027. Passt der Termin nicht, stornierst du kostenlos, volle Rückerstattung."
+                  : "Cocktail X 2027 runs May 5 bis 22, 2027. If it doesn't suit you, cancel for free, full refund.",
               },
               {
                 q: locale === "de" ? "Muss ich alle Bars besuchen?" : "Do I have to visit every bar?",

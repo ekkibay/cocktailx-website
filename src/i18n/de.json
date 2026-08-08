@@ -15,15 +15,15 @@
   "hero": {
     "title": "cocktail ✦ on ice",
     "heroHeadline": "DEUTSCHLANDS GRÖSSTES COCKTAIL FESTIVAL",
-    "subtitle": "MÜNCHEN · 05.–22. MAI 2027",
-    "subheadline": "60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail – nur für das Festival.",
-    "postFestival": "Cocktail X 2026 ist vorbei – 2027 kommt zurück",
+    "subtitle": "MÜNCHEN · 05. bis 22. MAI 2027",
+    "subheadline": "60+ Bars. 18 Tage. 1 Ticket. Jede Bar kreiert einen exklusiven Signature Cocktail, nur für das Festival.",
+    "postFestival": "Cocktail X 2026 ist vorbei, 2027 kommt zurück",
     "headline2027": "EARLY BIRD 2027",
-    "sub2027": "18 Abende · 60+ Bars · 1 Ticket – dein München.",
+    "sub2027": "18 Abende · 60+ Bars · 1 Ticket, dein München.",
     "savingsBadge": "{pct} % sparen",
     "scarcity": "Nur noch {count} von {count} Tickets zu {price} €",
     "priceWindow": "Verfügbar bis Freitag 24:00 Uhr",
-    "freeCancel": "Kostenlose Stornierung – passt der Termin nicht, erstatten wir voll zurück",
+    "freeCancel": "Kostenlose Stornierung, passt der Termin nicht, erstatten wir voll zurück",
     "freeCancelShort": "Kostenlose Stornierung",
     "cta": "Early-Bird-Ticket für 2027 sichern",
     "newsletterCta": "Noch unsicher? Newsletter abonnieren",
@@ -42,7 +42,7 @@
     "passport": "Ticket",
     "expectedGuests": "Gäste",
     "ticketPrice": "Ticketpreis",
-    "description": "Stell dir vor: 18 Tage lang öffnen über 60 der besten Bars Münchens ihre Türen für dich. Jede kreiert einen einzigartigen Signature Cocktail, den es nur während des Festivals gibt – für nur 6€ statt 12–16€. Ob After-Work mit Freunden, romantische Date Night oder Solo-Entdeckungstour durch Münchens Barszene – mit einem einzigen Ticket erlebst du die Stadt so, wie du sie noch nie gesehen hast.",
+    "description": "Stell dir vor: 18 Tage lang öffnen über 60 der besten Bars Münchens ihre Türen für dich. Jede kreiert einen einzigartigen Signature Cocktail, den es nur während des Festivals gibt, für nur 6€ statt 12 bis 16€. Ob After-Work mit Freunden, romantische Date Night oder Solo-Entdeckungstour durch Münchens Barszene, mit einem einzigen Ticket erlebst du die Stadt so, wie du sie noch nie gesehen hast.",
     "edition": "Bereits die 4. Ausgabe",
     "visitors": "3.500 Gäste zuletzt",
     "cta": "MEHR ERFAHREN",
@@ -71,20 +71,20 @@
   },
   "tickets": {
     "headline": "SICHERE DIR DEINEN EARLY-BIRD-PASS 2027",
-    "subtitle": "Cocktail X 2027 · München · 05.–22. Mai 2027. Sichere dir jetzt den Frühbucherpreis – nur die ersten {count} Tickets zu {price} € statt {anchor} €.",
+    "subtitle": "Cocktail X 2027 · München · 05. bis 22. Mai 2027. Sichere dir jetzt den Frühbucherpreis, nur die ersten {count} Tickets zu {price} € statt {anchor} €.",
     "scarcityBadge": "Frühbucher · nur die ersten {count} Tickets zu {price} €",
     "priceWindow": "Nur noch {count} von {count} Tickets zu {price} € · verfügbar bis Freitag 24:00 Uhr",
     "savings": "Du sparst {pct} % gegenüber dem späteren Preis",
     "anchorNote": "Später {anchor} €",
-    "activeBadge": "Bester Preis – Early Bird",
+    "activeBadge": "Bester Preis, Early Bird",
     "buyNow": "EARLY-BIRD-TICKET SICHERN",
     "comingSoon": "Bald verfügbar",
     "soldOut": "Ausverkauft",
     "includedHeadline": "In jedem Ticket enthalten",
-    "afterBuy": "Nach dem Kauf erhältst du dein Ticket direkt in der Cocktail X App. Festival: 05.–22. Mai 2027 – passt der Termin dir nicht, stornierst du kostenlos.",
+    "afterBuy": "Nach dem Kauf erhältst du dein Ticket direkt in der Cocktail X App. Festival: 05. bis 22. Mai 2027, passt der Termin dir nicht, stornierst du kostenlos.",
     "earlyBird": {
       "name": "EARLY BIRD 2027",
-      "info": "Frühbucherpreis – streng limitiert"
+      "info": "Frühbucherpreis, streng limitiert"
     },
     "regular": {
       "name": "REGULAR",
@@ -96,9 +96,9 @@
     },
     "feature1": "Zugang zu 60+ Bars",
     "feature2": "Signature Cocktails für nur 6€ statt 12-16€",
-    "feature3": "Gilt für alle 18 Festivaltage, jede Bar – 1 Signature Cocktail pro Bar",
+    "feature3": "Gilt für alle 18 Festivaltage, jede Bar, 1 Signature Cocktail pro Bar",
     "feature4": "Stempel sammeln & Belohnungen freischalten",
-    "freeCancelHint": "Kostenlose Stornierung – kein Risiko",
+    "freeCancelHint": "Kostenlose Stornierung, kein Risiko",
     "lateHint": "Gilt für das gesamte Festival 2027"
   },
   "map": {
@@ -110,8 +110,8 @@
     "headline": "Unsere Partner"
   },
   "newsletter": {
-    "headline": "SEI ZUERST DABEI – 2027",
-    "subheadline": "Noch nicht bereit für ein Ticket? Trag dich ein und erfahre als Erster von neuen Bars und Tickets für Cocktail X 2027 (05.–22. Mai).",
+    "headline": "SEI ZUERST DABEI, 2027",
+    "subheadline": "Noch nicht bereit für ein Ticket? Trag dich ein und erfahre als Erster von neuen Bars und Tickets für Cocktail X 2027 (05. bis 22. Mai).",
     "incentive": "Abonnenten erfahren neue Bars & Frühbucher-Aktionen vor allen anderen.",
     "placeholder": "Deine E-Mail Adresse",
     "submit": "ANMELDEN",
@@ -144,7 +144,7 @@
     "q6": "Brauche ich die App?",
     "a6": "Ja, die Cocktail X App ist dein Begleiter während des Festivals. Dort findest du dein Ticket, alle teilnehmenden Bars, deine Stempel und exklusive Inhalte.",
     "q7": "Wann findet Cocktail X 2027 statt?",
-    "a7": "Cocktail X 2027 läuft vom 05.–22. Mai 2027 in München. Dein Early-Bird-Ticket sicherst du dir schon jetzt zum besten Preis – sollte der Termin nicht passen, stornierst du kostenlos bis 14 Tage vorher und bekommst den vollen Betrag zurück. Alternativ überträgst du dein Ticket jederzeit an eine andere Person.",
+    "a7": "Cocktail X 2027 läuft vom 05. bis 22. Mai 2027 in München. Dein Early-Bird-Ticket sicherst du dir schon jetzt zum besten Preis, sollte der Termin nicht passen, stornierst du kostenlos bis 14 Tage vorher und bekommst den vollen Betrag zurück. Alternativ überträgst du dein Ticket jederzeit an eine andere Person.",
     "q8": "Muss ich einen Platz reservieren?",
     "a8": "Nein, du kannst jede Bar spontan besuchen. Die Bars haben regulären Betrieb und dein Signature Cocktail ist garantiert verfügbar.",
     "q9": "Ab welchem Alter kann ich teilnehmen?",
@@ -177,7 +177,7 @@
       "name": "Sarah, 29"
     },
     "t7": {
-      "quote": "Ein Ticket, 18 Tage, über 60 Bars – und überall Signature Cocktails für 6€. So lernt man München kennen.",
+      "quote": "Ein Ticket, 18 Tage, über 60 Bars, und überall Signature Cocktails für 6€. So lernt man München kennen.",
       "name": "Marco, 31"
     },
     "t8": {
@@ -218,7 +218,7 @@
     "subheadline": "Egal ob Cocktail-Profi oder Neuling, hier ist für jeden was dabei.",
     "cocktailLovers": {
       "title": "COCKTAIL-FANS",
-      "description": "60+ exklusive Signature Cocktails in Münchens besten Bars entdecken – 1 Ticket, 18 Tage."
+      "description": "60+ exklusive Signature Cocktails in Münchens besten Bars entdecken, 1 Ticket, 18 Tage."
     },
     "friends": {
       "title": "FREUNDESGRUPPEN",
@@ -241,7 +241,7 @@
   "gallery": {
     "badge": "RÜCKBLICK",
     "headline": "SO WAR COCKTAIL X",
-    "subheadline": "3.500 Gäste. 65 Bars. Über 40.000 servierte Signature Cocktails. 2027 drehen wir noch lauter auf – du gehörst dazu.",
+    "subheadline": "3.500 Gäste. 65 Bars. Über 40.000 servierte Signature Cocktails. 2027 drehen wir noch lauter auf, du gehörst dazu.",
     "statGuests": "Gäste",
     "statBars": "Bars",
     "statCocktails": "Servierte Cocktails"
@@ -260,7 +260,7 @@
   "founders": {
     "badge": "VERANSTALTER",
     "headline": "Die Köpfe hinter Cocktail X",
-    "description": "Ekkehard Bay und Vincent Kerger haben Cocktail X während der Pandemie gegründet – inspiriert von der London Cocktail Week. Zuletzt mit 65 Bars und über 3.500 Gästen – 2027 geht es weiter.",
+    "description": "Ekkehard Bay und Vincent Kerger haben Cocktail X während der Pandemie gegründet, inspiriert von der London Cocktail Week. Zuletzt mit 65 Bars und über 3.500 Gästen, 2027 geht es weiter.",
     "cta": "MEHR ÜBER UNS"
   },
   "footer": {
@@ -282,7 +282,7 @@
     "privacy": "Datenschutz",
     "cookies": "Cookies",
     "imprint": "Impressum",
-    "ageNotice": "Festival ab 18 Jahren",
+    "ageNotice": "ON ICE ab 18 Jahren",
     "copyright": "© 2026 Cocktail X. Alle Rechte vorbehalten."
   }
 }

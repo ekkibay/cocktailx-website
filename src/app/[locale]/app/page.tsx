@@ -73,7 +73,7 @@ export default function AppPage() {
 
   return (
     <main>
-      {/* Hero — side by side on desktop */}
+      {/* Hero, side by side on desktop */}
       <section className="section-padding min-h-[80vh] flex items-center">
         <div className="max-w-6xl mx-auto w-full grid md:grid-cols-[1fr,auto] gap-12 lg:gap-20 items-center">
           {/* Left: Text */}
@@ -124,8 +124,8 @@ export default function AppPage() {
 
               <p className="text-[11px] font-body text-bone/30 mt-3">
                 {locale === "de"
-                  ? "Keine Installation nötig — läuft direkt im Browser"
-                  : "No installation needed — runs directly in your browser"}
+                  ? "Keine Installation nötig, läuft direkt im Browser"
+                  : "No installation needed, runs directly in your browser"}
               </p>
             </div>
           </div>
@@ -145,11 +145,11 @@ export default function AppPage() {
               boxShadow: "0 0 0 1px rgba(255,255,255,0.08), 0 40px 100px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12)",
               zIndex: 1,
             }}>
-              {/* Side buttons — volume */}
+              {/* Side buttons, volume */}
               <div style={{ position: "absolute", left: "-3px", top: "110px", width: "3px", height: "34px", background: "#3a3a3c", borderRadius: "2px 0 0 2px" }} />
               <div style={{ position: "absolute", left: "-3px", top: "154px", width: "3px", height: "34px", background: "#3a3a3c", borderRadius: "2px 0 0 2px" }} />
               <div style={{ position: "absolute", left: "-3px", top: "80px",  width: "3px", height: "22px", background: "#3a3a3c", borderRadius: "2px 0 0 2px" }} />
-              {/* Side button — power */}
+              {/* Side button, power */}
               <div style={{ position: "absolute", right: "-3px", top: "130px", width: "3px", height: "60px", background: "#3a3a3c", borderRadius: "0 2px 2px 0" }} />
 
               {/* Screen bezel */}
@@ -262,7 +262,7 @@ export default function AppPage() {
         </div>
       </section>
 
-      {/* How it works — compact horizontal */}
+      {/* How it works, compact horizontal */}
       <section className="py-16 md:py-24 bg-jambalaya/40 border-y border-bone/10">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-display text-bone text-center mb-4">

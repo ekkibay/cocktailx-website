@@ -20,7 +20,7 @@ const positions = new Map<string, CatalogPosition>(
   (catalogJson.positions as CatalogPosition[]).map((p) => [p.number, p]),
 );
 
-/** easybill position numbers. Keep in sync with the catalog — a typo throws at call time. */
+/** easybill position numbers. Keep in sync with the catalog, a typo throws at call time. */
 export const POS = {
   barEquipment: "10001", // per barkeeper
   bohEquipment: "10002", // per 50 guests
@@ -52,7 +52,7 @@ export function position(number: string): CatalogPosition {
   return p;
 }
 
-/** True when a position exists — used to grey out services that aren't priced in easybill yet. */
+/** True when a position exists, used to grey out services that aren't priced in easybill yet. */
 export function hasPosition(number: string): boolean {
   return positions.has(number);
 }

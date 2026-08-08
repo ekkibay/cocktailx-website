@@ -73,7 +73,7 @@ function InstaEmbed({ url }: { url: string }) {
       rel="noopener noreferrer"
       className="group relative aspect-square overflow-hidden rounded-xl bg-jambalaya block"
     >
-      {/* Use Instagram CDN thumbnail — public, no token needed */}
+      {/* Use Instagram CDN thumbnail, public, no token needed */}
       <img
         src={`https://www.instagram.com/p/${shortcode}/media/?size=m`}
         alt="Instagram post"

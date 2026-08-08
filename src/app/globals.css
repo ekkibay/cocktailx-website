@@ -6,7 +6,7 @@
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
 /* ------------------------------------------------
-   Font Declarations — loaded directly via @font-face
+   Font Declarations, loaded directly via @font-face
    for maximum reliability (no dependency on JS/hydration)
    ------------------------------------------------ */
 @font-face {
@@ -277,7 +277,7 @@
 }
 
 /* ------------------------------------------------
-   Hero fade-in — pure CSS, no transform (avoids
+   Hero fade-in, pure CSS, no transform (avoids
    conflict with Framer Motion parallax transforms)
    ------------------------------------------------ */
 @keyframes heroFadeIn {
@@ -296,7 +296,7 @@
 }
 
 /* ------------------------------------------------
-   Page hydration mask — hides the brief flash when
+   Page hydration mask, hides the brief flash when
    Framer Motion initializes on client-side hydration.
    Safari is slower to hydrate, making the flash visible.
    ------------------------------------------------ */

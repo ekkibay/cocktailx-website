@@ -12,11 +12,11 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Cocktail X Festival | München 2027 – Early Bird",
+    default: "Cocktail X Festival | München 2027, Early Bird",
     template: "%s | Cocktail X Festival",
   },
   description:
-    "Deutschlands größtes Cocktail Festival kommt 05.–22. Mai 2027 zurück nach München. Sichere dir jetzt das Early-Bird-Ticket für 19 € statt 34 € – 60+ Bars, 60+ exklusive Signature Cocktails, 18 Tage Festival.",
+    "Deutschlands größtes Cocktail Festival kommt 05. bis 22. Mai 2027 zurück nach München. Sichere dir jetzt das Early-Bird-Ticket für 19 € statt 34 €, 60+ Bars, 60+ exklusive Signature Cocktails, 18 Tage Festival.",
   ...(process.env.META_DOMAIN_VERIFICATION && {
     other: {
       "facebook-domain-verification": process.env.META_DOMAIN_VERIFICATION,

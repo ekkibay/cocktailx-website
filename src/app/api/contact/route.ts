@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       "h:Reply-To": email,
       subject: subject || `Kontaktanfrage von ${name}`,
       text: [
-        "KONTAKTANFRAGE – COCKTAIL X FESTIVAL",
+        "KONTAKTANFRAGE, COCKTAIL X FESTIVAL",
         "═".repeat(40),
         "",
         `Name: ${name}`,

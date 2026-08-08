@@ -48,10 +48,10 @@ const CALC_OPTIONS: CalcOption[] = [
 
 const PASSPORT_TIERS = {
   de: [
-    { label: "Early Bird 2027", until: "05.–22. Mai 2027", price: EARLY_BIRD_PRICE, calcKey: "passport-lm", productId: "passport-earlybird", active: true },
+    { label: "Early Bird 2027", until: "05. bis 22. Mai 2027", price: EARLY_BIRD_PRICE, calcKey: "passport-lm", productId: "passport-earlybird", active: true },
   ],
   en: [
-    { label: "Early Bird 2027", until: "May 5–22, 2027", price: EARLY_BIRD_PRICE, calcKey: "passport-lm", productId: "passport-earlybird", active: true },
+    { label: "Early Bird 2027", until: "May 5 bis 22, 2027", price: EARLY_BIRD_PRICE, calcKey: "passport-lm", productId: "passport-earlybird", active: true },
   ],
 };
 
@@ -80,13 +80,13 @@ const OTHER_TICKETS: OtherTicket[] = [
     name: "Group Ticket",
     tagline: { de: "4 Passports zum Preis von 3", en: "4 Passports for the price of 3" },
     description: {
-      de: "Der perfekte Pass für Gruppen – ein Passport gratis. Jede Person erhält einen vollwertigen Festival-Passport für alle 18 Tage.",
-      en: "The perfect pass for groups – one Passport free. Each person receives a full festival Passport for all 18 days.",
+      de: "Der perfekte Pass für Gruppen, ein Passport gratis. Jede Person erhält einen vollwertigen Festival-Passport für alle 18 Tage.",
+      en: "The perfect pass for groups, one Passport free. Each person receives a full festival Passport for all 18 days.",
     },
     badge: { de: null, en: null },
     accent: "tangerine",
     tiers: [
-      { label: "Early Bird 2027", until: { de: "05.–22. Mai 2027", en: "May 5–22, 2027" }, price: GROUP_TOTAL, perPerson: GROUP_PER_PERSON, calcKey: "group-lm", productId: "group-earlybird", active: true },
+      { label: "Early Bird 2027", until: { de: "05. bis 22. Mai 2027", en: "May 5 bis 22, 2027" }, price: GROUP_TOTAL, perPerson: GROUP_PER_PERSON, calcKey: "group-lm", productId: "group-earlybird", active: true },
     ],
   },
 ];
@@ -137,7 +137,7 @@ function SavingsCalculator({
           : "Select a ticket above or adjust manually here."}
       </p>
 
-      {/* Ticket selector pills — only available tickets */}
+      {/* Ticket selector pills, only available tickets */}
       <div className="mb-6">
         <p className="text-xs font-body text-bone/55 uppercase tracking-wider mb-2">
           {locale === "de" ? "Ticket" : "Ticket"}
@@ -161,7 +161,7 @@ function SavingsCalculator({
 
       {/* Cocktail slider */}
       <label className="block text-sm font-body text-bone/80 mb-3">
-        {locale === "de" ? "Wie viele Cocktails planst du? — " : "How many cocktails are you planning? — "}
+        {locale === "de" ? "Wie viele Cocktails planst du?, " : "How many cocktails are you planning?, "}
         <span className="text-bone font-bold">{count}</span>
       </label>
       <input
@@ -205,8 +205,8 @@ function SavingsCalculator({
 
       <p className="text-xs font-body text-bone/35 text-center">
         {locale === "de"
-          ? `Ab ${breakEven} Cocktails lohnt sich das Ticket${perPersonNote ? " " + perPersonNote : ""} — du bist schon bei ${count}.`
-          : `The ticket pays off after ${breakEven} cocktails${perPersonNote ? " " + perPersonNote : ""} — you're already at ${count}.`}
+          ? `Ab ${breakEven} Cocktails lohnt sich das Ticket${perPersonNote ? " " + perPersonNote : ""}, du bist schon bei ${count}.`
+          : `The ticket pays off after ${breakEven} cocktails${perPersonNote ? " " + perPersonNote : ""}, you're already at ${count}.`}
       </p>
     </div>
   );
@@ -232,14 +232,14 @@ const trustPoints = {
 const passportFeatures = {
   de: [
     "Zugang zu allen 60+ teilnehmenden Bars",
-    "Signature Cocktails für nur 6 € statt 12–16 €",
-    "Gilt für alle 18 Festivaltage – 1 Signature Cocktail pro Bar",
+    "Signature Cocktails für nur 6 € statt 12 bis 16 €",
+    "Gilt für alle 18 Festivaltage, 1 Signature Cocktail pro Bar",
     "Digitaler Stempelpass mit Belohnungen",
   ],
   en: [
     "Access to all 60+ participating bars",
-    "Signature cocktails for just €6 instead of €12–16",
-    "Valid for all 18 festival days – 1 signature cocktail per bar",
+    "Signature cocktails for just €6 instead of €12 bis 16",
+    "Valid for all 18 festival days, 1 signature cocktail per bar",
     "Digital stamp passport with rewards",
   ],
 };
@@ -258,7 +258,7 @@ export default function ShopPage() {
 
   useEffect(() => {
     trackEvent("ViewContent", {
-      content_name: "Shop — Festival Tickets",
+      content_name: "Shop, Festival Tickets",
       content_category: "Festival",
       content_type: "product_group",
       content_ids: activeTier.productId,
@@ -285,10 +285,10 @@ export default function ShopPage() {
         <div style={{ position:"absolute", top:"30%", left:"-200px", width:"500px", height:"500px", borderRadius:"50%", background:"rgba(189,37,110,0.10)", filter:"blur(110px)" }} />
       </div>
 
-      {/* ── HERO — COCKTAIL X PASSPORT ── */}
+      {/* ── HERO, COCKTAIL X PASSPORT ── */}
       <section className="section-padding pt-32 md:pt-40 min-h-[80vh] flex flex-col items-center justify-center relative">
         <p className="text-[11px] font-body font-bold uppercase tracking-[0.2em] text-tangerine mb-3">
-          05.–22. Mai 2027 · München
+          05. bis 22. Mai 2027 · München
         </p>
         <BlurText
           text={locale === "de" ? "SICHERE DIR DEIN TICKET" : "GET YOUR TICKET"}
@@ -299,8 +299,8 @@ export default function ShopPage() {
         />
         <p className="text-base font-body text-bone/65 text-center max-w-lg mb-10">
           {locale === "de"
-            ? "Dein All-Access-Pass für 60+ Bars, 18 Tage, unzählige Cocktails – zum Festivalpreis von 6 €."
-            : "Your all-access pass for 60+ bars, 18 days, countless cocktails – at the festival price of €6."}
+            ? "Dein All-Access-Pass für 60+ Bars, 18 Tage, unzählige Cocktails, zum Festivalpreis von 6 €."
+            : "Your all-access pass for 60+ bars, 18 days, countless cocktails, at the festival price of €6."}
         </p>
 
         <div ref={heroReveal.ref} style={heroReveal.style} className="w-full max-w-3xl mx-auto space-y-6">
@@ -404,8 +404,8 @@ export default function ShopPage() {
           </h2>
           <p className="text-sm font-body text-bone/55 text-center mb-3">
             {locale === "de"
-              ? "Gruppen-Tickets und mehr – für jeden das passende Angebot."
-              : "Group tickets and more – the right option for everyone."}
+              ? "Gruppen-Tickets und mehr, für jeden das passende Angebot."
+              : "Group tickets and more, the right option for everyone."}
           </p>
           {!newTicketsAvailable && (
             <p className="text-xs font-body text-tangerine/70 text-center mb-10 font-bold uppercase tracking-wider">

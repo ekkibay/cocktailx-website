@@ -9,7 +9,7 @@ const FOODS: FoodOption[] = ["none", "fingerfood", "flyingBuffet"];
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
-/** Coerces untrusted input into a valid config — the client never dictates prices, only choices. */
+/** Coerces untrusted input into a valid config, the client never dictates prices, only choices. */
 function parseConfig(body: unknown): EventConfig {
   const b = (body ?? {}) as Record<string, unknown>;
   const int = (v: unknown, fallback: number) => {
@@ -32,8 +32,7 @@ export async function POST(req: NextRequest) {
     const config = parseConfig(await req.json());
     const quote = calculateQuote(config);
 
-    // Margin data stays on the server. `needsReview` is intentionally not returned —
-    // it is a sales signal, not customer information.
+    // Margin data stays on the server. `needsReview` is intentionally not returned, // it is a sales signal, not customer information.
     if (needsReview(quote)) {
       console.warn(
         `[quote] thin margin ${(quote.internal.marginPercent * 100).toFixed(1)}% for`,

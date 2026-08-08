@@ -50,7 +50,7 @@ export default function EventsPage() {
             FEATURED: CLOSING, AWARD NIGHT
         ══════════════════════════════════════════ */}
         <div className="mb-24">
-          {/* Hero — portrait image side-by-side with content */}
+          {/* Hero, portrait image side-by-side with content */}
           <div className="grid md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-0 rounded-3xl overflow-hidden bg-licorice/60 border border-bone/10">
             {/* Portrait image */}
             <div className="relative aspect-[3/4] md:aspect-auto md:min-h-[520px]">
@@ -97,7 +97,7 @@ export default function EventsPage() {
                 {closing.title[locale]}
               </h2>
               <p className="text-sm font-body text-bone/70">
-                📅 {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}–{closing.timeEnd} Uhr
+                📅 {new Date(closing.date).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · {closing.time}-{closing.timeEnd} Uhr
                 <br className="md:hidden" />
                 <span className="hidden md:inline"> · </span>
                 📍 {closing.location}
@@ -172,15 +172,15 @@ export default function EventsPage() {
             </div>
           )}
 
-          {/* Danke — die Closing & Award Night ist gelaufen */}
+          {/* Danke, die Closing & Award Night ist gelaufen */}
           <div className="mt-6 rounded-2xl border border-everglade/30 bg-everglade/[0.06] p-8 md:p-12 text-center">
             <p className="text-2xl md:text-3xl font-display text-bone mb-3">
               {locale === "de" ? "Vielen Dank für die tolle Veranstaltung!" : "Thank you for the wonderful event!"}
             </p>
             <p className="text-sm font-body text-bone/65 max-w-xl mx-auto leading-relaxed">
               {locale === "de"
-                ? "Die Closing & Award Night war ein unvergesslicher Abschluss – danke an alle Gäste, Bars und Partner, die mit uns gefeiert haben."
-                : "The Closing & Award Night was an unforgettable finale – thank you to all the guests, bars and partners who celebrated with us."}
+                ? "Die Closing & Award Night war ein unvergesslicher Abschluss, danke an alle Gäste, Bars und Partner, die mit uns gefeiert haben."
+                : "The Closing & Award Night was an unforgettable finale, thank you to all the guests, bars and partners who celebrated with us."}
             </p>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function EventsPage() {
                 const fmt = { day: "numeric", month: "long", year: "numeric" } as const;
                 const dateLoc = locale === "de" ? "de-DE" : "en-US";
                 const dateStr = event.dateEnd
-                  ? `${new Date(event.date).toLocaleDateString(dateLoc, { day: "numeric", month: "long" })}–${new Date(event.dateEnd).toLocaleDateString(dateLoc, { day: "numeric", month: "long", year: "numeric" })}`
+                  ? `${new Date(event.date).toLocaleDateString(dateLoc, { day: "numeric", month: "long" })}-${new Date(event.dateEnd).toLocaleDateString(dateLoc, { day: "numeric", month: "long", year: "numeric" })}`
                   : new Date(event.date).toLocaleDateString(dateLoc, fmt);
 
                 const dotColors: Record<string, string> = {

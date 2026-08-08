@@ -56,7 +56,7 @@ export default function FestivalGallery() {
           <AnimatedCounter target={40000} suffix="+" label={t("statCocktails")} />
         </div>
 
-        {/* Gallery grid — 2 Reihen, abwechselnd groß/klein */}
+        {/* Gallery grid, 2 Reihen, abwechselnd groß/klein */}
         <div ref={grid.ref} style={grid.style} className="space-y-3 md:space-y-4">
           {/* Row 1: 1 large + 2 small */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
@@ -84,7 +84,7 @@ export default function FestivalGallery() {
             </div>
           </div>
 
-          {/* Row 3: 2 wide — smaller */}
+          {/* Row 3: 2 wide, smaller */}
           <div className="grid grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto">
             <div className="aspect-[16/9] relative rounded-2xl overflow-hidden group bg-jambalaya">
               <Image src={GALLERY_IMAGES[6].src} alt={GALLERY_IMAGES[6].alt} fill sizes="40vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />

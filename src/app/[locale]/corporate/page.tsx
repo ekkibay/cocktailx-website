@@ -6,7 +6,7 @@ import { CORPORATE_SIZES, EVENT, TIERS, corporateMailto, currentTier } from "@/c
 export const metadata: Metadata = {
   title: "Team Nights | COCKTAIL X ON ICE '26",
   description:
-    "Pässe fürs Team für COCKTAIL X ON ICE, 17.–28. November 2026 in München. 10, 25 oder 50 Pässe zum regulären Preis, eine Sammelrechnung auf die Firma.",
+    "Pässe fürs Team für COCKTAIL X ON ICE, 17. bis 28. November 2026 in München. 10, 25 oder 50 Pässe zum regulären Preis, eine Sammelrechnung auf die Firma.",
 };
 
 export const dynamic = "force-dynamic";

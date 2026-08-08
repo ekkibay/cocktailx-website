@@ -30,7 +30,7 @@ import {
 export const metadata: Metadata = {
   title: "COCKTAIL X ON ICE '26 | 12 Nächte, 40+ Bars, ein Pass",
   description:
-    "17.–28. November 2026 in München. Zwölf Nächte, über 40 Bars, ein Pass. In jeder Bar ein Signature Drink, freigeschaltet über die App. Pass ab 29 €.",
+    "17. bis 28. November 2026 in München. Zwölf Nächte, über 40 Bars, ein Pass. In jeder Bar ein Signature Drink, freigeschaltet über die App. Pass ab 29 €.",
 };
 
 /** Preise sollen sich zum Stichtag ohne Deployment umstellen. */

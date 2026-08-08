@@ -219,7 +219,7 @@ export default function Configurator() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* clipboard denied — the URL is in the address bar either way */
+      /* clipboard denied, the URL is in the address bar either way */
     }
   };
 

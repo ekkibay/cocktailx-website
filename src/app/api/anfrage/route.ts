@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       : "";
 
     const text = [
-      "ANFRAGE – COCKTAIL X EVENTCATERING",
+      "ANFRAGE, COCKTAIL X EVENTCATERING",
       "=".repeat(46),
       "",
       `Anlass:      ${selection.occasion || "nicht angegeben"}`,
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       to: ["info@bayundco.com"],
       "h:Reply-To": contact.email,
       subject: `Anfrage: ${selection.occasion || "Event"}, ${selection.guests} Gäste${
-        contact.company ? ` — ${contact.company}` : ""
+        contact.company ? `, ${contact.company}` : ""
       }`,
       text,
     });

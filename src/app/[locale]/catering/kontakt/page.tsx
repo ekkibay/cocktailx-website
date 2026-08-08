@@ -52,7 +52,7 @@ export default function KontaktPage() {
     <main className="min-h-screen bg-ct-cream">
       <div className="max-w-5xl mx-auto px-4 pt-40 pb-24">
         <div className="grid lg:grid-cols-[1fr,360px] gap-12 lg:gap-16">
-          {/* Left — Form */}
+          {/* Left, Form */}
           <div>
             <p className="text-xs font-body font-bold uppercase tracking-[0.25em] text-everglade/50 mb-4">
               Cocktail Excellence. Event Precision.
@@ -62,8 +62,8 @@ export default function KontaktPage() {
             </h1>
             <p className="font-body text-lg text-everglade/65 mb-10 leading-relaxed">
               {locale === "de"
-                ? "Erzählt uns von eurem Event — wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot."
-                : "Tell us about your event — we'll respond within 24 hours with a non-binding quote."}
+                ? "Erzählt uns von eurem Event, wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot."
+                : "Tell us about your event, we'll respond within 24 hours with a non-binding quote."}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -150,9 +150,9 @@ export default function KontaktPage() {
                     className={selectClass}
                   >
                     <option value="">{locale === "de" ? "Ca. Anzahl" : "Approx. number"}</option>
-                    <option value="50-100">50 – 100</option>
-                    <option value="100-250">100 – 250</option>
-                    <option value="250-500">250 – 500</option>
+                    <option value="50-100">50 bis 100</option>
+                    <option value="100-250">100 bis 250</option>
+                    <option value="250-500">250 bis 500</option>
                     <option value="500+">500+</option>
                   </select>
                 </div>
@@ -210,7 +210,7 @@ export default function KontaktPage() {
             </form>
           </div>
 
-          {/* Right — Contact Info Sidebar */}
+          {/* Right, Contact Info Sidebar */}
           <div className="lg:pt-32">
             <div className="rounded-2xl bg-everglade p-8 text-ct-cream">
               <h2 className="font-display text-xl mb-6">

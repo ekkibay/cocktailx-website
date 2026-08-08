@@ -49,7 +49,7 @@ function ParallaxImage({
         x,
         rotate,
         scale,
-        // Inline opacity: 0 prevents FOUC — element is hidden from first paint
+        // Inline opacity: 0 prevents FOUC, element is hidden from first paint
         opacity: 0,
         animationDelay: `${300 + img.delay}ms`,
       }}
@@ -140,7 +140,7 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Main headline — short, the price block carries the offer */}
+        {/* Main headline, short, the price block carries the offer */}
         <h1
           className="hero-fade-fast mb-5 md:mb-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-tangerine leading-[1.05]"
           style={{ opacity: 0, animationDelay: "350ms" }}
@@ -148,7 +148,7 @@ export default function Hero() {
           {t("headline2027")}
         </h1>
 
-        {/* Price anchor row — the visual hero of the offer */}
+        {/* Price anchor row, the visual hero of the offer */}
         <div
           className="hero-fade-fast mb-5 md:mb-6 flex items-center justify-center gap-3 md:gap-4"
           style={{ opacity: 0, animationDelay: "450ms" }}

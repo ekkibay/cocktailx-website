@@ -49,8 +49,8 @@ export const events: FestivalEvent[] = [
     time: "17:00",
     location: "60+ Bars in ganz München",
     description: {
-      de: "Der offizielle Start des Cocktail X Festivals 2027. Ab sofort öffnen alle teilnehmenden Bars ihre Türen – 18 Tage Cocktailkultur beginnt.",
-      en: "The official start of Cocktail X Festival 2027. All participating bars open their doors – 18 days of cocktail culture begins.",
+      de: "Der offizielle Start des Cocktail X Festivals 2027. Ab sofort öffnen alle teilnehmenden Bars ihre Türen, 18 Tage Cocktailkultur beginnt.",
+      en: "The official start of Cocktail X Festival 2027. All participating bars open their doors, 18 days of cocktail culture begins.",
     },
     image: "/images/festival-cheers.webp",
     type: "opening",
@@ -66,8 +66,8 @@ export const events: FestivalEvent[] = [
     timeEnd: "18:00",
     location: "M'Uniqo Rooftop Terrace · Andaz München Schwabinger Tor",
     description: {
-      de: "Der exklusive Auftakt des Cocktail X Festivals 2027 – Daydrinking auf einer der schönsten Rooftop-Terrassen Münchens. Drinks & Canapés inklusive, Live DJ und professioneller Content. Limitiert auf 180 Gäste.",
-      en: "The exclusive opening of Cocktail X Festival 2027 – daydrinking on one of Munich's most beautiful rooftop terraces. Drinks & canapés included, live DJ and professional content. Limited to 180 guests.",
+      de: "Der exklusive Auftakt des Cocktail X Festivals 2027, Daydrinking auf einer der schönsten Rooftop-Terrassen Münchens. Drinks & Canapés inklusive, Live DJ und professioneller Content. Limitiert auf 180 Gäste.",
+      en: "The exclusive opening of Cocktail X Festival 2027, daydrinking on one of Munich's most beautiful rooftop terraces. Drinks & canapés included, live DJ and professional content. Limited to 180 guests.",
     },
     image: "/images/opening-rooftop.jpg",
     type: "opening",
@@ -103,8 +103,8 @@ export const events: FestivalEvent[] = [
     time: "ab 17:00",
     location: "60+ Bars in ganz München",
     description: {
-      de: "60+ Bars, 18 Tage, 1 Ticket: Entdecke die Signature Cocktails von Münchens besten Bars – für nur 6€ pro Drink.",
-      en: "60+ bars, 18 days, 1 ticket: Discover the signature cocktails of München's best bars – for just €6 per drink.",
+      de: "60+ Bars, 18 Tage, 1 Ticket: Entdecke die Signature Cocktails von Münchens besten Bars, für nur 6€ pro Drink.",
+      en: "60+ bars, 18 days, 1 ticket: Discover the signature cocktails of München's best bars, for just €6 per drink.",
     },
     image: "/images/festival-key-visual.jpg",
     type: "festival",
@@ -151,12 +151,12 @@ export const events: FestivalEvent[] = [
       },
       {
         title: {
-          de: "Cocktail X Awards – Du entscheidest.",
-          en: "Cocktail X Awards – You decide.",
+          de: "Cocktail X Awards, Du entscheidest.",
+          en: "Cocktail X Awards, You decide.",
         },
         body: {
-          de: "Während der 18 Festival-Tage bewerten alle Cocktail X Passport-Inhaber die Bars live über die App. Drei Awards, gewählt von den Gästen selbst: Best Cocktail · Best Service · Best Bar Overall. Live gekrönt auf der Closing Gala – wer ein Festival-Passport hat, entscheidet mit.",
-          en: "Throughout the 18 festival days, all Cocktail X Passport holders rate the bars live via the app. Three awards, voted by the guests themselves: Best Cocktail · Best Service · Best Bar Overall. Crowned live at the Closing Gala – every passport holder gets a vote.",
+          de: "Während der 18 Festival-Tage bewerten alle Cocktail X Passport-Inhaber die Bars live über die App. Drei Awards, gewählt von den Gästen selbst: Best Cocktail · Best Service · Best Bar Overall. Live gekrönt auf der Closing Gala, wer ein Festival-Passport hat, entscheidet mit.",
+          en: "Throughout the 18 festival days, all Cocktail X Passport holders rate the bars live via the app. Three awards, voted by the guests themselves: Best Cocktail · Best Service · Best Bar Overall. Crowned live at the Closing Gala, every passport holder gets a vote.",
         },
         icon: "vote",
       },

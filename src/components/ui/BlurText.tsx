@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState, useMemo } from "react";
 
 /**
- * BlurText — Safari-safe text reveal animation.
+ * BlurText, Safari-safe text reveal animation.
  *
  * Inspired by reactbits.dev's BlurText component:
  * Splits text into words and animates each with blur + opacity + translate,

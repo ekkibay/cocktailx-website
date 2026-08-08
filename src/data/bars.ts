@@ -106,8 +106,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bar-montez.png",
     description: {
-      de: "Bar Montez – wo Cocktailkunst auf Münchner Eleganz trifft.",
-      en: "Bar Montez – where cocktail artistry meets Munich elegance.",
+      de: "Bar Montez, wo Cocktailkunst auf Münchner Eleganz trifft.",
+      en: "Bar Montez, where cocktail artistry meets Munich elegance.",
     },
   },
   {
@@ -133,8 +133,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/bolzanino.png",
     description: {
-      de: "Bolle. Bites. Beats. – Aperitivo-Bar und Eventlocation in Schwabing.",
-      en: "Bolle. Bites. Beats. – Aperitivo bar and event space in Schwabing.",
+      de: "Bolle. Bites. Beats., Aperitivo-Bar und Eventlocation in Schwabing.",
+      en: "Bolle. Bites. Beats., Aperitivo bar and event space in Schwabing.",
     },
   },
   {
@@ -211,8 +211,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/cole-porter.png",
     description: {
-      de: "Café, Bar, Wein und Food – ein Ort für jeden Anlass.",
-      en: "Café, bar, wine and food – a place for every occasion.",
+      de: "Café, Bar, Wein und Food, ein Ort für jeden Anlass.",
+      en: "Café, bar, wine and food, a place for every occasion.",
     },
   },
   {
@@ -278,8 +278,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/fifty-seven.png",
     description: {
-      de: "Bar und Restaurant direkt am Karlsfelder See – Cocktails mit Seeblick.",
-      en: "Bar and restaurant right at Karlsfelder See – cocktails with lake views.",
+      de: "Bar und Restaurant direkt am Karlsfelder See, Cocktails mit Seeblick.",
+      en: "Bar and restaurant right at Karlsfelder See, cocktails with lake views.",
     },
   },
   {
@@ -370,8 +370,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/gspusi-klara.png",
     description: {
-      de: "Zwei Bars, ein Erlebnis – bayerischer Charme mit Cocktailkultur.",
-      en: "Two bars, one experience – Bavarian charm with cocktail culture.",
+      de: "Zwei Bars, ein Erlebnis, bayerischer Charme mit Cocktailkultur.",
+      en: "Two bars, one experience, Bavarian charm with cocktail culture.",
     },
   },
   {
@@ -462,8 +462,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/herrschaftszeiten.png",
     description: {
-      de: "Das Paulaner im Tal – Münchner Gastlichkeit at its best.",
-      en: "Das Paulaner im Tal – Munich hospitality at its best.",
+      de: "Das Paulaner im Tal, Münchner Gastlichkeit at its best.",
+      en: "Das Paulaner im Tal, Munich hospitality at its best.",
     },
   },
   {
@@ -529,8 +529,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/jahreszeiten-bar.png",
     description: {
-      de: "Die elegante Hotelbar im Vier Jahreszeiten Kempinski – Münchner Barkultur at its finest.",
-      en: "The elegant hotel bar at Vier Jahreszeiten Kempinski – Munich bar culture at its finest.",
+      de: "Die elegante Hotelbar im Vier Jahreszeiten Kempinski, Münchner Barkultur at its finest.",
+      en: "The elegant hotel bar at Vier Jahreszeiten Kempinski, Munich bar culture at its finest.",
     },
   },
   {
@@ -609,8 +609,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/mercure-hotel-bar.png",
     description: {
-      de: "Hotelbar im Mercure City Center – Craft Beer und Cocktails im Herzen Münchens.",
-      en: "Hotel bar at Mercure City Center – craft beer and cocktails in the heart of Munich.",
+      de: "Hotelbar im Mercure City Center, Craft Beer und Cocktails im Herzen Münchens.",
+      en: "Hotel bar at Mercure City Center, craft beer and cocktails in the heart of Munich.",
     },
   },
   {
@@ -649,8 +649,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/monchalant.png",
     description: {
-      de: "Bar, Vinothek und Küche – ein Gesamterlebnis in Haidhausen.",
-      en: "Bar, wine bar and cuisine – a complete experience in Haidhausen.",
+      de: "Bar, Vinothek und Küche, ein Gesamterlebnis in Haidhausen.",
+      en: "Bar, wine bar and cuisine, a complete experience in Haidhausen.",
     },
   },
   {
@@ -676,8 +676,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/night-flight-bar.png",
     description: {
-      de: "Großzügige Bar am Münchner Flughafen – Nachtflug-Feeling mit Palmen-Flair.",
-      en: "Spacious bar at Munich Airport – night flight vibes with a palm tree atmosphere.",
+      de: "Großzügige Bar am Münchner Flughafen, Nachtflug-Feeling mit Palmen-Flair.",
+      en: "Spacious bar at Munich Airport, night flight vibes with a palm tree atmosphere.",
     },
   },
   {
@@ -689,8 +689,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/no-mames.png",
     description: {
-      de: "Authentisch mexikanisch – Tacos, Mezcal und gute Laune.",
-      en: "Authentically Mexican – tacos, mezcal and good vibes.",
+      de: "Authentisch mexikanisch, Tacos, Mezcal und gute Laune.",
+      en: "Authentically Mexican, tacos, mezcal and good vibes.",
     },
   },
   {
@@ -715,8 +715,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/perle-bar.png",
     description: {
-      de: "Die PERLE – minimalistisches Bar-Konzept mit starken Drinks.",
-      en: "The PERLE – minimalist bar concept with strong drinks.",
+      de: "Die PERLE, minimalistisches Bar-Konzept mit starken Drinks.",
+      en: "The PERLE, minimalist bar concept with strong drinks.",
     },
   },
   {
@@ -755,8 +755,8 @@ export const bars: Bar[] = [
     signatureCocktail: "Coming Soon",
     image: "/images/bars/relax.png",
     description: {
-      de: "Entspannung pur – Food, Drinks und gute Gesellschaft.",
-      en: "Pure relaxation – food, drinks and good company.",
+      de: "Entspannung pur, Food, Drinks und gute Gesellschaft.",
+      en: "Pure relaxation, food, drinks and good company.",
     },
   },
   {

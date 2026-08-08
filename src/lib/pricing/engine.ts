@@ -14,7 +14,7 @@ export interface LineItem {
   unitPrice: number;
   /** qty * unitPrice, cents. */
   total: number;
-  /** Internal — never rendered to the customer. */
+  /** Internal, never rendered to the customer. */
   cost: number;
   group: LineGroup;
 }
@@ -25,11 +25,11 @@ export interface Quote {
   net: number;
   vat: number;
   gross: number;
-  /** Net per guest, cents — the number corporate buyers actually compare. */
+  /** Net per guest, cents, the number corporate buyers actually compare. */
   netPerGuest: number;
   /** Internal margin figures, stripped before anything reaches the client. */
   internal: { cost: number; margin: number; marginPercent: number };
-  /** Discount applied to drink positions, 0–1. */
+  /** Discount applied to drink positions, 0 bis 1. */
   drinkDiscount: number;
   /** Operational consequences worth telling the customer about. */
   notes: string[];
@@ -54,7 +54,7 @@ function drinkDiscountFor(guests: number): number {
   return A.DRINK_VOLUME_DISCOUNT.find((t) => guests >= t.fromGuests)?.discount ?? 0;
 }
 
-/** Rounds to whole cents — half-up, so the customer total and the invoice agree. */
+/** Rounds to whole cents, half-up, so the customer total and the invoice agree. */
 function applyDiscount(cents: number, discount: number): number {
   return Math.round(cents * (1 - discount));
 }
@@ -93,7 +93,7 @@ export function calculateQuote(config: EventConfig): Quote {
     });
   };
 
-  // ── Staffing: sized by whichever binds harder — throughput or guest coverage ──
+  // ── Staffing: sized by whichever binds harder, throughput or guest coverage ──
   const totalDrinks = guests * drinksPerGuest;
   const throughput = A.THROUGHPUT_PER_BARKEEPER_HOUR[concept];
   const byThroughput = Math.ceil(totalDrinks / (throughput * hours));
