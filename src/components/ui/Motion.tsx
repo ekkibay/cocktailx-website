@@ -160,7 +160,15 @@ export function WordReveal({ text, className }: { text: string; className?: stri
   );
 }
 
-/** Counts up when scrolled into view. Keeps thousand separators and any suffix. */
+/**
+ * Zaehlt beim Reinscrollen hoch. Tausenderpunkte und Suffix bleiben erhalten.
+ *
+ * Wichtig: Der Startwert ist die Zielzahl, nicht 0. Vorher rendert der Server
+ * "0" und der Wert wird erst per JavaScript hochgezaehlt. Auf der Startseite
+ * stand dadurch kurzzeitig "0 Gaeste im Sommer", und ohne JavaScript blieb es
+ * dabei. Eine falsche Zahl ist schlimmer als gar keine Animation, deshalb wird
+ * erst nach der Hydration auf 0 zurueckgesetzt und dann hochgezaehlt.
+ */
 export function CountUp({
   value,
   suffix = "",
@@ -176,17 +184,35 @@ export function CountUp({
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
   const reduced = useReducedMotion();
   const mv = useMotionValue(0);
-  const [shown, setShown] = useState(reduced ? value : 0);
+  const [mounted, setMounted] = useState(false);
+  const [shown, setShown] = useState(value);
 
   useEffect(() => {
-    if (!inView || reduced) return;
+    if (reduced) return;
+    const raf = requestAnimationFrame(() => {
+      setMounted(true);
+      setShown(0);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [reduced]);
+
+  useEffect(() => {
+    if (!mounted || !inView || reduced) return;
     const controls = animate(mv, value, {
       duration: 1.6,
       ease: EASE,
       onUpdate: (v) => setShown(v),
     });
     return () => controls.stop();
-  }, [inView, reduced, mv, value]);
+  }, [mounted, inView, reduced, mv, value]);
+
+  // Sicherheitsnetz: Feuert der Beobachter nicht, steht nach kurzer Zeit
+  // trotzdem die richtige Zahl da statt einer Null.
+  useEffect(() => {
+    if (reduced) return;
+    const t = setTimeout(() => setShown((s) => (s === 0 ? value : s)), 2000);
+    return () => clearTimeout(t);
+  }, [reduced, value]);
 
   return (
     <span ref={ref} className={className}>
