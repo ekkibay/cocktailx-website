@@ -49,13 +49,13 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       <StickyPass serverNow={now} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        {/* Gaeste auf der Strasse, nachts in Muenchen, Drinks in der Hand.
-            Emotion und viele Menschen statt Produktdetail. Das Bild driftet
-            beim Scrollen leicht mit, dadurch wirkt der Einstieg lebendiger. */}
+        {/* Warme Gesichter vor der kalten blauen Nachtfront, Drinks in der Hand.
+            Das ist das Klima der Marke in einem Bild, und man erkennt sofort
+            Menschen statt Produktdetail. Driftet beim Scrollen leicht mit. */}
         <ParallaxImage
-          src="/images/onice/onice-bar-cheers.jpg"
-          alt="Gäste stoßen mit Cocktails in einer Münchner Bar an, Cocktail X ON ICE"
-          objectPosition="object-[center_40%]"
+          src="/images/onice/onice-talk.jpg"
+          alt="Gäste im Gespräch mit Drinks in der Hand, dahinter die nächtliche Stadt"
+          objectPosition="object-[center_28%]"
           priority
         />
         {/* Zwei Verläufe: einer für die Lesbarkeit unten, einer für das kalte Klima */}
@@ -148,15 +148,34 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-12 max-w-2xl">
           Einmal kaufen. <span className="text-muted">Zwölf Nächte lang nutzen.</span>
         </h2>
-        <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-hairline rounded-2xl overflow-hidden">
-          {HOW_IT_WORKS.map((s) => (
-            <li key={s.step} className="bg-licorice p-6 md:p-7">
-              <span className="font-display text-4xl text-tangerine/25 block mb-5 leading-none">{s.step}</span>
-              <h3 className="font-body font-bold text-base text-bone mb-2">{s.title}</h3>
-              <p className="font-body text-sm text-muted leading-relaxed">{s.text}</p>
-            </li>
-          ))}
-        </ol>
+
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          <ol className="lg:col-span-7 grid sm:grid-cols-2 gap-px bg-hairline rounded-2xl overflow-hidden">
+            {HOW_IT_WORKS.map((s) => (
+              <li key={s.step} className="bg-licorice p-6 md:p-7">
+                <span className="font-display text-4xl text-tangerine/25 block mb-5 leading-none">{s.step}</span>
+                <h3 className="font-body font-bold text-base text-bone mb-2">{s.title}</h3>
+                <p className="font-body text-sm text-muted leading-relaxed">{s.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          {/* Bild traegt hier die Emotion, die vier Schritte tragen die Mechanik. */}
+          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden ring-1 ring-hairline min-h-[320px] lg:min-h-0">
+            <Image
+              src="/images/onice/onice-bar-pour.jpg"
+              alt="Signature Drink wird am Tresen übergeben"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-[center_45%]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-transparent" />
+            <p className="absolute bottom-0 left-0 right-0 p-6 font-display text-2xl md:text-3xl text-bone leading-tight">
+              Der Rest passiert von selbst.
+            </p>
+          </div>
+        </div>
+
         <p className="font-body text-xs text-muted mt-6">
           Die App empfiehlt Routen und zeigt dir, wo Platz ist. Reservieren kann sie nicht.
         </p>
@@ -213,9 +232,13 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
                 Trails
               </p>
-              <h2 className="font-display text-4xl md:text-6xl leading-[0.95] max-w-2xl">
+              <h2 className="font-display text-4xl md:text-6xl leading-[0.95] max-w-2xl mb-5">
                 Drei Bars, <span className="text-muted">die zusammenpassen.</span>
               </h2>
+              <p className="font-body text-base md:text-lg text-muted leading-relaxed max-w-xl">
+                Jeder Trail folgt einem Geschmack, nicht einer Adressliste. Du gehst zu Fuß von Bar zu
+                Bar und schmeckst über einen Abend, wie unterschiedlich derselbe Gedanke ausfallen kann.
+              </p>
             </div>
             <span className="rounded-full border border-hairline px-4 py-2 font-body text-[11px] uppercase tracking-wider text-muted">
               {TRAILS_BADGE}
@@ -226,13 +249,47 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             {TRAILS.map((t) => (
               <StaggerItem
                 key={t.key}
-                className="rounded-2xl bg-surface ring-1 ring-hairline p-6 flex flex-col min-h-[180px] hover:ring-tangerine/40 transition-colors duration-300"
+                className="group relative rounded-2xl overflow-hidden ring-1 ring-hairline min-h-[290px] flex flex-col justify-end hover:ring-tangerine/40 transition-colors duration-300"
               >
-                <h3 className={`font-display text-xl mb-3 uppercase ${t.accent}`}>{t.title}</h3>
-                <p className="font-body text-sm text-muted leading-relaxed mt-auto">{t.promise}</p>
+                <Image
+                  src={t.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className={`object-cover ${t.imagePosition} transition-transform duration-[1100ms] ease-out group-hover:scale-[1.07]`}
+                />
+                {/* Kraeftiger Verlauf von unten, damit die Schrift auf jedem Motiv steht */}
+                <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/75 to-licorice/15" />
+                <div className="relative p-6">
+                  <h3 className={`font-display text-xl mb-3 uppercase ${t.accent}`}>{t.title}</h3>
+                  <p className="font-body text-sm text-bone/85 leading-relaxed">{t.promise}</p>
+                </div>
               </StaggerItem>
             ))}
           </StaggerGroup>
+        </div>
+      </section>
+
+      {/* ══ Bildbanner ══
+          Bricht die Textstrecke auf und traegt die Haltung: gemeinsam
+          losziehen, Stadt erkunden, Leute kennenlernen. */}
+      <section className="relative h-[65svh] min-h-[420px] overflow-hidden">
+        <ParallaxImage
+          src="/images/onice/onice-bar-clink.jpg"
+          alt="Gäste stoßen mit ihren Cocktails an"
+          objectPosition="object-[center_40%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/25" />
+        <div className="relative h-full max-w-6xl mx-auto px-5 flex flex-col justify-end pb-14 md:pb-20">
+          <Reveal>
+            <h2 className="font-display text-4xl md:text-6xl leading-[0.95] text-bone max-w-2xl mb-4">
+              Zwölf Nächte, in denen du deine Stadt neu kennenlernst.
+            </h2>
+            <p className="font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl">
+              Losziehen mit den Leuten, die du magst, und mit denen, die du an der Bar daneben triffst.
+              Jede Bar bringt ihren eigenen Drink, du bringst die Runde mit.
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -372,8 +429,9 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             Über 40 Bars. <span className="text-tangerine">Die erste am {EVENT.barsRevealLabel}.</span>
           </h2>
           <p className="font-body text-base md:text-lg text-muted leading-relaxed max-w-xl mb-3">
-            Von der Hotelbar bis zum Kellerlokal, verteilt über die ganze Stadt. Ab dem{" "}
-            {EVENT.barsRevealLabel} geben wir jeden Tag eine neue bekannt, bis alle stehen.
+            Von der großen Hotelbar bis zum Kellerlokal, das nur die Nachbarschaft kennt, verteilt über
+            die ganze Stadt. Ab dem {EVENT.barsRevealLabel} geben wir jeden Tag eine neue bekannt, bis
+            alle stehen.
           </p>
           <p className="font-body text-base text-bone/70 leading-relaxed max-w-xl mb-12">
             Wer den Pass jetzt sichert, zahlt {TIERS.early.price} € und kann ab dem ersten Tag planen.
@@ -418,6 +476,16 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               </a>
               .
             </p>
+            <div className="relative mt-8 rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[4/5] hidden lg:block">
+              <Image
+                src="/images/onice/onice-laugh2.jpg"
+                alt="Zwei Gäste lachen an der Bar"
+                fill
+                sizes="33vw"
+                className="object-cover object-[center_30%]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-licorice/70 to-transparent" />
+            </div>
           </div>
           <div className="lg:col-span-8">
             <FaqAccordion items={FAQ} />
@@ -427,14 +495,17 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
 
       {/* ══ CTA ══ */}
       <section className="relative overflow-hidden">
+        {/* Eisblock mit eingraviertem Logo. Der Deckel liegt hoch genug fuer die
+            Lesbarkeit, aber niedrig genug, dass man die Gravur noch erkennt. */}
         <Image
-          src="/images/onice/onice-bar-keeper.jpg"
+          src="/images/onice/onice-ice-logo.jpg"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-[center_30%]"
+          className="object-cover object-[center_40%]"
         />
-        <div className="absolute inset-0 bg-licorice/90" />
+        <div className="absolute inset-0 bg-licorice/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-licorice via-transparent to-licorice" />
         <div className="relative max-w-3xl mx-auto px-5 py-24 md:py-32 text-center">
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-5">
             {EVENT.nights} Nächte. <span className="text-tangerine">Ein Pass.</span>

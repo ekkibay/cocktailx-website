@@ -28,8 +28,8 @@ export const CHAPTERS: Chapter[] = [
     dates: "17. bis 19. November",
     claim: "Die Stadt taut an.",
     text: "Der Auftakt liegt bewusst unter der Woche. Weniger Andrang, mehr Zeit an der Bar, und die Barkeeper haben noch Lust auf ein Gespräch. Wer die Karte in Ruhe durchprobieren will, fängt hier an.",
-    image: "/images/onice/onice-bar-winter.jpg",
-    imagePosition: "object-[center_40%]",
+    image: "/images/onice/onice-portrait.jpg",
+    imagePosition: "object-[center_30%]",
   },
   {
     key: "city-trails",
@@ -38,7 +38,7 @@ export const CHAPTERS: Chapter[] = [
     dates: "20. bis 24. November",
     claim: "Vier Viertel. Eine Nacht.",
     text: "Kuratierte Routen aus je drei Bars, die zusammenpassen und zu Fuß erreichbar sind. Du bekommst eine Reihenfolge vorgeschlagen, keine Reservierung. Wo du wirklich hängen bleibst, entscheidest du.",
-    image: "/images/onice/onice-bar-table.jpg",
+    image: "/images/onice/onice-group-table.jpg",
     imagePosition: "object-[center_45%]",
   },
   {
@@ -49,8 +49,8 @@ export const CHAPTERS: Chapter[] = [
     claim: "Wenn der Weihnachtsmarkt schließt, fängt Cocktail X an.",
     // Formulierung ist vorgegeben und darf nicht als Partnerschaft klingen.
     text: "Unsere Bars liegen in Laufweite der Märkte, nach Marktschluss. Du gehst vom Glühwein zwei Ecken weiter und der Abend fängt nochmal von vorn an.",
-    image: "/images/onice/onice-bar-toast.jpg",
-    imagePosition: "object-[center_35%]",
+    image: "/images/onice/onice-laugh.jpg",
+    imagePosition: "object-[center_30%]",
   },
 ];
 
@@ -62,6 +62,8 @@ export interface Trail {
   /** Guest Promise, genau ein Satz. */
   promise: string;
   accent: string;
+  image: string;
+  imagePosition: string;
 }
 
 export const TRAILS: Trail[] = [
@@ -70,24 +72,32 @@ export const TRAILS: Trail[] = [
     title: "Nightcap & Whisky",
     promise: "Dunkles Holz, braune Spirituosen, das letzte Glas des Abends.",
     accent: "text-tangerine",
+    image: "/images/onice/onice-bar-keeper.jpg",
+    imagePosition: "object-[center_45%]",
   },
   {
     key: "fire-fruit",
     title: "Fire & Fruit",
     promise: "Geräuchert, scharf, süß. Drinks, die dich wach halten.",
     accent: "text-hibiscus",
+    image: "/images/onice/onice-drinks-row.jpg",
+    imagePosition: "object-[center_50%]",
   },
   {
     key: "zero-light",
     title: "Zero & Light",
     promise: "Alkoholfrei und leicht, ohne dass es nach Verzicht schmeckt.",
     accent: "text-tangerine",
+    image: "/images/onice/onice-drink-solo.jpg",
+    imagePosition: "object-[center_40%]",
   },
   {
     key: "hotel-icons",
     title: "Hotel Bar Icons",
     promise: "Die großen Hotelbars der Stadt, an einem Abend.",
     accent: "text-bone",
+    image: "/images/onice/onice-bar-table.jpg",
+    imagePosition: "object-[center_40%]",
   },
 ];
 

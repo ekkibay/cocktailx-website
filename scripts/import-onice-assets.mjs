@@ -24,6 +24,8 @@ const SRC_LOGO = `${SRC_BASE}/CX26 Logo`;
 // mit Cocktails in der Hand, teils in Daunenjacken und Schals. Genau das
 // Gegenteil von Sommerstimmung und der Grund, warum diese Strecke die
 // Strassenmotive ersetzt.
+const SRC_CLOSING =
+  "c:/Users/kerge/OneDrive - Hospitality Circle GmbH/003 bayundco/002 ABTEILUNGEN/020 VERTRIEB UND MARKETING/022 MARKETING PR/001 AUFRÄUMEN/005 MATERIAL/CX FESTIVAL FOTAGE/2023 MATERIAL/johannesrittermedia_cocktail_x_-_abschluss";
 const SRC_BARS =
   "c:/Users/kerge/OneDrive - Hospitality Circle GmbH/003 bayundco/002 ABTEILUNGEN/020 VERTRIEB UND MARKETING/022 MARKETING PR/001 AUFRÄUMEN/005 MATERIAL/CX FESTIVAL FOTAGE/2023 MATERIAL/johannesrittermedia_Cocktail_x_-_Day_1";
 
@@ -48,32 +50,43 @@ const PHOTOS = [];
  * Diese Bilder leben vom Bar-Licht, und genau daraus soll die Waerme kommen.
  * Der kalte Grund der Seite liefert den Kontrast.
  */
+// Aus dieser Strecke sind drei starke Motive bewusst NICHT dabei:
+// -02194 und -02197 zeigen das aufgeschlagene Booklet mit dem Namen der Bar,
+// -02855 die Leuchtschrift der Bar ueber dem Eingang. Solange das Re-Signing
+// laeuft, darf keine Bar erkennbar sein. Nach dem Reveal wieder aufnehmbar.
 const CROWD = [
-  // Erhobene Glaeser in dunkler Bar, Cocktail im Vordergrund. Hero.
-  { file: "CocktailX -02194.jpg", dest: "onice-bar-cheers.jpg", width: 2400 },
-  // Zwei Coupe-Glaeser angestossen
-  { file: "CocktailX -02197.jpg", dest: "onice-bar-toast.jpg", width: 1700 },
-  // Gaeste in Daunenjacken und Schals mit dem Pass. Winter statt Sommer.
-  { file: "CocktailX -02221.jpg", dest: "onice-bar-winter.jpg", width: 1700 },
   // Gruppe am Tisch in der Bar
   { file: "CocktailX -02231.jpg", dest: "onice-bar-table.jpg", width: 1700 },
-  // Cocktail wird auf dem Tresen abgestellt, Karte daneben
-  { file: "CocktailX -02251.jpg", dest: "onice-bar-serve.jpg", width: 1100 },
   // Barkeeper arbeitet, Gold auf Schwarz
   { file: "CocktailX -02394.jpg", dest: "onice-bar-keeper.jpg", width: 1700 },
-  // Angestossene Glaeser ueber dem Tresen, Drink fuellt das Bild
-  { file: "CocktailX -02753.jpg", dest: "onice-bar-clink.jpg", width: 1100 },
-  { file: "CocktailX -02754.jpg", dest: "onice-bar-clink2.jpg", width: 1100 },
+  // Angestossene Glaeser ueber dem Tresen. Oben stehen Erdbeeren und ein
+  // Zitrusbaum im Bild, das liest Sommer, unten laeuft es ins Leere. Der
+  // Ausschnitt haelt genau die Mitte: Anstossen in Bernstein auf Schwarz.
+  { file: "CocktailX -02753.jpg", dest: "onice-bar-clink.jpg", width: 2200, cropTop: 0.27, cropBottom: 0.34, cropRight: 0.21 },
   // Einschenken aus dem Shaker
-  { file: "CocktailX -02704.jpg", dest: "onice-bar-pour.jpg", width: 1100 },
-  // Gaeste in Maenteln bei Kerzenlicht
-  { file: "CocktailX -02855.jpg", dest: "onice-bar-coats.jpg", width: 1100 },
-  // Drink mit QR-Karte auf dem Tisch: die App-Mechanik im Bild
-  { file: "CocktailX -02923.jpg", dest: "onice-bar-qr.jpg", width: 1100 },
-  // Pass in der Hand, Drinks daneben
-  { file: "CocktailX -02965.jpg", dest: "onice-bar-pass.jpg", width: 1100 },
+  { file: "CocktailX -02704.jpg", dest: "onice-bar-pour.jpg", width: 1400 },
   // Zwei Gaeste lachen, Bar im Hintergrund
-  { file: "CocktailX -02996.jpg", dest: "onice-bar-friends.jpg", width: 1100 },
+  { file: "CocktailX -02996.jpg", dest: "onice-bar-friends.jpg", width: 1400 },
+];
+
+/** Abschlussabend: elegantere Gaeste, Drinks im Gegenlicht, Eisskulptur. */
+const CLOSING = [
+  // Eisblock mit eingraviertem Logo, tuerkis beleuchtet. Buchstaeblich ON ICE.
+  { file: "CocktailX -09007.jpg", dest: "onice-ice-logo.jpg", width: 2000 },
+  // Reihe hinterleuchteter Drinks am Tresen: Geschmack und Handwerk
+  { file: "CocktailX -09037.jpg", dest: "onice-drinks-row.jpg", width: 1400 },
+  // Paar lacht, warm, nah
+  { file: "CocktailX -09042.jpg", dest: "onice-laugh.jpg", width: 1700 },
+  { file: "CocktailX -09044.jpg", dest: "onice-laugh2.jpg", width: 1400 },
+  // Gaeste im Gespraech, Drinks in der Hand, dahinter die blaue Nachtfront.
+  // Warme Gesichter vor kalter Stadt: genau das Klima von ON ICE. Hero.
+  { file: "CocktailX -08927.jpg", dest: "onice-talk.jpg", width: 2400 },
+  // Gruppe am Tisch, Glaeser in der Hand
+  { file: "CocktailX -08936.jpg", dest: "onice-group-table.jpg", width: 1400 },
+  // Portraet mit Drink, elegant
+  { file: "CocktailX -08919.jpg", dest: "onice-portrait.jpg", width: 1400 },
+  // Einzelner Drink auf dem Tresen, Eis, Gegenlicht
+  { file: "CocktailX -08830.jpg", dest: "onice-drink-solo.jpg", width: 1400 },
 ];
 
 mkdirSync(OUT, { recursive: true });
@@ -90,8 +103,26 @@ mkdirSync(OUT, { recursive: true });
  * Deckschicht. Die Saettigung geht leicht hoch, damit Bernstein und Bar-Licht
  * strahlen. Das Overlay bleibt nur als leichter Hauch fuer das Gesamtklima.
  */
-async function grade({ file, dest, width, coldness = 0.1 }, srcDir = SRC_BARS) {
-  const base = sharp(path.join(srcDir, file)).rotate().resize({ width, withoutEnlargement: true });
+async function grade(
+  { file, dest, width, coldness = 0.1, cropTop = 0, cropBottom = 0, cropRight = 0 },
+  srcDir = SRC_BARS,
+) {
+  let pre = sharp(path.join(srcDir, file)).rotate();
+
+  // Die crop-Werte schneiden Anteile an den Raendern ab, bevor skaliert wird.
+  // Gedacht fuer Motive, bei denen nur der Rand stoert und die Mitte steht.
+  // Als Anteil notiert, damit der Wert unabhaengig von der Quellaufloesung gilt.
+  if (cropTop > 0 || cropBottom > 0 || cropRight > 0) {
+    const m = await pre.metadata();
+    pre = pre.extract({
+      left: 0,
+      top: Math.round(m.height * cropTop),
+      width: Math.round(m.width * (1 - cropRight)),
+      height: Math.round(m.height * (1 - cropTop - cropBottom)),
+    });
+  }
+
+  const base = pre.resize({ width, withoutEnlargement: true });
   const { width: w, height: h } = await base.clone().toBuffer({ resolveWithObject: true }).then((r) => r.info);
 
   const cold = await sharp({
@@ -117,6 +148,14 @@ async function grade({ file, dest, width, coldness = 0.1 }, srcDir = SRC_BARS) {
 for (const p of CROWD) {
   try {
     await grade(p, SRC_BARS);
+  } catch (e) {
+    console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
+  }
+}
+
+for (const p of CLOSING) {
+  try {
+    await grade(p, SRC_CLOSING);
   } catch (e) {
     console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
   }

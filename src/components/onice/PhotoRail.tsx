@@ -15,19 +15,22 @@ import { Marquee } from "@/components/ui/Motion";
  */
 
 const ROW_A = [
-  { src: "/images/onice/onice-bar-clink.jpg", alt: "Gäste stoßen mit Cocktails an" },
-  { src: "/images/onice/onice-bar-keeper.jpg", alt: "Barkeeper mixt einen Drink" },
-  { src: "/images/onice/onice-bar-coats.jpg", alt: "Gäste im Mantel bei Kerzenlicht in der Bar" },
-  { src: "/images/onice/onice-bar-serve.jpg", alt: "Cocktail wird auf dem Tresen serviert" },
-  { src: "/images/onice/onice-bar-pour.jpg", alt: "Drink wird eingeschenkt" },
+  { src: "/images/onice/onice-laugh.jpg", alt: "Zwei Gäste lachen zusammen an der Bar" },
+  { src: "/images/onice/onice-drinks-row.jpg", alt: "Reihe frisch gebauter Drinks im Gegenlicht" },
+  { src: "/images/onice/onice-bar-keeper.jpg", alt: "Barkeeper baut einen Drink am Tresen" },
+  { src: "/images/onice/onice-portrait.jpg", alt: "Gast mit Drink in der Hand" },
+  { src: "/images/onice/onice-bar-pour.jpg", alt: "Drink wird am Tresen übergeben" },
+  { src: "/images/onice/onice-talk.jpg", alt: "Gäste im Gespräch, Gläser in der Hand" },
+  { src: "/images/onice/onice-group-table.jpg", alt: "Runde am Tresen, Drinks in der Hand" },
 ];
 
 const ROW_B = [
-  { src: "/images/onice/onice-bar-qr.jpg", alt: "Drink neben dem QR-Code für die App" },
+  { src: "/images/onice/onice-laugh2.jpg", alt: "Gäste lachen dicht beieinander" },
+  { src: "/images/onice/onice-drink-solo.jpg", alt: "Longdrink mit Eis und frischer Garnitur" },
   { src: "/images/onice/onice-bar-friends.jpg", alt: "Zwei Gäste lachen an der Bar" },
-  { src: "/images/onice/onice-bar-clink2.jpg", alt: "Angestoßene Gläser über dem Tresen" },
-  { src: "/images/onice/onice-bar-pass.jpg", alt: "Pass in der Hand neben den Drinks" },
-  { src: "/images/onice/onice-bar-winter.jpg", alt: "Gäste in Winterjacken mit dem Pass" },
+  { src: "/images/onice/onice-ice-logo.jpg", alt: "Eisskulptur mit eingraviertem Cocktail X Logo" },
+  { src: "/images/onice/onice-bar-table.jpg", alt: "Gruppe am Tisch in einer dunklen Bar" },
+  { src: "/images/onice/onice-bar-clink.jpg", alt: "Angestoßene Gläser über dem Tresen" },
 ];
 
 function Tile({ src, alt }: { src: string; alt: string }) {
