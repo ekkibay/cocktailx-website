@@ -15,7 +15,7 @@ import { Marquee } from "@/components/ui/Motion";
  */
 
 const ROW_A = [
-  { src: "/images/onice/set-coupe.jpg", alt: "Coupe mit Schaumkrone auf Marmor" },
+  { src: "/images/onice/onice-talk.jpg", alt: "Gäste im Gespräch, Gläser in der Hand" },
   { src: "/images/onice/onice-toast-two.jpg", alt: "Zwei Gäste heben ihre Drinks" },
   { src: "/images/onice/set-drinks-four.jpg", alt: "Vier verschiedene Drinks auf einem Tisch" },
   { src: "/images/onice/onice-portrait.jpg", alt: "Gast mit Drink in der Hand" },

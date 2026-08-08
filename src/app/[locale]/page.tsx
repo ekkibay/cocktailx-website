@@ -49,13 +49,14 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       <StickyPass serverNow={now} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        {/* Warme Gesichter vor der kalten blauen Nachtfront, Drinks in der Hand.
-            Das ist das Klima der Marke in einem Bild, und man erkennt sofort
-            Menschen statt Produktdetail. Driftet beim Scrollen leicht mit. */}
+        {/* Ein Glas, warme Lichter im Bokeh, sonst Schwarz. Das Motiv wurde
+            fuer diesen Platz fotografiert: Der Drink sitzt mittig hoch, unten
+            bleibt Marmor und damit ruhige Flaeche fuer Logo, Headline und
+            Kauf-Button. Driftet beim Scrollen leicht mit. */}
         <ParallaxImage
-          src="/images/onice/onice-talk.jpg"
-          alt="Gäste im Gespräch mit Drinks in der Hand, dahinter die nächtliche Stadt"
-          objectPosition="object-[center_28%]"
+          src="/images/onice/set-coupe.jpg"
+          alt="Cocktail mit Schaumkrone auf einem Marmortresen"
+          objectPosition="object-[center_35%]"
           priority
         />
         {/* Zwei Verläufe: einer für die Lesbarkeit unten, einer für das kalte Klima */}

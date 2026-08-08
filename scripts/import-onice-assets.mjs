@@ -134,13 +134,14 @@ const DELIVERED = [
   { file: "craft-detail.jpg", dest: "set-craft.jpg", width: 1600 },
   // Einzelne Coupe mit Schaum vor Bokeh
   { file: "hero-coupe.jpg", dest: "set-coupe.jpg", width: 2000 },
-  // Fuenf Gaeste stossen an. Unten liegen Teller und ein Weinglas,
-  // deshalb hart auf den Anstoss beschnitten.
+  // Fuenf Gaeste stossen an. Unten liegen Teller und ein Weinglas, oben
+  // laeuft die Wand aus. Der Ausschnitt sitzt deshalb eng auf Gesichtern
+  // und Glaesern: als breites Band bleibt sonst nur der Scheitel stehen.
   {
     file: "crew-pass-community.jpg",
     dest: "set-crew-toast.jpg",
     width: 2000,
-    cropTop: 0.16,
+    cropTop: 0.3,
     cropBottom: 0.4,
   },
 ];
