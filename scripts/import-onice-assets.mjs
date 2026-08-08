@@ -104,10 +104,10 @@ const CLOSING = [
    nicht durch das Grading oben, sondern nur ueber Zuschnitt, Skalierung
    und einen Hauch kaltes Overlay, damit sie im selben Klima sitzt.
 
-   RECHTE: Laut beiliegender CREDITS-Datei sind die Nutzungsrechte fuer
-   Website und Werbung mit adrian.camo und STUDIO VOM BERG NICHT geklaert,
-   die Dateien stammen aus Presse- und Closing-Kontext. Vor jedem Livegang
-   klaeren. Credits: STUDIO VOM BERG (hero-coupe), sonst adrian.camo.
+   RECHTE: Geklaert fuer Website und Werbung mit adrian.camo und
+   STUDIO VOM BERG. Die beiliegende Lieferdatei fuehrte sie noch als offen,
+   das ist erledigt. Credits: STUDIO VOM BERG (hero-coupe), sonst
+   adrian.camo. Siehe public/images/onice/CREDITS.md.
 
    Vier Motive der Lieferung sind bewusst nicht dabei:
    - trail-nightcap-whisky: die Drinks-Karte im Bild nennt den Bar-Namen

@@ -13,13 +13,12 @@
 | set-craft.jpg | craft-detail.jpg | adrian.camo |
 | set-crew-toast.jpg | crew-pass-community.jpg | adrian.camo |
 
-**Offen: Nutzungsrechte.** Die Lieferung weist ausdruecklich darauf hin, dass
-die Rechte fuer Website und Werbung mit adrian.camo und STUDIO VOM BERG noch
-zu klaeren sind und die Dateien aus Presse- und Closing-Kontext stammen.
-Presserechte decken kommerzielle Nutzung auf einer Ticketseite in der Regel
-nicht ab. Vor dem Livegang klaeren.
+**Nutzungsrechte liegen vor.** Die beiliegende Lieferdatei fuehrte sie noch
+als offen. Bay und Co. hat die Rechte fuer Website und Werbung mit
+adrian.camo und STUDIO VOM BERG geklaert, bestaetigt am 08.08.2026.
 
-Nicht uebernommen aus der Lieferung:
+Nicht uebernommen aus der Lieferung. Die Gruende sind inhaltlich, nicht
+rechtlich, und gelten deshalb unveraendert weiter:
 
 - `trail-nightcap-whisky.jpg`: die Drinks-Karte im Bild nennt den Bar-Namen
   lesbar, dazu Opening-Motiv in Pink statt Nightcap.
