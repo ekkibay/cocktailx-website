@@ -20,3 +20,7 @@ public/images/testimonials/*.jpg
 
 # Claude config
 .claude/
+
+# Originale des gelieferten Bildsets. Gross und rechtlich noch nicht
+# freigegeben, deshalb nicht ins Repo. Nur Quelle fuer den Import.
+src/assets/bildset-v1/

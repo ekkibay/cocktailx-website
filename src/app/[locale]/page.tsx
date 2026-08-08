@@ -163,11 +163,11 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           {/* Bild traegt hier die Emotion, die vier Schritte tragen die Mechanik. */}
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden ring-1 ring-hairline min-h-[320px] lg:min-h-0">
             <Image
-              src="/images/onice/onice-bar-pour.jpg"
-              alt="Signature Drink wird am Tresen übergeben"
+              src="/images/onice/set-eis.jpg"
+              alt="Eis wird in ein Glas mit Zuckerrand gefüllt"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover object-[center_45%]"
+              className="object-cover object-[center_55%]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-transparent" />
             <p className="absolute bottom-0 left-0 right-0 p-6 font-display text-2xl md:text-3xl text-bone leading-tight">
@@ -275,9 +275,9 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           losziehen, Stadt erkunden, Leute kennenlernen. */}
       <section className="relative h-[65svh] min-h-[420px] overflow-hidden">
         <ParallaxImage
-          src="/images/onice/onice-bar-clink.jpg"
-          alt="Gäste stoßen mit ihren Cocktails an"
-          objectPosition="object-[center_40%]"
+          src="/images/onice/set-crew-toast.jpg"
+          alt="Fünf Gäste stoßen mit ihren Cocktails an"
+          objectPosition="object-[center_45%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/25" />
         <div className="relative h-full max-w-6xl mx-auto px-5 flex flex-col justify-end pb-14 md:pb-20">

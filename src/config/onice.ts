@@ -28,8 +28,8 @@ export const CHAPTERS: Chapter[] = [
     dates: "17. bis 19. November",
     claim: "Die Stadt taut an.",
     text: "Der Auftakt liegt bewusst unter der Woche. Weniger Andrang, mehr Zeit an der Bar, und die Barkeeper haben noch Lust auf ein Gespräch. Wer die Karte in Ruhe durchprobieren will, fängt hier an.",
-    image: "/images/onice/onice-portrait.jpg",
-    imagePosition: "object-[center_30%]",
+    image: "/images/onice/set-first-frost.jpg",
+    imagePosition: "object-[center_55%]",
   },
   {
     key: "city-trails",
@@ -88,16 +88,16 @@ export const TRAILS: Trail[] = [
     title: "Zero & Light",
     promise: "Alkoholfrei und leicht, ohne dass es nach Verzicht schmeckt.",
     accent: "text-tangerine",
-    image: "/images/onice/onice-drink-solo.jpg",
-    imagePosition: "object-[center_40%]",
+    image: "/images/onice/set-garnish.jpg",
+    imagePosition: "object-[center_55%]",
   },
   {
     key: "hotel-icons",
     title: "Hotel Bar Icons",
     promise: "Die großen Hotelbars der Stadt, an einem Abend.",
     accent: "text-bone",
-    image: "/images/onice/onice-bar-table.jpg",
-    imagePosition: "object-[center_40%]",
+    image: "/images/onice/set-craft.jpg",
+    imagePosition: "object-[center_50%]",
   },
 ];
 

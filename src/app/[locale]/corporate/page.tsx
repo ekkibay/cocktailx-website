@@ -20,11 +20,11 @@ export default function CorporatePage({ params }: { params: { locale: string } }
       {/* ══ Kopf ══ */}
       <section className="relative overflow-hidden">
         <Image
-          src="/images/onice/onice-bar-table.jpg"
+          src="/images/onice/set-crew-toast.jpg"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-[center_30%]"
+          className="object-cover object-[center_45%]"
         />
         <div className="absolute inset-0 bg-licorice/88" />
         <div className="relative max-w-6xl mx-auto px-5 pt-32 md:pt-40 pb-16">

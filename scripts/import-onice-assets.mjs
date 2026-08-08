@@ -99,6 +99,52 @@ const CLOSING = [
   { file: "CocktailX -08830.jpg", dest: "onice-drink-solo.jpg", width: 1400 },
 ];
 
+/* ── Geliefertes Bildset V1 ──────────────────────────────────────────────
+   Studio-Strecke, kommt bereits gegraded an (V3.1). Deshalb laeuft sie
+   nicht durch das Grading oben, sondern nur ueber Zuschnitt, Skalierung
+   und einen Hauch kaltes Overlay, damit sie im selben Klima sitzt.
+
+   RECHTE: Laut beiliegender CREDITS-Datei sind die Nutzungsrechte fuer
+   Website und Werbung mit adrian.camo und STUDIO VOM BERG NICHT geklaert,
+   die Dateien stammen aus Presse- und Closing-Kontext. Vor jedem Livegang
+   klaeren. Credits: STUDIO VOM BERG (hero-coupe), sonst adrian.camo.
+
+   Vier Motive der Lieferung sind bewusst nicht dabei:
+   - trail-nightcap-whisky: die Drinks-Karte im Bild nennt den Bar-Namen
+     lesbar, dazu ist es ein Opening-Motiv in Pink, nicht Nightcap.
+   - corporate-team-nights: das Rueckbuffet ist eine Wand aus fremden
+     Marken und macht die Bar eindeutig identifizierbar.
+   - chapter-after-market: Weinglas und Risotto-Teller im Vordergrund,
+     das liest Restaurant statt Bar.
+   - trail-hotel-bar-icons: Weinglas, kein Gesicht.                        */
+const SRC_SET = path.join(ROOT, "src", "assets", "bildset-v1");
+
+const DELIVERED = [
+  // Eis kommt ins Glas. Fuer ON ICE das praezisere Bild als jedes Portraet.
+  { file: "how-it-works-eis.jpg", dest: "set-eis.jpg", width: 1600 },
+  // Abguss ueber den grossen Eiswuerfel
+  { file: "chapter-first-frost.jpg", dest: "set-first-frost.jpg", width: 1600 },
+  // Vier verschiedene Drinks auf einem Tisch: Geschmack und Vielfalt
+  { file: "chapter-city-trails.jpg", dest: "set-drinks-four.jpg", width: 1600 },
+  // Barkeeper ruehrt einen Highball
+  { file: "trail-fire-fruit.jpg", dest: "set-stir.jpg", width: 1400 },
+  // Garnitur auf die helle Coupe
+  { file: "trail-zero-light.jpg", dest: "set-garnish.jpg", width: 1400 },
+  // Pipette ueber zwei Coupes, Goldtablett. Liest wie eine grosse Hotelbar.
+  { file: "craft-detail.jpg", dest: "set-craft.jpg", width: 1600 },
+  // Einzelne Coupe mit Schaum vor Bokeh
+  { file: "hero-coupe.jpg", dest: "set-coupe.jpg", width: 2000 },
+  // Fuenf Gaeste stossen an. Unten liegen Teller und ein Weinglas,
+  // deshalb hart auf den Anstoss beschnitten.
+  {
+    file: "crew-pass-community.jpg",
+    dest: "set-crew-toast.jpg",
+    width: 2000,
+    cropTop: 0.16,
+    cropBottom: 0.4,
+  },
+];
+
 mkdirSync(OUT, { recursive: true });
 
 /**
@@ -155,9 +201,54 @@ async function grade(
   console.log(`${dest.padEnd(22)} ${info.width}x${info.height}  ${Math.round(info.size / 1024)} KB`);
 }
 
+/**
+ * Schonender Weg fuer die gelieferte Strecke.
+ *
+ * Die Bilder kommen fertig gegraded an. Wuerde das Grading von oben noch
+ * einmal darueberlaufen, saufen die Schatten ab und die Farben kippen.
+ * Also nur Zuschnitt, Skalierung und ein Hauch kaltes Overlay.
+ */
+async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0 }) {
+  let pre = sharp(path.join(SRC_SET, file)).rotate();
+
+  if (cropTop > 0 || cropBottom > 0) {
+    const m = await pre.metadata();
+    pre = pre.extract({
+      left: 0,
+      top: Math.round(m.height * cropTop),
+      width: m.width,
+      height: Math.round(m.height * (1 - cropTop - cropBottom)),
+    });
+  }
+
+  const base = pre.resize({ width, withoutEnlargement: true });
+  const { width: w, height: h } = await base.clone().toBuffer({ resolveWithObject: true }).then((r) => r.info);
+
+  const cold = await sharp({
+    create: { width: w, height: h, channels: 4, background: { r: 18, g: 46, b: 78, alpha: 0.05 } },
+  })
+    .png()
+    .toBuffer();
+
+  const info = await base
+    .composite([{ input: cold, blend: "soft-light" }])
+    .jpeg({ quality: 86, mozjpeg: true })
+    .toFile(path.join(OUT, dest));
+
+  console.log(`${dest.padEnd(22)} ${info.width}x${info.height}  ${Math.round(info.size / 1024)} KB`);
+}
+
 for (const p of CROWD) {
   try {
     await grade(p, SRC_BARS);
+  } catch (e) {
+    console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
+  }
+}
+
+for (const p of DELIVERED) {
+  try {
+    await passThrough(p);
   } catch (e) {
     console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
   }
