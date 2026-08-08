@@ -5,6 +5,7 @@ import CheckoutButton from "@/components/onice/CheckoutButton";
 import PriceCountdown from "@/components/onice/PriceCountdown";
 import FaqAccordion from "@/components/onice/FaqAccordion";
 import StickyPass from "@/components/onice/StickyPass";
+import PhotoRail from "@/components/onice/PhotoRail";
 import {
   CountUp,
   LiftCard,
@@ -200,6 +201,9 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           ))}
         </div>
       </section>
+
+      {/* ══ Bildband ══ */}
+      <PhotoRail />
 
       {/* ══ Trails ══ */}
       <section id="trails" className="border-y border-hairline scroll-mt-24">

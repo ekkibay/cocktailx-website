@@ -50,27 +50,50 @@ const PHOTOS = [];
  */
 const CROWD = [
   // Erhobene Glaeser in dunkler Bar, Cocktail im Vordergrund. Hero.
-  { file: "CocktailX -02194.jpg", dest: "onice-bar-cheers.jpg", width: 2400, sat: 0.9, coldness: 0.2 },
-  // Zwei Coupe-Glaeser angestossen, dunkler Hintergrund
-  { file: "CocktailX -02197.jpg", dest: "onice-bar-toast.jpg", width: 2000, sat: 0.9, coldness: 0.2 },
+  { file: "CocktailX -02194.jpg", dest: "onice-bar-cheers.jpg", width: 2400 },
+  // Zwei Coupe-Glaeser angestossen
+  { file: "CocktailX -02197.jpg", dest: "onice-bar-toast.jpg", width: 1700 },
   // Gaeste in Daunenjacken und Schals mit dem Pass. Winter statt Sommer.
-  { file: "CocktailX -02221.jpg", dest: "onice-bar-winter.jpg", width: 2000, sat: 0.9, coldness: 0.24 },
-  // Gruppe am Tisch in der Bar, Drinks auf dem Tisch
-  { file: "CocktailX -02231.jpg", dest: "onice-bar-table.jpg", width: 2000, sat: 0.88, coldness: 0.24 },
+  { file: "CocktailX -02221.jpg", dest: "onice-bar-winter.jpg", width: 1700 },
+  // Gruppe am Tisch in der Bar
+  { file: "CocktailX -02231.jpg", dest: "onice-bar-table.jpg", width: 1700 },
   // Cocktail wird auf dem Tresen abgestellt, Karte daneben
-  { file: "CocktailX -02251.jpg", dest: "onice-bar-serve.jpg", width: 2000, sat: 0.9, coldness: 0.22 },
+  { file: "CocktailX -02251.jpg", dest: "onice-bar-serve.jpg", width: 1100 },
   // Barkeeper arbeitet, Gold auf Schwarz
-  { file: "CocktailX -02394.jpg", dest: "onice-bar-keeper.jpg", width: 2000, sat: 0.88, coldness: 0.24 },
+  { file: "CocktailX -02394.jpg", dest: "onice-bar-keeper.jpg", width: 1700 },
+  // Angestossene Glaeser ueber dem Tresen, Drink fuellt das Bild
+  { file: "CocktailX -02753.jpg", dest: "onice-bar-clink.jpg", width: 1100 },
+  { file: "CocktailX -02754.jpg", dest: "onice-bar-clink2.jpg", width: 1100 },
+  // Einschenken aus dem Shaker
+  { file: "CocktailX -02704.jpg", dest: "onice-bar-pour.jpg", width: 1100 },
+  // Gaeste in Maenteln bei Kerzenlicht
+  { file: "CocktailX -02855.jpg", dest: "onice-bar-coats.jpg", width: 1100 },
+  // Drink mit QR-Karte auf dem Tisch: die App-Mechanik im Bild
+  { file: "CocktailX -02923.jpg", dest: "onice-bar-qr.jpg", width: 1100 },
+  // Pass in der Hand, Drinks daneben
+  { file: "CocktailX -02965.jpg", dest: "onice-bar-pass.jpg", width: 1100 },
+  // Zwei Gaeste lachen, Bar im Hintergrund
+  { file: "CocktailX -02996.jpg", dest: "onice-bar-friends.jpg", width: 1100 },
 ];
 
 mkdirSync(OUT, { recursive: true });
 
-async function grade({ file, dest, width, sat, coldness }, srcDir = SRC_PHOTOS) {
+/**
+ * Grading mit Punch.
+ *
+ * Die erste Fassung legte ein kaltes Overlay im Weich-Licht-Modus darueber und
+ * hob den Schwarzpunkt an. Ergebnis war ein Bild, das flacher wirkte als das
+ * Original: milchige Schatten, wenig Leuchtkraft, keine Aussage.
+ *
+ * Jetzt andersherum. Der Kontrast macht die Arbeit, die Schatten laufen tief
+ * und bekommen ihren Blaustich ueber den Versatz je Kanal statt ueber eine
+ * Deckschicht. Die Saettigung geht leicht hoch, damit Bernstein und Bar-Licht
+ * strahlen. Das Overlay bleibt nur als leichter Hauch fuer das Gesamtklima.
+ */
+async function grade({ file, dest, width, coldness = 0.1 }, srcDir = SRC_BARS) {
   const base = sharp(path.join(srcDir, file)).rotate().resize({ width, withoutEnlargement: true });
   const { width: w, height: h } = await base.clone().toBuffer({ resolveWithObject: true }).then((r) => r.info);
 
-  // Kaltes Overlay im Weich-Licht-Modus: kippt vor allem die Schatten ins Blaue
-  // und laesst die Lichter weitgehend stehen.
   const cold = await sharp({
     create: { width: w, height: h, channels: 4, background: { r: 18, g: 46, b: 78, alpha: coldness } },
   })
@@ -78,15 +101,17 @@ async function grade({ file, dest, width, sat, coldness }, srcDir = SRC_PHOTOS) 
     .toBuffer();
 
   const info = await base
-    .modulate({ saturation: sat, brightness: 0.97 })
+    .modulate({ saturation: 1.14, brightness: 1.0 })
+    // Kontrast plus negativer Versatz: tiefe Schatten. Der Blaukanal wird
+    // weniger stark abgesenkt, dadurch bleiben die Schatten kuehl.
+    .linear([1.32, 1.32, 1.34], [-30, -28, -22])
+    .gamma(1.04)
     .composite([{ input: cold, blend: "soft-light" }])
-    // Schwarzpunkt leicht anheben und ins Blaue ziehen, damit die Fotos auf dem
-    // fast schwarzen Grund nicht wie ausgestanzt wirken.
-    .linear([1.02, 1.02, 1.06], [-4, -2, 2])
-    .jpeg({ quality: 82, mozjpeg: true })
+    .sharpen({ sigma: 0.8 })
+    .jpeg({ quality: 84, mozjpeg: true })
     .toFile(path.join(OUT, dest));
 
-  console.log(`${dest.padEnd(20)} ${info.width}x${info.height}  ${Math.round(info.size / 1024)} KB`);
+  console.log(`${dest.padEnd(22)} ${info.width}x${info.height}  ${Math.round(info.size / 1024)} KB`);
 }
 
 for (const p of CROWD) {

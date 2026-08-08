@@ -312,17 +312,20 @@ export function Marquee({
   children,
   speed = 32,
   className,
+  reverse = false,
 }: {
   children: React.ReactNode;
   speed?: number;
   className?: string;
+  /** Laeuft nach rechts statt nach links. Fuer gegenlaeufige Baender. */
+  reverse?: boolean;
 }) {
   const reduced = useReducedMotion();
   return (
     <div className={`relative overflow-hidden ${className ?? ""}`}>
       <motion.div
         className="flex w-max"
-        animate={reduced ? undefined : { x: ["0%", "-50%"] }}
+        animate={reduced ? undefined : { x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
         transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
       >
         <div className="flex shrink-0">{children}</div>
