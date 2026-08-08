@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CONTACT_EMAIL, EVENT, SUMMER_PROOF, TIERS } from "@/config/pricing";
 
 export const metadata: Metadata = {
-  title: "Presse | COCKTAIL X ON ICE '26",
+  title: "Presse",
   description:
     "Pressekontakt und Eckdaten zu COCKTAIL X ON ICE, 17. bis 28. November 2026 in München. Pressemappe auf Anfrage.",
 };

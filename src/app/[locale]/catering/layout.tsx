@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Cocktail X Eventcatering | Firmenevents & Messen München",
+    // absolute, damit der Titel des Root-Layouts nicht zusaetzlich angehaengt
+    // wird und "... München | Cocktail X" entsteht.
+    absolute: "Cocktail X Eventcatering | Firmenevents & Messen München",
     template: "%s | Cocktail X Eventcatering München",
   },
   description:

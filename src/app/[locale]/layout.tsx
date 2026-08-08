@@ -11,12 +11,29 @@ import CookieConsent from "@/components/ui/CookieConsent";
 import "../globals.css";
 
 export const metadata: Metadata = {
+  // Gilt fuer jede Seite, die keinen eigenen Titel setzt: Browser-Tab,
+  // Suchergebnis und Social-Vorschau. Stand vorher noch auf dem Sommerfestival
+  // 2027 samt 19-Euro-Preis, waehrend die Seite ON ICE verkauft.
+  metadataBase: new URL("https://cocktail-x.com"),
   title: {
-    default: "Cocktail X Festival | München 2027, Early Bird",
-    template: "%s | Cocktail X Festival",
+    default: "COCKTAIL X ON ICE '26 | 17. bis 28. November, München",
+    template: "%s | Cocktail X",
   },
   description:
-    "Deutschlands größtes Cocktail Festival kommt 05. bis 22. Mai 2027 zurück nach München. Sichere dir jetzt das Early-Bird-Ticket für 19 € statt 34 €, 60+ Bars, 60+ exklusive Signature Cocktails, 18 Tage Festival.",
+    "Zwölf Nächte, über 40 Bars, ein Pass. 17. bis 28. November 2026 in München. In jeder Bar ein Signature Drink, freigeschaltet über die App.",
+  openGraph: {
+    title: "COCKTAIL X ON ICE '26",
+    description: "12 Nächte. 40+ Bars. Ein Pass. 17. bis 28. November 2026 in München.",
+    url: "https://cocktail-x.com",
+    siteName: "Cocktail X",
+    locale: "de_DE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "COCKTAIL X ON ICE '26",
+    description: "12 Nächte. 40+ Bars. Ein Pass. 17. bis 28. November 2026 in München.",
+  },
   ...(process.env.META_DOMAIN_VERIFICATION && {
     other: {
       "facebook-domain-verification": process.env.META_DOMAIN_VERIFICATION,
