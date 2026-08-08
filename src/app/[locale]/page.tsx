@@ -52,9 +52,9 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             Emotion und viele Menschen statt Produktdetail. Das Bild driftet
             beim Scrollen leicht mit, dadurch wirkt der Einstieg lebendiger. */}
         <ParallaxImage
-          src="/images/onice/onice-crowd-street.jpg"
-          alt="Gäste mit Drinks auf der Straße in München, Cocktail X ON ICE"
-          objectPosition="object-[center_35%]"
+          src="/images/onice/onice-bar-cheers.jpg"
+          alt="Gäste stoßen mit Cocktails in einer Münchner Bar an, Cocktail X ON ICE"
+          objectPosition="object-[center_40%]"
           priority
         />
         {/* Zwei Verläufe: einer für die Lesbarkeit unten, einer für das kalte Klima */}
@@ -424,7 +424,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       {/* ══ CTA ══ */}
       <section className="relative overflow-hidden">
         <Image
-          src="/images/onice/onice-tux.jpg"
+          src="/images/onice/onice-bar-keeper.jpg"
           alt=""
           fill
           sizes="100vw"

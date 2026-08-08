@@ -20,7 +20,7 @@ export default function CorporatePage({ params }: { params: { locale: string } }
       {/* ══ Kopf ══ */}
       <section className="relative overflow-hidden">
         <Image
-          src="/images/onice/onice-guests.jpg"
+          src="/images/onice/onice-bar-table.jpg"
           alt=""
           fill
           sizes="100vw"

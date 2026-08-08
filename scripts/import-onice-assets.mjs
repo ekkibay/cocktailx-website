@@ -20,10 +20,12 @@ const SRC_BASE =
   "c:/Users/kerge/OneDrive - Hospitality Circle GmbH/003 bayundco/002 ABTEILUNGEN/030 OPERATIVES GESCHÄFT/031 OPERATIONS/006 EVENTS 2026/05 MAI/13.-30.05.2026 - Cocktail X Festival/Cocktail X FESTIVAL 2026";
 const SRC_PHOTOS = `${SRC_BASE}/CX25 Pictures`;
 const SRC_LOGO = `${SRC_BASE}/CX26 Logo`;
-// Zweite Quelle: Festivaltag-Strecke mit Gaesten. Die CX25-Bilder zeigen fast
-// nur Details und Personal, hier gibt es Gruppen mit Drinks in der Hand.
-const SRC_CROWD =
-  "c:/Users/kerge/OneDrive - Hospitality Circle GmbH/003 bayundco/002 ABTEILUNGEN/020 VERTRIEB UND MARKETING/022 MARKETING PR/001 AUFRÄUMEN/005 MATERIAL/CX FESTIVAL FOTAGE/2024 MATERIAL/PatrickVomBerg_Cocktail_X_Tag_5_Bilder_240428";
+// Hauptquelle fuer ON ICE: Festivaltag in den Bars. Dunkles Bar-Licht, Gaeste
+// mit Cocktails in der Hand, teils in Daunenjacken und Schals. Genau das
+// Gegenteil von Sommerstimmung und der Grund, warum diese Strecke die
+// Strassenmotive ersetzt.
+const SRC_BARS =
+  "c:/Users/kerge/OneDrive - Hospitality Circle GmbH/003 bayundco/002 ABTEILUNGEN/020 VERTRIEB UND MARKETING/022 MARKETING PR/001 AUFRÄUMEN/005 MATERIAL/CX FESTIVAL FOTAGE/2023 MATERIAL/johannesrittermedia_Cocktail_x_-_Day_1";
 
 /**
  * @param {string} file      Quelldatei
@@ -32,33 +34,33 @@ const SRC_CROWD =
  * @param {number} sat       Saettigung (1 = unveraendert)
  * @param {number} coldness  Staerke des kalten Overlays, 0 bis 1
  */
-const PHOTOS = [
-  // Hero: Barkeeper an der Station, dunkelstes Motiv mit echtem Bar-Licht
-  { file: "OBVS X COcktailX-01749.jpg", dest: "onice-hero.jpg", width: 2400, sat: 0.86, coldness: 0.3 },
-  { file: "OBVS X COcktailX-01400.jpg", dest: "onice-pour.jpg", width: 1800, sat: 0.86, coldness: 0.28 },
-  { file: "OBVS X COcktailX-01565 (1).jpg", dest: "onice-tux.jpg", width: 1800, sat: 0.86, coldness: 0.3 },
-  { file: "OBVS X COcktailX-01723.jpg", dest: "onice-ice.jpg", width: 1800, sat: 0.9, coldness: 0.34 },
-  { file: "OBVS X COcktailX-01725.jpg", dest: "onice-guests.jpg", width: 1800, sat: 0.84, coldness: 0.3 },
-  // 02071 und 02128 sind stark magenta beleuchtet: staerker entsaettigen,
-  // sonst kippt das Pink gegen den eisblauen Akzent.
-  { file: "OBVS X COcktailX-02071.jpg", dest: "onice-cheers.jpg", width: 1800, sat: 0.4, coldness: 0.55 },
-  { file: "OBVS X COcktailX-02128.jpg", dest: "onice-bar.jpg", width: 1800, sat: 0.4, coldness: 0.55 },
-];
+// Die CX25-Strecke ist bewusst raus: sie zeigt Details, Flaschen und Personal,
+// aber keine Gaeste mit Cocktails in Bars. Fuer ON ICE zaehlt genau das.
+const PHOTOS = [];
 
 /**
  * Gaeste-Motive: viele Leute, gute Stimmung, Drink im Vordergrund.
  * Die werden weniger stark entsaettigt als die Detailaufnahmen, weil die
  * Waerme hier die Emotion traegt und nicht stoert.
  */
+/**
+ * Motive aus den Bars. Weniger kaltes Overlay als bei den Detailaufnahmen:
+ * Diese Bilder leben vom Bar-Licht, und genau daraus soll die Waerme kommen.
+ * Der kalte Grund der Seite liefert den Kontrast.
+ */
 const CROWD = [
-  // Paar, lachend, Drinks nach vorn gehalten
-  { file: "STUDIO VOM BERG_-1042307.jpg", dest: "onice-crowd-cheers.jpg", width: 2000, sat: 0.92, coldness: 0.24 },
-  // Drei Gaeste stossen an, Glaeser im Vordergrund
-  { file: "STUDIO VOM BERG_-1042310.jpg", dest: "onice-crowd-toast.jpg", width: 2000, sat: 0.92, coldness: 0.24 },
-  // Gruppe drinnen, alle mit Glas, warmes Licht
-  { file: "STUDIO VOM BERG_-1042327.jpg", dest: "onice-crowd-group.jpg", width: 2000, sat: 0.9, coldness: 0.26 },
-  // Gruppe auf der Strasse bei Nacht, Muenchen, Drinks in der Hand
-  { file: "STUDIO VOM BERG_-1042330.jpg", dest: "onice-crowd-street.jpg", width: 2400, sat: 0.9, coldness: 0.28 },
+  // Erhobene Glaeser in dunkler Bar, Cocktail im Vordergrund. Hero.
+  { file: "CocktailX -02194.jpg", dest: "onice-bar-cheers.jpg", width: 2400, sat: 0.9, coldness: 0.2 },
+  // Zwei Coupe-Glaeser angestossen, dunkler Hintergrund
+  { file: "CocktailX -02197.jpg", dest: "onice-bar-toast.jpg", width: 2000, sat: 0.9, coldness: 0.2 },
+  // Gaeste in Daunenjacken und Schals mit dem Pass. Winter statt Sommer.
+  { file: "CocktailX -02221.jpg", dest: "onice-bar-winter.jpg", width: 2000, sat: 0.9, coldness: 0.24 },
+  // Gruppe am Tisch in der Bar, Drinks auf dem Tisch
+  { file: "CocktailX -02231.jpg", dest: "onice-bar-table.jpg", width: 2000, sat: 0.88, coldness: 0.24 },
+  // Cocktail wird auf dem Tresen abgestellt, Karte daneben
+  { file: "CocktailX -02251.jpg", dest: "onice-bar-serve.jpg", width: 2000, sat: 0.9, coldness: 0.22 },
+  // Barkeeper arbeitet, Gold auf Schwarz
+  { file: "CocktailX -02394.jpg", dest: "onice-bar-keeper.jpg", width: 2000, sat: 0.88, coldness: 0.24 },
 ];
 
 mkdirSync(OUT, { recursive: true });
@@ -87,17 +89,9 @@ async function grade({ file, dest, width, sat, coldness }, srcDir = SRC_PHOTOS) 
   console.log(`${dest.padEnd(20)} ${info.width}x${info.height}  ${Math.round(info.size / 1024)} KB`);
 }
 
-for (const p of PHOTOS) {
-  try {
-    await grade(p);
-  } catch (e) {
-    console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
-  }
-}
-
 for (const p of CROWD) {
   try {
-    await grade(p, SRC_CROWD);
+    await grade(p, SRC_BARS);
   } catch (e) {
     console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
   }
