@@ -133,7 +133,7 @@ const DELIVERED = [
   // Pipette ueber zwei Coupes, Goldtablett. Liest wie eine grosse Hotelbar.
   { file: "craft-detail.jpg", dest: "set-craft.jpg", width: 1600 },
   // Einzelne Coupe mit Schaum vor Bokeh
-  { file: "hero-coupe.jpg", dest: "set-coupe.jpg", width: 2000 },
+  { file: "hero-coupe.jpg", dest: "set-coupe.jpg", width: 2000, cropRight: 0.28 },
   // Fuenf Gaeste stossen an. Unten liegen Teller und ein Weinglas, oben
   // laeuft die Wand aus. Der Ausschnitt sitzt deshalb eng auf Gesichtern
   // und Glaesern: als breites Band bleibt sonst nur der Scheitel stehen.
@@ -209,15 +209,15 @@ async function grade(
  * einmal darueberlaufen, saufen die Schatten ab und die Farben kippen.
  * Also nur Zuschnitt, Skalierung und ein Hauch kaltes Overlay.
  */
-async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0 }) {
+async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0, cropRight = 0 }) {
   let pre = sharp(path.join(SRC_SET, file)).rotate();
 
-  if (cropTop > 0 || cropBottom > 0) {
+  if (cropTop > 0 || cropBottom > 0 || cropRight > 0) {
     const m = await pre.metadata();
     pre = pre.extract({
       left: 0,
       top: Math.round(m.height * cropTop),
-      width: m.width,
+      width: Math.round(m.width * (1 - cropRight)),
       height: Math.round(m.height * (1 - cropTop - cropBottom)),
     });
   }

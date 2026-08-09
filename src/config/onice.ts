@@ -38,8 +38,8 @@ export const CHAPTERS: Chapter[] = [
     dates: "20. bis 24. November",
     claim: "Vier Viertel. Eine Nacht.",
     text: "Kuratierte Routen aus je drei Bars, die zusammenpassen und zu Fuß erreichbar sind. Du bekommst eine Reihenfolge vorgeschlagen, keine Reservierung. Wo du wirklich hängen bleibst, entscheidest du.",
-    image: "/images/onice/onice-group-table.jpg",
-    imagePosition: "object-[center_45%]",
+    image: "/images/onice/onice-skyline.jpg",
+    imagePosition: "object-[center_40%]",
   },
   {
     key: "after-market-hours",
@@ -89,7 +89,7 @@ export const TRAILS: Trail[] = [
     promise: "Alkoholfrei und leicht, ohne dass es nach Verzicht schmeckt.",
     accent: "text-tangerine",
     image: "/images/onice/set-garnish.jpg",
-    imagePosition: "object-[center_55%]",
+    imagePosition: "object-[center_28%]",
   },
   {
     key: "hotel-icons",
@@ -97,7 +97,7 @@ export const TRAILS: Trail[] = [
     promise: "Die großen Hotelbars der Stadt, an einem Abend.",
     accent: "text-bone",
     image: "/images/onice/set-craft.jpg",
-    imagePosition: "object-[center_50%]",
+    imagePosition: "object-[center_62%]",
   },
 ];
 

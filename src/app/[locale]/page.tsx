@@ -49,21 +49,28 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       <StickyPass serverNow={now} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        {/* Ein Glas, warme Lichter im Bokeh, sonst Schwarz. Das Motiv wurde
-            fuer diesen Platz fotografiert: Der Drink sitzt mittig hoch, unten
-            bleibt Marmor und damit ruhige Flaeche fuer Logo, Headline und
-            Kauf-Button. Driftet beim Scrollen leicht mit. */}
-        <ParallaxImage
-          src="/images/onice/set-coupe.jpg"
-          alt="Cocktail mit Schaumkrone auf einem Marmortresen"
-          objectPosition="object-[center_35%]"
-          priority
-        />
-        {/* Zwei Verläufe: einer für die Lesbarkeit unten, einer für das kalte Klima */}
-        <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/70 to-licorice/30" />
+        {/* Das Bild bekommt eine eigene Spalte statt der ganzen Flaeche.
+            Ueber die volle Breite lief das hochformatige Motiv als flacher
+            Streifen durch die Bildmitte, vom Glas blieb nur der Schaum, und
+            der lag genau hinter der Headline. In der halben Spalte steht es
+            fast im Originalformat und die Schrift hat freien Grund. */}
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[52%]">
+          <ParallaxImage
+            src="/images/onice/set-coupe.jpg"
+            alt="Cocktail mit Schaumkrone auf einem Marmortresen"
+            objectPosition="object-[center_40%]"
+            priority
+          />
+          {/* Weiche Kante nach links, damit die Spalte nicht als Kasten steht */}
+          <div className="absolute inset-0 bg-gradient-to-r from-licorice via-licorice/25 lg:via-transparent to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-licorice to-transparent" />
+        </div>
+        {/* Auf kleinen Schirmen liegt das Bild hinter dem Text, dort braucht es
+            zusaetzlich Deckung. Ab lg steht es daneben und der Verlauf ist weg. */}
+        <div className="absolute inset-0 bg-licorice/45 lg:bg-transparent" />
         <div className="absolute inset-0 bg-[rgb(var(--c-accent-soft))]/10 mix-blend-overlay" />
 
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 pb-14 pt-32">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 pb-14 pt-32 lg:max-w-none lg:pl-[max(1.25rem,calc((100vw-72rem)/2))] lg:pr-[52%]">
           <Image
             src="/images/onice/logo-onice-white.png"
             alt="Cocktail X"
@@ -195,11 +202,18 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           {CHAPTERS.map((c, i) => (
             <LiftCard
               key={c.key}
-              className={`group grid md:grid-cols-2 rounded-2xl overflow-hidden ring-1 ring-hairline ${
-                i % 2 === 1 ? "md:grid-flow-dense" : ""
+              /* Bildspalte schmaler als die Textspalte. Alle Motive sind
+                 Hochformat, in einer halben Kartenbreite bleibt davon ein
+                 flacher Streifen uebrig und die Koepfe werden abgeschnitten.
+                 5 zu 7 ergibt eine nahezu quadratische Flaeche.
+                 Bei der gespiegelten Karte muessen die Spaltenbreiten mit
+                 tauschen, sonst bekommt dort das Bild die breite Spalte und
+                 die Karte wird hoeher als ihre Nachbarn. */
+              className={`group grid rounded-2xl overflow-hidden ring-1 ring-hairline ${
+                i % 2 === 1 ? "md:grid-cols-[7fr_5fr] md:grid-flow-dense" : "md:grid-cols-[5fr_7fr]"
               }`}
             >
-              <div className={`relative h-56 md:h-auto md:min-h-[340px] ${i % 2 === 1 ? "md:col-start-2" : ""}`}>
+              <div className={`relative h-72 md:h-auto md:min-h-[440px] ${i % 2 === 1 ? "md:col-start-2" : ""}`}>
                 <Image
                   src={c.image}
                   alt={c.title}
@@ -250,7 +264,10 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             {TRAILS.map((t) => (
               <StaggerItem
                 key={t.key}
-                className="group relative rounded-2xl overflow-hidden ring-1 ring-hairline min-h-[290px] flex flex-col justify-end hover:ring-tangerine/40 transition-colors duration-300"
+                /* Hochformat wie die Motive selbst. Vorher war die Kachel fast
+                   quadratisch, dazu lag der Verlauf ueber der unteren Haelfte:
+                   uebrig blieb ein Streifen, auf dem nichts mehr zu erkennen war. */
+                className="group relative rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[3/4] flex flex-col justify-end hover:ring-tangerine/40 transition-colors duration-300"
               >
                 <Image
                   src={t.image}
@@ -259,11 +276,11 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className={`object-cover ${t.imagePosition} transition-transform duration-[1100ms] ease-out group-hover:scale-[1.07]`}
                 />
-                {/* Kraeftiger Verlauf von unten, damit die Schrift auf jedem Motiv steht */}
-                <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/75 to-licorice/15" />
-                <div className="relative p-6">
-                  <h3 className={`font-display text-xl mb-3 uppercase ${t.accent}`}>{t.title}</h3>
-                  <p className="font-body text-sm text-bone/85 leading-relaxed">{t.promise}</p>
+                {/* Verlauf nur ueber dem unteren Drittel, darueber bleibt das Bild frei */}
+                <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-licorice via-licorice/85 to-transparent" />
+                <div className="relative p-5">
+                  <h3 className={`font-display text-lg mb-2 uppercase ${t.accent}`}>{t.title}</h3>
+                  <p className="font-body text-[13px] text-bone/85 leading-relaxed">{t.promise}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -281,6 +298,8 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           objectPosition="object-[center_45%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/25" />
+        {/* Von links abdunkeln: ohne das steht die Headline auf einem Gesicht */}
+        <div className="absolute inset-0 bg-gradient-to-r from-licorice via-licorice/40 to-transparent" />
         <div className="relative h-full max-w-6xl mx-auto px-5 flex flex-col justify-end pb-14 md:pb-20">
           <Reveal>
             <h2 className="font-display text-4xl md:text-6xl leading-[0.95] text-bone max-w-2xl mb-4">

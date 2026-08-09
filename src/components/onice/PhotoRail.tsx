@@ -20,12 +20,12 @@ const ROW_A = [
   { src: "/images/onice/set-drinks-four.jpg", alt: "Vier verschiedene Drinks auf einem Tisch" },
   { src: "/images/onice/onice-portrait.jpg", alt: "Gast mit Drink in der Hand" },
   { src: "/images/onice/set-stir.jpg", alt: "Barkeeper rührt einen Highball" },
-  { src: "/images/onice/onice-bar-pour.jpg", alt: "Drink wird am Tresen übergeben" },
+  { src: "/images/onice/set-eis.jpg", alt: "Eis wird ins Glas gefüllt" },
   { src: "/images/onice/onice-two-women.jpg", alt: "Zwei Gäste lachen miteinander" },
 ];
 
 const ROW_B = [
-  { src: "/images/onice/onice-skyline.jpg", alt: "Runde am Geländer, dahinter die Lichter der Stadt" },
+  { src: "/images/onice/set-coupe.jpg", alt: "Coupe mit Schaumkrone auf Marmor" },
   { src: "/images/onice/onice-drink-solo.jpg", alt: "Longdrink mit Eis und frischer Garnitur" },
   { src: "/images/onice/onice-bar-friends.jpg", alt: "Zwei Gäste lachen an der Bar" },
   { src: "/images/onice/onice-ice-logo.jpg", alt: "Eisskulptur mit eingraviertem Cocktail X Logo" },
