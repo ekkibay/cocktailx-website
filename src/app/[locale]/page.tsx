@@ -23,6 +23,7 @@ import {
   BUNDLES,
   CHECKOUT,
   DOUBLE_SEASON_LIMIT,
+  CREW_SIZE,
   EVENT,
   FULL_FROM_LABEL,
   SUMMER_PROOF,
@@ -112,11 +113,15 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           <Reveal delay={0.5} className="flex flex-col sm:flex-row sm:items-center gap-4">
             <CheckoutButton
               href={CHECKOUT.single}
-              label={`Pass sichern, ${price} €`}
               value={price}
               contentName="ON ICE Pass"
               className="btn-primary text-sm md:text-base"
-            />
+            >
+              <span className="inline-flex items-baseline gap-2">
+                Pass sichern
+                <PriceTag tier={tier} price={price} variant="inline" />
+              </span>
+            </CheckoutButton>
             <PriceCountdown serverNow={now} className="font-body text-sm text-bone/80" />
           </Reveal>
         </div>
@@ -356,10 +361,13 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                 variant="badge"
                 className="font-body text-sm text-tangerine mb-1"
               />
+              {/* Die Mehrwertsteuerangabe stand vorher im else-Zweig und fehlte
+                  damit bis zum Stichtag auf der ganzen Seite. Sie gehoert
+                  immer hin, das verlangt der Auftrag und die Preisangaben-
+                  verordnung. */}
               <p className="font-body text-sm text-muted">
-                {tier === "early"
-                  ? `Ab ${FULL_FROM_LABEL} gilt der reguläre Preis von ${TIERS.full.price} €.`
-                  : "Alle Preise inkl. MwSt."}
+                {tier === "early" && `Ab ${FULL_FROM_LABEL} gilt der reguläre Preis von ${TIERS.full.price} €. `}
+                Alle Preise inkl. MwSt.
               </p>
             </div>
 
@@ -443,14 +451,14 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                             keinen Vergleichswert, dort waere er erfunden. */}
                         {b.key === "crew" && (
                           <p className="font-display text-lg text-muted/70 line-through tabular-nums" aria-hidden>
-                            {TIERS[tier].price * 4} €
+                            {TIERS[tier].price * CREW_SIZE} €
                           </p>
                         )}
                       </div>
                       <p className="font-body text-xs text-muted mb-4">
                         {b.key === "doubleSeason"
                           ? `Limitiert auf ${DOUBLE_SEASON_LIMIT} Stück`
-                          : `Statt ${TIERS[tier].price * 4} € für vier Pässe`}
+                          : `Statt ${TIERS[tier].price * CREW_SIZE} € für ${CREW_SIZE} Pässe`}
                       </p>
                       <CheckoutButton
                         href={href}
@@ -574,11 +582,15 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <CheckoutButton
               href={CHECKOUT.single}
-              label={`Pass sichern, ${price} €`}
               value={price}
               contentName="ON ICE Pass"
               className="btn-primary text-sm md:text-base"
-            />
+            >
+              <span className="inline-flex items-baseline gap-2">
+                Pass sichern
+                <PriceTag tier={tier} price={price} variant="inline" />
+              </span>
+            </CheckoutButton>
             <Link
               href={`/${locale}/corporate`}
               className="font-body text-xs font-bold uppercase tracking-wider text-muted hover:text-bone transition-colors"

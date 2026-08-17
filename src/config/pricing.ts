@@ -60,7 +60,7 @@ export const FULL_FROM_LABEL = "16. Oktober 2026";
    Die Code-Preise stehen NICHT in dieser Datei. Sie werden an den Browser
    ausgeliefert und waeren damit oeffentlich. Einloesung und Preisfindung
    fuer Codes laufen ausschliesslich serverseitig, siehe
-   src/lib/tickets/redemption.ts und die dort referenzierte Konfiguration. */
+   src/lib/tickets/redeem.ts und die dort referenzierte Konfiguration. */
 
 export type TierKey = "early" | "full";
 
@@ -71,6 +71,16 @@ export const TIERS = {
 
 /** Referenzpreis fuer die Streichpreis-Darstellung. Immer der regulaere Tarif. */
 export const REFERENCE_PRICE = TIERS.full.price;
+
+/**
+ * Crew Pass: vier Paesse, drei bezahlt.
+ *
+ * Die Vier stand vorher als Ziffer in der Preisformel, im Kartentext, im
+ * Vergleichspreis und in der FAQ. Vier Orte fuer dieselbe Regel sind vier
+ * Gelegenheiten, sie auseinanderlaufen zu lassen.
+ */
+export const CREW_SIZE = 4;
+export const CREW_PAID = 3;
 
 /** Ersparnis gegenueber dem Referenzpreis, in Euro und in Prozent. */
 export const SAVING_EUR = TIERS.full.price - TIERS.early.price;
@@ -123,9 +133,9 @@ export const BUNDLES: Bundle[] = [
     promise: "Vier Pässe, drei bezahlt. Für alle, die ohnehin zusammen losziehen.",
     // Immer der dreifache Einzelpreis des jeweils gueltigen Tarifs. Damit
     // zieht der Crew Pass die Preisumstellung automatisch mit.
-    price: { early: 3 * TIERS.early.price, full: 3 * TIERS.full.price },
+    price: { early: CREW_PAID * TIERS.early.price, full: CREW_PAID * TIERS.full.price },
     includes: [
-      "4 Pässe für den Preis von 3",
+      `${CREW_SIZE} Pässe für den Preis von ${CREW_PAID}`,
       "Alle 12 Nächte, alle Bars",
       "Vier personalisierbare Pässe, Zuweisung per Mail nach dem Kauf",
     ],

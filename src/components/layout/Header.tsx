@@ -9,7 +9,7 @@ import MobileNav from "./MobileNav";
 import CheckoutButton from "@/components/onice/CheckoutButton";
 import PriceTag from "@/components/onice/PriceTag";
 import { navLinks } from "@/lib/nav";
-import { CHECKOUT, EARLY_UNTIL_SHORT, SAVING_PCT, TIERS, currentTier } from "@/config/pricing";
+import { CHECKOUT, EARLY_UNTIL_SHORT, TIERS, currentTier } from "@/config/pricing";
 
 export default function Header() {
   const locale = useLocale();
@@ -51,11 +51,16 @@ export default function Header() {
             </Link>
           </div>
         </div>
-        <div className="mx-auto flex items-center justify-between px-4 py-4 md:px-8 lg:px-16 relative">
+        {/* Drei Gruppen nebeneinander statt absolut zentrierter Navigation.
+            Vorher lag die Nav auf left-1/2 und beanspruchte keinen Platz.
+            Sobald die rechte Gruppe breiter wurde, lief der Rabatthinweis
+            durch "Für Teams". Absolute Zentrierung neben variabel breiten
+            Nachbarn kollidiert frueher oder spaeter immer. */}
+        <div className="mx-auto flex items-center gap-6 px-4 py-4 md:px-8 lg:px-16">
           {/* Logo */}
           <Link
             href={`/${locale}`}
-            className="block"
+            className="block shrink-0"
           >
             <Image
               src="/images/onice/logo-onice-white.png"
@@ -67,8 +72,8 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav, centered absolutely */}
-          <nav className="hidden lg:flex items-center gap-6 lg:gap-8 absolute left-1/2 -translate-x-1/2">
+          {/* Desktop nav, mittig im verbleibenden Platz */}
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-5 xl:gap-7">
             {navLinks.map((link) => (
               <Link
                 key={link.key}
@@ -81,7 +86,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop right */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4 shrink-0">
             <LanguageSwitcher />
             {/* Rabatthinweis neben dem Button statt darin: im Button wird die
                 Zeile sonst so lang, dass die Zahl untergeht. Faellt ab dem
@@ -92,7 +97,7 @@ export default function Header() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tangerine opacity-70" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-tangerine" />
                 </span>
-                Early Bird {SAVING_PCT} % bis {EARLY_UNTIL_SHORT}
+                Early Bird bis {EARLY_UNTIL_SHORT}
               </span>
             )}
             {/* Kauf-CTA: Ziel und Preis kommen aus der Preis-Config, damit die
@@ -113,7 +118,7 @@ export default function Header() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="lg:hidden p-2 -mr-2"
+            className="lg:hidden p-2 -mr-2 ml-auto"
             aria-label="Open navigation"
           >
             <svg width="22" height="14" viewBox="0 0 22 14" fill="none" className="text-bone/80">

@@ -104,7 +104,11 @@ export default function CorporatePage({ params }: { params: { locale: string } }
           </div>
 
           <p className="font-body text-xs text-muted mt-6">
-            Preise netto pro Pass zum jeweils gültigen Tarif, zzgl. MwSt. Andere Stückzahlen auf Anfrage.
+            {/* Vorher stand hier "netto, zzgl. MwSt.", gerechnet wurde aber mit
+                derselben Zahl, die die Startseite als Bruttopreis ausweist.
+                Damit bedeutete 49 € auf zwei Seiten derselben Domain zwei
+                verschiedene Betraege. */}
+            Preise pro Pass zum jeweils gültigen Tarif, inkl. MwSt. Andere Stückzahlen auf Anfrage.
           </p>
         </div>
       </section>

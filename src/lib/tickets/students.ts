@@ -92,6 +92,20 @@ export interface StudentDeps {
 }
 
 /**
+ * Eigener Zaehler fuer die Ausgabe.
+ *
+ * Ohne den zaehlt jeder Student zweimal gegen dasselbe Kontingent: einmal
+ * beim Ausstellen des Codes und ein zweites Mal, wenn er ihn an der Kasse
+ * einloest. Bei 400 waeren also nur 200 Codes nutzbar gewesen, und nach 400
+ * Verifikationen haette der Shop jeden ausgegebenen Studentencode mit
+ * "Kontingent erschoepft" abgelehnt. Ausgabe und Einloesung sind zwei
+ * verschiedene Ereignisse und brauchen zwei verschiedene Zaehler.
+ */
+export function issuanceCounterId(windowId: string): string {
+  return `${windowId}:issued`;
+}
+
+/**
  * Schritt eins: Adresse pruefen und Bestaetigungslink vorbereiten.
  *
  * Gibt den Token im Klartext zurueck, damit der Aufrufer ihn in die Mail
@@ -123,6 +137,7 @@ export async function startVerification(
   await deps.store.createVerification({
     tokenHash: hashToken(token),
     emailHash,
+    email: clean,
     expiresAt,
     consumedAt: null,
   });
@@ -150,9 +165,10 @@ export async function confirmVerification(
   }
 
   const quota = deps.quota ?? STUDENT_QUOTA;
-  const gotSlot = await deps.store.takeQuotaSlot(deps.windowId, quota);
+  const counter = issuanceCounterId(deps.windowId);
+  const gotSlot = await deps.store.takeQuotaSlot(counter, quota);
   if (!gotSlot) {
-    const position = await deps.store.addToWaitlist(v.emailHash);
+    const position = await deps.store.addToWaitlist(v.emailHash, v.email);
     return { ok: true, status: "waitlisted", position };
   }
 
@@ -161,8 +177,8 @@ export async function confirmVerification(
     // Kontingent sagt ja, aber es liegt kein Code mehr im Vorrat. Das ist ein
     // Betriebsfehler, kein Kundenfehler: Platz zurueckgeben und warten lassen,
     // statt den Platz verfallen zu lassen.
-    await deps.store.releaseQuotaSlot(deps.windowId);
-    const position = await deps.store.addToWaitlist(v.emailHash);
+    await deps.store.releaseQuotaSlot(counter);
+    const position = await deps.store.addToWaitlist(v.emailHash, v.email);
     return { ok: true, status: "waitlisted", position };
   }
 

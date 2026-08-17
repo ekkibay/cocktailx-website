@@ -45,6 +45,16 @@ export interface CodeRecord {
 export interface StudentVerification {
   tokenHash: string;
   emailHash: string;
+  /**
+   * Die Adresse im Klartext.
+   *
+   * Unangenehm, aber unvermeidlich: Eine Warteliste, an die man nicht
+   * schreiben kann, ist keine Warteliste. Der Hash allein laesst sich nicht
+   * zurueckrechnen, es gaebe also niemanden zu benachrichtigen, wenn ein
+   * Platz frei wird. Im Betrieb verschluesselt ablegen und mit dem Ende der
+   * Aktion loeschen.
+   */
+  email: string;
   expiresAt: number;
   consumedAt: number | null;
 }
@@ -99,8 +109,12 @@ export interface TicketStore {
    */
   claimStudentCode(windowId: string, emailHash: string): Promise<{ code: string; codeHash: string } | null>;
 
-  /** Setzt eine Adresse auf die Warteliste und liefert ihre Position. */
-  addToWaitlist(emailHash: string): Promise<number>;
+  /**
+   * Setzt eine Adresse auf die Warteliste und liefert ihre Position.
+   * Braucht die Adresse im Klartext, sonst laesst sich niemand
+   * benachrichtigen, wenn ein Platz frei wird.
+   */
+  addToWaitlist(emailHash: string, email: string): Promise<number>;
 }
 
 /* ── Hashing ────────────────────────────────────────────────────────────
@@ -165,7 +179,7 @@ export function createInMemoryStore(seed?: {
   const purchases: PurchaseRecord[] = [];
   const verifications = new Map<string, StudentVerification>();
   const studentCodes = new Map<string, string>();
-  const waitlist: string[] = [];
+  const waitlist: { emailHash: string; email: string }[] = [];
   /** Klartext nur hier, damit claimStudentCode ihn ausgeben kann. */
   const plain = new Map<string, string>();
   /** Reihenfolge der Code-Hashes, als Objekt statt Map wegen des tsconfig. */
@@ -260,10 +274,10 @@ export function createInMemoryStore(seed?: {
       return null;
     },
 
-    async addToWaitlist(emailHash) {
-      const existing = waitlist.indexOf(emailHash);
+    async addToWaitlist(emailHash, email) {
+      const existing = waitlist.findIndex((w) => w.emailHash === emailHash);
       if (existing >= 0) return existing + 1;
-      waitlist.push(emailHash);
+      waitlist.push({ emailHash, email });
       return waitlist.length;
     },
   };

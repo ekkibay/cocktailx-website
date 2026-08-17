@@ -54,6 +54,16 @@ function parseWindow(raw: unknown, index: number): PriceWindow {
     if (typeof p !== "string" || !VALID_PRODUCTS.has(p as ProductKey)) {
       throw new Error(`${where} (${id}): unbekanntes Produkt ${String(p)}`);
     }
+    // Double Season hat laut Vorgabe kein Rabattfenster, sein Preis ist fest.
+    // Ein Fenster darauf wuerde den Preis nicht senken, aber den Code trotzdem
+    // verbrauchen: Der Kunde zahlt voll und hat seinen Code verloren. Lieber
+    // beim Laden der Konfiguration lautstark scheitern.
+    if (p === "doubleSeason") {
+      throw new Error(
+        `${where} (${id}): Double Season hat einen festen Preis und darf in keinem Fenster stehen. ` +
+          "Ein Code darauf wuerde verbraucht, ohne den Preis zu aendern.",
+      );
+    }
   }
 
   const quota = o.quota === null || o.quota === undefined ? null : o.quota;

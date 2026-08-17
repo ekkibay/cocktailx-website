@@ -113,7 +113,16 @@ export interface PurchaseRecord {
   id: string;
   product: ProductKey;
   amountEur: number;
-  tier: PriceTier;
+  /**
+   * Welche oeffentliche Stufe zum Kaufzeitpunkt galt.
+   *
+   * Bewusst nicht "tier" genannt: Ein Code-Kauf im September steht hier als
+   * "early", obwohl gar nicht der Early-Bird-Preis gezahlt wurde. Wer nach
+   * diesem Feld gruppiert, ohne channel danebenzulegen, verbucht Code-Umsatz
+   * als Early-Bird-Umsatz. Die Frage "zu welchem Preis" beantwortet
+   * amountEur zusammen mit channel, nicht dieses Feld.
+   */
+  publicTierAtPurchase: PriceTier;
   channel: Channel;
   windowId?: string;
   channelRef?: string;

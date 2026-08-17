@@ -161,7 +161,7 @@ export async function commit(
     id: reservation.id,
     product: r.product,
     amountEur: r.amountEur,
-    tier: r.tier,
+    publicTierAtPurchase: r.tier,
     channel: r.channel,
     windowId: r.windowId,
     channelRef: r.channelRef,

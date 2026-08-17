@@ -20,21 +20,33 @@ export type PriceTagVariant = "inline" | "block" | "card";
 export default function PriceTag({
   tier,
   price,
+  reference: referenceProp,
   variant = "block",
   className = "",
 }: {
   tier: TierKey;
   /** Zu zeigender Preis. Bei Bundles der Bundle-Preis, sonst der Einzelpreis. */
   price: number;
+  /**
+   * Vergleichswert fuer den Streichpreis. Ohne Angabe der Referenzpreis des
+   * Einzelpasses, aber nur wenn hier auch der Einzelpass gezeigt wird.
+   *
+   * Vorher schloss die Komponente allein vom Betrag auf das Produkt. Sobald
+   * irgendein Bundle zufaellig denselben Preis wie der Einzelpass gehabt
+   * haette, waere ihm ein falscher Streichpreis angeheftet worden.
+   */
+  reference?: number | null;
   variant?: PriceTagVariant;
   className?: string;
 }) {
   const isEarly = tier === "early";
 
-  /* Streichpreis nur, wenn er zum gezeigten Preis passt. Beim Einzelpass ist
-     das der Referenzpreis, bei Bundles rechnet die aufrufende Stelle ihren
-     eigenen Vergleichswert aus und uebergibt ihn ueber `price`. */
-  const reference = price === TIERS.early.price ? REFERENCE_PRICE : null;
+  const reference =
+    referenceProp !== undefined
+      ? referenceProp
+      : price === TIERS.early.price
+        ? REFERENCE_PRICE
+        : null;
 
   if (variant === "inline") {
     return (

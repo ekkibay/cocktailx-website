@@ -274,7 +274,7 @@ describe("Code-Einloesung", () => {
     assert.ok(res.ok);
     const record = await commit(res.reservation, deps);
 
-    assert.equal(record.tier, "early");
+    assert.equal(record.publicTierAtPurchase, "early");
     assert.equal(record.channel, "bar");
     assert.equal(record.channelRef, "bar-id-12");
     assert.equal(record.windowId, "bar-12");
@@ -429,6 +429,47 @@ describe("Studentenverifikation", () => {
     assert.ok(!r.ok);
     assert.equal(r.reason, "invalid_token");
   });
+
+  it("verbraucht das Kontingent nicht doppelt, bei Ausgabe und beim Kauf", async () => {
+    // Der Fehler, den dieser Test festhaelt: Ausgabe und Einloesung zaehlten
+    // gegen denselben Zaehler. Bei einem Kontingent von 2 war der zweite
+    // Studentencode an der Kasse nicht mehr einloesbar.
+    const windowId = "student-2026";
+    const window: PriceWindow = {
+      id: windowId,
+      channel: "student",
+      priceEur: 29,
+      products: ["single"],
+      quota: 2,
+      activeFrom: null,
+      activeUntil: null,
+    };
+    const store = createInMemoryStore({
+      codes: [
+        { code: "STU-0001", windowId },
+        { code: "STU-0002", windowId },
+      ],
+    });
+    const sDeps = { store, windowId, now: 1_000_000, domains: DOMAINS, quota: 2 };
+
+    const ausgegeben: string[] = [];
+    for (const adresse of ["a@lmu.de", "b@lmu.de"]) {
+      const start = await startVerification(adresse, sDeps);
+      assert.ok(start.ok);
+      const c = await confirmVerification(start.token, sDeps);
+      assert.ok(c.ok && c.status === "code_issued", `${adresse} bekam keinen Code`);
+      ausgegeben.push(c.code);
+    }
+    assert.equal(ausgegeben.length, 2);
+
+    // Beide ausgegebenen Codes muessen an der Kasse auch durchgehen.
+    const rDeps = { store, windows: [window], prices: PRICES, now: IM_FENSTER };
+    for (const code of ausgegeben) {
+      const res = await reserve("single", code, rDeps);
+      assert.ok(res.ok, `${code} wurde an der Kasse abgelehnt`);
+      assert.equal(res.reservation.resolution.amountEur, 29);
+    }
+  });
 });
 
 /* ── Konfiguration ──────────────────────────────────────────────────── */
@@ -484,6 +525,15 @@ describe("Fensterkonfiguration", () => {
     assert.throws(
       () => parseWindows({ windows: [{ ...gueltig.windows[0], channel: "alumni" }] }),
       /channel/,
+    );
+  });
+
+  it("verbietet Fenster auf Double Season", () => {
+    // Der Preis ist dort fest. Ein Code wuerde verbraucht, ohne etwas zu
+    // aendern, der Kunde zahlt voll und hat den Code verloren.
+    assert.throws(
+      () => parseWindows({ windows: [{ ...gueltig.windows[0], products: ["doubleSeason"] }] }),
+      /Double Season/,
     );
   });
 });
