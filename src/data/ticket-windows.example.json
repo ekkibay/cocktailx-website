@@ -1,0 +1,49 @@
+{
+  "_hinweis": [
+    "Vorlage. Die echte Datei heisst ticket-windows.internal.json, liegt daneben",
+    "und ist per .gitignore ausgeschlossen. Im Betrieb steht derselbe Inhalt in",
+    "der Umgebungsvariablen TICKET_WINDOWS, dann wird keine Datei gelesen.",
+    "Die Codes selbst stehen NICHT hier, sondern nur in der Datenbank, und dort",
+    "ausschliesslich als HMAC-Hash. Ein Fenster beschreibt nur die Bedingungen.",
+    "priceEur ist hier bewusst als Platzhalter eingetragen."
+  ],
+  "windows": [
+    {
+      "id": "crm-newsletter-2026",
+      "channel": "crm",
+      "priceEur": 0,
+      "products": ["single"],
+      "quota": 2000,
+      "activeFrom": null,
+      "activeUntil": null
+    },
+    {
+      "id": "student-2026",
+      "channel": "student",
+      "priceEur": 0,
+      "products": ["single"],
+      "quota": 400,
+      "activeFrom": null,
+      "activeUntil": null
+    },
+    {
+      "id": "drop-halloween",
+      "channel": "drop",
+      "priceEur": 0,
+      "products": ["single"],
+      "quota": 150,
+      "activeFrom": "2026-10-31T18:00:00+01:00",
+      "activeUntil": "2026-11-01T02:00:00+01:00"
+    },
+    {
+      "id": "bar-0007",
+      "channel": "bar",
+      "priceEur": 0,
+      "products": ["single"],
+      "quota": 50,
+      "activeFrom": null,
+      "activeUntil": null,
+      "channelRef": "bar-0007"
+    }
+  ]
+}

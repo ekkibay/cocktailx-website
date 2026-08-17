@@ -24,3 +24,7 @@ public/images/testimonials/*.jpg
 # Originale des gelieferten Bildsets. Gross und rechtlich noch nicht
 # freigegeben, deshalb nicht ins Repo. Nur Quelle fuer den Import.
 src/assets/bildset-v1/
+
+# Preisfenster hinter Codes. Enthalten Preise unterhalb der oeffentlichen
+# Untergrenze und duerfen deshalb nicht ins Repository.
+src/data/ticket-windows.internal.json

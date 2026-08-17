@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "git pull origin main && git push nbm main --force"
+    "deploy": "git pull origin main && git push nbm main --force",
+    "test:tickets": "node --test src/lib/tickets/tickets.test.mts"
   },
   "dependencies": {
     "form-data": "^4.0.5",
