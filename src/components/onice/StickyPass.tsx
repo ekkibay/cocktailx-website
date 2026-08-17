@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CHECKOUT, TIERS, currentTier, daysUntilFullPrice } from "@/config/pricing";
+import {
+  CHECKOUT,
+  EARLY_UNTIL_SHORT,
+  EVENT,
+  REFERENCE_PRICE,
+  TIERS,
+  currentTier,
+  daysUntilFullPrice,
+} from "@/config/pricing";
 import CheckoutButton from "./CheckoutButton";
 
 /**
@@ -38,12 +46,19 @@ export default function StickyPass({ serverNow }: { serverNow: number }) {
         <div className="min-w-0">
           <div className="flex items-baseline gap-2">
             <span className="font-display text-2xl text-tangerine leading-none tabular-nums">{price} €</span>
+            {/* Streichpreis nur im Einstiegsfenster. Danach faellt er weg,
+                sonst stuende der Preis gegen sich selbst. */}
+            {tier === "early" && (
+              <span className="font-display text-base text-muted/70 line-through leading-none tabular-nums" aria-hidden>
+                {REFERENCE_PRICE} €
+              </span>
+            )}
             <span className="font-body text-[11px] text-muted">pro Pass</span>
           </div>
           <p className="font-body text-[11px] text-muted mt-0.5 truncate">
             {tier === "early"
-              ? `Noch ${days} ${days === 1 ? "Tag" : "Tage"} zu diesem Preis`
-              : `${TIERS.full.price} € · alle 12 Nächte`}
+              ? `Early Bird bis ${EARLY_UNTIL_SHORT}, noch ${days} ${days === 1 ? "Tag" : "Tage"}`
+              : `Alle ${EVENT.nights} Nächte, alle Bars`}
           </p>
         </div>
         <CheckoutButton

@@ -80,20 +80,48 @@ export function berlinWallClockToTimestamp(
 }
 
 /**
- * Early endet am 31.10.2026 um 23:59 Berliner Zeit, Full gilt ab dem
- * 01.11.2026 um 00:00. Als Grenze nehmen wir den Beginn des 1. November,
- * damit zwischen 23:59 und 00:00 keine Luecke entsteht.
+ * Early Bird gilt bis einschliesslich 15.10.2026 um 23:59 Berliner Zeit, der
+ * regulaere Preis ab dem 16.10.2026 um 00:00. Als Grenze nehmen wir den Beginn
+ * des 16. Oktober, damit zwischen 23:59 und 00:00 keine Luecke entsteht.
+ *
+ * Die Umstellung passiert serverseitig zur Laufzeit. Es gibt bewusst keinen
+ * Schalter und kein Deployment dafuer: currentTier() vergleicht gegen diesen
+ * Zeitstempel, und die Startseite laeuft mit dynamic = "force-dynamic".
  */
-export const FULL_PRICE_STARTS_AT = berlinWallClockToTimestamp(2026, 11, 1, 0, 0);
+export const FULL_PRICE_STARTS_AT = berlinWallClockToTimestamp(2026, 10, 16, 0, 0);
 
-/* ── Tarife ─────────────────────────────────────────────────────────── */
+/**
+ * Die Frist stand vorher als Fliesstext in vier Dateien und lief beim
+ * Verschieben auseinander. Jetzt haengen die Beschriftungen am selben Datum
+ * wie die Umschaltung.
+ */
+export const EARLY_UNTIL_LABEL = "15. Oktober 2026";
+export const EARLY_UNTIL_SHORT = "15.10.";
+export const FULL_FROM_LABEL = "16. Oktober 2026";
+
+/* ── Tarife ─────────────────────────────────────────────────────────────
+   Oeffentlich existieren genau zwei Stufen. 49 EUR ist der Referenzpreis
+   und wird oeffentlich nie unterboten, 39 EUR ist die Untergrenze im
+   sichtbaren Shop.
+
+   Die Code-Preise stehen NICHT in dieser Datei. Sie werden an den Browser
+   ausgeliefert und waeren damit oeffentlich. Einloesung und Preisfindung
+   fuer Codes laufen ausschliesslich serverseitig, siehe
+   src/lib/tickets/redemption.ts und die dort referenzierte Konfiguration. */
 
 export type TierKey = "early" | "full";
 
 export const TIERS = {
-  early: { key: "early", price: 29, label: "Early" },
-  full: { key: "full", price: 34, label: "Full" },
+  early: { key: "early", price: 39, label: "Early Bird" },
+  full: { key: "full", price: 49, label: "Regulär" },
 } as const satisfies Record<TierKey, { key: TierKey; price: number; label: string }>;
+
+/** Referenzpreis fuer die Streichpreis-Darstellung. Immer der regulaere Tarif. */
+export const REFERENCE_PRICE = TIERS.full.price;
+
+/** Ersparnis gegenueber dem Referenzpreis, in Euro und in Prozent. */
+export const SAVING_EUR = TIERS.full.price - TIERS.early.price;
+export const SAVING_PCT = Math.round((SAVING_EUR / TIERS.full.price) * 100);
 
 /** Welcher Tarif gilt zum Zeitpunkt `now`? */
 export function currentTier(now: number = Date.now()): TierKey {
@@ -115,6 +143,8 @@ export function daysUntilFullPrice(now: number = Date.now()): number {
 export interface Bundle {
   key: string;
   title: string;
+  /** Kurzer Claim ueber der Beschreibung, drei bis fuenf Woerter. */
+  claim?: string;
   /** Ein Satz, der den Nutzen traegt. */
   promise: string;
   /** Preis je Tarif. */
@@ -125,30 +155,40 @@ export interface Bundle {
   terms: string[];
   /** Optisch fuehrend darstellen. */
   featured?: boolean;
-  /** Nur bis zum Ende des Early-Zeitraums buchbar. */
-  earlyOnly?: boolean;
   /** Kein Preis, nur Anfrage. */
   requestOnly?: boolean;
 }
+
+/** Kontingent fuer Double Season. Wird im Text als Knappheit gezeigt. */
+export const DOUBLE_SEASON_LIMIT = 300;
 
 export const BUNDLES: Bundle[] = [
   {
     key: "crew",
     title: "Crew Pass",
+    claim: "Deine Runde geht auf uns",
     promise: "Vier Pässe, drei bezahlt. Für alle, die ohnehin zusammen losziehen.",
-    price: { early: 87, full: 102 },
-    includes: ["4 Pässe für den Preis von 3", "Alle 12 Nächte, alle Bars", "Sofort in der App verfügbar"],
+    // Immer der dreifache Einzelpreis des jeweils gueltigen Tarifs. Damit
+    // zieht der Crew Pass die Preisumstellung automatisch mit.
+    price: { early: 3 * TIERS.early.price, full: 3 * TIERS.full.price },
+    includes: [
+      "4 Pässe für den Preis von 3",
+      "Alle 12 Nächte, alle Bars",
+      "Vier personalisierbare Pässe, Zuweisung per Mail nach dem Kauf",
+    ],
     terms: ["Maximal 2 Crew Passes pro Käufer", "Nicht mit anderen Angeboten kombinierbar"],
     featured: true,
   },
   {
     key: "doubleSeason",
     title: "Double Season",
+    claim: "Zwei Festivals, ein Pass",
     promise: "ON ICE im November und das Sommerfestival 2027. Zwei Saisons, ein Kauf.",
-    price: { early: 40, full: 40 },
+    // Fester Preis in beiden Stufen. Das Angebot hat bewusst kein
+    // Rabattfenster, damit es nicht mit dem Early Bird konkurriert.
+    price: { early: 79, full: 79 },
     includes: ["Pass für ON ICE '26", "Pass für das Sommerfestival 2027", "Termin Sommer 2027 folgt rechtzeitig"],
-    terms: ["Limitiert auf 300 Stück", "Nur bis 31. Oktober 2026 buchbar"],
-    earlyOnly: true,
+    terms: [`Limitiert auf ${DOUBLE_SEASON_LIMIT} Stück`, "Preis gilt durchgehend, kein Rabattfenster"],
   },
   {
     key: "corporate",
@@ -160,9 +200,6 @@ export const BUNDLES: Bundle[] = [
     requestOnly: true,
   },
 ];
-
-/** Kontingent fuer Double Season. Wird im Text als Knappheit gezeigt. */
-export const DOUBLE_SEASON_LIMIT = 300;
 
 /** Staffeln fuer /corporate. Preis ist immer der regulaere Tarif, keine Rabatte. */
 export const CORPORATE_SIZES = [10, 25, 50] as const;
@@ -191,8 +228,11 @@ export function corporateMailto(size?: number): string {
 
 /* ── Sommerfestival 2027 ────────────────────────────────────────────── */
 
-/** Einstiegspreis des Sommerfestivals. Anker fuer Double Season. */
-export const SUMMER_2027_FROM = 24;
+/* Hier stand der Einstiegspreis des Sommerfestivals als Anker fuer Double
+   Season. Er ist raus, aus zwei Gruenden: Er wurde nirgends benutzt, und
+   diese Datei wird von Client-Komponenten importiert und landet damit im
+   Browser-Bundle. Ein Preis unterhalb der oeffentlichen Untergrenze darf
+   dort nicht auftauchen, auch nicht ungenutzt. */
 
 /* ── Belegte Zahlen aus dem Sommer ──────────────────────────────────── */
 

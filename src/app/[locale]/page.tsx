@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CheckoutButton from "@/components/onice/CheckoutButton";
 import PriceCountdown from "@/components/onice/PriceCountdown";
+import PriceTag from "@/components/onice/PriceTag";
 import FaqAccordion from "@/components/onice/FaqAccordion";
 import StickyPass from "@/components/onice/StickyPass";
 import PhotoRail from "@/components/onice/PhotoRail";
@@ -23,15 +24,25 @@ import {
   CHECKOUT,
   DOUBLE_SEASON_LIMIT,
   EVENT,
+  FULL_FROM_LABEL,
   SUMMER_PROOF,
   TIERS,
   currentTier,
 } from "@/config/pricing";
 
+/**
+ * Der Preis steht bewusst nicht mehr in der Beschreibung.
+ *
+ * Vorher stand hier ein Einstiegspreis als fester Text. Er zog nicht aus der
+ * Preisquelle, wanderte also unveraendert in jedes Suchergebnis und jede
+ * Link-Vorschau, und er unterschritt die oeffentliche Preisuntergrenze.
+ * Ein Preis im Meta-Tag ist ausserdem immer veraltet, sobald die Stufe
+ * umschaltet, weil Suchmaschinen ihn tagelang zwischenspeichern.
+ */
 export const metadata: Metadata = {
   title: "COCKTAIL X ON ICE '26 | 12 Nächte, 40+ Bars, ein Pass",
   description:
-    "17. bis 28. November 2026 in München. Zwölf Nächte, über 40 Bars, ein Pass. In jeder Bar ein Signature Drink, freigeschaltet über die App. Pass ab 29 €.",
+    "17. bis 28. November 2026 in München. Zwölf Nächte, über 40 Bars, ein Pass. In jeder Bar ein Signature Drink, freigeschaltet über die App.",
 };
 
 /** Preise sollen sich zum Stichtag ohne Deployment umstellen. */
@@ -322,50 +333,65 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           Ein Preis. <span className="text-muted">Alle Nächte, alle Bars.</span>
         </h2>
 
-        {/* Early und Full nebeneinander, transparent */}
-        <div className="grid sm:grid-cols-2 gap-4 mb-14">
-          <div
-            className={`rounded-2xl p-7 md:p-8 ring-1 ${
-              tier === "early" ? "bg-surface ring-tangerine/50" : "bg-surface/40 ring-hairline"
-            }`}
-          >
-            <div className="flex items-baseline justify-between gap-3 mb-2">
-              <span className="font-body text-[11px] uppercase tracking-[0.25em] text-muted">Early</span>
-              {tier === "early" && (
-                <span className="rounded-full bg-tangerine px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-licorice">
-                  Gilt jetzt
+        {/* ON ICE PASS als fuehrende Karte. Vorher standen hier Early und Full
+            als zwei gleichrangige Kaesten nebeneinander. Das las sich wie eine
+            Tarifuebersicht und nicht wie ein Angebot, und der Rabatt ging
+            darin unter, weil beide Zahlen gleich gross waren. */}
+        <div className="rounded-2xl bg-surface ring-1 ring-tangerine/50 shadow-xl shadow-black/30 p-7 md:p-10 mb-4">
+          <div className="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
+            <div>
+              <div className="flex flex-wrap items-center gap-3 mb-5">
+                <span className="font-body text-[11px] font-bold uppercase tracking-[0.25em] text-muted">
+                  ON ICE Pass
                 </span>
-              )}
-            </div>
-            <p className="font-display text-5xl text-bone leading-none mb-2 tabular-nums">{TIERS.early.price} €</p>
-            <p className="font-body text-sm text-muted">Bis 31. Oktober 2026</p>
-          </div>
+                <span className="rounded-full bg-tangerine px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-licorice">
+                  {TIERS[tier].label}
+                </span>
+              </div>
 
-          <div
-            className={`rounded-2xl p-7 md:p-8 ring-1 ${
-              tier === "full" ? "bg-surface ring-tangerine/50" : "bg-surface/40 ring-hairline"
-            }`}
-          >
-            <div className="flex items-baseline justify-between gap-3 mb-2">
-              <span className="font-body text-[11px] uppercase tracking-[0.25em] text-muted">Full</span>
-              {tier === "full" && (
-                <span className="rounded-full bg-tangerine px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-licorice">
-                  Gilt jetzt
-                </span>
-              )}
+              <PriceTag tier={tier} price={price} variant="block" className="mb-4" />
+
+              <PriceCountdown
+                serverNow={now}
+                variant="badge"
+                className="font-body text-sm text-tangerine mb-1"
+              />
+              <p className="font-body text-sm text-muted">
+                {tier === "early"
+                  ? `Ab ${FULL_FROM_LABEL} gilt der reguläre Preis von ${TIERS.full.price} €.`
+                  : "Alle Preise inkl. MwSt."}
+              </p>
             </div>
-            <p
-              className={`font-display text-5xl leading-none mb-2 tabular-nums ${
-                tier === "full" ? "text-bone" : "text-muted"
-              }`}
-            >
-              {TIERS.full.price} €
-            </p>
-            <p className="font-body text-sm text-muted">Ab 1. November 2026</p>
+
+            <ul className="space-y-2.5 lg:min-w-[300px]">
+              {[
+                `Alle ${EVENT.nights} Nächte, alle Bars`,
+                "In jeder Bar ein Signature Drink inklusive",
+                "Die App ist dein Ticket, nichts abzuholen",
+              ].map((item) => (
+                <li key={item} className="flex gap-2.5 font-body text-sm text-bone/85">
+                  <span className="text-tangerine flex-shrink-0">/</span>
+                  {item}
+                </li>
+              ))}
+              <li className="pt-3">
+                <CheckoutButton
+                  href={CHECKOUT.single}
+                  value={price}
+                  contentName="ON ICE Pass (Preisblock)"
+                  className="block w-full text-center rounded-full bg-tangerine px-6 py-3.5 font-body text-xs font-bold uppercase tracking-wider text-licorice hover:bg-tangerine/85 transition-colors"
+                >
+                  <span className="inline-flex items-baseline gap-2">
+                    Pass sichern
+                    <PriceTag tier={tier} price={price} variant="inline" />
+                  </span>
+                </CheckoutButton>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Bundles */}
+        {/* Crew Pass und Double Season darunter, Team Nights als Anfrage */}
         <div className="grid md:grid-cols-3 gap-4">
           {BUNDLES.map((b) => {
             const bundlePrice = b.price[tier];
@@ -382,7 +408,10 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                     Meistgekauft
                   </span>
                 )}
-                <h3 className="font-display text-2xl text-bone mb-2">{b.title}</h3>
+                <h3 className="font-display text-2xl text-bone mb-1">{b.title}</h3>
+                {b.claim && (
+                  <p className="font-display text-base text-tangerine mb-2">{b.claim}</p>
+                )}
                 <p className="font-body text-sm text-muted leading-relaxed mb-5">{b.promise}</p>
 
                 <ul className="space-y-2 mb-5">
@@ -408,7 +437,16 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                     </>
                   ) : (
                     <>
-                      <p className="font-display text-3xl text-bone mb-1 tabular-nums">{bundlePrice} €</p>
+                      <div className="flex items-baseline gap-2.5 mb-1">
+                        <p className="font-display text-3xl text-bone tabular-nums">{bundlePrice} €</p>
+                        {/* Streichpreis nur beim Crew Pass. Double Season hat
+                            keinen Vergleichswert, dort waere er erfunden. */}
+                        {b.key === "crew" && (
+                          <p className="font-display text-lg text-muted/70 line-through tabular-nums" aria-hidden>
+                            {TIERS[tier].price * 4} €
+                          </p>
+                        )}
+                      </div>
                       <p className="font-body text-xs text-muted mb-4">
                         {b.key === "doubleSeason"
                           ? `Limitiert auf ${DOUBLE_SEASON_LIMIT} Stück`

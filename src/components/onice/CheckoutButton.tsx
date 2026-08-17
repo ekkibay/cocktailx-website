@@ -10,13 +10,17 @@ import { trackEvent } from "@/lib/meta-pixel";
 export default function CheckoutButton({
   href,
   label,
+  children,
   value,
   contentName,
   className = "",
   onNavigate,
 }: {
   href: string;
-  label: string;
+  /** Einfache Beschriftung. Wird ignoriert, wenn children gesetzt ist. */
+  label?: string;
+  /** Fuer Beschriftungen mit Auszeichnung, etwa einem Streichpreis. */
+  children?: React.ReactNode;
   value: number;
   contentName: string;
   className?: string;
@@ -39,7 +43,7 @@ export default function CheckoutButton({
       }}
       className={className}
     >
-      {label}
+      {children ?? label}
     </a>
   );
 }

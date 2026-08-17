@@ -185,7 +185,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Was ist Double Season?",
-    a: "ON ICE im November und das Sommerfestival 2027 in einem Kauf, limitiert auf 300 Stück und nur bis zum 31. Oktober buchbar. Der Termin für Sommer 2027 wird rechtzeitig bekannt gegeben.",
+    a: "ON ICE im November und das Sommerfestival 2027 in einem Kauf, für 79 €. Der Preis gilt durchgehend, dafür gibt es kein Rabattfenster. Limitiert auf 300 Stück. Der Termin für Sommer 2027 wird rechtzeitig bekannt gegeben.",
   },
   {
     q: "Wann werden die Bars bekannt gegeben?",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CONTACT_EMAIL, EVENT, SUMMER_PROOF, TIERS } from "@/config/pricing";
+import { CONTACT_EMAIL, EARLY_UNTIL_LABEL, EVENT, SUMMER_PROOF, TIERS } from "@/config/pricing";
 
 export const metadata: Metadata = {
   title: "Presse",
@@ -14,7 +14,7 @@ const FACTS: { label: string; value: string }[] = [
   { label: "Ort", value: `${EVENT.city}, Bars über das Stadtgebiet verteilt` },
   { label: "Teilnehmende Bars", value: `${EVENT.barsLabel}, Bekanntgabe ab ${EVENT.barsRevealLabel}` },
   { label: "Zugang", value: "Ein Pass für alle Nächte, eingelöst über die Cocktail X App" },
-  { label: "Preis", value: `${TIERS.early.price} € Early bis 31. Oktober, danach ${TIERS.full.price} €` },
+  { label: "Preis", value: `${TIERS.early.price} € Early Bird bis ${EARLY_UNTIL_LABEL}, danach ${TIERS.full.price} € regulär` },
   {
     label: "Vorgängerausgabe",
     value: `${SUMMER_PROOF.guests.toLocaleString("de-DE")} Gäste, ${SUMMER_PROOF.bars} Bars`,

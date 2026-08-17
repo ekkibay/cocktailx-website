@@ -1,20 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TIERS, currentTier, daysUntilFullPrice } from "@/config/pricing";
+import { EARLY_UNTIL_SHORT, TIERS, currentTier, daysUntilFullPrice } from "@/config/pricing";
 
 /**
- * Zeigt bis zum 31.10. den Rabattdruck ("Noch X Tage zu 29 €"), danach ein
- * Kapazitaets-Framing. Der Serverwert wird als Startwert gerendert und nach
- * dem Mount mit der Uhrzeit des Besuchers nachgezogen, damit die Anzeige auch
- * bei einer zwischengespeicherten Seite stimmt.
+ * Zeigt bis zum 15.10. den Rabattdruck, danach ein Kapazitaets-Framing.
+ *
+ * Der Serverwert wird als Startwert gerendert und nach dem Mount mit der
+ * Uhrzeit des Besuchers nachgezogen, damit die Anzeige auch bei einer
+ * zwischengespeicherten Seite stimmt. Die Preishoheit liegt trotzdem beim
+ * Server: currentTier() rechnet gegen einen festen Zeitstempel, nicht gegen
+ * die Zeitzone des Besuchers.
  */
 export default function PriceCountdown({
   serverNow,
   className = "",
+  variant = "sentence",
 }: {
   serverNow: number;
   className?: string;
+  /** "sentence" fuer Fliesstext, "badge" fuer die Preiskarte. */
+  variant?: "sentence" | "badge";
 }) {
   const [now, setNow] = useState(serverNow);
 
@@ -29,6 +35,8 @@ export default function PriceCountdown({
   const days = daysUntilFullPrice(now);
 
   if (tier === "full") {
+    // Ab dem regulaeren Tarif verschwindet jeder Hinweis auf den Early Bird.
+    if (variant === "badge") return null;
     return (
       <p className={className}>
         Die Nächte mit den kürzesten Wegen sind zuerst voll. Wer den Pass hat, entscheidet spontan.
@@ -36,9 +44,19 @@ export default function PriceCountdown({
     );
   }
 
+  const rest = days === 1 ? "noch 1 Tag" : `noch ${days} Tage`;
+
+  if (variant === "badge") {
+    return (
+      <p className={className}>
+        Early Bird endet {EARLY_UNTIL_SHORT}, {rest}
+      </p>
+    );
+  }
+
   return (
     <p className={className}>
-      {days === 1 ? "Noch 1 Tag" : `Noch ${days} Tage`} zu {TIERS.early.price} €.{" "}
+      Early Bird endet {EARLY_UNTIL_SHORT}, {rest} zu {TIERS.early.price} €.{" "}
       <span className="text-muted">Danach {TIERS.full.price} €.</span>
     </p>
   );
