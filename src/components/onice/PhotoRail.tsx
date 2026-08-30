@@ -21,7 +21,7 @@ const ROW_A = [
   { src: "/images/onice/onice-portrait.jpg", alt: "Gast mit Drink in der Hand" },
   { src: "/images/onice/set-stir.jpg", alt: "Barkeeper rührt einen Highball" },
   { src: "/images/onice/set-eis.jpg", alt: "Eis wird ins Glas gefüllt" },
-  { src: "/images/onice/onice-two-women.jpg", alt: "Zwei Gäste lachen miteinander" },
+  { src: "/images/onice/onice-skyline.jpg", alt: "Runde am Geländer, dahinter die Lichter der Stadt" },
 ];
 
 const ROW_B = [
@@ -33,6 +33,7 @@ const ROW_B = [
   { src: "/images/onice/onice-bar-table.jpg", alt: "Gruppe am Tisch in einer dunklen Bar" },
   { src: "/images/onice/onice-bar-clink.jpg", alt: "Angestoßene Gläser über dem Tresen" },
   { src: "/images/onice/onice-group-table.jpg", alt: "Runde am Tresen, Drinks in der Hand" },
+  { src: "/images/onice/onice-two-women.jpg", alt: "Zwei Gäste lachen miteinander" },
 ];
 
 function Tile({ src, alt }: { src: string; alt: string }) {

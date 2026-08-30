@@ -61,34 +61,29 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       <StickyPass serverNow={now} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        {/* Menschen im Header, nicht das Produkt.
-            Hier stand zwischendurch eine Produktaufnahme. Sie war schoen, aber
-            sie erzaehlte das Falsche: Die Texte stellen das Miteinander in den
-            Vordergrund, der Einstieg zeigte ein Glas. Wer die Marke nicht
-            kennt, sah zuerst einen Cocktail und nicht den Abend.
+        {/* Menschen im Header, und zwar quer ueber die volle Breite.
+            Das Motiv ist ein Band von etwa 1,9 zu 1. In einer halben Spalte
+            blieben davon zwei der fuenf Gaeste uebrig, deshalb hier Vollbild.
 
-            Das Bild bekommt eine eigene Spalte statt der ganzen Flaeche. Ueber
-            die volle Breite laeuft ein hochformatiges Motiv als flacher
-            Streifen durch die Bildmitte und die Koepfe fallen heraus. In der
-            halben Spalte steht es fast im Originalformat, die Schrift hat
-            freien Grund. */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[52%]">
-          <ParallaxImage
-            src="/images/onice/onice-toast-two.jpg"
-            alt="Zwei Gäste heben ihre Drinks und schauen in die Kamera"
-            objectPosition="object-[center_32%]"
-            priority
-          />
-          {/* Weiche Kante nach links, damit die Spalte nicht als Kasten steht */}
-          <div className="absolute inset-0 bg-gradient-to-r from-licorice via-licorice/25 lg:via-transparent to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-licorice to-transparent" />
-        </div>
-        {/* Auf kleinen Schirmen liegt das Bild hinter dem Text, dort braucht es
-            zusaetzlich Deckung. Ab lg steht es daneben und der Verlauf ist weg. */}
-        <div className="absolute inset-0 bg-licorice/45 lg:bg-transparent" />
+            Zwei Verlaeufe tragen die Lesbarkeit: einer von unten fuer den
+            Textblock, einer von links, damit die Headline nicht auf einem
+            Gesicht steht. */}
+        <ParallaxImage
+          src="/images/onice/set-crew-toast.jpg"
+          alt="Fünf Gäste stoßen mit ihren Cocktails an"
+          objectPosition="object-[center_45%]"
+          priority
+        />
+        {/* Zwei Verlaeufe mit engen Stopps statt zwei flaechigen Schleiern.
+            Uebereinandergelegt haben die flaechigen Fassungen das ganze Bild
+            grau gezogen, aus der Runde wurde ein Schemen. Jetzt deckt der eine
+            nur das untere Drittel, der andere nur die linke Haelfte, und die
+            Glaeser in der Mitte bleiben unangetastet. */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(var(--c-ground))_0%,rgb(var(--c-ground)/0.55)_20%,transparent_52%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgb(var(--c-ground))_0%,rgb(var(--c-ground)/0.72)_26%,transparent_56%)]" />
         <div className="absolute inset-0 bg-[rgb(var(--c-accent-soft))]/10 mix-blend-overlay" />
 
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 pb-14 pt-32 lg:max-w-none lg:pl-[max(1.25rem,calc((100vw-72rem)/2))] lg:pr-[52%]">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 pb-14 pt-32">
           <Image
             src="/images/onice/logo-onice-white.png"
             alt="Cocktail X"
@@ -183,8 +178,8 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               und ein Bild dazu sagt es schneller als der zweite Satz. */}
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[4/5]">
             <Image
-              src="/images/onice/onice-two-women.jpg"
-              alt="Zwei Gäste lachen miteinander, Drinks in der Hand"
+              src="/images/onice/onice-toast-two.jpg"
+              alt="Zwei Gäste heben ihre Drinks"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="object-cover object-[center_30%]"
@@ -361,8 +356,8 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           losziehen, Stadt erkunden, Leute kennenlernen. */}
       <section className="relative h-[65svh] min-h-[420px] overflow-hidden">
         <ParallaxImage
-          src="/images/onice/set-crew-toast.jpg"
-          alt="Fünf Gäste stoßen mit ihren Cocktails an"
+          src="/images/onice/onice-bar-clink.jpg"
+          alt="Angestoßene Gläser über dem Tresen"
           objectPosition="object-[center_45%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/25" />

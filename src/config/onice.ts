@@ -38,8 +38,8 @@ export const CHAPTERS: Chapter[] = [
     dates: "20. bis 24. November",
     claim: "Vier Viertel. Eine Nacht.",
     text: "Kuratierte Routen aus je drei Bars, die zusammenpassen und zu Fuß erreichbar sind. Du bekommst eine Reihenfolge vorgeschlagen, keine Reservierung. Wo du wirklich hängen bleibst, entscheidest du.",
-    image: "/images/onice/onice-skyline.jpg",
-    imagePosition: "object-[center_40%]",
+    image: "/images/onice/set-drinks-four.jpg",
+    imagePosition: "object-[center_45%]",
   },
   {
     key: "after-market-hours",
