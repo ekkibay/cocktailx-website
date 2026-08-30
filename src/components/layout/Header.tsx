@@ -92,7 +92,7 @@ export default function Header() {
                 Zeile sonst so lang, dass die Zahl untergeht. Faellt ab dem
                 regulaeren Tarif ersatzlos weg. */}
             {tier === "early" && (
-              <span className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-tangerine/45 bg-tangerine/10 px-3 py-1.5 font-body text-[10px] font-bold uppercase tracking-[0.12em] text-tangerine whitespace-nowrap">
+              <span className="hidden 2xl:inline-flex items-center gap-1.5 rounded-full border border-tangerine/45 bg-tangerine/10 px-3 py-1.5 font-body text-[10px] font-bold uppercase tracking-[0.12em] text-tangerine whitespace-nowrap">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tangerine opacity-70" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-tangerine" />

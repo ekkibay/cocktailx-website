@@ -26,6 +26,7 @@ const ROW_A = [
 
 const ROW_B = [
   { src: "/images/onice/set-coupe.jpg", alt: "Coupe mit Schaumkrone auf Marmor" },
+  { src: "/images/onice/onice-bar-pour.jpg", alt: "Drink wird am Tresen übergeben" },
   { src: "/images/onice/onice-drink-solo.jpg", alt: "Longdrink mit Eis und frischer Garnitur" },
   { src: "/images/onice/onice-bar-friends.jpg", alt: "Zwei Gäste lachen an der Bar" },
   { src: "/images/onice/onice-ice-logo.jpg", alt: "Eisskulptur mit eingraviertem Cocktail X Logo" },

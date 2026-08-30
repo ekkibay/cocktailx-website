@@ -61,16 +61,22 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       <StickyPass serverNow={now} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        {/* Das Bild bekommt eine eigene Spalte statt der ganzen Flaeche.
-            Ueber die volle Breite lief das hochformatige Motiv als flacher
-            Streifen durch die Bildmitte, vom Glas blieb nur der Schaum, und
-            der lag genau hinter der Headline. In der halben Spalte steht es
-            fast im Originalformat und die Schrift hat freien Grund. */}
+        {/* Menschen im Header, nicht das Produkt.
+            Hier stand zwischendurch eine Produktaufnahme. Sie war schoen, aber
+            sie erzaehlte das Falsche: Die Texte stellen das Miteinander in den
+            Vordergrund, der Einstieg zeigte ein Glas. Wer die Marke nicht
+            kennt, sah zuerst einen Cocktail und nicht den Abend.
+
+            Das Bild bekommt eine eigene Spalte statt der ganzen Flaeche. Ueber
+            die volle Breite laeuft ein hochformatiges Motiv als flacher
+            Streifen durch die Bildmitte und die Koepfe fallen heraus. In der
+            halben Spalte steht es fast im Originalformat, die Schrift hat
+            freien Grund. */}
         <div className="absolute inset-y-0 right-0 w-full lg:w-[52%]">
           <ParallaxImage
-            src="/images/onice/set-coupe.jpg"
-            alt="Cocktail mit Schaumkrone auf einem Marmortresen"
-            objectPosition="object-[center_40%]"
+            src="/images/onice/onice-toast-two.jpg"
+            alt="Zwei Gäste heben ihre Drinks und schauen in die Kamera"
+            objectPosition="object-[center_32%]"
             priority
           />
           {/* Weiche Kante nach links, damit die Spalte nicht als Kasten steht */}
@@ -115,7 +121,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               href={CHECKOUT.single}
               value={price}
               contentName="ON ICE Pass"
-              className="btn-primary text-sm md:text-base"
+              className="btn-primary text-sm md:text-base whitespace-nowrap"
             >
               <span className="inline-flex items-baseline gap-2">
                 Pass sichern
@@ -139,6 +145,52 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               </span>
             ))}
           </Marquee>
+        </div>
+      </section>
+
+      {/* ══ Was ist das hier ══
+          Alles darunter ist strukturiert und konkret: Zahlen, Kacheln,
+          Aufzaehlungen. Das liest sich gut, wenn man die Marke kennt, und laesst
+          jeden anderen mit der Frage stehen, was das eigentlich ist. Deshalb
+          einmal, an einer Stelle, in ganzen Saetzen ausgeschrieben, bevor die
+          Seite ins Detail geht. */}
+      <section className="border-b border-hairline">
+        <div className="max-w-6xl mx-auto px-5 py-16 md:py-24 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="lg:col-span-7">
+            <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
+              Kurz erklärt
+            </p>
+            <Reveal>
+              <h2 className="font-display text-3xl md:text-5xl leading-[1.05] mb-6">
+                Zwölf Nächte lang gehört dir die Bar&shy;szene deiner Stadt.
+              </h2>
+              <div className="space-y-4 font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl">
+                <p>
+                  Du kaufst einen Pass, lädst die App und ziehst los. In jeder teilnehmenden Bar
+                  bekommst du einen Signature Drink, den es nur in diesen zwölf Nächten gibt. Danach
+                  entscheidest du: noch einen hier, oder weiter zur nächsten.
+                </p>
+                <p>
+                  Kein Programm, das du abarbeiten musst, und keine feste Route. Die App schlägt dir
+                  Wege vor, den Abend baust du selbst. Die meisten kommen zu zweit und gehen mit
+                  fünf Leuten weiter, die sie an der Bar daneben getroffen haben.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Ein Gesicht neben dem Text. Der Absatz erklaert das Miteinander,
+              und ein Bild dazu sagt es schneller als der zweite Satz. */}
+          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[4/5]">
+            <Image
+              src="/images/onice/onice-two-women.jpg"
+              alt="Zwei Gäste lachen miteinander, Drinks in der Hand"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-[center_30%]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 via-transparent to-transparent" />
+          </div>
         </div>
       </section>
 
@@ -584,7 +636,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               href={CHECKOUT.single}
               value={price}
               contentName="ON ICE Pass"
-              className="btn-primary text-sm md:text-base"
+              className="btn-primary text-sm md:text-base whitespace-nowrap"
             >
               <span className="inline-flex items-baseline gap-2">
                 Pass sichern
