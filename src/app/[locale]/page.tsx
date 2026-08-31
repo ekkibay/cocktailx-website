@@ -161,7 +161,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               </h2>
               <div className="space-y-4 font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl">
                 <p>
-                  Du kaufst einen Pass, lädst die App und ziehst los. In jeder teilnehmenden Bar
+                  Du kaufst einen Pass, öffnest die App und ziehst los. In jeder teilnehmenden Bar
                   bekommst du einen Signature Drink, den es nur in diesen zwölf Nächten gibt. Danach
                   entscheidest du: noch einen hier, oder weiter zur nächsten.
                 </p>
@@ -248,7 +248,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         </div>
 
         <p className="font-body text-xs text-muted mt-6">
-          Die App empfiehlt Routen und zeigt dir, wo Platz ist. Reservieren kann sie nicht.
+          Die App empfiehlt Routen. Reservieren kann sie nicht.
         </p>
       </section>
 

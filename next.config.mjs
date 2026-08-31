@@ -3,7 +3,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /**
- * Sommer-Routen zeigen auf die Startseite.
+ * Archivierte Routen zeigen auf die Startseite.
+ *
+ * /awards ist dazugekommen: Die Seite nennt fruehere Preistraeger beim Namen,
+ * und solange das Re-Signing laeuft, ist von aussen nicht unterscheidbar, ob
+ * eine genannte Bar ausgezeichnet wurde oder dieses Jahr teilnimmt. Nach dem
+ * Bar-Reveal kann sie zurueck.
  *
  * Bewusst temporaer (307), nicht permanent: Die Inhalte sind archiviert, nicht
  * abgeschafft. Das Sommerfestival 2027 kommt zurueck, und ein 308 wuerde in
@@ -12,7 +17,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
  * Deutsch laeuft ohne Locale-Praefix, Englisch mit /en (next-intl "as-needed"),
  * deshalb beide Formen.
  */
-const SUMMER_ROUTES = ["/festival", "/shop"];
+const SUMMER_ROUTES = ["/festival", "/shop", "/awards"];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

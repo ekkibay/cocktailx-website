@@ -2,17 +2,74 @@
 
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
-import Link from "next/link";
 import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { trackEvent } from "@/lib/meta-pixel";
+import { hasConsent, loadPixel, trackEvent } from "@/lib/meta-pixel";
+import { BUNDLES, CONTACT_EMAIL, EVENT, TIERS, currentPrice } from "@/config/pricing";
+
+/* ── Plausible Kaufwerte ──────────────────────────────────────────────
+   Der Shop haengt value und order_id als reine Query-Parameter an den
+   Ruecksprung. Vorher wurde jede Zahl groesser null ungeprueft als Umsatz an
+   Meta gemeldet, /danke?value=99999&order_id=beliebig also auch, und jeder
+   Reload zaehlte erneut. Deshalb zwei Huerden: eine Whitelist aus der
+   Preisquelle und ein Merker gegen Doppelzaehlung.
+
+   Das ist bewusst keine Absicherung. Ein Wert, der ueber die URL reist,
+   bleibt clientseitig faelschbar. Sauber wird das erst mit einem
+   serverseitigen Purchase ueber die Conversions API, das haengt am Shop. */
+
+const ALLOWED_PRICES: number[] = [
+  TIERS.early.price,
+  TIERS.full.price,
+  // Bundlepreise kommen aus derselben Quelle. Nicht tippen, sonst laeuft die
+  // Whitelist bei der naechsten Preisaenderung still gegen den Shop.
+  ...BUNDLES.filter((b) => !b.requestOnly).flatMap((b) => [b.price.early, b.price.full]),
+].filter((price) => price > 0);
+
+/** Untergrenze ist der guenstigste echte Preis, aktuell der Early Bird. */
+const MIN_VALUE = Math.min(...ALLOWED_PRICES);
+/** Deckel gegen aufgeblasene Betraege. Groessere Bestellungen laufen ueber Team Nights. */
+const MAX_VALUE = 5000;
 
 /**
- * Inner component that reads search params and fires the Purchase event.
- * Wrapped in <Suspense> because useSearchParams() requires it in Next.js App Router.
+ * Plausibel ist nur ein ganzes Vielfaches eines echten Einzelpreises.
+ * Gemischte Bestellungen, etwa ein Pass plus ein Double Season, fallen damit
+ * durch und werden ohne value gemeldet. Das ist der gewollte Fehlerfall:
+ * lieber ein Kauf ohne Umsatzwert als ein erfundener Umsatzwert.
+ */
+function isPlausibleValue(value: number): boolean {
+  if (!Number.isFinite(value) || !Number.isInteger(value)) return false;
+  if (value < MIN_VALUE || value > MAX_VALUE) return false;
+  return ALLOWED_PRICES.some((price) => value % price === 0);
+}
+
+/** Ein Reload der Dankeseite ist kein zweiter Kauf. Der Merker haelt eine Session lang. */
+const TRACKED_KEY = "onice_purchase_tracked";
+
+function alreadyTracked(id: string): boolean {
+  try {
+    return window.sessionStorage.getItem(TRACKED_KEY) === id;
+  } catch {
+    // sessionStorage kann blockiert sein (Private Mode, Policies). Dann lieber
+    // einmal zu viel zaehlen als den Kauf gar nicht zu melden.
+    return false;
+  }
+}
+
+function markTracked(id: string) {
+  try {
+    window.sessionStorage.setItem(TRACKED_KEY, id);
+  } catch {
+    /* nicht speicherbar, siehe oben */
+  }
+}
+
+/**
+ * Liest die Rueckgabeparameter und feuert das Purchase-Event.
+ * In <Suspense> gewickelt, weil useSearchParams() das im App Router verlangt.
  *
- * Expected redirect URL from cocktailx.app:
- *   /de/danke?value=20&order_id=ABC123
+ * Erwarteter Ruecksprung aus dem Shop:
+ *   /de/danke?value=39&order_id=ABC123
  */
 function PurchaseTracker() {
   const searchParams = useSearchParams();
@@ -21,15 +78,24 @@ function PurchaseTracker() {
     const rawValue = searchParams.get("value");
     const orderId = searchParams.get("order_id");
 
+    // Ohne Bestellnummer greift der Merker trotzdem, sonst zaehlt ein Reload erneut.
+    const trackingId = orderId ?? "ohne-bestellnummer";
+    if (alreadyTracked(trackingId)) return;
+
     const params: Record<string, string | number | boolean> = {
-      content_name: "Festival Ticket",
-      content_category: "Festival",
+      // Nomenklatur wie in Header und CheckoutButton. Vorher stand hier die
+      // Sommerbenennung, damit lief die Attribution zwischen InitiateCheckout
+      // und Purchase auseinander.
+      content_name: "ON ICE Pass",
+      content_category: "ON ICE",
       currency: "EUR",
     };
 
     if (rawValue) {
-      const value = parseFloat(rawValue);
-      if (!isNaN(value) && value > 0) {
+      // Number statt parseFloat: parseFloat("39abc") ergibt 39 und haette den
+      // Wert durch die Pruefung gelassen. Number ergibt NaN und faellt durch.
+      const value = Number(rawValue);
+      if (isPlausibleValue(value)) {
         params.value = value;
       }
     }
@@ -38,7 +104,33 @@ function PurchaseTracker() {
       params.content_ids = orderId;
     }
 
-    trackEvent("Purchase", params);
+    // Feuern und nur bei Erfolg vermerken.
+    //
+    // Vorher stand hier ein Aufruf ohne Auswertung, direkt gefolgt vom
+    // Merker. Beim ersten Aufruf der Seite ist der Pixel aber oft noch nicht
+    // geladen, etwa weil die Einwilligung erst im Banner erteilt wird.
+    // trackEvent brach dann still ab, der Merker wurde trotzdem gesetzt, und
+    // der Kauf kam nie bei Meta an, auch nach einem Neuladen nicht.
+    const fire = () => {
+      if (!hasConsent()) return false;
+      loadPixel();
+      if (!trackEvent("Purchase", params)) return false;
+      markTracked(trackingId);
+      return true;
+    };
+
+    if (fire()) return;
+
+    // Kurz nachfassen, falls die Einwilligung gleich noch kommt. Nach dreissig
+    // Sekunden aufgeben: Wer bis dahin nicht zugestimmt hat, will nicht.
+    const versuch = setInterval(() => {
+      if (fire()) clearInterval(versuch);
+    }, 1000);
+    const aufgeben = setTimeout(() => clearInterval(versuch), 30_000);
+    return () => {
+      clearInterval(versuch);
+      clearTimeout(aufgeben);
+    };
   }, [searchParams]);
 
   return null;
@@ -47,18 +139,34 @@ function PurchaseTracker() {
 export default function DankePage() {
   const locale = useLocale() as "de" | "en";
 
+  // Preis nie tippen. Am 16.10. schaltet die Preisquelle um, ein getippter Preis
+  // waere danach falsch und liefe ueber den Teilen-Text weiter durch WhatsApp.
+  const price = currentPrice();
+  // Im Teilen-Text traegt die Edition das Jahr, deshalb ohne Jahreszahl.
+  const dateRange = EVENT.dateLabel.replace(" 2026", "");
+
+  const shareText =
+    locale === "de"
+      ? `Ich hab mir gerade meinen Pass für COCKTAIL X ON ICE '26 geholt. ${EVENT.nights} Nächte, ${EVENT.barsLabel} Bars in München, in jeder Bar ein Signature Drink. ${dateRange}. Der Pass kostet ${price} €. Komm mit: https://www.cocktail-x.com?utm_source=whatsapp&utm_medium=share&utm_campaign=onice26`
+      : `I just got my pass for COCKTAIL X ON ICE '26. ${EVENT.nights} nights, ${EVENT.barsLabel} bars in Munich, one signature drink in every bar. November 17 to 28. The pass is ${price} €. Join me: https://www.cocktail-x.com/en?utm_source=whatsapp&utm_medium=share&utm_campaign=onice26`;
+
   return (
     <main className="section-padding pt-32 md:pt-40 min-h-screen relative flex items-center justify-center">
       <Suspense fallback={null}>
         <PurchaseTracker />
       </Suspense>
 
-      {/* CI background */}
+      {/* CI-Hintergrund.
+          Hier lag das Kachelmuster aus /images/pattern-bg.svg, das das alte
+          Jambalaya-Braun fest in die Datei schreibt und deshalb nicht mit dem
+          Farbklima schaltet, dazu Verlaeufe im warmen Grund und ein oranger
+          Schleier. Auf einer ON ICE Seite ist beides falsch. Ersetzt durch reine
+          Tokenflaechen, die unter :root kalt aufloesen. Das kalte Kachelmuster
+          gibt es im Repo noch nicht, ein Verweis darauf waere heute ein 404. */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/images/pattern-bg.svg)", backgroundSize: "200px 200px", backgroundRepeat: "repeat", opacity: 0.18 }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(25,21,19,0.55) 0%, rgba(25,21,19,0.2) 25%, rgba(25,21,19,0.2) 75%, rgba(25,21,19,0.7) 100%)" }} />
-        <div style={{ position: "absolute", top: "-200px", right: "-200px", width: "600px", height: "600px", borderRadius: "50%", background: "rgba(243,146,0,0.12)", filter: "blur(120px)" }} />
-        <div style={{ position: "absolute", bottom: "-100px", left: "-150px", width: "450px", height: "450px", borderRadius: "50%", background: "rgba(189,37,110,0.10)", filter: "blur(110px)" }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-surface/40 via-transparent to-licorice/80" />
+        <div className="absolute -top-52 -right-52 w-[600px] h-[600px] rounded-full bg-tangerine/10 blur-[120px]" />
+        <div className="absolute -bottom-24 -left-36 w-[450px] h-[450px] rounded-full bg-hibiscus/10 blur-[110px]" />
       </div>
 
       <div className="max-w-2xl mx-auto text-center relative">
@@ -89,9 +197,10 @@ export default function DankePage() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="text-lg md:text-xl font-body text-bone/85 leading-relaxed mb-4"
         >
-          {locale === "de"
-            ? "Dein Ticket ist auf dem Weg zu dir."
-            : "Your ticket is on its way to you."}
+          {/* Das Produkt heisst Pass, nicht Ticket, und es ist nicht unterwegs,
+              es liegt bereit. "auf dem Weg zu dir" hat eine Zustellung versprochen,
+              die es nicht gibt. */}
+          {locale === "de" ? "Dein Pass gehört dir." : "Your pass is yours."}
         </motion.p>
 
         <motion.p
@@ -100,9 +209,12 @@ export default function DankePage() {
           transition={{ duration: 0.6, delay: 0.45 }}
           className="text-base font-body text-bone/65 leading-relaxed mb-10"
         >
+          {/* Hier stand "Lade dir die Cocktail X App herunter". Die App laeuft im
+              Browser und sagt das auf /app selbst. Ein Downloadversprechen erzeugt
+              genau die Rueckfrage, die diese Seite verhindern soll. */}
           {locale === "de"
-            ? "Du erhaltst in Kurze eine Bestatigung per E-Mail. Lade dir die Cocktail X App herunter, um dein Ticket zu aktivieren und alle teilnehmenden Bars zu entdecken."
-            : "You'll receive a confirmation email shortly. Download the Cocktail X App to activate your ticket and discover all participating bars."}
+            ? "Du erhältst in Kürze eine Bestätigung per E-Mail. Öffne die Cocktail X App und melde dich mit derselben Adresse an, dann liegt dein Pass dort bereit. Installieren musst du nichts, die App läuft im Browser."
+            : "You will receive a confirmation email shortly. Open the Cocktail X App and sign in with the same address, your pass is waiting there. Nothing to install, the app runs in your browser."}
         </motion.p>
 
         <motion.div
@@ -111,18 +223,19 @@ export default function DankePage() {
           transition={{ duration: 0.6, delay: 0.55 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
         >
-          <Link
-            href={`/${locale}/app`}
+          {/* Fuehrte auf /app, also auf die eigene Marketingseite, die selbst sagt,
+              dass es nichts zu installieren gibt. Nach dem Kauf will der Gast in
+              die App, nicht in ihre Beschreibung. */}
+          <a
+            href="https://cocktailx.app"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-primary text-sm md:text-base"
           >
-            {locale === "de" ? "APP HERUNTERLADEN" : "DOWNLOAD APP"}
-          </Link>
+            {locale === "de" ? "APP ÖFFNEN" : "OPEN APP"}
+          </a>
           <a
-            href={`https://wa.me/?text=${encodeURIComponent(
-              locale === "de"
-                ? "Ich hab mir gerade ein Ticket fur das Cocktail X Festival geholt! 60+ Bars, 18 Tage, Signature Cocktails fur nur 6 Euro. Komm mit! https://www.cocktail-x.com/shop"
-                : "I just got a ticket for the Cocktail X Festival! 60+ bars, 18 days, signature cocktails for just 6 Euro. Join me! https://www.cocktail-x.com/en/shop"
-            )}`}
+            href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-bone/20 text-bone font-body font-bold text-sm hover:bg-bone/5 transition-colors"
@@ -145,18 +258,21 @@ export default function DankePage() {
             {locale === "de" ? "So geht's weiter" : "Next Steps"}
           </p>
           <div className="space-y-4">
+            {/* Schritt 4 nannte den 5. Mai 2027, das Startdatum des Sommerfestivals
+                aus src/data/events.ts. Auf der Dankeseite eines Novemberpasses war
+                das der teuerste Fehler der Seite. */}
             {(locale === "de"
               ? [
-                  "Bestatigungsmail checken",
-                  "Cocktail X App herunterladen",
-                  "Ticket in der App aktivieren",
-                  "Ab 5. Mai 2027: Bars entdecken & Cocktails geniessen!",
+                  "Bestätigungsmail checken",
+                  "App öffnen, kein Download nötig",
+                  "Mit deiner E-Mail anmelden, der Pass liegt bereit",
+                  "Ab 17. November: Bars entdecken und Signature Drinks freischalten",
                 ]
               : [
                   "Check your confirmation email",
-                  "Download the Cocktail X App",
-                  "Activate your ticket in the app",
-                  "From May 5, 2027: Discover bars & enjoy cocktails!",
+                  "Open the app, no download needed",
+                  "Sign in with your email, your pass is waiting",
+                  "From November 17: discover bars and unlock signature drinks",
                 ]
             ).map((step, i) => (
               <div key={i} className="flex items-center gap-3">
@@ -168,6 +284,23 @@ export default function DankePage() {
             ))}
           </div>
         </motion.div>
+
+        {/* Haeufigste Rueckfrage nach dem Kauf. Steht hier, damit sie nicht als
+            Mail im Postfach landet. */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.75 }}
+          className="text-xs font-body text-muted mt-6"
+        >
+          {locale === "de"
+            ? "Keine Mail bekommen? Schau kurz in den Spam-Ordner oder schreib uns an "
+            : "No email yet? Check your spam folder or write to us at "}
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-tangerine hover:underline">
+            {CONTACT_EMAIL}
+          </a>
+          .
+        </motion.p>
       </div>
     </main>
   );

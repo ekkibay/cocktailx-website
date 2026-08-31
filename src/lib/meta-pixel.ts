@@ -110,16 +110,31 @@ type StandardEvent =
 /**
  * Fire a Meta Pixel event. Ohne Einwilligung passiert nichts.
  */
-export function trackEvent(event: StandardEvent, params?: Record<string, string | number | boolean>) {
-  if (typeof window === "undefined") return;
-  if (!hasConsent()) return;
-  if (!window.fbq) return;
+/**
+ * Feuert ein Event, sofern Einwilligung vorliegt und der Pixel geladen ist.
+ *
+ * Der Rueckgabewert ist wichtig fuer Aufrufer, die sich merken wollen, dass
+ * etwas gemeldet wurde. Vorher war der Rueckgabetyp void, und auf /danke
+ * wurde der Kauf als gemeldet vermerkt, obwohl der Aufruf hier still
+ * abgebrochen ist. Der Umsatz kam nie bei Meta an, auch nicht nach einem
+ * Neuladen, weil der Merker den zweiten Versuch verhindert hat.
+ *
+ * @returns true, wenn das Event abgesetzt wurde.
+ */
+export function trackEvent(
+  event: StandardEvent,
+  params?: Record<string, string | number | boolean>,
+): boolean {
+  if (typeof window === "undefined") return false;
+  if (!hasConsent()) return false;
+  if (!window.fbq) return false;
 
   if (params) {
     window.fbq("track", event, params);
   } else {
     window.fbq("track", event);
   }
+  return true;
 }
 
 /* ── TypeScript global augmentation ──────────────────────────────────── */

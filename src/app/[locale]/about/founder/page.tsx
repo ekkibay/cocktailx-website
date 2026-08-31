@@ -89,8 +89,8 @@ export default function FounderPage() {
           </p>
           <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed">
             {locale === "de"
-              ? "Im April 2023 öffnete Cocktail X zum ersten Mal seine Türen, mit 32 teilnehmenden Bars und der klaren Vision, Deutschlands größtes Cocktail-Festival zu werden. Heute, in der 4. Ausgabe, sind 60+ Bars dabei und über 5.000 Gäste erwartet."
-              : "In April 2023, Cocktail X opened its doors for the first time, with 32 participating bars and a clear vision to become Germany's largest cocktail festival. Today, in its 4th edition, 60+ bars participate and over 5,000 guests are expected."}
+              ? `Im April 2023 öffnete Cocktail X zum ersten Mal seine Türen, mit 32 teilnehmenden Bars und der klaren Vision, Deutschlands größtes Cocktail-Festival zu werden. Zur vierten Ausgabe im Mai 2026 waren es ${SUMMER_PROOF.bars} Bars und ${SUMMER_PROOF.guests.toLocaleString("de-DE")} Gäste.`
+              : `In April 2023, Cocktail X opened its doors for the first time, with 32 participating bars and a clear vision to become Germany's largest cocktail festival. By the fourth edition in May 2026, ${SUMMER_PROOF.bars} bars took part and ${SUMMER_PROOF.guests.toLocaleString("en-GB")} guests came.`}
           </p>
         </motion.div>
 

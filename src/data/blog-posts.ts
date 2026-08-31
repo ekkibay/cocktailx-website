@@ -18,26 +18,13 @@ export interface BlogPost {
   featured: boolean;
 }
 
+/* Der Beitrag "cocktail-x-2026-lineup" ist hier entfernt und nicht nur
+   ausgeblendet. Er nannte zwei Bars beim Namen, waehrend das Re-Signing noch
+   laeuft, und beschrieb mit 60+ Bars, 174+ Cocktails und 18 Tagen das
+   Sommerformat als das, was 2026 stattfindet. Beides stand live unter /blog.
+   Nach dem Bar-Reveal kann ein neuer Beitrag mit den richtigen Zahlen
+   entstehen, der alte Text taugt dafuer nicht. */
 export const blogPosts: BlogPost[] = [
-  {
-    slug: "cocktail-x-2026-lineup",
-    title: {
-      de: "Das Cocktail X 2026 Line-Up ist da!",
-      en: "The Cocktail X 2026 Line-Up Is Here!",
-    },
-    excerpt: {
-      de: "60+ Bars, 174+ exklusive Cocktails und 18 Tage voller Genuss \u2013 entdecke das komplette Festival-Programm.",
-      en: "60+ bars, 174+ exclusive cocktails, and 18 days of indulgence \u2013 discover the complete festival program.",
-    },
-    content: {
-      de: "Wir freuen uns, das vollst\u00e4ndige Line-Up f\u00fcr das Cocktail X Festival 2026 bekannt zu geben. Dieses Jahr erwarten euch 60+ teilnehmende Bars aus ganz M\u00fcnchen, 174+ exklusive Cocktailkreationen und 18 unvergessliche Tage. Von der Goldenen Bar bis zur Zephyr Bar \u2013 jede Location hat einen einzigartigen Signature Cocktail f\u00fcr das Festival kreiert.",
-      en: "We are excited to announce the complete line-up for the Cocktail X Festival 2026. This year, you can look forward to 60+ participating bars from across M\u00fcnchen, 174+ exclusive cocktail creations, and 18 unforgettable days. From Goldene Bar to Zephyr Bar \u2013 each location has created a unique signature cocktail for the festival.",
-    },
-    date: "2026-03-15",
-    image: "/images/placeholder/blog-1.svg",
-    category: "Festival",
-    featured: true,
-  },
   {
     slug: "top-cocktail-trends-2026",
     title: {

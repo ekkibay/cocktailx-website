@@ -134,8 +134,8 @@ export const HOW_IT_WORKS = [
   },
   {
     step: "02",
-    title: "App laden",
-    text: "Die App ist dein Ticket. Kein Ausdruck, kein Umtausch, nichts abzuholen.",
+    title: "App öffnen",
+    text: "Die App ist dein Pass. Sie läuft im Browser, es gibt nichts zu installieren.",
   },
   {
     step: "03",
@@ -165,11 +165,11 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Wie funktioniert das mit der App?",
-    a: "Die App ist dein Ticket. Nach dem Kauf lädst du sie und meldest dich an, dein Pass liegt dort hinterlegt. In der Bar scannst du den QR-Code, das Team schaltet deinen Drink frei. Du brauchst nichts auszudrucken und nichts abzuholen.",
+    a: "Die App ist dein Pass. Nach dem Kauf öffnest du sie und meldest dich an, dein Pass liegt dort hinterlegt. In der Bar scannst du den QR-Code, das Team schaltet deinen Drink frei. Du brauchst nichts auszudrucken und nichts abzuholen.",
   },
   {
     q: "Muss ich vorher reservieren?",
-    a: "Nein, und wir reservieren auch nicht für dich. Die App schlägt dir Routen vor und zeigt, wo gerade Platz ist. Ob du reinkommst, entscheidet die Bar wie an jedem anderen Abend auch.",
+    a: "Nein, und wir reservieren auch nicht für dich. Die App schlägt dir Routen vor. Ob du reinkommst, entscheidet die Bar wie an jedem anderen Abend auch.",
   },
   {
     q: "Kann ich alle Bars an einem Abend machen?",

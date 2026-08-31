@@ -50,9 +50,16 @@ export default function PriceTag({
 
   if (variant === "inline") {
     return (
-      <span className={`inline-flex items-baseline gap-1.5 ${className}`}>
+      /* whitespace-nowrap, sonst bricht der Knopf zwischen Zahl und Einheit um
+         und es steht "PASS 49 39" ueber "SICHERN € €".
+
+         Der Streichpreis nimmt die Textfarbe des Knopfes mit opacity statt
+         einer festen hellen Farbe. Vorher stand hier text-bone/45, also helle
+         Schrift auf hellem Eisblau: auf dem Kauf-Knopf war die 49 praktisch
+         unsichtbar, und genau sie traegt den Rabatt. */
+      <span className={`inline-flex items-baseline gap-1.5 whitespace-nowrap ${className}`}>
         {isEarly && reference !== null && (
-          <span className="text-bone/45 line-through tabular-nums" aria-hidden>
+          <span className="line-through tabular-nums opacity-50" aria-hidden>
             {reference} €
           </span>
         )}
