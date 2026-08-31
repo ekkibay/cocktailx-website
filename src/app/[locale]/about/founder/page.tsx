@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import Image from "next/image";
+import { EVENT, SUMMER_PROOF } from "@/config/pricing";
 
 export default function FounderPage() {
   const locale = useLocale() as "de" | "en";
@@ -83,8 +84,8 @@ export default function FounderPage() {
           </p>
           <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed mb-5">
             {locale === "de"
-              ? "Die Inspiration kam aus London: Die London Cocktail Week zeigt, wie ein dezentrales Festival-Format funktioniert, Gäste besuchen mit einem einzigen Ticket zahlreiche Bars und entdecken die Stadt neu. Bay und Kerger übertrugen dieses Konzept auf München und schufen etwas Eigenes: ein Festival, bei dem jede Bar einen exklusiven Signature Cocktail kreiert, nur für diese 18 Tage."
-              : "The inspiration came from London: London Cocktail Week demonstrates how a decentralised festival format works, guests visit numerous bars with a single ticket and rediscover the city. Bay and Kerger adapted this concept for Munich and created something of their own: a festival where every bar creates an exclusive signature cocktail, only for these 18 days."}
+              ? "Die Inspiration kam aus London: Die London Cocktail Week zeigt, wie ein dezentrales Festival-Format funktioniert, Gäste besuchen mit einem einzigen Ticket zahlreiche Bars und entdecken die Stadt neu. Bay und Kerger übertrugen dieses Konzept auf München und schufen etwas Eigenes: ein Festival, bei dem jede Bar einen exklusiven Signature Cocktail kreiert, nur für die Dauer des Festivals."
+              : "The inspiration came from London: London Cocktail Week demonstrates how a decentralised festival format works, guests visit numerous bars with a single ticket and rediscover the city. Bay and Kerger adapted this concept for Munich and created something of their own: a festival where every bar creates an exclusive signature cocktail, only for the run of the festival."}
           </p>
           <p className="text-bone/85 font-body text-base md:text-lg leading-relaxed">
             {locale === "de"
@@ -225,12 +226,17 @@ export default function FounderPage() {
               },
               {
                 year: "2026",
-                de: "Vierte Ausgabe: 60+ Bars, 18 Tage, 5.000+ erwartete Gäste. 13. bis 30. Mai, München.",
-                en: "Fourth edition: 60+ bars, 18 days, 5,000+ expected guests. May 13 bis 30, Munich.",
+                de: `Vierte Ausgabe im Mai: ${SUMMER_PROOF.bars} Bars, ${SUMMER_PROOF.guests.toLocaleString("de-DE")} Gäste.`,
+                en: `Fourth edition in May: ${SUMMER_PROOF.bars} bars, ${SUMMER_PROOF.guests.toLocaleString("en-GB")} guests.`,
+              },
+              {
+                year: "2026",
+                de: `COCKTAIL X ON ICE: ${EVENT.nights} Nächte, ${EVENT.barsLabel} Bars, ${EVENT.dateLabel}.`,
+                en: `COCKTAIL X ON ICE: ${EVENT.nights} nights, ${EVENT.barsLabel} bars, 17 to 28 November 2026.`,
                 highlight: true,
               },
             ].map((item) => (
-              <div key={item.year} className="flex gap-6 items-start">
+              <div key={`${item.year}-${item.de.slice(0, 12)}`} className="flex gap-6 items-start">
                 <span className={`text-sm font-display flex-shrink-0 w-12 ${item.highlight ? "text-tangerine" : "text-bone/55"}`}>
                   {item.year}
                 </span>
