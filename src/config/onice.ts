@@ -5,6 +5,8 @@
  * sie hier und nicht in den Komponenten. Preise liegen getrennt in pricing.ts.
  */
 
+import { EVENT } from "./pricing";
+
 /* ── Chapters ───────────────────────────────────────────────────────── */
 
 export interface Chapter {
@@ -80,8 +82,8 @@ export const TRAILS: Trail[] = [
     title: "Fire & Fruit",
     promise: "Geräuchert, scharf, süß. Drinks, die dich wach halten.",
     accent: "text-hibiscus",
-    image: "/images/onice/onice-drinks-row.jpg",
-    imagePosition: "object-[center_50%]",
+    image: "/images/onice/set-stir.jpg",
+    imagePosition: "object-[center_55%]",
   },
   {
     key: "zero-light",
@@ -189,7 +191,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Wann werden die Bars bekannt gegeben?",
-    a: "Ab dem 24. August. Danach kommen laufend weitere dazu, bis alle über 40 Bars stehen. Wir veröffentlichen keine Namen, solange die Vereinbarungen nicht unterschrieben sind.",
+    a: `Ab dem ${EVENT.barsRevealLabel}. Danach kommen laufend weitere dazu, bis alle über 40 Bars stehen. Wir veröffentlichen keine Namen, solange die Vereinbarungen nicht unterschrieben sind.`,
   },
   {
     q: "Kann ich den Pass zurückgeben?",

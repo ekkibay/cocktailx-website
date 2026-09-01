@@ -17,8 +17,8 @@ export const EVENT = {
   end: "2026-11-28",
   dateLabel: "17. bis 28. November 2026",
   /** Ab hier werden die Bars enthuellt. */
-  barsRevealDate: "2026-08-24",
-  barsRevealLabel: "24. August",
+  barsRevealDate: "2026-09-01",
+  barsRevealLabel: "1. September",
 } as const;
 
 /* ── Zeitzone ───────────────────────────────────────────────────────────

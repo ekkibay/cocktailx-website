@@ -26,15 +26,22 @@ export default function CorporatePage({ params }: { params: { locale: string } }
           sizes="100vw"
           className="object-cover object-[center_45%]"
         />
-        <div className="absolute inset-0 bg-licorice/88" />
+        {/* Ein flaechiger Schleier reichte hier nicht. Das Motiv ist hell und
+            unruhig, und Schrift auf einem unruhigen Grund braucht mehr als
+            einen rechnerisch ausreichenden Kontrastwert: Die Buchstaben
+            konkurrieren mit Gesichtern und Glaesern um dieselbe Flaeche.
+            Deshalb zwei Verlaeufe mit engen Stopps, die genau dort decken, wo
+            der Text steht, und das Bild rechts frei lassen. */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgb(var(--c-ground))_0%,rgb(var(--c-ground)/0.92)_38%,rgb(var(--c-ground)/0.55)_70%,rgb(var(--c-ground)/0.35)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(var(--c-ground))_0%,rgb(var(--c-ground)/0.35)_35%,transparent_75%)]" />
         <div className="relative max-w-6xl mx-auto px-5 pt-32 md:pt-40 pb-16">
           <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-6">
             Team Nights
           </p>
           <h1 className="font-display text-5xl md:text-7xl leading-[0.9] mb-6 max-w-3xl">
-            Ein Abend, <span className="text-muted">den keiner organisieren muss.</span>
+            Ein Abend, <span className="text-bone/70">den keiner organisieren muss.</span>
           </h1>
-          <p className="font-body text-base md:text-lg text-muted leading-relaxed max-w-xl">
+          <p className="font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl">
             Ihr bekommt Pässe fürs Team, eine Rechnung auf die Firma und danach einen Abend, an dem
             niemand eine Location suchen, Tische reservieren oder Getränke abrechnen muss.
           </p>

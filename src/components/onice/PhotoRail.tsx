@@ -19,7 +19,7 @@ const ROW_A = [
   { src: "/images/onice/onice-toast-two.jpg", alt: "Zwei Gäste heben ihre Drinks" },
   { src: "/images/onice/set-drinks-four.jpg", alt: "Vier verschiedene Drinks auf einem Tisch" },
   { src: "/images/onice/onice-portrait.jpg", alt: "Gast mit Drink in der Hand" },
-  { src: "/images/onice/set-stir.jpg", alt: "Barkeeper rührt einen Highball" },
+  { src: "/images/onice/onice-drinks-row.jpg", alt: "Reihe frisch gebauter Drinks im Gegenlicht" },
   { src: "/images/onice/set-eis.jpg", alt: "Eis wird ins Glas gefüllt" },
   { src: "/images/onice/onice-skyline.jpg", alt: "Runde am Geländer, dahinter die Lichter der Stadt" },
 ];
