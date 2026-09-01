@@ -155,7 +155,8 @@ export default function AppPage() {
               {/* Termin und Ort standen auf der ganzen Seite nirgends. Beide
                   kommen aus der Eventquelle, damit sie nicht auseinanderlaufen. */}
               <p className="text-xs font-body uppercase tracking-[0.16em] text-tangerine mb-8">
-                {EVENT.dateLabel}, {EVENT.city}
+                {locale === "en" ? EVENT.dateLabelEn : EVENT.dateLabel},{" "}
+                {locale === "en" ? EVENT.cityEn : EVENT.city}
               </p>
 
               {/* Feature pills */}

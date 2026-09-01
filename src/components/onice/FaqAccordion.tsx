@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import type { FaqItem } from "@/config/onice";
+import { pick, type Locale } from "@/i18n/bilingual";
 
-export default function FaqAccordion({ items }: { items: FaqItem[] }) {
+export default function FaqAccordion({ items, locale }: { items: FaqItem[]; locale: Locale }) {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
@@ -11,7 +12,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
       {items.map((item, i) => {
         const isOpen = open === i;
         return (
-          <div key={item.q} className="border-b border-hairline">
+          <div key={item.q.de} className="border-b border-hairline">
             <h3>
               <button
                 type="button"
@@ -20,7 +21,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                 className="w-full flex items-start gap-5 py-5 text-left group"
               >
                 <span className="flex-1 font-body font-bold text-base md:text-lg text-bone group-hover:text-tangerine transition-colors">
-                  {item.q}
+                  {pick(item.q, locale)}
                 </span>
                 <span
                   aria-hidden
@@ -37,7 +38,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
             <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
               <div className="overflow-hidden">
                 <p className="font-body text-sm md:text-base text-muted leading-relaxed pb-6 pr-8 max-w-2xl">
-                  {item.a}
+                  {pick(item.a, locale)}
                 </p>
               </div>
             </div>

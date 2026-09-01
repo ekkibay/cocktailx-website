@@ -10,6 +10,7 @@ import {
   currentTier,
   daysUntilFullPrice,
 } from "@/config/pricing";
+import { pick, type Locale } from "@/i18n/bilingual";
 import CheckoutButton from "./CheckoutButton";
 
 /**
@@ -20,7 +21,23 @@ import CheckoutButton from "./CheckoutButton";
  * Preis und Ziel kommen aus der Config, der Tarif wird nach dem Mount mit der
  * Uhrzeit des Besuchers nachgezogen.
  */
-export default function StickyPass({ serverNow }: { serverNow: number }) {
+const COPY = {
+  perPass: { de: "pro Pass", en: "per pass" },
+  buy: { de: "Pass sichern", en: "Get your pass" },
+  allNights: {
+    de: `Alle ${EVENT.nights} Nächte, alle Bars`,
+    en: `All ${EVENT.nights} nights, every bar`,
+  },
+  endsToday: { de: "Early Bird endet heute", en: "Early Bird ends today" },
+} as const;
+
+export default function StickyPass({
+  serverNow,
+  locale,
+}: {
+  serverNow: number;
+  locale: Locale;
+}) {
   const [visible, setVisible] = useState(false);
   const [now, setNow] = useState(serverNow);
 
@@ -35,6 +52,18 @@ export default function StickyPass({ serverNow }: { serverNow: number }) {
   const tier = currentTier(now);
   const price = TIERS[tier].price;
   const days = daysUntilFullPrice(now);
+  const until = locale === "en" ? EVENT.earlyUntilShortEn : EARLY_UNTIL_SHORT;
+
+  /* Am Stichtag selbst faellt daysUntilFullPrice auf null, waehrend der
+     Einstiegspreis noch gilt. "noch 0 Tage" liest sich wie ein Fehler. */
+  const hint =
+    tier !== "early"
+      ? pick(COPY.allNights, locale)
+      : days === 0
+        ? pick(COPY.endsToday, locale)
+        : locale === "en"
+          ? `Early Bird until ${until}, ${days === 1 ? "1 day left" : `${days} days left`}`
+          : `Early Bird bis ${until}, noch ${days} ${days === 1 ? "Tag" : "Tage"}`;
 
   return (
     <div
@@ -53,17 +82,13 @@ export default function StickyPass({ serverNow }: { serverNow: number }) {
                 {REFERENCE_PRICE} €
               </span>
             )}
-            <span className="font-body text-[11px] text-muted">pro Pass</span>
+            <span className="font-body text-[11px] text-muted">{pick(COPY.perPass, locale)}</span>
           </div>
-          <p className="font-body text-[11px] text-muted mt-0.5 truncate">
-            {tier === "early"
-              ? `Early Bird bis ${EARLY_UNTIL_SHORT}, noch ${days} ${days === 1 ? "Tag" : "Tage"}`
-              : `Alle ${EVENT.nights} Nächte, alle Bars`}
-          </p>
+          <p className="font-body text-[11px] text-muted mt-0.5 truncate">{hint}</p>
         </div>
         <CheckoutButton
           href={CHECKOUT.single}
-          label="Pass sichern"
+          label={pick(COPY.buy, locale)}
           value={price}
           contentName="ON ICE Pass (Sticky)"
           className="btn-primary text-sm whitespace-nowrap px-5 py-3 shrink-0"

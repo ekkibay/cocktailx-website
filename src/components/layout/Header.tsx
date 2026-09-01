@@ -9,10 +9,12 @@ import MobileNav from "./MobileNav";
 import CheckoutButton from "@/components/onice/CheckoutButton";
 import PriceTag from "@/components/onice/PriceTag";
 import { navLinks } from "@/lib/nav";
-import { CHECKOUT, EARLY_UNTIL_SHORT, TIERS, currentTier } from "@/config/pricing";
+import { CHECKOUT, EARLY_UNTIL_SHORT, EVENT, TIERS, currentTier } from "@/config/pricing";
+import { asLocale } from "@/i18n/bilingual";
 
 export default function Header() {
   const locale = useLocale();
+  const lang = asLocale(locale);
   const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -97,7 +99,8 @@ export default function Header() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tangerine opacity-70" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-tangerine" />
                 </span>
-                Early Bird bis {EARLY_UNTIL_SHORT}
+                {lang === "en" ? "Early Bird until " : "Early Bird bis "}
+                {lang === "en" ? EVENT.earlyUntilShortEn : EARLY_UNTIL_SHORT}
               </span>
             )}
             {/* Kauf-CTA: Ziel und Preis kommen aus der Preis-Config, damit die
@@ -110,7 +113,7 @@ export default function Header() {
             >
               <span className="inline-flex items-baseline gap-2">
                 {t("getPassport")}
-                <PriceTag tier={tier} price={price} variant="inline" className="font-bold" />
+                <PriceTag tier={tier} price={price} locale={lang} variant="inline" className="font-bold" />
               </span>
             </CheckoutButton>
           </div>

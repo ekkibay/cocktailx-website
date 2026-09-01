@@ -26,39 +26,257 @@ import {
   CREW_SIZE,
   EVENT,
   FULL_FROM_LABEL,
+  FULL_FROM_LABEL_EN,
   SUMMER_PROOF,
   TIERS,
   currentTier,
 } from "@/config/pricing";
+import { asLocale, pick, pickAll, type Bilingual } from "@/i18n/bilingual";
+
+/* ── Seitentexte ────────────────────────────────────────────────────────
+   Kapitel, Trails, FAQ und Bundles bringen ihre Texte selbst mit. Hier steht
+   nur, was ausschliesslich auf dieser Seite vorkommt, nach Abschnitten
+   sortiert wie die Seite selbst. Das ist der einzige Ort, an dem eine
+   Uebersetzung fehlen kann, und beim Umbauen faellt sofort auf, welcher
+   Abschnitt gerade seinen Text verliert.
+
+   Zahlen und Daten kommen auch hier aus den Konstanten. Ein getippter Preis
+   oder ein getipptes Datum laeuft sonst genau dann auseinander, wenn es
+   niemand mehr nachliest.                                                  */
+
+const COPY = {
+  meta: {
+    title: {
+      de: `${EVENT.name} ${EVENT.edition} | ${EVENT.nights} Nächte, ${EVENT.barsLabel} Bars, ein Pass`,
+      en: `${EVENT.name} ${EVENT.edition} | ${EVENT.nights} nights, ${EVENT.barsLabel} bars, one pass`,
+    },
+    /* Kein Preis in der Beschreibung.
+
+       Vorher stand hier ein Einstiegspreis als fester Text. Er zog nicht aus
+       der Preisquelle, wanderte also unveraendert in jedes Suchergebnis und
+       jede Link-Vorschau, und er unterschritt die oeffentliche Untergrenze.
+       Ein Preis im Meta-Tag ist ausserdem immer veraltet, sobald die Stufe
+       umschaltet, weil Suchmaschinen ihn tagelang zwischenspeichern. */
+    description: {
+      de: `${EVENT.dateLabel} in ${EVENT.city}. ${EVENT.nights} Nächte, ${EVENT.barsLabel} Bars, ein Pass. In jeder Bar ein Signature Drink, freigeschaltet über die App.`,
+      en: `${EVENT.dateLabelEn} in ${EVENT.cityEn}. ${EVENT.nights} nights, ${EVENT.barsLabel} bars, one pass. A signature drink in every bar, unlocked through the app.`,
+    },
+  },
+
+  hero: {
+    claim: {
+      de: `${EVENT.nights} Nächte. ${EVENT.barsLabel} Bars. Ein Pass.`,
+      en: `${EVENT.nights} nights. ${EVENT.barsLabel} bars. One pass.`,
+    },
+    when: {
+      de: `${EVENT.dateLabel}, ${EVENT.city}`,
+      en: `${EVENT.dateLabelEn}, ${EVENT.cityEn}`,
+    },
+  },
+
+  /* Der Einstieg fuer alle, die die Marke nicht kennen. Traegt im Englischen
+     dieselbe Last wie im Deutschen, deshalb ganze Saetze und kein Stichwort. */
+  intro: {
+    eyebrow: { de: "Kurz erklärt", en: "In short" },
+    /* Weiches Trennzeichen im Deutschen, damit "Barszene" in der grossen
+       Schrift umbrechen darf. Im Englischen steht dort ohnehin ein Leerraum. */
+    heading: {
+      de: "Zwölf Nächte lang gehört dir die Bar­szene deiner Stadt.",
+      en: "For twelve nights the bar scene of your city belongs to you.",
+    },
+    body: [
+      {
+        de: "Du kaufst einen Pass, öffnest die App und ziehst los. In jeder teilnehmenden Bar bekommst du einen Signature Drink, den es nur in diesen zwölf Nächten gibt. Danach entscheidest du: noch einen hier, oder weiter zur nächsten.",
+        en: "You buy a pass, open the app and set off. In every participating bar you get a signature drink that exists only in these twelve nights. Then it is your call: another one here, or on to the next bar.",
+      },
+      {
+        de: "Kein Programm, das du abarbeiten musst, und keine feste Route. Die App schlägt dir Wege vor, den Abend baust du selbst. Die meisten kommen zu zweit und gehen mit fünf Leuten weiter, die sie an der Bar daneben getroffen haben.",
+        en: "No programme to work through and no fixed route. The app suggests ways to go, the evening is yours to build. Most people turn up as a pair and move on as a group of five they met at the bar next to them.",
+      },
+    ],
+  },
+
+  proof: {
+    guests: { de: "Gäste im Sommer", en: "Guests last summer" },
+    bars: { de: "Bars im Sommer", en: "Bars last summer" },
+    press: { de: "Gesehen in", en: "Seen in" },
+  },
+
+  how: {
+    eyebrow: { de: "So funktioniert’s", en: "How it works" },
+    heading: { de: "Einmal kaufen.", en: "Buy once." },
+    headingMuted: { de: "Zwölf Nächte lang nutzen.", en: "Use it for twelve nights." },
+    caption: { de: "Der Rest passiert von selbst.", en: "The rest takes care of itself." },
+    /* Die App empfiehlt, sie reserviert nicht. Der Satz muss in beiden
+       Sprachen genauso hart bleiben, sonst wird daraus ein Versprechen. */
+    noBooking: {
+      de: "Die App empfiehlt Routen. Reservieren kann sie nicht.",
+      en: "The app suggests routes. It cannot book you a table.",
+    },
+  },
+
+  chapters: {
+    eyebrow: { de: "Drei Kapitel", en: "Three chapters" },
+    heading: { de: "Zwölf Nächte,", en: "Twelve nights," },
+    headingMuted: { de: "die sich unterscheiden.", en: "no two the same." },
+  },
+
+  trails: {
+    eyebrow: { de: "Trails", en: "Trails" },
+    heading: { de: "Drei Bars,", en: "Three bars," },
+    headingMuted: { de: "die zusammenpassen.", en: "that belong together." },
+    body: {
+      de: "Jeder Trail folgt einem Geschmack, nicht einer Adressliste. Du gehst zu Fuß von Bar zu Bar und schmeckst über einen Abend, wie unterschiedlich derselbe Gedanke ausfallen kann.",
+      en: "Every trail follows a taste, not a list of addresses. You walk from bar to bar and taste over one evening how differently the same idea can turn out.",
+    },
+  },
+
+  banner: {
+    heading: {
+      de: "Zwölf Nächte, in denen du deine Stadt neu kennenlernst.",
+      en: "Twelve nights to get to know your city again.",
+    },
+    body: {
+      de: "Losziehen mit den Leuten, die du magst, und mit denen, die du an der Bar daneben triffst. Jede Bar bringt ihren eigenen Drink, du bringst die Runde mit.",
+      en: "Head out with the people you like, and with the ones you meet at the bar next to you. Every bar brings its own drink, you bring the round.",
+    },
+  },
+
+  pass: {
+    eyebrow: { de: "Der Pass", en: "The pass" },
+    heading: { de: "Ein Preis.", en: "One price." },
+    headingMuted: { de: "Alle Nächte, alle Bars.", en: "Every night, every bar." },
+    cta: { de: "Pass sichern", en: "Get your pass" },
+    includes: [
+      {
+        de: `Alle ${EVENT.nights} Nächte, alle Bars`,
+        en: `All ${EVENT.nights} nights, every bar`,
+      },
+      {
+        de: "In jeder Bar ein Signature Drink inklusive",
+        en: "A signature drink included in every bar",
+      },
+      {
+        de: "Die App ist dein Ticket, nichts abzuholen",
+        en: "The app is your ticket, nothing to collect",
+      },
+    ],
+    /* Nur im Einstiegsfenster sichtbar. Ab dem Stichtag faellt der Hinweis in
+       beiden Sprachen weg, sonst stuende der Preis gegen sich selbst. */
+    fullFrom: {
+      de: `Ab ${FULL_FROM_LABEL} gilt der reguläre Preis von ${TIERS.full.price} €. `,
+      en: `From ${FULL_FROM_LABEL_EN} the regular price of ${TIERS.full.price} € applies. `,
+    },
+    /* Preisangabenverordnung. Steht immer, in beiden Sprachen. */
+    vat: { de: "Alle Preise inkl. MwSt.", en: "All prices include VAT." },
+  },
+
+  bundles: {
+    featured: { de: "Meistgekauft", en: "Most bought" },
+    cta: { de: "Sichern", en: "Get it" },
+    onRequest: { de: "Auf Anfrage", en: "On request" },
+    onRequestNote: { de: "Zum jeweils regulären Preis", en: "At the regular price of the day" },
+    onRequestCta: { de: "Team Nights ansehen", en: "See Team Nights" },
+    limited: {
+      de: `Limitiert auf ${DOUBLE_SEASON_LIMIT} Stück`,
+      en: `Limited to ${DOUBLE_SEASON_LIMIT}`,
+    },
+  },
+
+  bars: {
+    eyebrow: { de: "Bars", en: "Bars" },
+    /* Oeffentlich nur "40+", keine genaue Zahl und keine Namen, solange die
+       Vereinbarungen nicht unterschrieben sind. */
+    heading: { de: `${EVENT.barsLabel} Bars.`, en: `${EVENT.barsLabel} bars.` },
+    headingAccent: {
+      de: `Die erste am ${EVENT.barsRevealLabel}.`,
+      en: `The first on ${EVENT.barsRevealLabelEn}.`,
+    },
+    body: {
+      de: `Von der großen Hotelbar bis zum Kellerlokal, das nur die Nachbarschaft kennt, verteilt über die ganze Stadt. Ab dem ${EVENT.barsRevealLabel} geben wir jeden Tag eine neue bekannt, bis alle stehen.`,
+      en: `From the grand hotel bar to the basement place only the neighbourhood knows, spread across the whole city. From ${EVENT.barsRevealLabelEn} we announce a new one every day until they are all in.`,
+    },
+    silhouettes: {
+      de: `Die ersten Namen ab ${EVENT.barsRevealLabel}, danach kommt täglich eine dazu.`,
+      en: `First names from ${EVENT.barsRevealLabelEn}, then one more every day.`,
+    },
+  },
+
+  faq: {
+    eyebrow: { de: "Fragen", en: "Questions" },
+    heading: { de: "Alles,", en: "Everything" },
+    headingMuted: { de: "was du wissen musst.", en: "you need to know." },
+    contact: {
+      de: "Steht deine Frage nicht dabei, schreib uns an",
+      en: "If your question is not here, write to us at",
+    },
+  },
+
+  cta: {
+    heading: { de: `${EVENT.nights} Nächte.`, en: `${EVENT.nights} nights.` },
+    headingAccent: { de: "Ein Pass.", en: "One pass." },
+    body: {
+      de: `${EVENT.dateLabel} in ${EVENT.city}. Die App ist dein Pass, den Rest entscheidest du unterwegs.`,
+      en: `${EVENT.dateLabelEn} in ${EVENT.cityEn}. The app is your pass, the rest you decide as you go.`,
+    },
+    teams: { de: "Für Teams", en: "For teams" },
+  },
+
+  /* Bildbeschreibungen gehoeren zum Text der Seite, nicht zum Bild: Wer sie
+     hoert, hoert die Sprache, in der die Seite gerade steht. */
+  alt: {
+    heroCrew: {
+      de: "Fünf Gäste stoßen mit ihren Cocktails an",
+      en: "Five guests raising their cocktails",
+    },
+    toastTwo: { de: "Zwei Gäste heben ihre Drinks", en: "Two guests raising their drinks" },
+    ice: {
+      de: "Eis wird in ein Glas mit Zuckerrand gefüllt",
+      en: "Ice going into a glass with a sugar rim",
+    },
+    clink: { de: "Angestoßene Gläser über dem Tresen", en: "Glasses meeting over the bar" },
+    smile: { de: "Gast lacht, Drink in der Hand", en: "A guest laughing, drink in hand" },
+  },
+} as const;
+
+/** Haengt am geltenden Tarif, deshalb Funktion statt Konstante. */
+const crewCompare = (comparePrice: number): Bilingual => ({
+  de: `Statt ${comparePrice} € für ${CREW_SIZE} Pässe`,
+  en: `Instead of ${comparePrice} € for ${CREW_SIZE} passes`,
+});
 
 /**
- * Der Preis steht bewusst nicht mehr in der Beschreibung.
- *
- * Vorher stand hier ein Einstiegspreis als fester Text. Er zog nicht aus der
- * Preisquelle, wanderte also unveraendert in jedes Suchergebnis und jede
- * Link-Vorschau, und er unterschritt die oeffentliche Preisuntergrenze.
- * Ein Preis im Meta-Tag ist ausserdem immer veraltet, sobald die Stufe
- * umschaltet, weil Suchmaschinen ihn tagelang zwischenspeichern.
+ * Der Hinweis im Bars-Abschnitt zog vorher fest den Early-Bird-Preis, auch
+ * nach der Umstellung. Ab dem Stichtag haette dort ein Preis gestanden, den es
+ * nicht mehr gibt. Jetzt zieht er den geltenden Tarif mit.
  */
-export const metadata: Metadata = {
-  title: "COCKTAIL X ON ICE '26 | 12 Nächte, 40+ Bars, ein Pass",
-  description:
-    "17. bis 28. November 2026 in München. Zwölf Nächte, über 40 Bars, ein Pass. In jeder Bar ein Signature Drink, freigeschaltet über die App.",
-};
+const barsPlanNote = (activePrice: number): Bilingual => ({
+  de: `Wer den Pass jetzt sichert, zahlt ${activePrice} € und kann ab dem ersten Tag planen.`,
+  en: `Get your pass now, pay ${activePrice} € and you can plan from day one.`,
+});
+
+export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
+  const locale = asLocale(params.locale);
+  return {
+    title: pick(COPY.meta.title, locale),
+    description: pick(COPY.meta.description, locale),
+  };
+}
 
 /** Preise sollen sich zum Stichtag ohne Deployment umstellen. */
 export const dynamic = "force-dynamic";
 
 export default function OnIcePage({ params }: { params: { locale: string } }) {
-  const locale = params.locale;
+  const locale = asLocale(params.locale);
   const now = Date.now();
   const tier = currentTier(now);
   const price = TIERS[tier].price;
+  const tierLabel = locale === "en" ? TIERS[tier].labelEn : TIERS[tier].label;
 
   return (
     <main className="bg-licorice text-bone pb-16 lg:pb-0">
       <ScrollProgress />
-      <StickyPass serverNow={now} />
+      <StickyPass serverNow={now} locale={locale} />
       {/* ══ Hero ══ */}
       <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
         {/* Menschen im Header, und zwar quer ueber die volle Breite.
@@ -70,7 +288,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             Gesicht steht. */}
         <ParallaxImage
           src="/images/onice/set-crew-toast.jpg"
-          alt="Fünf Gäste stoßen mit ihren Cocktails an"
+          alt={pick(COPY.alt.heroCrew, locale)}
           objectPosition="object-[center_45%]"
           priority
         />
@@ -104,10 +322,10 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
 
           <Reveal delay={0.35}>
             <p className="font-display text-2xl md:text-4xl text-bone mb-3 leading-tight">
-              {EVENT.nights} Nächte. {EVENT.barsLabel} Bars. Ein Pass.
+              {pick(COPY.hero.claim, locale)}
             </p>
             <p className="font-body text-base md:text-lg text-muted mb-9">
-              {EVENT.dateLabel}, {EVENT.city}
+              {pick(COPY.hero.when, locale)}
             </p>
           </Reveal>
 
@@ -119,15 +337,17 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               className="btn-primary text-sm md:text-base whitespace-nowrap"
             >
               <span className="inline-flex items-baseline gap-2">
-                Pass sichern
-                <PriceTag tier={tier} price={price} variant="inline" />
+                {pick(COPY.pass.cta, locale)}
+                <PriceTag tier={tier} price={price} locale={locale} variant="inline" />
               </span>
             </CheckoutButton>
-            <PriceCountdown serverNow={now} className="font-body text-sm text-bone/80" />
+            <PriceCountdown serverNow={now} locale={locale} className="font-body text-sm text-bone/80" />
           </Reveal>
         </div>
 
-        {/* Laufband mit den Anlaessen: gibt dem Hero-Fuss Bewegung, ohne Video */}
+        {/* Laufband mit den Anlaessen: gibt dem Hero-Fuss Bewegung, ohne Video.
+            Kapitel- und Trailnamen sind Markenbegriffe und stehen in beiden
+            Sprachen gleich. */}
         <div className="relative z-10 border-t border-white/10 bg-licorice/40 backdrop-blur-sm py-3">
           <Marquee speed={34}>
             {[...CHAPTERS.map((c) => c.title), ...TRAILS.map((t) => t.title)].map((label, i) => (
@@ -153,23 +373,16 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         <div className="max-w-6xl mx-auto px-5 py-16 md:py-24 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           <div className="lg:col-span-7">
             <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
-              Kurz erklärt
+              {pick(COPY.intro.eyebrow, locale)}
             </p>
             <Reveal>
               <h2 className="font-display text-3xl md:text-5xl leading-[1.05] mb-6">
-                Zwölf Nächte lang gehört dir die Bar&shy;szene deiner Stadt.
+                {pick(COPY.intro.heading, locale)}
               </h2>
               <div className="space-y-4 font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl">
-                <p>
-                  Du kaufst einen Pass, öffnest die App und ziehst los. In jeder teilnehmenden Bar
-                  bekommst du einen Signature Drink, den es nur in diesen zwölf Nächten gibt. Danach
-                  entscheidest du: noch einen hier, oder weiter zur nächsten.
-                </p>
-                <p>
-                  Kein Programm, das du abarbeiten musst, und keine feste Route. Die App schlägt dir
-                  Wege vor, den Abend baust du selbst. Die meisten kommen zu zweit und gehen mit
-                  fünf Leuten weiter, die sie an der Bar daneben getroffen haben.
-                </p>
+                {pickAll([...COPY.intro.body], locale).map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
             </Reveal>
           </div>
@@ -179,7 +392,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[4/5]">
             <Image
               src="/images/onice/onice-toast-two.jpg"
-              alt="Zwei Gäste heben ihre Drinks"
+              alt={pick(COPY.alt.toastTwo, locale)}
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="object-cover object-[center_30%]"
@@ -196,16 +409,22 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             <p className="font-display text-3xl md:text-4xl text-tangerine leading-none tabular-nums">
               <CountUp value={SUMMER_PROOF.guests} />
             </p>
-            <p className="font-body text-[11px] uppercase tracking-wider text-muted mt-2">Gäste im Sommer</p>
+            <p className="font-body text-[11px] uppercase tracking-wider text-muted mt-2">
+              {pick(COPY.proof.guests, locale)}
+            </p>
           </StaggerItem>
           <StaggerItem>
             <p className="font-display text-3xl md:text-4xl text-tangerine leading-none tabular-nums">
               <CountUp value={SUMMER_PROOF.bars} />
             </p>
-            <p className="font-body text-[11px] uppercase tracking-wider text-muted mt-2">Bars im Sommer</p>
+            <p className="font-body text-[11px] uppercase tracking-wider text-muted mt-2">
+              {pick(COPY.proof.bars, locale)}
+            </p>
           </StaggerItem>
           <StaggerItem className="col-span-2">
-            <p className="font-body text-[11px] uppercase tracking-wider text-muted mb-2">Gesehen in</p>
+            <p className="font-body text-[11px] uppercase tracking-wider text-muted mb-2">
+              {pick(COPY.proof.press, locale)}
+            </p>
             <p className="font-display text-lg md:text-xl text-bone/70">{SUMMER_PROOF.press.join(" · ")}</p>
           </StaggerItem>
         </StaggerGroup>
@@ -214,10 +433,11 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       {/* ══ So funktioniert's ══ */}
       <section className="max-w-6xl mx-auto px-5 py-20 md:py-28">
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
-          So funktioniert&rsquo;s
+          {pick(COPY.how.eyebrow, locale)}
         </p>
         <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-12 max-w-2xl">
-          Einmal kaufen. <span className="text-muted">Zwölf Nächte lang nutzen.</span>
+          {pick(COPY.how.heading, locale)}{" "}
+          <span className="text-muted">{pick(COPY.how.headingMuted, locale)}</span>
         </h2>
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
@@ -225,8 +445,8 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             {HOW_IT_WORKS.map((s) => (
               <li key={s.step} className="bg-licorice p-6 md:p-7">
                 <span className="font-display text-4xl text-tangerine/25 block mb-5 leading-none">{s.step}</span>
-                <h3 className="font-body font-bold text-base text-bone mb-2">{s.title}</h3>
-                <p className="font-body text-sm text-muted leading-relaxed">{s.text}</p>
+                <h3 className="font-body font-bold text-base text-bone mb-2">{pick(s.title, locale)}</h3>
+                <p className="font-body text-sm text-muted leading-relaxed">{pick(s.text, locale)}</p>
               </li>
             ))}
           </ol>
@@ -235,30 +455,29 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden ring-1 ring-hairline min-h-[320px] lg:min-h-0">
             <Image
               src="/images/onice/set-eis.jpg"
-              alt="Eis wird in ein Glas mit Zuckerrand gefüllt"
+              alt={pick(COPY.alt.ice, locale)}
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="object-cover object-[center_55%]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/40 to-transparent" />
             <p className="absolute bottom-0 left-0 right-0 p-6 font-display text-2xl md:text-3xl text-bone leading-tight">
-              Der Rest passiert von selbst.
+              {pick(COPY.how.caption, locale)}
             </p>
           </div>
         </div>
 
-        <p className="font-body text-xs text-muted mt-6">
-          Die App empfiehlt Routen. Reservieren kann sie nicht.
-        </p>
+        <p className="font-body text-xs text-muted mt-6">{pick(COPY.how.noBooking, locale)}</p>
       </section>
 
       {/* ══ Chapters ══ */}
       <section className="max-w-6xl mx-auto px-5 pb-20 md:pb-28">
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
-          Drei Kapitel
+          {pick(COPY.chapters.eyebrow, locale)}
         </p>
         <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-12 max-w-2xl">
-          Zwölf Nächte, <span className="text-muted">die sich unterscheiden.</span>
+          {pick(COPY.chapters.heading, locale)}{" "}
+          <span className="text-muted">{pick(COPY.chapters.headingMuted, locale)}</span>
         </h2>
 
         <div className="space-y-5">
@@ -288,11 +507,11 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               </div>
               <div className={`p-7 md:p-10 flex flex-col justify-center ${i % 2 === 1 ? "md:col-start-1" : ""}`}>
                 <span className="font-body text-[11px] font-bold tracking-[0.3em] text-muted mb-4">
-                  {c.index} · {c.dates}
+                  {c.index} · {pick(c.dates, locale)}
                 </span>
                 <h3 className="font-display text-3xl md:text-4xl text-bone mb-3 leading-tight">{c.title}</h3>
-                <p className="font-display text-lg md:text-xl text-tangerine mb-4">{c.claim}</p>
-                <p className="font-body text-sm md:text-base text-muted leading-relaxed">{c.text}</p>
+                <p className="font-display text-lg md:text-xl text-tangerine mb-4">{pick(c.claim, locale)}</p>
+                <p className="font-body text-sm md:text-base text-muted leading-relaxed">{pick(c.text, locale)}</p>
               </div>
             </LiftCard>
           ))}
@@ -300,7 +519,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       </section>
 
       {/* ══ Bildband ══ */}
-      <PhotoRail />
+      <PhotoRail locale={locale} />
 
       {/* ══ Trails ══ */}
       <section id="trails" className="border-y border-hairline scroll-mt-24">
@@ -308,18 +527,18 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
           <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
             <div>
               <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
-                Trails
+                {pick(COPY.trails.eyebrow, locale)}
               </p>
               <h2 className="font-display text-4xl md:text-6xl leading-[0.95] max-w-2xl mb-5">
-                Drei Bars, <span className="text-muted">die zusammenpassen.</span>
+                {pick(COPY.trails.heading, locale)}{" "}
+                <span className="text-muted">{pick(COPY.trails.headingMuted, locale)}</span>
               </h2>
               <p className="font-body text-base md:text-lg text-muted leading-relaxed max-w-xl">
-                Jeder Trail folgt einem Geschmack, nicht einer Adressliste. Du gehst zu Fuß von Bar zu
-                Bar und schmeckst über einen Abend, wie unterschiedlich derselbe Gedanke ausfallen kann.
+                {pick(COPY.trails.body, locale)}
               </p>
             </div>
             <span className="rounded-full border border-hairline px-4 py-2 font-body text-[11px] uppercase tracking-wider text-muted">
-              {TRAILS_BADGE}
+              {pick(TRAILS_BADGE, locale)}
             </span>
           </div>
 
@@ -343,7 +562,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                 <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-licorice via-licorice/85 to-transparent" />
                 <div className="relative p-5">
                   <h3 className={`font-display text-lg mb-2 uppercase ${t.accent}`}>{t.title}</h3>
-                  <p className="font-body text-[13px] text-bone/85 leading-relaxed">{t.promise}</p>
+                  <p className="font-body text-[13px] text-bone/85 leading-relaxed">{pick(t.promise, locale)}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -357,7 +576,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       <section className="relative h-[65svh] min-h-[420px] overflow-hidden">
         <ParallaxImage
           src="/images/onice/onice-bar-clink.jpg"
-          alt="Angestoßene Gläser über dem Tresen"
+          alt={pick(COPY.alt.clink, locale)}
           objectPosition="object-[center_45%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-licorice via-licorice/50 to-licorice/25" />
@@ -366,11 +585,10 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         <div className="relative h-full max-w-6xl mx-auto px-5 flex flex-col justify-end pb-14 md:pb-20">
           <Reveal>
             <h2 className="font-display text-4xl md:text-6xl leading-[0.95] text-bone max-w-2xl mb-4">
-              Zwölf Nächte, in denen du deine Stadt neu kennenlernst.
+              {pick(COPY.banner.heading, locale)}
             </h2>
             <p className="font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl">
-              Losziehen mit den Leuten, die du magst, und mit denen, die du an der Bar daneben triffst.
-              Jede Bar bringt ihren eigenen Drink, du bringst die Runde mit.
+              {pick(COPY.banner.body, locale)}
             </p>
           </Reveal>
         </div>
@@ -379,10 +597,11 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       {/* ══ Preise ══ */}
       <section id="pass" className="max-w-6xl mx-auto px-5 py-20 md:py-28 scroll-mt-24">
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
-          Der Pass
+          {pick(COPY.pass.eyebrow, locale)}
         </p>
         <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-12 max-w-2xl">
-          Ein Preis. <span className="text-muted">Alle Nächte, alle Bars.</span>
+          {pick(COPY.pass.heading, locale)}{" "}
+          <span className="text-muted">{pick(COPY.pass.headingMuted, locale)}</span>
         </h2>
 
         {/* ON ICE PASS als fuehrende Karte. Vorher standen hier Early und Full
@@ -397,14 +616,15 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                   ON ICE Pass
                 </span>
                 <span className="rounded-full bg-tangerine px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-licorice">
-                  {TIERS[tier].label}
+                  {tierLabel}
                 </span>
               </div>
 
-              <PriceTag tier={tier} price={price} variant="block" className="mb-4" />
+              <PriceTag tier={tier} price={price} locale={locale} variant="block" className="mb-4" />
 
               <PriceCountdown
                 serverNow={now}
+                locale={locale}
                 variant="badge"
                 className="font-body text-sm text-tangerine mb-1"
               />
@@ -413,17 +633,13 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                   immer hin, das verlangt der Auftrag und die Preisangaben-
                   verordnung. */}
               <p className="font-body text-sm text-muted">
-                {tier === "early" && `Ab ${FULL_FROM_LABEL} gilt der reguläre Preis von ${TIERS.full.price} €. `}
-                Alle Preise inkl. MwSt.
+                {tier === "early" && pick(COPY.pass.fullFrom, locale)}
+                {pick(COPY.pass.vat, locale)}
               </p>
             </div>
 
             <ul className="space-y-2.5 lg:min-w-[300px]">
-              {[
-                `Alle ${EVENT.nights} Nächte, alle Bars`,
-                "In jeder Bar ein Signature Drink inklusive",
-                "Die App ist dein Ticket, nichts abzuholen",
-              ].map((item) => (
+              {pickAll([...COPY.pass.includes], locale).map((item) => (
                 <li key={item} className="flex gap-2.5 font-body text-sm text-bone/85">
                   <span className="text-tangerine flex-shrink-0">/</span>
                   {item}
@@ -437,8 +653,8 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                   className="block w-full text-center rounded-full bg-tangerine px-6 py-3.5 font-body text-xs font-bold uppercase tracking-wider text-licorice hover:bg-tangerine/85 transition-colors"
                 >
                   <span className="inline-flex items-baseline gap-2">
-                    Pass sichern
-                    <PriceTag tier={tier} price={price} variant="inline" />
+                    {pick(COPY.pass.cta, locale)}
+                    <PriceTag tier={tier} price={price} locale={locale} variant="inline" />
                   </span>
                 </CheckoutButton>
               </li>
@@ -460,17 +676,17 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               >
                 {b.featured && (
                   <span className="self-start rounded-full bg-tangerine px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-licorice mb-4">
-                    Meistgekauft
+                    {pick(COPY.bundles.featured, locale)}
                   </span>
                 )}
                 <h3 className="font-display text-2xl text-bone mb-1">{b.title}</h3>
                 {b.claim && (
-                  <p className="font-display text-base text-tangerine mb-2">{b.claim}</p>
+                  <p className="font-display text-base text-tangerine mb-2">{pick(b.claim, locale)}</p>
                 )}
-                <p className="font-body text-sm text-muted leading-relaxed mb-5">{b.promise}</p>
+                <p className="font-body text-sm text-muted leading-relaxed mb-5">{pick(b.promise, locale)}</p>
 
                 <ul className="space-y-2 mb-5">
-                  {b.includes.map((inc) => (
+                  {pickAll(b.includes, locale).map((inc) => (
                     <li key={inc} className="flex gap-2.5 font-body text-sm text-bone/80">
                       <span className="text-tangerine flex-shrink-0">/</span>
                       {inc}
@@ -481,13 +697,17 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                 <div className="mt-auto pt-5 border-t border-hairline">
                   {b.requestOnly ? (
                     <>
-                      <p className="font-display text-2xl text-bone mb-1">Auf Anfrage</p>
-                      <p className="font-body text-xs text-muted mb-4">Zum jeweils regulären Preis</p>
+                      <p className="font-display text-2xl text-bone mb-1">
+                        {pick(COPY.bundles.onRequest, locale)}
+                      </p>
+                      <p className="font-body text-xs text-muted mb-4">
+                        {pick(COPY.bundles.onRequestNote, locale)}
+                      </p>
                       <Link
                         href={`/${locale}/corporate`}
                         className="block w-full text-center rounded-full border border-hairline px-6 py-3 font-body text-xs font-bold uppercase tracking-wider text-bone hover:border-tangerine transition-colors"
                       >
-                        Team Nights ansehen
+                        {pick(COPY.bundles.onRequestCta, locale)}
                       </Link>
                     </>
                   ) : (
@@ -504,12 +724,12 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                       </div>
                       <p className="font-body text-xs text-muted mb-4">
                         {b.key === "doubleSeason"
-                          ? `Limitiert auf ${DOUBLE_SEASON_LIMIT} Stück`
-                          : `Statt ${TIERS[tier].price * CREW_SIZE} € für ${CREW_SIZE} Pässe`}
+                          ? pick(COPY.bundles.limited, locale)
+                          : pick(crewCompare(TIERS[tier].price * CREW_SIZE), locale)}
                       </p>
                       <CheckoutButton
                         href={href}
-                        label="Sichern"
+                        label={pick(COPY.bundles.cta, locale)}
                         value={bundlePrice}
                         contentName={b.title}
                         className={`block w-full text-center rounded-full px-6 py-3 font-body text-xs font-bold uppercase tracking-wider transition-colors ${
@@ -521,7 +741,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                     </>
                   )}
                   <ul className="mt-4 space-y-1">
-                    {b.terms.map((t) => (
+                    {pickAll(b.terms, locale).map((t) => (
                       <li key={t} className="font-body text-[11px] text-muted/80 leading-snug">
                         {t}
                       </li>
@@ -537,17 +757,18 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
       {/* ══ Bars ══ */}
       <section id="bars" className="border-y border-hairline scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 py-20 md:py-28">
-          <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">Bars</p>
+          <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
+            {pick(COPY.bars.eyebrow, locale)}
+          </p>
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-5 max-w-3xl">
-            Über 40 Bars. <span className="text-tangerine">Die erste am {EVENT.barsRevealLabel}.</span>
+            {pick(COPY.bars.heading, locale)}{" "}
+            <span className="text-tangerine">{pick(COPY.bars.headingAccent, locale)}</span>
           </h2>
           <p className="font-body text-base md:text-lg text-muted leading-relaxed max-w-xl mb-3">
-            Von der großen Hotelbar bis zum Kellerlokal, das nur die Nachbarschaft kennt, verteilt über
-            die ganze Stadt. Ab dem {EVENT.barsRevealLabel} geben wir jeden Tag eine neue bekannt, bis
-            alle stehen.
+            {pick(COPY.bars.body, locale)}
           </p>
           <p className="font-body text-base text-bone/70 leading-relaxed max-w-xl mb-12">
-            Wer den Pass jetzt sichert, zahlt {TIERS.early.price} € und kann ab dem ersten Tag planen.
+            {pick(barsPlanNote(price), locale)}
           </p>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
@@ -566,9 +787,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               </div>
             ))}
           </div>
-          <p className="font-body text-sm text-muted mt-5">
-            {BAR_SILHOUETTES} von über 40. Der Rest folgt bis zum Festivalstart.
-          </p>
+          <p className="font-body text-sm text-muted mt-5">{pick(COPY.bars.silhouettes, locale)}</p>
         </div>
       </section>
 
@@ -577,13 +796,14 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         <div className="grid lg:grid-cols-12 gap-y-10 gap-x-14">
           <div className="lg:col-span-4">
             <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
-              Fragen
+              {pick(COPY.faq.eyebrow, locale)}
             </p>
             <h2 className="font-display text-4xl md:text-5xl leading-[0.95] mb-5">
-              Alles, <span className="text-muted">was du wissen musst.</span>
+              {pick(COPY.faq.heading, locale)}{" "}
+              <span className="text-muted">{pick(COPY.faq.headingMuted, locale)}</span>
             </h2>
             <p className="font-body text-sm text-muted leading-relaxed">
-              Steht deine Frage nicht dabei, schreib uns an{" "}
+              {pick(COPY.faq.contact, locale)}{" "}
               <a href="mailto:info@cocktail-x.com" className="text-tangerine hover:underline">
                 info@cocktail-x.com
               </a>
@@ -592,7 +812,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             <div className="relative mt-8 rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[4/5] hidden lg:block">
               <Image
                 src="/images/onice/onice-smile.jpg"
-                alt="Gast lacht, Drink in der Hand"
+                alt={pick(COPY.alt.smile, locale)}
                 fill
                 sizes="33vw"
                 className="object-cover object-[center_25%]"
@@ -601,7 +821,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             </div>
           </div>
           <div className="lg:col-span-8">
-            <FaqAccordion items={FAQ} />
+            <FaqAccordion items={FAQ} locale={locale} />
           </div>
         </div>
       </section>
@@ -621,10 +841,11 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         <div className="absolute inset-0 bg-gradient-to-t from-licorice via-transparent to-licorice" />
         <div className="relative max-w-3xl mx-auto px-5 py-24 md:py-32 text-center">
           <h2 className="font-display text-4xl md:text-6xl leading-[0.95] mb-5">
-            {EVENT.nights} Nächte. <span className="text-tangerine">Ein Pass.</span>
+            {pick(COPY.cta.heading, locale)}{" "}
+            <span className="text-tangerine">{pick(COPY.cta.headingAccent, locale)}</span>
           </h2>
           <p className="font-body text-base text-muted mb-9 max-w-lg mx-auto leading-relaxed">
-            {EVENT.dateLabel} in {EVENT.city}. Die App ist dein Ticket, den Rest entscheidest du unterwegs.
+            {pick(COPY.cta.body, locale)}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <CheckoutButton
@@ -634,15 +855,15 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               className="btn-primary text-sm md:text-base whitespace-nowrap"
             >
               <span className="inline-flex items-baseline gap-2">
-                Pass sichern
-                <PriceTag tier={tier} price={price} variant="inline" />
+                {pick(COPY.pass.cta, locale)}
+                <PriceTag tier={tier} price={price} locale={locale} variant="inline" />
               </span>
             </CheckoutButton>
             <Link
               href={`/${locale}/corporate`}
               className="font-body text-xs font-bold uppercase tracking-wider text-muted hover:text-bone transition-colors"
             >
-              Für Teams
+              {pick(COPY.cta.teams, locale)}
             </Link>
           </div>
         </div>

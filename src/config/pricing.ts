@@ -6,6 +6,8 @@
  * datumsgesteuert zur Laufzeit, es braucht dafuer kein Deployment.
  */
 
+import type { Bilingual } from "@/i18n/bilingual";
+
 export const EVENT = {
   name: "COCKTAIL X ON ICE",
   edition: "'26",
@@ -16,9 +18,13 @@ export const EVENT = {
   start: "2026-11-17",
   end: "2026-11-28",
   dateLabel: "17. bis 28. November 2026",
+  dateLabelEn: "17 to 28 November 2026",
   /** Ab hier werden die Bars enthuellt. */
   barsRevealDate: "2026-09-01",
   barsRevealLabel: "1. September",
+  barsRevealLabelEn: "1 September",
+  cityEn: "Munich",
+  earlyUntilShortEn: "15 Oct",
 } as const;
 
 /* ── Zeitzone ───────────────────────────────────────────────────────────
@@ -49,8 +55,10 @@ export const FULL_PRICE_STARTS_AT = berlinWallClockToTimestamp(2026, 10, 16, 0, 
  * wie die Umschaltung.
  */
 export const EARLY_UNTIL_LABEL = "15. Oktober 2026";
+export const EARLY_UNTIL_LABEL_EN = "15 October 2026";
 export const EARLY_UNTIL_SHORT = "15.10.";
 export const FULL_FROM_LABEL = "16. Oktober 2026";
+export const FULL_FROM_LABEL_EN = "16 October 2026";
 
 /* ── Tarife ─────────────────────────────────────────────────────────────
    Oeffentlich existieren genau zwei Stufen. 49 EUR ist der Referenzpreis
@@ -65,9 +73,9 @@ export const FULL_FROM_LABEL = "16. Oktober 2026";
 export type TierKey = "early" | "full";
 
 export const TIERS = {
-  early: { key: "early", price: 39, label: "Early Bird" },
-  full: { key: "full", price: 49, label: "Regulär" },
-} as const satisfies Record<TierKey, { key: TierKey; price: number; label: string }>;
+  early: { key: "early", price: 39, label: "Early Bird", labelEn: "Early Bird" },
+  full: { key: "full", price: 49, label: "Regulär", labelEn: "Regular" },
+} as const satisfies Record<TierKey, { key: TierKey; price: number; label: string; labelEn: string }>;
 
 /** Referenzpreis fuer die Streichpreis-Darstellung. Immer der regulaere Tarif. */
 export const REFERENCE_PRICE = TIERS.full.price;
@@ -105,17 +113,18 @@ export function daysUntilFullPrice(now: number = Date.now()): number {
 
 export interface Bundle {
   key: string;
+  /** Produktnamen bleiben in beiden Sprachen gleich, sie sind Markenbegriffe. */
   title: string;
   /** Kurzer Claim ueber der Beschreibung, drei bis fuenf Woerter. */
-  claim?: string;
+  claim?: Bilingual;
   /** Ein Satz, der den Nutzen traegt. */
-  promise: string;
+  promise: Bilingual;
   /** Preis je Tarif. */
   price: Record<TierKey, number>;
   /** Was drinsteckt, in Verkaufssprache. */
-  includes: string[];
+  includes: Bilingual[];
   /** Harte Bedingungen, die im Angebot stehen muessen. */
-  terms: string[];
+  terms: Bilingual[];
   /** Optisch fuehrend darstellen. */
   featured?: boolean;
   /** Kein Preis, nur Anfrage. */
@@ -125,47 +134,98 @@ export interface Bundle {
 /** Kontingent fuer Double Season. Wird im Text als Knappheit gezeigt. */
 export const DOUBLE_SEASON_LIMIT = 300;
 
+/** Fester Preis von Double Season. Bundle und FAQ zeigen beide hierhin. */
+export const DOUBLE_SEASON_PRICE = 79;
+
+/** Staffeln fuer /corporate. Preis ist immer der regulaere Tarif, keine Rabatte. */
+export const CORPORATE_SIZES = [10, 25, 50] as const;
+
 export const BUNDLES: Bundle[] = [
   {
     key: "crew",
     title: "Crew Pass",
-    claim: "Deine Runde geht auf uns",
-    promise: "Vier Pässe, drei bezahlt. Für alle, die ohnehin zusammen losziehen.",
+    claim: { de: "Deine Runde geht auf uns", en: "This round is on us" },
+    promise: {
+      de: "Vier Pässe, drei bezahlt. Für alle, die ohnehin zusammen losziehen.",
+      en: "Four passes, three paid. For everyone heading out together anyway.",
+    },
     // Immer der dreifache Einzelpreis des jeweils gueltigen Tarifs. Damit
     // zieht der Crew Pass die Preisumstellung automatisch mit.
     price: { early: CREW_PAID * TIERS.early.price, full: CREW_PAID * TIERS.full.price },
     includes: [
-      `${CREW_SIZE} Pässe für den Preis von ${CREW_PAID}`,
-      "Alle 12 Nächte, alle Bars",
-      "Vier personalisierbare Pässe, Zuweisung per Mail nach dem Kauf",
+      {
+        de: `${CREW_SIZE} Pässe für den Preis von ${CREW_PAID}`,
+        en: `${CREW_SIZE} passes for the price of ${CREW_PAID}`,
+      },
+      {
+        de: `Alle ${EVENT.nights} Nächte, alle Bars`,
+        en: `All ${EVENT.nights} nights, every bar`,
+      },
+      {
+        de: "Vier personalisierbare Pässe, Zuweisung per Mail nach dem Kauf",
+        en: "Four passes you can assign, by email after the purchase",
+      },
     ],
-    terms: ["Maximal 2 Crew Passes pro Käufer", "Nicht mit anderen Angeboten kombinierbar"],
+    terms: [
+      { de: "Maximal 2 Crew Passes pro Käufer", en: "Two Crew Passes per buyer at most" },
+      { de: "Nicht mit anderen Angeboten kombinierbar", en: "Not combinable with other offers" },
+    ],
     featured: true,
   },
   {
     key: "doubleSeason",
     title: "Double Season",
-    claim: "Zwei Festivals, ein Pass",
-    promise: "ON ICE im November und das Sommerfestival 2027. Zwei Saisons, ein Kauf.",
+    claim: { de: "Zwei Festivals, ein Pass", en: "Two festivals, one pass" },
+    promise: {
+      de: "ON ICE im November und das Sommerfestival 2027. Zwei Saisons, ein Kauf.",
+      en: "ON ICE in November plus the summer festival 2027. Two seasons, one purchase.",
+    },
     // Fester Preis in beiden Stufen. Das Angebot hat bewusst kein
     // Rabattfenster, damit es nicht mit dem Early Bird konkurriert.
-    price: { early: 79, full: 79 },
-    includes: ["Pass für ON ICE '26", "Pass für das Sommerfestival 2027", "Termin Sommer 2027 folgt rechtzeitig"],
-    terms: [`Limitiert auf ${DOUBLE_SEASON_LIMIT} Stück`, "Preis gilt durchgehend, kein Rabattfenster"],
+    price: { early: DOUBLE_SEASON_PRICE, full: DOUBLE_SEASON_PRICE },
+    includes: [
+      { de: "Pass für ON ICE '26", en: "Pass for ON ICE '26" },
+      { de: "Pass für das Sommerfestival 2027", en: "Pass for the summer festival 2027" },
+      {
+        de: "Termin Sommer 2027 folgt rechtzeitig",
+        en: "Summer 2027 date to be announced in good time",
+      },
+    ],
+    terms: [
+      {
+        de: `Limitiert auf ${DOUBLE_SEASON_LIMIT} Stück`,
+        en: `Limited to ${DOUBLE_SEASON_LIMIT}`,
+      },
+      {
+        de: "Preis gilt durchgehend, kein Rabattfenster",
+        en: "Price holds throughout, no discount window",
+      },
+    ],
   },
   {
     key: "corporate",
     title: "Team Nights",
-    promise: "Pässe fürs Team, eine Rechnung, kein Abrechnungschaos.",
+    promise: {
+      de: "Pässe fürs Team, eine Rechnung, kein Abrechnungschaos.",
+      en: "Passes for the team, one invoice, no expense chaos.",
+    },
     price: { early: 0, full: 0 },
-    includes: ["10, 25 oder 50 Pässe", "Sammelrechnung auf die Firma", "Persönliche Ansprechpartnerin"],
-    terms: ["Zum jeweils regulären Preis", "Anfrage per Mail, kein Direktkauf"],
+    includes: [
+      {
+        de: `${CORPORATE_SIZES.join(", ")} Pässe`,
+        en: `${CORPORATE_SIZES.join(", ")} passes`,
+      },
+      { de: "Sammelrechnung auf die Firma", en: "A single invoice to the company" },
+      { de: "Persönliche Ansprechpartnerin", en: "A named contact person" },
+    ],
+    terms: [
+      { de: "Zum jeweils regulären Preis", en: "At the regular price of the day" },
+      { de: "Anfrage per Mail, kein Direktkauf", en: "By email, no direct checkout" },
+    ],
     requestOnly: true,
   },
 ];
 
-/** Staffeln fuer /corporate. Preis ist immer der regulaere Tarif, keine Rabatte. */
-export const CORPORATE_SIZES = [10, 25, 50] as const;
 
 /* ── Checkout ───────────────────────────────────────────────────────── */
 
@@ -184,8 +244,12 @@ export const CHECKOUT = {
 export const CONTACT_EMAIL = "info@cocktail-x.com";
 
 /** Mailto fuer Team Nights, mit vorbereitetem Betreff. */
-export function corporateMailto(size?: number): string {
-  const subject = size ? `Team Nights ON ICE: ${size} Pässe` : "Team Nights ON ICE";
+export function corporateMailto(size?: number, locale: "de" | "en" = "de"): string {
+  const subject = size
+    ? locale === "en"
+      ? `Team Nights ON ICE: ${size} passes`
+      : `Team Nights ON ICE: ${size} Pässe`
+    : "Team Nights ON ICE";
   return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 }
 

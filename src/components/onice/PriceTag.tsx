@@ -1,4 +1,19 @@
-import { EARLY_UNTIL_SHORT, REFERENCE_PRICE, SAVING_EUR, SAVING_PCT, TIERS, type TierKey } from "@/config/pricing";
+import {
+  EARLY_UNTIL_SHORT,
+  EVENT,
+  REFERENCE_PRICE,
+  SAVING_EUR,
+  SAVING_PCT,
+  TIERS,
+  type TierKey,
+} from "@/config/pricing";
+import { pick, type Locale } from "@/i18n/bilingual";
+
+const COPY = {
+  saving: { de: `Du sparst ${SAVING_EUR} €`, en: `You save ${SAVING_EUR} €` },
+  instead: { de: "statt", en: "instead of" },
+  regular: { de: "regulär", en: "regular" },
+} as const;
 
 /**
  * Preisdarstellung mit Streichpreis.
@@ -20,11 +35,13 @@ export type PriceTagVariant = "inline" | "block" | "card";
 export default function PriceTag({
   tier,
   price,
+  locale,
   reference: referenceProp,
   variant = "block",
   className = "",
 }: {
   tier: TierKey;
+  locale: Locale;
   /** Zu zeigender Preis. Bei Bundles der Bundle-Preis, sonst der Einzelpreis. */
   price: number;
   /**
@@ -65,7 +82,9 @@ export default function PriceTag({
         )}
         <span className="tabular-nums">{price} €</span>
         {isEarly && reference !== null && (
-          <span className="sr-only">statt {reference} Euro regulär</span>
+          <span className="sr-only">
+            {pick(COPY.instead, locale)} {reference} Euro {pick(COPY.regular, locale)}
+          </span>
         )}
       </span>
     );
@@ -84,7 +103,7 @@ export default function PriceTag({
         </div>
         {isEarly && reference !== null && (
           <p className="font-body text-xs font-bold uppercase tracking-wider text-tangerine mt-2">
-            Du sparst {SAVING_EUR} €
+            {pick(COPY.saving, locale)}
           </p>
         )}
       </div>
@@ -103,7 +122,8 @@ export default function PriceTag({
       </div>
       {isEarly && reference !== null && (
         <span className="rounded-full bg-tangerine px-3.5 py-1.5 font-body text-[11px] font-bold uppercase tracking-[0.12em] text-licorice">
-          {SAVING_PCT} % bis {EARLY_UNTIL_SHORT}
+          {SAVING_PCT} %{locale === "en" ? " until " : " bis "}
+          {locale === "en" ? EVENT.earlyUntilShortEn : EARLY_UNTIL_SHORT}
         </span>
       )}
     </div>
