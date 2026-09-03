@@ -79,6 +79,12 @@ export interface Report {
   byBar: Bucket[];
   /** Anteil der Kaeufe ohne verwertbare Metadaten, 0 bis 1. */
   untaggedShare: number;
+
+  /* Gescheiterte Zahlungen. Sie zaehlen nirgends zum Umsatz, gehoeren aber
+     sichtbar auf die Seite: Ein paar sind immer dabei, ein sprunghafter
+     Anstieg heisst, dass im Kaufweg etwas kaputt ist. */
+  failedCount: number;
+  failedCents: number;
 }
 
 /* ── Beschriftungen ─────────────────────────────────────────────────── */
@@ -157,6 +163,7 @@ export function buildReport(sales: Sale[], from: number, to: number): Report {
   const refundedCents = bezahlt.reduce((n, s) => n + s.refundedCents, 0);
 
   const ohneTag = bezahlt.filter((s) => !s.metadata.channel && !s.metadata.product).length;
+  const gescheitert = sales.filter((s) => !s.paid);
 
   return {
     from,
@@ -174,6 +181,8 @@ export function buildReport(sales: Sale[], from: number, to: number): Report {
       {},
     ),
     untaggedShare: bezahlt.length ? ohneTag / bezahlt.length : 0,
+    failedCount: gescheitert.length,
+    failedCents: gescheitert.reduce((n, s) => n + s.amountCents, 0),
   };
 }
 

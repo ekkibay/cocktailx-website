@@ -129,6 +129,10 @@ export default async function DashboardPage({
 
         {bericht.untaggedShare > 0 && <Warnung anteil={bericht.untaggedShare} />}
 
+        {bericht.failedCount > 0 && (
+          <Gescheitert anzahl={bericht.failedCount} betrag={bericht.failedCents} />
+        )}
+
         <Abschnitt
           titel="Verlauf"
           hinweis={`Bezahlte Käufe je Tag, ${zeitraum.zusatz}. Der laufende Tag ist noch nicht voll.`}
@@ -661,5 +665,23 @@ function Herunterladen({ href, children }: { href: string; children: React.React
     >
       {children}
     </a>
+  );
+}
+
+/**
+ * Gescheiterte Zahlungen.
+ *
+ * Bewusst als Hinweis und nicht als Alarm: Ein paar sind immer dabei,
+ * abgelaufene Karten, abgelehnte Lastschriften. Interessant ist der Sprung,
+ * und den sieht man nur, wenn die Zahl ueberhaupt dasteht. Der Link fuehrt
+ * in die Suche, wo die Faelle mit Namen stehen.
+ */
+function Gescheitert({ anzahl, betrag }: { anzahl: number; betrag: number }) {
+  return (
+    <p className="mt-5 font-body text-sm text-muted leading-relaxed">
+      {anzahl === 1 ? "Eine Zahlung ist" : `${anzahl} Zahlungen sind`} in diesem Zeitraum
+      gescheitert, zusammen {euro(betrag)}. Nicht im Umsatz oben enthalten. Wer dahintersteckt,
+      steht in der Suche, sobald der Name oder die Adresse bekannt ist.
+    </p>
   );
 }

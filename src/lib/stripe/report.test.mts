@@ -69,11 +69,20 @@ describe("Bericht", () => {
     assert.equal(r.byChannel[0].netCents, 0);
   });
 
+  it("zaehlt gescheiterte Zahlungen getrennt, ohne sie zum Umsatz zu schlagen", () => {
+    const r = buildReport([kauf(), kauf({ paid: false }), kauf({ paid: false })], 0, 0);
+    assert.equal(r.count, 1);
+    assert.equal(r.netCents, 3900);
+    assert.equal(r.failedCount, 2);
+    assert.equal(r.failedCents, 7800);
+  });
+
   it("kommt mit einer leeren Liste zurecht", () => {
     const r = buildReport([], 0, 0);
     assert.equal(r.count, 0);
     assert.equal(r.netCents, 0);
     assert.equal(r.untaggedShare, 0);
+    assert.equal(r.failedCount, 0);
     assert.deepEqual(r.byChannel, []);
   });
 });

@@ -205,6 +205,52 @@ Vorgabe erfüllt durch `PurchaseRecord`:
 Der Kanal geht **nicht** an den Client. Er gehört in den Kaufdatensatz, nicht
 in eine API-Antwort.
 
+### Dieselben Felder gehören an die Stripe-Zahlung
+
+Der Kaufdatensatz liegt in unserer Datenbank, die Auswertung liest aber
+Stripe. Beides muss zusammenpassen, sonst weiß die Auswertung zwar, dass
+Geld geflossen ist, aber nicht, woher.
+
+Deshalb gehören vier Felder zusätzlich als **Metadaten an den PaymentIntent
+oder die Checkout Session**:
+
+| Metadatenfeld | Werte |
+|---|---|
+| `product` | `single`, `crew`, `doubleSeason` |
+| `tier` | `early`, `regular` |
+| `channel` | `public`, `crm`, `student`, `drop`, `bar` |
+| `windowId` | Kennung des Fensters, falls ein Code verwendet wurde |
+| `channelRef` | frei, bei Bar-Codes die Bar-Kennung |
+
+Beim Anlegen der Session, nicht nachträglich:
+
+```js
+await stripe.checkout.sessions.create({
+  // ...
+  payment_intent_data: {
+    metadata: { product, tier, channel, windowId, channelRef },
+  },
+});
+```
+
+Zwei Dinge, die dabei regelmäßig schiefgehen:
+
+1. **Metadaten an der Session statt an der Zahlung.** Die Auswertung liest
+   Charges, weil nur die Charge den tatsächlich erstatteten Betrag kennt. Eine
+   Auswertung ohne Erstattungen zeigt zu viel Umsatz, und das merkt niemand.
+   Über `payment_intent_data.metadata` landen die Felder dort, wo sie gelesen
+   werden.
+2. **Der Code selbst als Metadatum.** Nur `windowId`, nie der Code und nie
+   der Betrag als Klartextfeld. Stripe-Metadaten sind für jeden mit
+   Dashboard-Zugang lesbar.
+
+Fehlen die Felder, ist nichts kaputt: Die Käufe erscheinen unter *ohne
+Angabe*, und die Seite sagt oben, wie hoch der Anteil ist. Aber jede Aussage
+darüber, welcher Kanal etwas bringt, ist dann unvollständig.
+
+Gegenprobe nach dem ersten echten Kauf: `/intern/dashboard` öffnen. Steht
+dort *0 % der Käufe kommen ohne Kanal an*, stimmt die Anbindung.
+
 ## 8. Was im Shop noch zu tun ist
 
 Der Zustand von `cocktailx.app` heute, geprüft am 9. August 2026:
@@ -226,6 +272,7 @@ Aufgabenliste:
 - [ ] Produkte auf ON ICE '26 umstellen, drei Karten wie in Abschnitt 1
 - [ ] Preis-API auf 39/49 umstellen und `no-store` setzen
 - [ ] Modul übernehmen, `TicketStore` gegen die Datenbank implementieren
+- [ ] Metadaten an `payment_intent_data` hängen, siehe Abschnitt 7
 - [ ] Codefeld im Checkout, dezent, ohne eigenen Menüpunkt
 - [ ] Studentenstrecke: zwei Endpunkte plus Mailversand
 - [ ] `TICKET_CODE_SECRET` setzen, Fensterkonfiguration hinterlegen
