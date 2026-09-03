@@ -45,6 +45,16 @@ export interface Sale {
   paid: boolean;
   refundedCents: number;
   metadata: Record<string, string | undefined>;
+
+  /* Fuer die Suche nach einem einzelnen Kauf. Personenbezogene Daten, die
+     ausschliesslich im internen Bereich angezeigt werden und nirgends
+     zwischengespeichert werden. Sie stehen ohnehin in Stripe; hier stehen
+     sie, damit der haeufigste Supportfall nicht den Umweg ueber Stripe
+     braucht. */
+  email?: string;
+  name?: string;
+  /** Stripe-Beleg zum Weiterleiten, wenn die Bestaetigung nicht ankam. */
+  receiptUrl?: string;
 }
 
 export interface Bucket {
@@ -314,4 +324,40 @@ export function pace(series: Day[], fenster: number, jetztMs: number, stichtagMs
     // Prozentzahl erfunden.
     trend: vorher.length === fenster && vorherSumme > 0 ? (jetztSumme - vorherSumme) / vorherSumme : null,
   };
+}
+
+/* ── Suche ──────────────────────────────────────────────────────────── */
+
+/**
+ * Findet einen einzelnen Kauf.
+ *
+ * Der haeufigste Supportfall ist "ich habe nichts bekommen", und die Antwort
+ * darauf ist fast immer eine von dreien: die Zahlung ist gescheitert, die
+ * Adresse hat einen Tippfehler, oder der Beleg liegt im Spam. Alle drei
+ * beantwortet eine Trefferliste mit Status und Beleglink, ohne dass jemand
+ * sich in Stripe durchklickt.
+ *
+ * Gesucht wird auch in gescheiterten Zahlungen, denn genau die erklaeren den
+ * Fall am haeufigsten.
+ */
+export function findSales(sales: Sale[], q: string): Sale[] {
+  const n = q.trim().toLowerCase();
+  // Unter drei Zeichen passt fast alles, und eine Trefferliste mit allem
+  // drin ist keine Antwort.
+  if (n.length < 3) return [];
+
+  const felder = (s: Sale) => [s.email, s.name, s.id, s.metadata.channelRef, s.metadata.windowId];
+
+  return sales
+    .filter((s) => felder(s).some((f) => f?.toLowerCase().includes(n)))
+    .sort((a, b) => b.created - a.created);
+}
+
+/** Zustand eines Kaufs in einem Wort, fuer die Trefferliste. */
+export type Status = "bezahlt" | "teilweise erstattet" | "erstattet" | "fehlgeschlagen";
+
+export function statusOf(s: Sale): Status {
+  if (!s.paid) return "fehlgeschlagen";
+  if (s.refundedCents <= 0) return "bezahlt";
+  return s.refundedCents >= s.amountCents ? "erstattet" : "teilweise erstattet";
 }

@@ -25,6 +25,9 @@ interface StripeCharge {
   refunded: boolean;
   metadata?: Record<string, string>;
   payment_intent?: string | { id: string; metadata?: Record<string, string> } | null;
+  billing_details?: { email?: string | null; name?: string | null };
+  receipt_email?: string | null;
+  receipt_url?: string | null;
 }
 
 export interface SalesResult {
@@ -49,6 +52,12 @@ function toSale(c: StripeCharge): Sale {
     // tragen und trotzdem nicht erfolgreich sein.
     paid: c.paid && c.status === "succeeded",
     metadata: { ...piMeta, ...(c.metadata ?? {}) },
+    // billing_details zuerst: Die Adresse aus dem Checkout ist die, an die
+    // der Beleg ging. receipt_email ist oft leer, wenn Stripe den Beleg ueber
+    // den Kunden statt ueber die Zahlung verschickt.
+    email: c.billing_details?.email ?? c.receipt_email ?? undefined,
+    name: c.billing_details?.name ?? undefined,
+    receiptUrl: c.receipt_url ?? undefined,
   };
 }
 

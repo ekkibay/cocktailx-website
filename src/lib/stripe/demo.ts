@@ -21,6 +21,38 @@ import type { Sale } from "./report";
 /** Frei erfundener Betrag fuer Kaeufe mit Code. Nicht der echte. */
 const DEMO_CODE_CENT = 2500;
 
+/**
+ * Erfundene Kaeufer, damit sich die Suche ohne Stripe-Zugang ausprobieren
+ * laesst. Die Domain ist bewusst beispiel.de: So ist auf einen Blick klar,
+ * dass hier niemand Echtes steht.
+ */
+const NAMEN = [
+  "Lena Hoffmann",
+  "Jonas Brandt",
+  "Mira Yilmaz",
+  "Paul Reinhardt",
+  "Sofia Kellner",
+  "Tobias Wagner",
+  "Amelie Kruse",
+  "Nils Bergmann",
+  "Clara Wendt",
+  "Elias Fassbender",
+  "Johanna Steiner",
+  "Ben Lorenz",
+];
+
+function kaeufer(n: number): { name: string; email: string } {
+  const name = NAMEN[n % NAMEN.length];
+  const [vor, nach] = name.toLowerCase().split(" ");
+  // Ab dem zweiten Durchlauf eine Ziffer anhaengen, sonst haetten zwei
+  // verschiedene Kaeufe dieselbe Adresse.
+  const nummer = Math.floor(n / NAMEN.length);
+  return {
+    name,
+    email: `${vor}.${nach}${nummer > 0 ? nummer : ""}@beispiel.de`,
+  };
+}
+
 interface Muster {
   produkt: "single" | "crew" | "doubleSeason";
   stufe: "early" | "regular";
@@ -68,7 +100,10 @@ export function demoSales(fromSeconds: number, jetzt: number = Math.floor(Date.n
       // Neuere Kaeufe haeufiger als alte, das entspricht einem Vorverkauf,
       // der anzieht.
       const t = jetzt - Math.floor(spanne * Math.pow(zufall(), 1.8));
+      const person = kaeufer(n);
       sales.push({
+        ...person,
+        receiptUrl: "https://dashboard.stripe.com/",
         id: `demo_${String(n++).padStart(4, "0")}`,
         amountCents: m.cent,
         refundedCents: 0,
@@ -95,6 +130,7 @@ export function demoSales(fromSeconds: number, jetzt: number = Math.floor(Date.n
   // nicht mitschickt, und genau die will man im Dashboard bemerken.
   for (let i = 0; i < 6; i++) {
     sales.push({
+      ...kaeufer(100 + i),
       id: `demo_ohne_${i}`,
       amountCents: 3900,
       refundedCents: 0,
@@ -106,7 +142,10 @@ export function demoSales(fromSeconds: number, jetzt: number = Math.floor(Date.n
   }
 
   // Eine gescheiterte Zahlung, die nicht mitzaehlen darf.
+  // Eine gescheiterte Zahlung mit Namen: Genau danach wird gesucht, wenn
+  // jemand schreibt, er habe nichts bekommen.
   sales.push({
+    ...kaeufer(3),
     id: "demo_fehlgeschlagen",
     amountCents: 3900,
     refundedCents: 0,

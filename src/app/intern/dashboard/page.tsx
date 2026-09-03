@@ -13,13 +13,16 @@ import {
   buildReport,
   dailySeries,
   euro,
+  findSales,
   inRange,
   kanalLabel,
   pace,
   produktLabel,
   quotaUsage,
+  statusOf,
   type Bucket,
   type Day,
+  type Sale,
 } from "@/lib/stripe/report";
 
 /**
@@ -51,7 +54,7 @@ const HISTORIE_TAGE = 400;
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: { z?: string };
+  searchParams: { z?: string; q?: string };
 }) {
   const zeitraum = ZEITRAEUME.find((z) => z.key === searchParams.z) ?? ZEITRAEUME[1];
 
@@ -76,6 +79,9 @@ export default async function DashboardPage({
   const gesamt = buildReport(sales, historieVon, jetztSek);
   const heute = buildReport(inRange(sales, berlinDayStart(jetzt), jetztSek + 1), 0, 0);
 
+  const suchbegriff = (searchParams.q ?? "").trim();
+  const treffer = suchbegriff ? findSales(sales, suchbegriff) : [];
+
   const reihe = dailySeries(sales, jetzt, HISTORIE_TAGE);
   const tempo = pace(reihe, zeitraum.tage, jetzt.getTime(), FULL_PRICE_STARTS_AT);
 
@@ -97,7 +103,12 @@ export default async function DashboardPage({
       <div className="mx-auto max-w-6xl">
         <Kopf demo={demo} fehler={error} />
 
-        <Zeitwahl aktiv={zeitraum.key} />
+        <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <Zeitwahl aktiv={zeitraum.key} suche={suchbegriff} />
+          <Suche zeitraum={zeitraum.key} wert={suchbegriff} />
+        </div>
+
+        {suchbegriff && <Treffer sales={treffer} begriff={suchbegriff} />}
 
         {/* Die vier Zahlen, die man morgens sehen will */}
         <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-px bg-hairline rounded-2xl overflow-hidden">
@@ -205,13 +216,15 @@ function Kopf({ demo, fehler }: { demo: boolean; fehler?: string }) {
   );
 }
 
-function Zeitwahl({ aktiv }: { aktiv: string }) {
+function Zeitwahl({ aktiv, suche }: { aktiv: string; suche: string }) {
+  const ziel = (key: string) => `?z=${key}${suche ? `&q=${encodeURIComponent(suche)}` : ""}`;
+
   return (
-    <nav className="mt-6 flex gap-2">
+    <nav className="flex gap-2">
       {ZEITRAEUME.map((z) => (
         <a
           key={z.key}
-          href={`?z=${z.key}`}
+          href={ziel(z.key)}
           className={`rounded-full px-4 py-2 font-body text-xs font-bold uppercase tracking-wider transition-colors ${
             z.key === aktiv
               ? "bg-tangerine text-licorice"
@@ -490,5 +503,133 @@ function Tempo({ tempo, tage }: { tempo: ReturnType<typeof pace>; tage: number }
         </p>
       )}
     </div>
+  );
+}
+
+/**
+ * Suche nach einem einzelnen Kauf.
+ *
+ * Ein gewoehnliches Formular mit GET, kein Client-JavaScript. Die Suche steht
+ * damit in der Adresszeile und laesst sich als Lesezeichen ablegen oder in
+ * einen Ticketkommentar kopieren, was bei einem Supportfall haeufiger
+ * vorkommt, als man denkt.
+ */
+function Suche({ zeitraum, wert }: { zeitraum: string; wert: string }) {
+  return (
+    <form method="get" className="flex gap-2 md:w-[26rem]">
+      {/* Sonst faellt die Ansicht bei jeder Suche auf die Voreinstellung zurueck. */}
+      <input type="hidden" name="z" value={zeitraum} />
+      <input
+        type="search"
+        name="q"
+        defaultValue={wert}
+        placeholder="E-Mail, Name oder Zahlungs-ID"
+        aria-label="Kauf suchen"
+        className="flex-1 min-w-0 rounded-full border border-hairline bg-surface px-4 py-2 font-body text-sm text-bone placeholder:text-muted focus:border-tangerine/60 focus:outline-none"
+      />
+      <button
+        type="submit"
+        className="rounded-full bg-surface border border-hairline px-4 py-2 font-body text-xs font-bold uppercase tracking-wider text-bone hover:border-tangerine/50 transition-colors"
+      >
+        Suchen
+      </button>
+    </form>
+  );
+}
+
+const STATUSFARBE: Record<ReturnType<typeof statusOf>, string> = {
+  bezahlt: "text-tangerine",
+  "teilweise erstattet": "text-hibiscus",
+  erstattet: "text-hibiscus",
+  fehlgeschlagen: "text-hibiscus",
+};
+
+/**
+ * Trefferliste.
+ *
+ * Zeigt bewusst auch gescheiterte Zahlungen und den Beleglink. Der haeufigste
+ * Supportfall ist "ich habe nichts bekommen", und die Antwort steht damit
+ * vollstaendig auf dieser Seite, statt in Stripe.
+ */
+function Treffer({ sales, begriff }: { sales: Sale[]; begriff: string }) {
+  const zeit = new Intl.DateTimeFormat("de-DE", {
+    timeZone: "Europe/Berlin",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return (
+    <section className="mt-5 rounded-2xl border border-tangerine/40 p-5 md:p-6">
+      <div className="flex items-baseline justify-between gap-4 flex-wrap">
+        <h2 className="font-display text-xl text-bone">
+          {sales.length === 0
+            ? "Nichts gefunden"
+            : `${sales.length} Treffer`}
+        </h2>
+        <a href="?" className="font-body text-xs text-muted hover:text-bone underline underline-offset-4">
+          Suche zurücksetzen
+        </a>
+      </div>
+
+      {sales.length > 0 && (
+        <p className="font-body text-xs text-muted mt-1.5">
+          Über den ganzen geladenen Vorverkauf, unabhängig vom gewählten Zeitraum oben.
+        </p>
+      )}
+
+      {sales.length === 0 ? (
+        <p className="font-body text-sm text-muted mt-3 max-w-2xl leading-relaxed">
+          Zu „{begriff}“ gibt es keinen Kauf im geladenen Zeitraum. Gesucht wird in Adresse, Name,
+          Zahlungs-ID und Bar-Kennung, ab drei Zeichen. Wenn jemand mit einer anderen Adresse
+          bezahlt hat als der, mit der er schreibt, hilft die Suche nach dem Nachnamen.
+        </p>
+      ) : (
+        <div className="mt-5 space-y-4">
+          {sales.map((s) => {
+            const status = statusOf(s);
+            return (
+              <div key={s.id} className="rounded-xl bg-surface p-4">
+                <div className="flex items-baseline justify-between gap-4 flex-wrap">
+                  <p className="font-body text-sm text-bone">
+                    {s.name ?? <span className="text-muted italic">ohne Namen</span>}
+                    {s.email && <span className="text-muted"> · {s.email}</span>}
+                  </p>
+                  <p className={`font-body text-xs font-bold uppercase tracking-wider ${STATUSFARBE[status]}`}>
+                    {status}
+                  </p>
+                </div>
+
+                <p className="font-body text-sm text-muted mt-2">
+                  <span className="tabular-nums">{zeit.format(new Date(s.created * 1000))}</span> ·{" "}
+                  {produktLabel(s.metadata.product)}
+                  {s.metadata.channel && <> · {kanalLabel(s.metadata.channel)}</>} ·{" "}
+                  <span className="tabular-nums text-bone">{euro(s.amountCents - s.refundedCents)}</span>
+                  {s.refundedCents > 0 && (
+                    <span className="tabular-nums"> von ursprünglich {euro(s.amountCents)}</span>
+                  )}
+                </p>
+
+                <div className="flex gap-4 mt-3 flex-wrap items-center">
+                  <code className="font-mono text-[11px] text-muted break-all">{s.id}</code>
+                  {s.receiptUrl && (
+                    <a
+                      href={s.receiptUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-body text-xs text-tangerine hover:underline underline-offset-4"
+                    >
+                      Beleg öffnen
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
   );
 }

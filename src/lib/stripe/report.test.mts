@@ -17,11 +17,13 @@ import {
   buildReport,
   dailySeries,
   euro,
+  findSales,
   inRange,
   kanalLabel,
   pace,
   produktLabel,
   quotaUsage,
+  statusOf,
   type Sale,
 } from "./report.ts";
 
@@ -344,5 +346,63 @@ describe("Tempo", () => {
     const p = pace(reihe([5]), 7, jetzt, in10Tagen);
     assert.equal(p.perDay, 0);
     assert.equal(p.trend, null);
+  });
+});
+
+/* ── Suche ──────────────────────────────────────────────────────────── */
+
+describe("Suche", () => {
+  const alle = [
+    kauf({ id: "ch_aaa", email: "lena.hoffmann@beispiel.de", name: "Lena Hoffmann", created: 100 }),
+    kauf({ id: "ch_bbb", email: "jonas@beispiel.de", name: "Jonas Brandt", created: 200 }),
+    kauf({ id: "ch_ccc", paid: false, email: "lena.hoffmann@beispiel.de", name: "Lena Hoffmann", created: 300 }),
+  ];
+
+  it("findet ueber die Adresse", () => {
+    assert.deepEqual(findSales(alle, "jonas@beispiel.de").map((s) => s.id), ["ch_bbb"]);
+  });
+
+  it("findet ueber einen Teil des Namens, ohne Ruecksicht auf Gross- und Kleinschreibung", () => {
+    assert.equal(findSales(alle, "HOFFMANN").length, 2);
+  });
+
+  it("findet ueber die Zahlungs-ID", () => {
+    assert.deepEqual(findSales(alle, "ch_bbb").map((s) => s.id), ["ch_bbb"]);
+  });
+
+  it("findet auch gescheiterte Zahlungen", () => {
+    // Sie sind meist die Antwort auf "ich habe nichts bekommen".
+    assert.ok(findSales(alle, "lena").some((s) => !s.paid));
+  });
+
+  it("zeigt den neuesten Treffer zuerst", () => {
+    assert.deepEqual(findSales(alle, "lena").map((s) => s.id), ["ch_ccc", "ch_aaa"]);
+  });
+
+  it("liefert bei unter drei Zeichen nichts, statt alles", () => {
+    assert.deepEqual(findSales(alle, "le"), []);
+    assert.deepEqual(findSales(alle, "  "), []);
+  });
+
+  it("kommt mit Kaeufen ohne Namen und Adresse zurecht", () => {
+    assert.deepEqual(findSales([kauf({ id: "ch_leer" })], "lena"), []);
+  });
+
+  it("findet ueber die Bar-Kennung", () => {
+    const mitBar = [kauf({ id: "ch_bar", metadata: { channelRef: "bar-0007" } })];
+    assert.equal(findSales(mitBar, "bar-0007").length, 1);
+  });
+});
+
+describe("Status", () => {
+  it("unterscheidet bezahlt, teilweise erstattet, erstattet und gescheitert", () => {
+    assert.equal(statusOf(kauf()), "bezahlt");
+    assert.equal(statusOf(kauf({ amountCents: 11700, refundedCents: 3900 })), "teilweise erstattet");
+    assert.equal(statusOf(kauf({ amountCents: 3900, refundedCents: 3900 })), "erstattet");
+    assert.equal(statusOf(kauf({ paid: false })), "fehlgeschlagen");
+  });
+
+  it("nennt eine gescheiterte Zahlung auch dann gescheitert, wenn etwas erstattet wurde", () => {
+    assert.equal(statusOf(kauf({ paid: false, refundedCents: 3900 })), "fehlgeschlagen");
   });
 });
