@@ -1,3 +1,5 @@
+import { InternNav } from "../nav";
+
 import {
   DOUBLE_SEASON_LIMIT,
   EARLY_UNTIL_LABEL,
@@ -101,6 +103,7 @@ export default async function DashboardPage({
   return (
     <main className="min-h-screen px-5 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-6xl">
+        <InternNav aktiv="verkauf" />
         <Kopf demo={demo} fehler={error} />
 
         <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

@@ -143,9 +143,12 @@ export function demoSales(fromSeconds: number, jetzt: number = Math.floor(Date.n
 
   // Eine gescheiterte Zahlung, die nicht mitzaehlen darf.
   // Eine gescheiterte Zahlung mit Namen: Genau danach wird gesucht, wenn
-  // jemand schreibt, er habe nichts bekommen.
+  // jemand schreibt, er habe nichts bekommen. Die Nummer liegt bewusst weit
+  // ausserhalb der Schleife oben, damit die Adresse sonst nirgends kauft.
+  // Nur so zeigt der Supportbereich den Fall "Zahlung gescheitert, kein
+  // bezahlter Kauf" unverfaelscht.
   sales.push({
-    ...kaeufer(3),
+    ...kaeufer(200),
     id: "demo_fehlgeschlagen",
     amountCents: 3900,
     refundedCents: 0,

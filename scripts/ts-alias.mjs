@@ -37,6 +37,18 @@ registerHooks({
       const treffer = aufloesen(path.join(SRC, spezifizierer.slice(2)));
       if (treffer) return { url: pathToFileURL(treffer).href, shortCircuit: true };
     }
+
+    // Relative Importe ohne Endung, wie sie im Projekt ueblich sind, weil
+    // der Buendler sie aufloest. Node selbst verlangt in ESM die Endung,
+    // also werden hier dieselben Endungen durchprobiert wie beim Alias.
+    if ((spezifizierer.startsWith("./") || spezifizierer.startsWith("../")) && kontext.parentURL) {
+      const rumpf = fileURLToPath(new URL(spezifizierer, kontext.parentURL));
+      if (!path.extname(rumpf) || !existsSync(rumpf)) {
+        const treffer = aufloesen(rumpf);
+        if (treffer) return { url: pathToFileURL(treffer).href, shortCircuit: true };
+      }
+    }
+
     return naechster(spezifizierer, kontext);
   },
 });
