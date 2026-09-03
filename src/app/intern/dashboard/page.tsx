@@ -180,6 +180,22 @@ export default async function DashboardPage({
           <Liste sales={sales.filter((s) => s.paid).slice(0, 12)} />
         </Abschnitt>
 
+        <Abschnitt
+          titel="Export"
+          hinweis="Der ganze geladene Vorverkauf als Tabelle, mit Semikolon und Byte Order Mark, damit deutsches Excel sie ohne Nacharbeit öffnet."
+        >
+          <div className="flex flex-wrap gap-3">
+            <Herunterladen href="/intern/dashboard/export">Bezahlte Käufe</Herunterladen>
+            <Herunterladen href="/intern/dashboard/export?alle=1">
+              Mit gescheiterten Zahlungen
+            </Herunterladen>
+          </div>
+          <p className="font-body text-xs text-muted mt-4 max-w-2xl leading-relaxed">
+            Die Datei enthält Namen und Adressen der Käufer. Sie gehört nicht in einen geteilten
+            Ordner und nicht in einen Mailverteiler.
+          </p>
+        </Abschnitt>
+
         <p className="mt-10 font-body text-xs text-muted/70 leading-relaxed">
           {EVENT.name} {EVENT.edition}, {EVENT.dateLabel}. Alle Beträge inklusive Mehrwertsteuer.
           Rechnungsstelle bayundco GmbH. Zahlen kommen direkt aus Stripe und werden nicht
@@ -631,5 +647,19 @@ function Treffer({ sales, begriff }: { sales: Sale[]; begriff: string }) {
         </div>
       )}
     </section>
+  );
+}
+
+function Herunterladen({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      // download hier bewusst nicht: Der Dateiname kommt aus dem
+      // Content-Disposition-Header und traegt den Stand und den Hinweis auf
+      // Demodaten. Ein download-Attribut wuerde ihn ueberschreiben.
+      className="rounded-full border border-hairline bg-surface px-4 py-2 font-body text-xs font-bold uppercase tracking-wider text-bone hover:border-tangerine/50 transition-colors"
+    >
+      {children}
+    </a>
   );
 }
