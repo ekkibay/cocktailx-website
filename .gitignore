@@ -33,3 +33,8 @@ src/assets/bildset-v1/
 # Preisfenster hinter Codes. Enthalten Preise unterhalb der oeffentlichen
 # Untergrenze und duerfen deshalb nicht ins Repository.
 src/data/ticket-windows.internal.json
+
+# Rohmaterial aus den Shootings, mehrere Gigabyte.
+# Gehoert nicht ins Repository: Was auf die Seite soll, laeuft ueber
+# scripts/import-onice-assets.mjs nach public/images.
+Bilder/

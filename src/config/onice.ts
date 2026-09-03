@@ -205,7 +205,12 @@ export const HOW_IT_WORKS: HowItWorksStep[] = [
 
 /* ── FAQ ────────────────────────────────────────────────────────────────
    Basis ist die Sommer-FAQ, auf ON ICE umgeschrieben, plus die neuen
-   Punkte zu Crew Pass, Double Season, Widerruf und alkoholfrei.            */
+   Punkte zu Crew Pass, Double Season, Widerruf und alkoholfrei.
+
+   Zwei Zusagen sind hier bewusst nicht mehr drin: kostenloses Wasser, das
+   wir nicht anbieten und nirgends zusichern koennen, und die Pflicht jeder
+   Bar zu einer alkoholfreien Variante. Die Bars koennen eine anbieten,
+   muessen aber nicht. Bitte nicht wieder als Tatsache formulieren.            */
 
 export interface FaqItem {
   q: Bilingual;
@@ -244,8 +249,8 @@ export const FAQ: FaqItem[] = [
   {
     q: { de: "Geht das auch ohne Alkohol?", en: "Does this work without alcohol?" },
     a: {
-      de: "Ja. Der Trail ZERO & LIGHT besteht komplett aus alkoholfreien Drinks, und jede teilnehmende Bar hat mindestens eine alkoholfreie Variante ihres Signature Drinks. Wasser bekommst du überall kostenlos.",
-      en: "Yes. The ZERO & LIGHT trail is made up entirely of alcohol free drinks, and every participating bar has at least one alcohol free version of its signature drink. Water is free everywhere.",
+      de: "Ja. Der Trail ZERO & LIGHT ist genau dafür zusammengestellt. Viele Bars bieten außerdem eine alkoholfreie Variante ihres Signature Drinks an. Verpflichtet ist dazu keine, frag am besten direkt an der Bar.",
+      en: "Yes. The ZERO & LIGHT trail is put together for exactly that. Many bars also offer an alcohol free version of their signature drink. None of them has to, so it is worth asking at the bar.",
     },
   },
   {
