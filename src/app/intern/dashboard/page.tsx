@@ -11,12 +11,15 @@ import { loadSales } from "@/lib/stripe/sales";
 import {
   berlinDayStart,
   buildReport,
+  dailySeries,
   euro,
   inRange,
   kanalLabel,
+  pace,
   produktLabel,
   quotaUsage,
   type Bucket,
+  type Day,
 } from "@/lib/stripe/report";
 
 /**
@@ -41,6 +44,10 @@ const ZEITRAEUME = [
   { key: "all", label: "Gesamt", zusatz: "seit Verkaufsstart", tage: 400 },
 ] as const;
 
+/* Wie weit zurueck geladen wird, unabhaengig von der Ansicht. Deckt den
+   Vorverkauf ab und laesst Raum fuer den Vergleich mit dem Zeitraum davor. */
+const HISTORIE_TAGE = 400;
+
 export default async function DashboardPage({
   searchParams,
 }: {
@@ -52,10 +59,25 @@ export default async function DashboardPage({
   const jetztSek = Math.floor(jetzt.getTime() / 1000);
   const von = berlinDayStart(jetzt, -(zeitraum.tage - 1));
 
-  const { sales, demo, error } = await loadSales(von);
+  /* Immer die volle Historie holen und im Speicher filtern, statt nur den
+     gewaehlten Zeitraum zu laden.
 
-  const bericht = buildReport(sales, von, jetztSek);
+     Kontingente sind kumulativ: "47 von 500" meint alle jemals eingeloesten,
+     nicht die der letzten sieben Tage. Wuerde nur der Zeitraum geladen, saehe
+     ein fast volles Kontingent in der 7-Tage-Ansicht leer aus, und das ist
+     genau die Zahl, wegen der man die Seite aufmacht.
+
+     Der Vergleich mit dem Zeitraum davor braucht ohnehin mehr Tage als der
+     angezeigte. */
+  const historieVon = berlinDayStart(jetzt, -(HISTORIE_TAGE - 1));
+  const { sales, demo, error } = await loadSales(historieVon);
+
+  const bericht = buildReport(inRange(sales, von, jetztSek + 1), von, jetztSek);
+  const gesamt = buildReport(sales, historieVon, jetztSek);
   const heute = buildReport(inRange(sales, berlinDayStart(jetzt), jetztSek + 1), 0, 0);
+
+  const reihe = dailySeries(sales, jetzt, HISTORIE_TAGE);
+  const tempo = pace(reihe, zeitraum.tage, jetzt.getTime(), FULL_PRICE_STARTS_AT);
 
   const tier = currentTier(jetzt.getTime());
   const tageBisUmstellung = Math.ceil((FULL_PRICE_STARTS_AT - jetzt.getTime()) / 86_400_000);
@@ -66,8 +88,9 @@ export default async function DashboardPage({
     { id: "drop-halloween", label: "Drop Halloween", quota: 150 },
   ]);
 
-  const doubleVerkauft =
-    bericht.byProduct.find((b) => b.key === "doubleSeason")?.count ?? 0;
+  // Aus der Gesamthistorie, nicht aus dem Zeitraum: Das Limit gilt fuer den
+  // ganzen Vorverkauf, nicht fuer die letzten sieben Tage.
+  const doubleVerkauft = gesamt.byProduct.find((b) => b.key === "doubleSeason")?.count ?? 0;
 
   return (
     <main className="min-h-screen px-5 py-8 md:px-10 md:py-12">
@@ -78,7 +101,11 @@ export default async function DashboardPage({
 
         {/* Die vier Zahlen, die man morgens sehen will */}
         <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-px bg-hairline rounded-2xl overflow-hidden">
-          <Kennzahl label="Pässe verkauft" wert={String(bericht.count)} zusatz={zeitraum.zusatz} />
+          <Kennzahl
+            label="Pässe verkauft"
+            wert={String(bericht.count)}
+            zusatz={trendText(tempo.trend) ?? zeitraum.zusatz}
+          />
           <Kennzahl label="Netto" wert={euro(bericht.netCents)} zusatz={bericht.refundedCents > 0 ? `abzüglich ${euro(bericht.refundedCents)} erstattet` : "keine Erstattungen"} />
           <Kennzahl label="Heute" wert={String(heute.count)} zusatz={euro(heute.netCents)} />
           <Kennzahl
@@ -90,6 +117,14 @@ export default async function DashboardPage({
         </div>
 
         {bericht.untaggedShare > 0 && <Warnung anteil={bericht.untaggedShare} />}
+
+        <Abschnitt
+          titel="Verlauf"
+          hinweis={`Bezahlte Käufe je Tag, ${zeitraum.zusatz}. Der laufende Tag ist noch nicht voll.`}
+        >
+          <Verlauf tage={reihe.slice(-zeitraum.tage)} />
+          <Tempo tempo={tempo} tage={zeitraum.tage} />
+        </Abschnitt>
 
         {/* Kanaele zuerst. Das ist die Frage, die Stripe nicht beantwortet. */}
         <Abschnitt
@@ -331,39 +366,129 @@ function Liste({ sales }: { sales: { id: string; created: number; amountCents: n
   });
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-left border-collapse">
-        <thead>
-          <tr className="border-b border-hairline">
-            {["Zeit", "Produkt", "Kanal", "Betrag"].map((h) => (
-              <th key={h} className="font-body text-[11px] uppercase tracking-wider text-muted pb-2 pr-4 font-bold">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {sales.map((s) => (
-            <tr key={s.id} className="border-b border-hairline/50">
-              <td className="font-body text-sm text-muted py-2.5 pr-4 tabular-nums whitespace-nowrap">
-                {zeit.format(new Date(s.created * 1000))}
-              </td>
-              <td className="font-body text-sm text-bone py-2.5 pr-4">{produktLabel(s.metadata.product)}</td>
-              <td className="font-body text-sm py-2.5 pr-4">
-                {s.metadata.channel ? (
-                  <span className="text-bone/85">{kanalLabel(s.metadata.channel)}</span>
-                ) : (
-                  <span className="text-muted italic">ohne Angabe</span>
-                )}
-              </td>
-              <td className="font-body text-sm text-bone py-2.5 tabular-nums whitespace-nowrap">
-                {euro(s.amountCents - s.refundedCents)}
-                {s.refundedCents > 0 && <span className="text-hibiscus ml-2">erstattet</span>}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="divide-y divide-hairline/50 -my-2.5">
+      {sales.map((s) => (
+        <div key={s.id} className="flex items-baseline justify-between gap-4 py-2.5">
+          <div className="min-w-0">
+            <p
+              className={`font-body text-sm truncate ${
+                s.metadata.product ? "text-bone" : "text-muted italic"
+              }`}
+            >
+              {produktLabel(s.metadata.product)}
+            </p>
+            <p className="font-body text-xs text-muted mt-0.5">
+              <span className="tabular-nums">{zeit.format(new Date(s.created * 1000))}</span>
+              {s.metadata.channel ? (
+                <> · {kanalLabel(s.metadata.channel)}</>
+              ) : (
+                <> · <span className="italic">ohne Angabe</span></>
+              )}
+            </p>
+          </div>
+          <p className="font-body text-sm text-bone tabular-nums whitespace-nowrap">
+            {euro(s.amountCents - s.refundedCents)}
+            {s.refundedCents > 0 && <span className="text-hibiscus ml-2">erstattet</span>}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Veraenderung gegenueber dem gleich langen Zeitraum davor, als Satz.
+ *
+ * Bewusst in Worten und nicht als Zahl mit Vorzeichen: "12 % weniger als
+ * davor" ist auf einen Blick klar, ein vorangestelltes Minus vor einer
+ * Prozentzahl liest sich in einer Kennzahlenreihe leicht als Betrag.
+ */
+function trendText(trend: number | null): string | undefined {
+  if (trend === null) return undefined;
+  const prozent = Math.round(Math.abs(trend) * 100);
+  if (prozent === 0) return "gleich viel wie im Zeitraum davor";
+  return `${prozent} % ${trend > 0 ? "mehr" : "weniger"} als im Zeitraum davor`;
+}
+
+function Verlauf({ tage }: { tage: Day[] }) {
+  if (tage.every((t) => t.count === 0)) {
+    return <p className="font-body text-sm text-muted">Noch keine Käufe in diesem Zeitraum.</p>;
+  }
+
+  const spitze = Math.max(...tage.map((t) => t.count));
+  // Nie durch null teilen, und ein einzelner Kauf soll nicht als voller
+  // Balken dastehen, als waere es ein Rekordtag.
+  const skala = Math.max(3, spitze);
+
+  const tagLabel = new Intl.DateTimeFormat("de-DE", {
+    timeZone: "Europe/Berlin",
+    day: "2-digit",
+    month: "2-digit",
+  });
+  const beschriftung = (t: Day) => tagLabel.format(new Date(t.start * 1000));
+
+  return (
+    <figure className="m-0">
+      <div className="flex items-end gap-[2px] h-24" role="presentation">
+        {tage.map((t, i) => {
+          const heute = i === tage.length - 1;
+          return (
+            <div
+              key={t.start}
+              className="flex-1 min-w-[2px] h-full flex items-end"
+              title={`${beschriftung(t)}: ${t.count} ${t.count === 1 ? "Pass" : "Pässe"}, ${euro(t.netCents)}`}
+            >
+              <div
+                className={`w-full rounded-sm ${heute ? "bg-tangerine/40" : "bg-tangerine"}`}
+                style={{ height: `${Math.max((t.count / skala) * 100, t.count > 0 ? 3 : 0)}%` }}
+              />
+            </div>
+          );
+        })}
+      </div>
+      <figcaption className="flex justify-between mt-2 font-body text-[11px] tabular-nums text-muted">
+        <span>{beschriftung(tage[0])}</span>
+        <span>Höchster Tag: {spitze}</span>
+        <span>heute</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/**
+ * Was aus dem gemessenen Tempo bis zur Preisumstellung wird.
+ *
+ * Die Hochrechnung ist eine gerade Verlaengerung, nicht mehr. Sie steht hier
+ * mit dieser Einschraenkung dabei, weil die Frage "reicht das noch" sonst gar
+ * nicht beantwortet wird. Eine Zahl ohne den Hinweis waere schlimmer als
+ * keine, weil sie nach Vorhersage aussaehe.
+ */
+function Tempo({ tempo, tage }: { tempo: ReturnType<typeof pace>; tage: number }) {
+  const proTag = tempo.perDay.toLocaleString("de-DE", { maximumFractionDigits: 1 });
+  // "1 Pässe pro Tag" liest sich wie ein Fehler und laesst die ganze Seite
+  // unfertig wirken.
+  const einheit = proTag === "1" ? "Pass" : "Pässe";
+
+  return (
+    <div className="mt-5 pt-5 border-t border-hairline font-body text-sm leading-relaxed">
+      <p className="text-bone">
+        <span className="tabular-nums font-bold">{proTag}</span> {einheit} pro Tag über die letzten{" "}
+        {tage} Tage.
+        {tempo.daysLeft > 0 && (
+          <>
+            {" "}
+            Bei diesem Tempo kommen bis zur Umstellung am Ende des {EARLY_UNTIL_LABEL} noch rund{" "}
+            <span className="tabular-nums font-bold">{tempo.expected}</span> dazu.
+          </>
+        )}
+      </p>
+      {tempo.daysLeft > 0 && (
+        <p className="text-muted text-xs mt-2 max-w-2xl">
+          Gerade verlängert, ohne Aufschlag. Vorverkäufe ziehen vor einem Stichtag erfahrungsgemäß
+          an, die Zahl ist also eher eine Untergrenze als eine Vorhersage. Der laufende Tag zählt
+          nicht mit, sonst sähe jeder Vormittag wie ein Einbruch aus.
+        </p>
+      )}
     </div>
   );
 }

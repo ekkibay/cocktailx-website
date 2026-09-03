@@ -94,9 +94,11 @@ const CHANNEL_LABEL: Record<string, string> = {
 
 const OHNE_ANGABE = "Ohne Angabe";
 
-/** Fuer Stellen, die einen einzelnen Wert beschriften, etwa eine Tabelle. */
+/** Fuer Stellen, die einen einzelnen Wert beschriften, etwa eine Liste. */
 export function produktLabel(key?: string): string {
-  return key ? (PRODUCT_LABEL[key] ?? key) : "—";
+  // Kein Strich als Platzhalter: Im Projekt sind Geviertstriche ueberall
+  // untersagt, und "ohne Angabe" sagt ausserdem, was fehlt.
+  return key ? (PRODUCT_LABEL[key] ?? key) : "ohne Angabe";
 }
 export function kanalLabel(key?: string): string {
   return key ? (CHANNEL_LABEL[key] ?? key) : "";
@@ -224,3 +226,92 @@ export function berlinDayStart(at: Date, offsetDays = 0): number {
 }
 
 export type { Channel, PriceTier, ProductKey };
+
+/* ── Verlauf und Tempo ──────────────────────────────────────────────── */
+
+export interface Day {
+  /** Tagesbeginn in Berliner Zeit, Sekunden seit 1970. */
+  start: number;
+  count: number;
+  netCents: number;
+}
+
+/**
+ * Kaeufe pro Tag, aeltester Tag zuerst, letzter Eintrag ist der laufende Tag.
+ *
+ * Die Tagesgrenzen kommen aus der Kalenderrechnung und nicht aus einer Addition
+ * von 86400 Sekunden. An den beiden Umstellungstagen im Jahr hat ein Tag 23
+ * oder 25 Stunden, und eine feste Schrittweite verschiebt danach jede
+ * Tagesgrenze um eine Stunde.
+ */
+export function dailySeries(sales: Sale[], anchor: Date, days: number): Day[] {
+  const grenzen: number[] = [];
+  for (let i = days - 1; i >= 0; i--) grenzen.push(berlinDayStart(anchor, -i));
+  grenzen.push(berlinDayStart(anchor, 1));
+
+  const out: Day[] = grenzen.slice(0, -1).map((start) => ({ start, count: 0, netCents: 0 }));
+
+  // Ein Durchlauf ueber die sortierten Kaeufe statt einer Schleife je Tag.
+  const bezahlt = sales.filter((s) => s.paid).sort((a, b) => a.created - b.created);
+  let tag = 0;
+  for (const s of bezahlt) {
+    if (s.created < grenzen[0]) continue;
+    while (tag < out.length && s.created >= grenzen[tag + 1]) tag++;
+    if (tag >= out.length) break;
+    out[tag].count += 1;
+    out[tag].netCents += netOf(s);
+  }
+  return out;
+}
+
+export interface Pace {
+  /** Paesse pro Tag im Betrachtungsfenster. */
+  perDay: number;
+  /** Verkaufte Paesse im Fenster. */
+  window: number;
+  /** Tage bis zum Stichtag, aufgerundet, nie negativ. */
+  daysLeft: number;
+  /** Erwartete zusaetzliche Paesse bis zum Stichtag, beim gemessenen Tempo. */
+  expected: number;
+  /** Veraenderung gegenueber dem gleich langen Zeitraum davor, null wenn nicht bestimmbar. */
+  trend: number | null;
+}
+
+/**
+ * Wie schnell laeuft der Verkauf, und was wird daraus bis zum Stichtag?
+ *
+ * Der laufende Tag zaehlt nicht mit. Er ist unvollstaendig und wuerde den
+ * Schnitt am Vormittag nach unten ziehen, was jeden Morgen wie ein Einbruch
+ * aussaehe.
+ *
+ * Die Hochrechnung ist eine gerade Verlaengerung des gemessenen Tempos, mehr
+ * nicht. Vorverkaeufe ziehen vor einem Stichtag erfahrungsgemaess an, deshalb
+ * ist die Zahl eher eine Untergrenze als eine Vorhersage. Sie steht hier, weil
+ * die Frage "reicht das noch" sonst gar nicht beantwortet wird, nicht weil sie
+ * genau waere.
+ *
+ * @param series  Tagesreihe, aeltester Tag zuerst, letzter Eintrag heute.
+ * @param fenster Wie viele vollstaendige Tage das aktuelle Tempo bestimmen.
+ */
+export function pace(series: Day[], fenster: number, jetztMs: number, stichtagMs: number): Pace {
+  const vollstaendig = series.slice(0, -1);
+  const aktuell = vollstaendig.slice(-fenster);
+  const vorher = vollstaendig.slice(-2 * fenster, -fenster);
+
+  const summe = (d: Day[]) => d.reduce((n, t) => n + t.count, 0);
+  const jetztSumme = summe(aktuell);
+  const vorherSumme = summe(vorher);
+
+  const perDay = aktuell.length ? jetztSumme / aktuell.length : 0;
+  const daysLeft = Math.max(0, Math.ceil((stichtagMs - jetztMs) / 86_400_000));
+
+  return {
+    perDay,
+    window: jetztSumme,
+    daysLeft,
+    expected: Math.round(perDay * daysLeft),
+    // Ohne gleich langen Vergleichszeitraum oder ohne Kaeufe darin waere jede
+    // Prozentzahl erfunden.
+    trend: vorher.length === fenster && vorherSumme > 0 ? (jetztSumme - vorherSumme) / vorherSumme : null,
+  };
+}
