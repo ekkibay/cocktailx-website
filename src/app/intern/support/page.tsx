@@ -62,6 +62,13 @@ export default async function SupportPage() {
             <p className="font-body text-sm text-muted mt-3">Posteingang von {postfach}</p>
           )}
 
+          {!verkauf.vollstaendig && (
+            <p className="mt-4 font-body text-sm text-hibiscus">
+              Die Kaufhistorie ist unvollständig geladen, die Einordnung neben den Mails kann
+              deshalb Käufe übersehen.
+            </p>
+          )}
+
           {post.demo && (
             <div className="mt-5 rounded-xl border border-tangerine/40 bg-tangerine/10 px-5 py-4">
               <p className="font-body text-sm font-bold text-tangerine mb-1">
@@ -108,7 +115,7 @@ export default async function SupportPage() {
 
         <p className="mt-10 font-body text-xs text-muted/70 leading-relaxed">
           Nur lesend. Beantwortet wird in Outlook, der Link an jeder Mail öffnet sie dort. Mails
-          und Käufe werden nicht zwischengespeichert.
+          kommen frisch aus dem Postfach, die Käufe dahinter sind höchstens zwei Minuten alt.
         </p>
       </div>
     </main>

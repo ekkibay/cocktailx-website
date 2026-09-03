@@ -13,7 +13,7 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
 
-import { StripeError, hasStripe, stripeList, toQuery } from "./client.ts";
+import { StripeError, hasStripe, stripeList, stripeListZeitraum, toQuery } from "./client.ts";
 
 /* ── Abfrageformat ──────────────────────────────────────────────────── */
 
@@ -95,26 +95,28 @@ describe("Listenabruf", () => {
     else process.env.STRIPE_SECRET_KEY = echterKey;
   });
 
-  it("gibt eine einzelne Seite zurueck", async () => {
+  it("gibt eine einzelne Seite zurueck und meldet sie vollstaendig", async () => {
     stubFetch([seite(["a", "b"], false)]);
     const out = await stripeList<{ id: string }>("/charges");
-    assert.deepEqual(out.map((c) => c.id), ["a", "b"]);
+    assert.deepEqual(out.items.map((c) => c.id), ["a", "b"]);
+    assert.equal(out.vollstaendig, true);
   });
 
   it("holt die naechste Seite und setzt dabei am letzten Eintrag an", async () => {
     const urls = stubFetch([seite(["a", "b"], true), seite(["c"], false)]);
     const out = await stripeList<{ id: string }>("/charges");
-    assert.deepEqual(out.map((c) => c.id), ["a", "b", "c"]);
+    assert.deepEqual(out.items.map((c) => c.id), ["a", "b", "c"]);
     assert.ok(!urls[0].includes("starting_after"));
     assert.ok(urls[1].includes("starting_after=b"));
   });
 
-  it("haelt bei der Obergrenze an und fordert nur den Rest an", async () => {
-    // Ohne Obergrenze laeuft ein Seitenaufruf im schlimmsten Fall durch
-    // Zehntausende Zahlungen.
+  it("meldet die Liste als unvollstaendig, wenn die Obergrenze greift", async () => {
+    // Still abschneiden hiesse falsche Summen, und falsche Summen faellt
+    // niemandem auf. Der Aufrufer bekommt es gesagt und zeigt es an.
     const urls = stubFetch([seite(["a", "b"], true)]);
     const out = await stripeList<{ id: string }>("/charges", {}, 2);
-    assert.equal(out.length, 2);
+    assert.equal(out.items.length, 2);
+    assert.equal(out.vollstaendig, false);
     assert.equal(urls.length, 1);
     assert.ok(urls[0].includes("limit=2"));
   });
@@ -123,13 +125,51 @@ describe("Listenabruf", () => {
     // Sonst laeuft die Schleife endlos und die Seite haengt.
     stubFetch([seite([], true)]);
     const out = await stripeList<{ id: string }>("/charges");
-    assert.deepEqual(out, []);
+    assert.deepEqual(out.items, []);
   });
 
   it("reicht die Parameter an jede Seite weiter", async () => {
     const urls = stubFetch([seite(["a"], true), seite(["b"], false)]);
     await stripeList<{ id: string }>("/charges", { created: { gte: 999 } });
     assert.ok(urls.every((u) => u.includes("created%5Bgte%5D=999")));
+  });
+
+  it("zerlegt einen Zeitraum lueckenlos und ohne Ueberlappung", async () => {
+    // Luecken hiessen fehlende Zahlungen, Ueberlappung doppelt gezaehlte.
+    const urls = stubFetch([seite([], false)]);
+    await stripeListZeitraum<{ id: string; created: number }>("/charges", 1000, 2000, {}, 4);
+    const grenzen = urls
+      .map((u) => {
+        const gte = Number(new URL(u).searchParams.get("created[gte]"));
+        const lt = Number(new URL(u).searchParams.get("created[lt]"));
+        return [gte, lt];
+      })
+      .sort((a, b) => a[0] - b[0]);
+    assert.equal(grenzen.length, 4);
+    assert.equal(grenzen[0][0], 1000);
+    assert.equal(grenzen[grenzen.length - 1][1], 2000);
+    for (let i = 1; i < grenzen.length; i++) assert.equal(grenzen[i][0], grenzen[i - 1][1]);
+  });
+
+  it("sortiert die zusammengelegten Scheiben neueste zuerst", async () => {
+    let aufruf = 0;
+    globalThis.fetch = (async () => {
+      const daten = [
+        { object: "list", data: [{ id: "alt", created: 1100 }], has_more: false },
+        { object: "list", data: [{ id: "neu", created: 1600 }], has_more: false },
+      ];
+      const body = daten[Math.min(aufruf++, 1)];
+      return { ok: true, status: 200, json: async () => body } as Response;
+    }) as typeof fetch;
+    const out = await stripeListZeitraum<{ id: string; created: number }>("/charges", 1000, 2000, {}, 2);
+    assert.deepEqual(out.items.map((c) => c.id), ["neu", "alt"]);
+    assert.equal(out.vollstaendig, true);
+  });
+
+  it("meldet den Zeitraum als unvollstaendig, sobald eine Scheibe abgeschnitten ist", async () => {
+    stubFetch([seite(["a", "b"], true)]);
+    const out = await stripeListZeitraum<{ id: string; created: number }>("/charges", 1000, 2000, {}, 2, 2);
+    assert.equal(out.vollstaendig, false);
   });
 
   it("macht aus einer Fehlermeldung von Stripe einen StripeError mit Text", async () => {

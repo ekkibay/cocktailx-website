@@ -70,6 +70,26 @@ async function request<T>(path: string, params: Record<string, unknown> = {}): P
   const query = toQuery(params).join("&");
   const url = `${BASE}${path}${query ? `?${query}` : ""}`;
 
+  /* Ein Versuch mehr, dann ehrlich scheitern.
+
+     Gemessen: Eine 100er-Seite mit expand braucht hier normal um die fuenf
+     Sekunden, einzelne Ausreisser deutlich mehr. Ohne Wiederholung reisst
+     ein einziger Ausreisser den gesamten Abruf ab, die Seite faellt auf
+     Demodaten zurueck und speichert nichts, und der naechste Aufruf laedt
+     wieder von vorn. Genau so entstand aus einer langsamen Antwort eine
+     Seite, die angeblich nicht laedt. */
+  try {
+    return await einVersuch<T>(url, key);
+  } catch (err) {
+    // Ein abgelehnter Schluessel oder eine kaputte Anfrage bleiben abgelehnt,
+    // da bringt Wiederholen nichts. Zeitueberschreitung, Netz und 5xx schon.
+    if (err instanceof StripeError && err.status > 0 && err.status < 500) throw err;
+    await new Promise((r) => setTimeout(r, 500));
+    return einVersuch<T>(url, key);
+  }
+}
+
+async function einVersuch<T>(url: string, key: string): Promise<T> {
   const res = await fetch(url, {
     headers: {
       Authorization: `Bearer ${key}`,
@@ -79,6 +99,11 @@ async function request<T>(path: string, params: Record<string, unknown> = {}): P
     },
     // Zahlen aus einem Kassensystem duerfen nie aus dem Zwischenspeicher kommen.
     cache: "no-store",
+    // Ohne Frist haengt eine haengende Verbindung die ganze Seite auf.
+    // Lieber nach 25 Sekunden ein ehrlicher Fehler samt Demohinweis. Nicht
+    // knapper: Die Frist gilt je Anfrage, und eine normale Seite braucht
+    // schon fuenf Sekunden.
+    signal: AbortSignal.timeout(25_000),
   });
 
   const body = (await res.json()) as { error?: { message?: string; code?: string } };
@@ -95,18 +120,29 @@ interface StripeList<T> {
   has_more: boolean;
 }
 
+export interface ListErgebnis<T> {
+  items: T[];
+  /**
+   * false, wenn die Obergrenze erreicht wurde und Stripe noch mehr hatte.
+   * Der Aufrufer MUSS das anzeigen: Eine still abgeschnittene Liste ist
+   * eine falsche Summe, und falsche Summen faellt niemandem auf.
+   */
+  vollstaendig: boolean;
+}
+
 /**
  * Holt eine ganze Liste, ueber Seitengrenzen hinweg.
  *
  * Die Obergrenze ist Absicht. Ohne sie laeuft ein Dashboard-Aufruf im
  * schlimmsten Fall durch Zehntausende Zahlungen und blockiert die Seite.
- * Wer mehr braucht, filtert enger, statt mehr zu holen.
+ * Wer mehr braucht, holt mit stripeListZeitraum mehrere Zeitscheiben
+ * parallel, statt die Grenze hochzudrehen.
  */
 export async function stripeList<T extends { id: string }>(
   path: string,
   params: Record<string, unknown> = {},
   maxItems = 1000,
-): Promise<T[]> {
+): Promise<ListErgebnis<T>> {
   const out: T[] = [];
   let startingAfter: string | undefined;
 
@@ -117,11 +153,57 @@ export async function stripeList<T extends { id: string }>(
       starting_after: startingAfter,
     });
     out.push(...page.data);
-    if (!page.has_more || page.data.length === 0) break;
+    if (!page.has_more || page.data.length === 0) return { items: out, vollstaendig: true };
     startingAfter = page.data[page.data.length - 1].id;
   }
 
-  return out;
+  return { items: out, vollstaendig: false };
+}
+
+/**
+ * Holt einen Zeitraum in Scheiben und die Scheiben parallel.
+ *
+ * Der Grund ist gemessen, nicht vermutet: Stripe blaettert nur der Reihe
+ * nach, jede 100er-Seite kostet hier mehrere Sekunden, und 1300 Zahlungen
+ * hiessen 40 Sekunden Ladezeit. Zeitscheiben lassen sich unabhaengig
+ * voneinander holen, damit bestimmt die langsamste Scheibe die Wartezeit,
+ * nicht die Summe aller Seiten.
+ *
+ * Grenzen: created >= von, created < bis, Scheiben lueckenlos und ohne
+ * Ueberlappung, sonst fehlen Zahlungen oder zaehlen doppelt.
+ */
+export async function stripeListZeitraum<T extends { id: string; created: number }>(
+  path: string,
+  vonSek: number,
+  bisSek: number,
+  params: Record<string, unknown> = {},
+  scheiben = 12,
+  maxProScheibe = 1000,
+): Promise<ListErgebnis<T>> {
+  /* Die Scheiben werden zur Gegenwart hin schmaler, quadratisch statt
+     gleich breit: Zahlungen haeufen sich in den juengsten Wochen, und bei
+     gleicher Breite schleppt die neueste Scheibe die meisten Seiten und
+     bestimmt allein die Wartezeit. */
+  const spanne = bisSek - vonSek;
+  const bereiche: [number, number][] = [];
+  let vorher = vonSek;
+  for (let i = 1; i <= scheiben; i++) {
+    const anteil = (scheiben - i) / scheiben;
+    const grenze = i === scheiben ? bisSek : Math.max(vorher + 1, Math.round(bisSek - spanne * anteil * anteil));
+    if (grenze > vorher) bereiche.push([vorher, grenze]);
+    vorher = grenze;
+  }
+
+  const teile = await Promise.all(
+    bereiche.map(([gte, lt]) => stripeList<T>(path, { ...params, created: { gte, lt } }, maxProScheibe)),
+  );
+
+  return {
+    items: teile
+      .flatMap((t) => t.items)
+      .sort((a, b) => b.created - a.created),
+    vollstaendig: teile.every((t) => t.vollstaendig),
+  };
 }
 
 export async function stripeGet<T>(path: string, params: Record<string, unknown> = {}): Promise<T> {

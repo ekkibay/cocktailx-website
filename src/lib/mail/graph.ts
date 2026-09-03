@@ -64,6 +64,7 @@ async function token(k: NonNullable<ReturnType<typeof konfig>>): Promise<string>
       grant_type: "client_credentials",
     }),
     cache: "no-store",
+    signal: AbortSignal.timeout(10_000),
   });
 
   const body = (await res.json()) as {
@@ -130,6 +131,9 @@ export async function loadMails(max = 25): Promise<MailResult> {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${t}` },
       cache: "no-store",
+      // Wie beim Stripe-Abruf: Lieber nach 15 Sekunden ein ehrlicher
+      // Fehler als eine Seite, die haengt.
+      signal: AbortSignal.timeout(15_000),
     });
     const body = (await res.json()) as { value?: GraphMessage[]; error?: { message?: string } };
     if (!res.ok) {

@@ -10,7 +10,7 @@
  * Beide werden gelesen, die Charge gewinnt, weil sie naeher am Geld ist.
  */
 
-import { StripeError, hasStripe, stripeList } from "./client";
+import { StripeError, hasStripe, stripeListZeitraum } from "./client";
 import { demoSales } from "./demo";
 import type { Sale } from "./report";
 
@@ -36,6 +36,11 @@ export interface SalesResult {
   demo: boolean;
   /** Gesetzt, wenn Stripe erreichbar war, aber abgelehnt hat. */
   error?: string;
+  /**
+   * false, wenn die Obergrenze erreicht wurde und Zahlungen fehlen.
+   * Die Seiten muessen das anzeigen, sonst stimmen die Summen still nicht.
+   */
+  vollstaendig: boolean;
 }
 
 function toSale(c: StripeCharge): Sale {
@@ -61,6 +66,21 @@ function toSale(c: StripeCharge): Sale {
   };
 }
 
+/* Kurzer Zwischenspeicher im Prozess.
+
+   Gemessen: Der volle Abruf dauert auch parallelisiert einige Sekunden, und
+   jede Zeitraumwahl, jede Suche und der Supportbereich laden dieselben
+   Zahlungen. Zwei Minuten sind kurz genug, dass ein neuer Verkauf nicht
+   uebersehen wird, und lang genug, dass die Seite sich bedienen laesst.
+   Die Fusszeilen der Seiten nennen dieses Alter ausdruecklich. */
+const CACHE_DAUER_MS = 120_000;
+let cache: { von: number; um: number; ergebnis: SalesResult } | null = null;
+
+/** Fuer Tests, damit jeder Fall mit leerem Speicher beginnt. */
+export function salesCacheLeeren(): void {
+  cache = null;
+}
+
 /**
  * Laedt die Verkaeufe eines Zeitraums.
  *
@@ -68,21 +88,34 @@ function toSale(c: StripeCharge): Sale {
  */
 export async function loadSales(fromSeconds: number): Promise<SalesResult> {
   if (!hasStripe()) {
-    return { sales: demoSales(fromSeconds), demo: true };
+    return { sales: demoSales(fromSeconds), demo: true, vollstaendig: true };
+  }
+
+  if (cache && cache.von === fromSeconds && Date.now() - cache.um < CACHE_DAUER_MS) {
+    return cache.ergebnis;
   }
 
   try {
-    const charges = await stripeList<StripeCharge>("/charges", {
-      created: { gte: fromSeconds },
-      // Der PaymentIntent wird mitgeladen, damit auch Metadaten sichtbar
-      // werden, die der Shop dort und nicht an der Charge hinterlegt.
-      expand: ["data.payment_intent"],
-    });
-    return { sales: charges.map(toSale), demo: false };
+    // Bis kurz in die Zukunft, damit eine Zahlung aus dieser Sekunde nicht
+    // an der oberen Grenze haengenbleibt.
+    const bis = Math.floor(Date.now() / 1000) + 3600;
+    const { items, vollstaendig } = await stripeListZeitraum<StripeCharge>(
+      "/charges",
+      fromSeconds,
+      bis,
+      {
+        // Der PaymentIntent wird mitgeladen, damit auch Metadaten sichtbar
+        // werden, die der Shop dort und nicht an der Charge hinterlegt.
+        expand: ["data.payment_intent"],
+      },
+    );
+    const ergebnis: SalesResult = { sales: items.map(toSale), demo: false, vollstaendig };
+    cache = { von: fromSeconds, um: Date.now(), ergebnis };
+    return ergebnis;
   } catch (err) {
     const msg = err instanceof StripeError ? err.message : "Stripe war nicht erreichbar";
     // Lieber Demodaten mit deutlichem Hinweis als eine leere Seite: Wer das
     // Dashboard einrichtet, muss sehen, wie es aussehen wird.
-    return { sales: demoSales(fromSeconds), demo: true, error: msg };
+    return { sales: demoSales(fromSeconds), demo: true, error: msg, vollstaendig: true };
   }
 }

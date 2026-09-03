@@ -76,7 +76,7 @@ export default async function DashboardPage({
      Der Vergleich mit dem Zeitraum davor braucht ohnehin mehr Tage als der
      angezeigte. */
   const historieVon = berlinDayStart(jetzt, -(HISTORIE_TAGE - 1));
-  const { sales, demo, error } = await loadSales(historieVon);
+  const { sales, demo, error, vollstaendig } = await loadSales(historieVon);
 
   const bericht = buildReport(inRange(sales, von, jetztSek + 1), von, jetztSek);
   const gesamt = buildReport(sales, historieVon, jetztSek);
@@ -131,6 +131,8 @@ export default async function DashboardPage({
             hervorgehoben={tier === "early" && tageBisUmstellung <= 14}
           />
         </div>
+
+        {!vollstaendig && <Unvollstaendig />}
 
         {bericht.untaggedShare > 0 && <Warnung anteil={bericht.untaggedShare} />}
 
@@ -207,8 +209,8 @@ export default async function DashboardPage({
 
         <p className="mt-10 font-body text-xs text-muted/70 leading-relaxed">
           {EVENT.name} {EVENT.edition}, {EVENT.dateLabel}. Alle Beträge inklusive Mehrwertsteuer.
-          Rechnungsstelle bayundco GmbH. Zahlen kommen direkt aus Stripe und werden nicht
-          zwischengespeichert.
+          Rechnungsstelle bayundco GmbH. Zahlen kommen direkt aus Stripe und sind höchstens zwei
+          Minuten alt.
         </p>
       </div>
     </main>
@@ -688,5 +690,25 @@ function Gescheitert({ anzahl, betrag }: { anzahl: number; betrag: number }) {
       gescheitert, zusammen {euro(betrag)}. Nicht im Umsatz oben enthalten. Wer dahintersteckt,
       steht in der Suche, sobald der Name oder die Adresse bekannt ist.
     </p>
+  );
+}
+
+/**
+ * Wird nur gezeigt, wenn die Obergrenze des Abrufs erreicht wurde. Dann
+ * fehlen Zahlungen, und jede Summe auf der Seite ist zu klein. Das muss
+ * lauter sein als jede andere Meldung, weil es jede andere Zahl betrifft.
+ */
+function Unvollstaendig() {
+  return (
+    <div className="mt-5 rounded-xl border border-hibiscus bg-hibiscus/15 px-5 py-4">
+      <p className="font-body text-sm font-bold text-hibiscus mb-1">
+        Achtung: Nicht alle Zahlungen geladen
+      </p>
+      <p className="font-body text-sm text-bone/85 leading-relaxed">
+        Im Zeitraum liegen mehr Zahlungen, als der Abruf hereinholt. Alle Summen auf dieser Seite
+        sind deshalb zu niedrig. Das passiert erst bei sehr vielen Zahlungen je Zeitscheibe; sag
+        Bescheid, dann drehen wir die Grenze hoch.
+      </p>
+    </div>
   );
 }
