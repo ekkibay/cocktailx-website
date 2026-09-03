@@ -24,13 +24,18 @@ export function hasStripe(): boolean {
 }
 
 export class StripeError extends Error {
-  constructor(
-    message: string,
-    readonly status: number,
-    readonly code?: string,
-  ) {
+  readonly status: number;
+  readonly code?: string;
+
+  /* Ausgeschrieben statt als Parameter-Eigenschaft: Letztere ist eine der
+     wenigen TypeScript-Formen, die Code erzeugt statt nur Typen, und laesst
+     sich deshalb nicht wegstreichen. Der Testrunner von Node streicht aber
+     nur weg, und dieses Modul soll ohne Buendler testbar bleiben. */
+  constructor(message: string, status: number, code?: string) {
     super(message);
     this.name = "StripeError";
+    this.status = status;
+    this.code = code;
   }
 }
 
@@ -42,7 +47,7 @@ export class StripeError extends Error {
  * Wer hier naiv JSON.stringify einsetzt, bekommt eine leere Antwort statt
  * eines Fehlers, und sucht lange.
  */
-function toQuery(params: Record<string, unknown>, prefix = ""): string[] {
+export function toQuery(params: Record<string, unknown>, prefix = ""): string[] {
   const out: string[] = [];
   for (const [key, value] of Object.entries(params)) {
     if (value === undefined || value === null) continue;

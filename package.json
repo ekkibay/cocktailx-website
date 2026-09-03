@@ -10,7 +10,7 @@
     "deploy": "git pull origin main && git push nbm main --force",
     "test": "node --import ./scripts/ts-alias.mjs --test \"src/**/*.test.mts\"",
     "test:tickets": "node --import ./scripts/ts-alias.mjs --test src/lib/tickets/tickets.test.mts",
-    "test:report": "node --import ./scripts/ts-alias.mjs --test src/lib/stripe/report.test.mts"
+    "test:stripe": "node --import ./scripts/ts-alias.mjs --test \"src/lib/stripe/*.test.mts\""
   },
   "dependencies": {
     "form-data": "^4.0.5",
