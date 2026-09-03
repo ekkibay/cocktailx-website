@@ -4,6 +4,7 @@ import { loadMails, supportMailbox } from "@/lib/mail/graph";
 import { kaufKontext, type KaufKontext } from "@/lib/mail/kontext";
 import type { SupportMail } from "@/lib/mail/types";
 
+import { DemoLeiste } from "../demo";
 import { InternNav } from "../nav";
 
 /**
@@ -47,8 +48,9 @@ export default async function SupportPage() {
   const postfach = supportMailbox();
 
   return (
-    <main className="min-h-screen px-5 py-8 md:px-10 md:py-12">
-      <div className="mx-auto max-w-6xl">
+    <main className="min-h-screen pb-8 md:pb-12">
+      {post.demo && <DemoLeiste text="Demodaten, keine echten Mails" />}
+      <div className="mx-auto max-w-6xl px-5 pt-8 md:px-10 md:pt-12">
         <InternNav aktiv="support" />
 
         <header>

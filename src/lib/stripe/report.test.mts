@@ -153,6 +153,48 @@ describe("Gruppierung", () => {
   });
 });
 
+/* ── Zerlegung ──────────────────────────────────────────────────────── */
+
+describe("Zerlegung", () => {
+  /*
+   * Die Frage hinter diesen Tests kam woertlich so vom Betreiber: "das kann
+   * doch nicht stimmen oder?" Die Antwort muss beweisbar sein: Kanaele,
+   * Produkte und Stufen zerlegen den Umsatz restlos. Jeder bezahlte Kauf
+   * landet in genau einem Eimer, nichts doppelt, nichts verschwindet.
+   */
+  const bunt = [
+    kauf({ metadata: { channel: "public", product: "single", tier: "early" }, amountCents: 3900 }),
+    kauf({ metadata: { channel: "public", product: "crew", tier: "early" }, amountCents: 11700 }),
+    kauf({ metadata: { channel: "crm", product: "single" }, amountCents: 2500 }),
+    kauf({ metadata: {}, amountCents: 3900 }),
+    kauf({ metadata: { channel: "bar", channelRef: "bar-1" }, amountCents: 2500, refundedCents: 500 }),
+    kauf({ paid: false, amountCents: 99999 }),
+  ];
+  const r = buildReport(bunt, 0, 0);
+
+  const summe = (b: { netCents: number }[]) => b.reduce((n, x) => n + x.netCents, 0);
+  const zaehl = (b: { count: number }[]) => b.reduce((n, x) => n + x.count, 0);
+
+  it("die Kanaele ergeben zusammen genau den Gesamtumsatz", () => {
+    assert.equal(summe(r.byChannel), r.netCents);
+    assert.equal(zaehl(r.byChannel), r.count);
+  });
+
+  it("die Produkte ergeben zusammen genau den Gesamtumsatz", () => {
+    assert.equal(summe(r.byProduct), r.netCents);
+    assert.equal(zaehl(r.byProduct), r.count);
+  });
+
+  it("die Preisstufen ergeben zusammen genau den Gesamtumsatz", () => {
+    assert.equal(summe(r.byTier), r.netCents);
+    assert.equal(zaehl(r.byTier), r.count);
+  });
+
+  it("die gescheiterte Zahlung steckt in keinem der Eimer", () => {
+    assert.equal(r.netCents, 3900 + 11700 + 2500 + 3900 + 2000);
+  });
+});
+
 /* ── Fehlende Metadaten ─────────────────────────────────────────────── */
 
 describe("Anteil ohne Angabe", () => {

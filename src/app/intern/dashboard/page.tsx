@@ -1,3 +1,4 @@
+import { DemoLeiste } from "../demo";
 import { InternNav } from "../nav";
 
 import {
@@ -101,8 +102,9 @@ export default async function DashboardPage({
   const doubleVerkauft = gesamt.byProduct.find((b) => b.key === "doubleSeason")?.count ?? 0;
 
   return (
-    <main className="min-h-screen px-5 py-8 md:px-10 md:py-12">
-      <div className="mx-auto max-w-6xl">
+    <main className="min-h-screen pb-8 md:pb-12">
+      {demo && <DemoLeiste text="Demodaten, keine echten Verkäufe" />}
+      <div className="mx-auto max-w-6xl px-5 pt-8 md:px-10 md:pt-12">
         <InternNav aktiv="verkauf" />
         <Kopf demo={demo} fehler={error} />
 
@@ -332,7 +334,7 @@ function Balken({ eimer, gesamt }: { eimer: Bucket[]; gesamt: number }) {
                 {b.label}
               </span>
               <span className="font-body text-sm tabular-nums text-bone/85 whitespace-nowrap">
-                {b.count} · {euro(b.netCents)}
+                {b.count === 1 ? "1 Kauf" : `${b.count} Käufe`} · {euro(b.netCents)}
               </span>
             </div>
             <div className="h-1.5 rounded-full bg-surface overflow-hidden">
