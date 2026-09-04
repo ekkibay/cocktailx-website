@@ -242,7 +242,35 @@ export default function DatenschutzPage() {
           {/* 10 */}
           <section>
             <h2 className="text-xl md:text-2xl font-display text-bone mb-5 pb-3 border-b border-bone/10">
-              10. Minderjährige
+              10. Newsletter
+            </h2>
+            <p className="mb-4">
+              Für den Newsletter zu COCKTAIL X ON ICE verarbeiten wir Ihre E-Mail-Adresse. Die
+              Anmeldung erfolgt im Double-Opt-in-Verfahren: Nach der Eingabe im Formular erhalten
+              Sie eine E-Mail mit einem Bestätigungslink. Erst wenn Sie diesen Link anklicken,
+              nehmen wir Sie in den Verteiler auf. Der Link ist sieben Tage gültig.
+            </p>
+            <p className="mb-4">
+              Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO in Verbindung
+              mit § 7 Abs. 2 Nr. 3 UWG. Zum Nachweis der Einwilligung speichern wir den Zeitpunkt
+              der Anmeldung, den Zeitpunkt der Bestätigung sowie die dabei verwendete IP-Adresse.
+            </p>
+            <p className="mb-4">
+              Der Versand erfolgt über Mailgun Technologies, Inc., dort wird auch die Verteilerliste
+              geführt. Mit dem Anbieter besteht ein Vertrag zur Auftragsverarbeitung.
+            </p>
+            <p>
+              Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Dazu
+              genügt der Abmeldelink am Ende jeder Newsletter-E-Mail oder eine formlose Nachricht an
+              uns. Nach dem Widerruf löschen wir Ihre Adresse aus dem Verteiler; die
+              Einwilligungsnachweise bewahren wir bis zum Ablauf möglicher Ansprüche auf.
+            </p>
+          </section>
+
+          {/* 11 */}
+          <section>
+            <h2 className="text-xl md:text-2xl font-display text-bone mb-5 pb-3 border-b border-bone/10">
+              11. Minderjährige
             </h2>
             <p>
               Unsere Dienste richten sich ausschließlich an Personen ab 18 Jahren. Wir erheben wissentlich
@@ -258,7 +286,7 @@ export default function DatenschutzPage() {
           {/* 11 */}
           <section>
             <h2 className="text-xl md:text-2xl font-display text-bone mb-5 pb-3 border-b border-bone/10">
-              11. Änderungen dieser Datenschutzerklärung
+              12. Änderungen dieser Datenschutzerklärung
             </h2>
             <p>
               Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren, um Änderungen unserer
@@ -271,7 +299,7 @@ export default function DatenschutzPage() {
           {/* 12 */}
           <section>
             <h2 className="text-xl md:text-2xl font-display text-bone mb-5 pb-3 border-b border-bone/10">
-              12. Kontakt
+              13. Kontakt
             </h2>
             <p className="mb-4">
               Bei Fragen zur Verarbeitung Ihrer personenbezogenen Daten oder zur Ausübung Ihrer Rechte

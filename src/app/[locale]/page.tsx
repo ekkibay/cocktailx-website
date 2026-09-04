@@ -19,6 +19,7 @@ import {
   WordReveal,
 } from "@/components/ui/Motion";
 import { BAR_SILHOUETTES, CHAPTERS, FAQ, HOW_IT_WORKS, TRAILS, TRAILS_BADGE } from "@/config/onice";
+import { NewsletterForm } from "@/components/onice/NewsletterForm";
 import {
   BUNDLES,
   CHECKOUT,
@@ -788,6 +789,14 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             ))}
           </div>
           <p className="font-body text-sm text-muted mt-5">{pick(COPY.bars.silhouettes, locale)}</p>
+
+          {/* Der Newsletter steht hier und nicht im Fuss: Direkt darueber
+              versprechen wir taegliche Ankuendigungen ab dem Stichtag, und
+              das ist der einzige Moment auf der Seite, in dem jemand von
+              selbst wissen will, wie er das mitbekommt. */}
+          <div className="mt-12">
+            <NewsletterForm locale={locale} />
+          </div>
         </div>
       </section>
 
