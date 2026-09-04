@@ -107,8 +107,12 @@ export const TRAILS: Trail[] = [
       en: "Smoked, sharp, sweet. Drinks that keep you going.",
     },
     accent: "text-hibiscus",
-    image: "/images/onice/set-stir.jpg",
-    imagePosition: "object-[center_55%]",
+    /* Rote Drinks in Nahaufnahme statt eines zweiten Barkeeper-Portraets:
+       Zero & Light daneben zeigt denselben Mann an derselben Bar, und zwei
+       fast gleiche Fotos nebeneinander lesen sich wie ein Versehen. Die
+       roten Drinks passen ausserdem zum pinken Label. */
+    image: "/images/onice/onice-drinks-row.jpg",
+    imagePosition: "object-[center_45%]",
   },
   {
     key: "zero-light",

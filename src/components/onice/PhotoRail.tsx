@@ -43,11 +43,8 @@ const ROW_A: Motiv[] = [
     alt: { de: "Gast mit Drink in der Hand", en: "A guest holding a drink" },
   },
   {
-    src: "/images/onice/onice-drinks-row.jpg",
-    alt: {
-      de: "Reihe frisch gebauter Drinks im Gegenlicht",
-      en: "A row of freshly built drinks, backlit",
-    },
+    src: "/images/onice/set-stir.jpg",
+    alt: { de: "Barkeeper rührt einen Drink", en: "A bartender stirring a drink" },
   },
   {
     src: "/images/onice/set-eis.jpg",
