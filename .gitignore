@@ -38,3 +38,12 @@ src/data/ticket-windows.internal.json
 # Gehoert nicht ins Repository: Was auf die Seite soll, laeuft ueber
 # scripts/import-onice-assets.mjs nach public/images.
 Bilder/
+
+# Rohe Fotostrecken der Fotografen, egal wohin sie verschoben werden.
+# 1201 Dateien, 3,9 GB. Gehoeren nie ins oeffentliche Repository.
+**/adriancamo_*/
+**/johannesritter*/
+**/goran_*/
+**/evoilamedia_*/
+# Arbeitsdateien Key Visual
+CI/
