@@ -47,10 +47,12 @@ export default function FounderPage() {
           className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden mb-16"
         >
           <Image
-            src="/images/founders.jpg"
-            alt="Ekkehard Bay & Vincent Kerger, Gründer Cocktail X"
+            src="/images/onice/onice-founders-laugh.jpg"
+            alt="Ekkehard Bay und Vincent Kerger, Gründer Cocktail X, beim Grand Opening"
             fill
-            className="object-cover object-center"
+            /* Hochformat im Querformat-Rahmen: Der Ausschnitt sitzt oben, wo
+               die Gesichter sind. Ekki links, Vincent rechts, wie die Namen. */
+            className="object-cover object-[center_18%]"
             sizes="(max-width: 768px) 100vw, 768px"
             priority
           />
@@ -107,10 +109,10 @@ export default function FounderPage() {
             <div className="w-full md:w-1/3 flex-shrink-0">
               <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden relative">
                 <Image
-                  src="/images/founder-ekki.jpg"
-                  alt="Ekkehard Bay, Co-Gründer Cocktail X"
+                  src="/images/onice/onice-founder-ekki.jpg"
+                  alt="Ekkehard Bay am Mikrofon beim Grand Opening"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-[center_35%]"
                   sizes="(max-width: 768px) 100vw, 250px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 via-transparent to-transparent" />
@@ -155,10 +157,10 @@ export default function FounderPage() {
             <div className="w-full md:w-1/3 flex-shrink-0">
               <div className="aspect-[3/4] bg-bone/5 border border-bone/10 rounded-2xl overflow-hidden relative">
                 <Image
-                  src="/images/founder-vincent.jpg"
-                  alt="Vincent Kerger, Co-Gründer Cocktail X"
+                  src="/images/onice/onice-founder-vincent.jpg"
+                  alt="Vincent Kerger beim Grand Opening"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-[center_30%]"
                   sizes="(max-width: 768px) 100vw, 250px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 via-transparent to-transparent" />

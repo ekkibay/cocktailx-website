@@ -131,6 +131,13 @@ const SRC_OPENING = path.join(ROOT, "Bilder", "adriancamo_grandopening_250429");
    gebaut und kippt Hauttoene ins Rote. */
 const FOUNDERS = [
   { file: "L1005015_CocktailXKempinski_adriancamo.jpg", dest: "onice-founders.jpg", width: 1600, cropTop: 0.19 },
+  // Gruenderseite: dieselbe Szene mit dem grossen Lachen als Aufmacher,
+  // Ekki am Mikrofon eng geschnitten (ohne den Mann im hellen Anzug), und
+  // Vincent als Ausschnitt aus dem Gruenderfoto, damit beide Portraets aus
+  // einer Welt kommen.
+  { file: "L1005020_CocktailXKempinski_adriancamo.jpg", dest: "onice-founders-laugh.jpg", width: 1600, cropTop: 0.19 },
+  { file: "L1004922_CocktailXKempinski_adriancamo.jpg", dest: "onice-founder-ekki.jpg", width: 1400, cropTop: 0.16, cropBottom: 0.47, cropLeft: 0.22, cropRight: 0.34 },
+  { file: "L1005015_CocktailXKempinski_adriancamo.jpg", dest: "onice-founder-vincent.jpg", width: 1400, cropTop: 0.19, cropBottom: 0.41, cropLeft: 0.5, cropRight: 0.02 },
 ];
 
 const DELIVERED = [
@@ -177,7 +184,7 @@ mkdirSync(OUT, { recursive: true });
  * strahlen. Das Overlay bleibt nur als leichter Hauch fuer das Gesamtklima.
  */
 async function grade(
-  { file, dest, width, coldness = 0.1, cropTop = 0, cropBottom = 0, cropRight = 0 },
+  { file, dest, width, coldness = 0.1, cropTop = 0, cropBottom = 0, cropRight = 0, cropLeft = 0 },
   srcDir = SRC_BARS,
 ) {
   let pre = sharp(path.join(srcDir, file)).rotate();
@@ -185,12 +192,12 @@ async function grade(
   // Die crop-Werte schneiden Anteile an den Raendern ab, bevor skaliert wird.
   // Gedacht fuer Motive, bei denen nur der Rand stoert und die Mitte steht.
   // Als Anteil notiert, damit der Wert unabhaengig von der Quellaufloesung gilt.
-  if (cropTop > 0 || cropBottom > 0 || cropRight > 0) {
+  if (cropTop > 0 || cropBottom > 0 || cropRight > 0 || cropLeft > 0) {
     const m = await pre.metadata();
     pre = pre.extract({
-      left: 0,
+      left: Math.round(m.width * cropLeft),
       top: Math.round(m.height * cropTop),
-      width: Math.round(m.width * (1 - cropRight)),
+      width: Math.round(m.width * (1 - cropLeft - cropRight)),
       height: Math.round(m.height * (1 - cropTop - cropBottom)),
     });
   }
@@ -225,15 +232,15 @@ async function grade(
  * einmal darueberlaufen, saufen die Schatten ab und die Farben kippen.
  * Also nur Zuschnitt, Skalierung und ein Hauch kaltes Overlay.
  */
-async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0, cropRight = 0 }, srcDir = SRC_SET) {
+async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0, cropRight = 0, cropLeft = 0 }, srcDir = SRC_SET) {
   let pre = sharp(path.join(srcDir, file)).rotate();
 
-  if (cropTop > 0 || cropBottom > 0 || cropRight > 0) {
+  if (cropTop > 0 || cropBottom > 0 || cropRight > 0 || cropLeft > 0) {
     const m = await pre.metadata();
     pre = pre.extract({
-      left: 0,
+      left: Math.round(m.width * cropLeft),
       top: Math.round(m.height * cropTop),
-      width: Math.round(m.width * (1 - cropRight)),
+      width: Math.round(m.width * (1 - cropLeft - cropRight)),
       height: Math.round(m.height * (1 - cropTop - cropBottom)),
     });
   }

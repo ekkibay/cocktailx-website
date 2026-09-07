@@ -36,7 +36,15 @@ Johannes Ritter Media, Cocktail X Festival, Day 1 und Abschlussabend.
 | Datei | Quelle | Credit |
 |---|---|---|
 | onice-founders.jpg | L1005015_CocktailXKempinski_adriancamo.jpg | adrian.camo |
+| onice-founders-laugh.jpg | L1005020_CocktailXKempinski_adriancamo.jpg | adrian.camo |
+| onice-founder-ekki.jpg | L1004922_CocktailXKempinski_adriancamo.jpg | adrian.camo |
+| onice-founder-vincent.jpg | L1005015_CocktailXKempinski_adriancamo.jpg (Ausschnitt rechts) | adrian.camo |
 
 Zeigt die beiden Gruender, Ekkehard Bay und Vincent Kerger. Keine weiteren
 Personen erkennbar, im Spiegel rechts nur Rueckenansichten. Notausgangsschilder
 am oberen Rand per cropTop entfernt.
+
+**Rechte an der gesamten Grand-Opening-Strecke** (adrian.camo und Johannes
+Ritter Media) liegen vor, bestaetigt von Vincent Kerger am 07.09.2026.
+onice-founder-ekki.jpg ist so beschnitten, dass die weitere Person im
+Hintergrund nicht mehr im Bild ist.
