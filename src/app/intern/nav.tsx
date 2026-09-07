@@ -1,11 +1,12 @@
 /**
- * Umschalter zwischen den internen Seiten. Bewusst schlicht: zwei Ziele,
+ * Umschalter zwischen den internen Seiten. Bewusst schlicht: drei Ziele,
  * keine Zustandslogik, der aktive Reiter kommt von der Seite selbst.
  */
-export function InternNav({ aktiv }: { aktiv: "verkauf" | "support" }) {
+export function InternNav({ aktiv }: { aktiv: "verkauf" | "support" | "newsletter" }) {
   const reiter = [
     { key: "verkauf", label: "Verkauf", href: "/intern/dashboard" },
     { key: "support", label: "Support", href: "/intern/support" },
+    { key: "newsletter", label: "Newsletter", href: "/intern/newsletter" },
   ] as const;
 
   return (

@@ -1,3 +1,4 @@
+import { TagesBalken } from "../balken";
 import { DemoLeiste } from "../demo";
 import { InternNav } from "../nav";
 
@@ -24,7 +25,6 @@ import {
   quotaUsage,
   statusOf,
   type Bucket,
-  type Day,
   type Sale,
 } from "@/lib/stripe/report";
 
@@ -86,6 +86,7 @@ export default async function DashboardPage({
   const treffer = suchbegriff ? findSales(sales, suchbegriff) : [];
 
   const reihe = dailySeries(sales, jetzt, HISTORIE_TAGE);
+  const tagLabel = new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", day: "2-digit", month: "2-digit" });
   const tempo = pace(reihe, zeitraum.tage, jetzt.getTime(), FULL_PRICE_STARTS_AT);
 
   const tier = currentTier(jetzt.getTime());
@@ -144,7 +145,14 @@ export default async function DashboardPage({
           titel="Verlauf"
           hinweis={`Bezahlte Käufe je Tag, ${zeitraum.zusatz}. Der laufende Tag ist noch nicht voll.`}
         >
-          <Verlauf tage={reihe.slice(-zeitraum.tage)} />
+          <TagesBalken
+            leer="Noch keine Käufe in diesem Zeitraum."
+            tage={reihe.slice(-zeitraum.tage).map((t) => ({
+              start: t.start,
+              count: t.count,
+              titel: `${tagLabel.format(new Date(t.start * 1000))}: ${t.count} ${t.count === 1 ? "Pass" : "Pässe"}, ${euro(t.netCents)}`,
+            }))}
+          />
           <Tempo tempo={tempo} tage={zeitraum.tage} />
         </Abschnitt>
 
@@ -450,50 +458,6 @@ function trendText(trend: number | null): string | undefined {
   return `${prozent} % ${trend > 0 ? "mehr" : "weniger"} als im Zeitraum davor`;
 }
 
-function Verlauf({ tage }: { tage: Day[] }) {
-  if (tage.every((t) => t.count === 0)) {
-    return <p className="font-body text-sm text-muted">Noch keine Käufe in diesem Zeitraum.</p>;
-  }
-
-  const spitze = Math.max(...tage.map((t) => t.count));
-  // Nie durch null teilen, und ein einzelner Kauf soll nicht als voller
-  // Balken dastehen, als waere es ein Rekordtag.
-  const skala = Math.max(3, spitze);
-
-  const tagLabel = new Intl.DateTimeFormat("de-DE", {
-    timeZone: "Europe/Berlin",
-    day: "2-digit",
-    month: "2-digit",
-  });
-  const beschriftung = (t: Day) => tagLabel.format(new Date(t.start * 1000));
-
-  return (
-    <figure className="m-0">
-      <div className="flex items-end gap-[2px] h-24" role="presentation">
-        {tage.map((t, i) => {
-          const heute = i === tage.length - 1;
-          return (
-            <div
-              key={t.start}
-              className="flex-1 min-w-[2px] h-full flex items-end"
-              title={`${beschriftung(t)}: ${t.count} ${t.count === 1 ? "Pass" : "Pässe"}, ${euro(t.netCents)}`}
-            >
-              <div
-                className={`w-full rounded-sm ${heute ? "bg-tangerine/40" : "bg-tangerine"}`}
-                style={{ height: `${Math.max((t.count / skala) * 100, t.count > 0 ? 3 : 0)}%` }}
-              />
-            </div>
-          );
-        })}
-      </div>
-      <figcaption className="flex justify-between mt-2 font-body text-[11px] tabular-nums text-muted">
-        <span>{beschriftung(tage[0])}</span>
-        <span>Höchster Tag: {spitze}</span>
-        <span>heute</span>
-      </figcaption>
-    </figure>
-  );
-}
 
 /**
  * Was aus dem gemessenen Tempo bis zur Preisumstellung wird.
