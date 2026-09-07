@@ -30,3 +30,13 @@ rechtlich, und gelten deshalb unveraendert weiter:
 ## Eigene Strecken (Dateien `onice-*.jpg`)
 
 Johannes Ritter Media, Cocktail X Festival, Day 1 und Abschlussabend.
+
+## Grand Opening, 29.04.2025 (adrian.camo)
+
+| Datei | Quelle | Credit |
+|---|---|---|
+| onice-founders.jpg | L1005015_CocktailXKempinski_adriancamo.jpg | adrian.camo |
+
+Zeigt die beiden Gruender, Ekkehard Bay und Vincent Kerger. Keine weiteren
+Personen erkennbar, im Spiegel rechts nur Rueckenansichten. Notausgangsschilder
+am oberen Rand per cropTop entfernt.

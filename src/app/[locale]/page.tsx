@@ -230,6 +230,10 @@ const COPY = {
       de: "Fünf Gäste stoßen mit ihren Cocktails an",
       en: "Five guests raising their cocktails",
     },
+    founders: {
+      de: "Ekkehard Bay und Vincent Kerger, die Gründer von Cocktail X, im Smoking",
+      en: "Ekkehard Bay and Vincent Kerger, the founders of Cocktail X, in black tie",
+    },
     toastTwo: { de: "Zwei Gäste heben ihre Drinks", en: "Two guests raising their drinks" },
     ice: {
       de: "Eis wird in ein Glas mit Zuckerrand gefüllt",
@@ -388,15 +392,16 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             </Reveal>
           </div>
 
-          {/* Ein Gesicht neben dem Text. Der Absatz erklaert das Miteinander,
-              und ein Bild dazu sagt es schneller als der zweite Satz. */}
+          {/* Die Gruender neben dem Text. Der Absatz erklaert, was das hier
+              ist; wer dahintersteht, sagt das Bild daneben schneller als jeder
+              weitere Satz. Bisher kam auf der Seite kein Gesicht von uns vor. */}
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden ring-1 ring-hairline aspect-[4/5]">
             <Image
-              src="/images/onice/onice-toast-two.jpg"
-              alt={pick(COPY.alt.toastTwo, locale)}
+              src="/images/onice/onice-founders.jpg"
+              alt={pick(COPY.alt.founders, locale)}
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover object-[center_30%]"
+              className="object-cover object-[center_35%]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-licorice/60 via-transparent to-transparent" />
           </div>

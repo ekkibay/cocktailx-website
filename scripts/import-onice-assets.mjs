@@ -119,6 +119,20 @@ const CLOSING = [
    - trail-hotel-bar-icons: Weinglas, kein Gesicht.                        */
 const SRC_SET = path.join(ROOT, "src", "assets", "bildset-v1");
 
+// Grand Opening 29.04.2025, adrian.camo. Liegt lokal unter Bilder/ (per
+// .gitignore aus dem Repository gehalten), nicht auf dem geteilten Laufwerk.
+const SRC_OPENING = path.join(ROOT, "Bilder", "adriancamo_grandopening_250429");
+
+/* Die Gruender. Bisher kam auf der ON-ICE-Seite kein Gesicht von uns vor,
+   nur Gaeste und Barkeeper. Der Platz neben dem Einleitungstext erklaert, was
+   das hier ist; wer dahintersteht, sagt das Bild daneben schneller.
+   cropTop nimmt die Notausgangsschilder am oberen Rand weg. Laeuft ueber
+   passThrough statt grade: Das kraeftige Grading ist fuer dunkle Barszenen
+   gebaut und kippt Hauttoene ins Rote. */
+const FOUNDERS = [
+  { file: "L1005015_CocktailXKempinski_adriancamo.jpg", dest: "onice-founders.jpg", width: 1600, cropTop: 0.19 },
+];
+
 const DELIVERED = [
   // Eis kommt ins Glas. Fuer ON ICE das praezisere Bild als jedes Portraet.
   { file: "how-it-works-eis.jpg", dest: "set-eis.jpg", width: 1600 },
@@ -211,8 +225,8 @@ async function grade(
  * einmal darueberlaufen, saufen die Schatten ab und die Farben kippen.
  * Also nur Zuschnitt, Skalierung und ein Hauch kaltes Overlay.
  */
-async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0, cropRight = 0 }) {
-  let pre = sharp(path.join(SRC_SET, file)).rotate();
+async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0, cropRight = 0 }, srcDir = SRC_SET) {
+  let pre = sharp(path.join(srcDir, file)).rotate();
 
   if (cropTop > 0 || cropBottom > 0 || cropRight > 0) {
     const m = await pre.metadata();
@@ -241,7 +255,20 @@ async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0, cro
   console.log(`${dest.padEnd(22)} ${info.width}x${info.height}  ${Math.round(info.size / 1024)} KB`);
 }
 
-for (const p of CROWD) {
+// Aufruf mit Zielname verarbeitet nur diesen einen Eintrag:
+//   node scripts/import-onice-assets.mjs onice-founders.jpg
+const NUR = process.argv[2];
+const dran = (p) => !NUR || p.dest === NUR;
+
+for (const p of FOUNDERS.filter(dran)) {
+  try {
+    await passThrough(p, SRC_OPENING);
+  } catch (e) {
+    console.error(`FEHLER ${p.dest}: ${String(e.message).slice(0, 140)}`);
+  }
+}
+
+for (const p of CROWD.filter(dran)) {
   try {
     await grade(p, SRC_BARS);
   } catch (e) {
@@ -249,7 +276,7 @@ for (const p of CROWD) {
   }
 }
 
-for (const p of DELIVERED) {
+for (const p of DELIVERED.filter(dran)) {
   try {
     await passThrough(p);
   } catch (e) {
@@ -257,7 +284,7 @@ for (const p of DELIVERED) {
   }
 }
 
-for (const p of CLOSING) {
+for (const p of CLOSING.filter(dran)) {
   try {
     await grade(p, SRC_CLOSING);
   } catch (e) {
@@ -266,7 +293,7 @@ for (const p of CLOSING) {
 }
 
 // Logos unveraendert uebernehmen, nur verlustfrei verkleinert.
-for (const [src, dest] of [
+for (const [src, dest] of NUR ? [] : [
   ["Cocktail x Logo weiß.png", "logo-onice-white.png"],
   ["Cocktail x Logo schwarz.png", "logo-onice-black.png"],
 ]) {
