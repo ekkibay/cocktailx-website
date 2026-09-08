@@ -70,6 +70,28 @@ export function demoMails(jetzt: number = Math.floor(Date.now() / 1000)): Suppor
       receivedAt: jetzt - 2 * 86400,
       unread: false,
     },
+    /* Die beiden folgenden Faelle haben keinen Kauf und zeigen die Sichtung,
+       nicht die Verknuepfung: eine Bar, die mitmachen will, und ein Gast,
+       der auf Englisch schreibt. Der Barname bleibt weg, weil nirgends im
+       Projekt Barnamen stehen sollen, auch nicht erfundene. */
+    {
+      id: "demo_mail_bar_partner",
+      from: { name: "Jonas Keller", email: "bar@beispiel.de" },
+      subject: "Teilnehmen als Bar bei ON ICE",
+      preview:
+        "Hallo, wir betreiben eine Cocktailbar in Schwabing und würden gerne als Bar teilnehmen. Wie läuft die Kooperation ab und an wen wenden wir uns?",
+      receivedAt: jetzt - 5 * 3600,
+      unread: true,
+    },
+    {
+      id: "demo_mail_en_ticket",
+      from: { name: "Emma Collins", email: "emma.collins@example.com" },
+      subject: "Where is my ticket confirmation?",
+      preview:
+        "Hi, I bought a pass yesterday but have not received any confirmation email. Could you check if the payment went through? Thanks, Emma",
+      receivedAt: jetzt - 50 * 60,
+      unread: true,
+    },
   ];
 
   return mails.sort((a, b) => b.receivedAt - a.receivedAt);

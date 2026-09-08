@@ -1,23 +1,29 @@
 import { berlinDayStart, euro, produktLabel, statusOf } from "@/lib/stripe/report";
 import { loadSales } from "@/lib/stripe/sales";
+import { antwortVorschlag, type Antwort } from "@/lib/mail/antworten";
 import { loadMails, supportMailbox } from "@/lib/mail/graph";
 import { kaufKontext, type KaufKontext } from "@/lib/mail/kontext";
+import { KATEGORIEN, KATEGORIE_LABEL, triage, type Kategorie, type Triage } from "@/lib/mail/triage";
 import type { SupportMail } from "@/lib/mail/types";
 
 import { DemoLeiste } from "../demo";
 import { InternNav } from "../nav";
+import { Kopieren } from "./kopieren";
 
 /**
- * Supportbereich: der Posteingang, verknuepft mit den Kaeufen.
+ * Supportbereich: der Posteingang, verknuepft mit den Kaeufen, vorsortiert
+ * und mit fertigem Antwortentwurf.
  *
- * Eine Kundenmail ist fast immer eine von drei Fragen, und die Antwort steht
- * in den Zahlungen. Deshalb steht neben jeder Mail, ob der Absender gekauft
- * hat, ob seine Zahlung durchging, scheiterte oder erstattet wurde. Das ist
- * der Unterschied zwischen einem Mailprogramm und einem Support-Werkzeug:
- * Die Antwort steht schon da, bevor jemand sucht.
+ * Eine Kundenmail ist fast immer eine von wenigen Fragen, und die Antwort
+ * steht in den Zahlungen. Deshalb steht neben jeder Mail, ob der Absender
+ * gekauft hat, ob seine Zahlung durchging, scheiterte oder erstattet wurde,
+ * und in welche Schublade die Mail gehoert. Darunter liegt der Entwurf, der
+ * zu Schublade und Kauf passt. Das ist der Unterschied zwischen einem
+ * Mailprogramm und einem Support-Werkzeug: Die Antwort steht schon da,
+ * bevor jemand sucht.
  *
- * Beantwortet wird in Outlook, nicht hier. Ein eigener Antworteditor waere
- * ein zweites Mailprogramm, das keiner pflegt.
+ * Gesendet wird in Outlook oder im Mailprogramm, nicht hier. Ein eigener
+ * Antworteditor waere ein zweites Mailprogramm, das keiner pflegt.
  */
 
 export const dynamic = "force-dynamic";
@@ -26,7 +32,18 @@ export const dynamic = "force-dynamic";
    Seiten auf denselben Kaeufen steht. */
 const HISTORIE_TAGE = 400;
 
-export default async function SupportPage() {
+interface Zeile {
+  mail: SupportMail;
+  kontext: KaufKontext;
+  sichtung: Triage;
+  entwurf: Antwort;
+}
+
+function istKategorie(wert: string | undefined): wert is Kategorie {
+  return wert !== undefined && (KATEGORIEN as string[]).includes(wert);
+}
+
+export default async function SupportPage({ searchParams }: { searchParams: { kat?: string } }) {
   const jetzt = new Date();
 
   const [post, verkauf] = await Promise.all([
@@ -34,16 +51,35 @@ export default async function SupportPage() {
     loadSales(berlinDayStart(jetzt, -(HISTORIE_TAGE - 1))),
   ]);
 
-  const kontexte = new Map<string, KaufKontext>(
-    post.mails.map((m) => [m.id, kaufKontext(verkauf.sales, m.from.email)]),
-  );
+  /* Kontext, Sichtung und Entwurf einmal je Mail, hier statt in der Zeile:
+     Die Zaehler oben und der Filter brauchen dieselbe Einordnung wie die
+     Zeile, sonst zaehlt der Kopf anders als die Liste. */
+  const zeilen: Zeile[] = post.mails.map((mail) => {
+    const kontext = kaufKontext(verkauf.sales, mail.from.email);
+    const sichtung = triage(mail, kontext);
+    const entwurf = antwortVorschlag({
+      mail,
+      kategorie: sichtung.kategorie,
+      kontext,
+      jetzt: jetzt.getTime(),
+    });
+    return { mail, kontext, sichtung, entwurf };
+  });
+
+  const filter: Kategorie | "alle" = istKategorie(searchParams.kat) ? searchParams.kat : "alle";
+  const sichtbar = filter === "alle" ? zeilen : zeilen.filter((z) => z.sichtung.kategorie === filter);
+
+  const zaehler = KATEGORIEN.map((k) => ({
+    key: k,
+    label: KATEGORIE_LABEL[k],
+    anzahl: zeilen.filter((z) => z.sichtung.kategorie === k).length,
+  }));
 
   const heuteStart = berlinDayStart(jetzt);
-  const ungelesen = post.mails.filter((m) => m.unread).length;
-  const heute = post.mails.filter((m) => m.receivedAt >= heuteStart).length;
-  const gescheitert = post.mails.filter(
-    (m) => kontexte.get(m.id)?.einordnung === "fehlgeschlagen",
-  ).length;
+  const ungelesen = zeilen.filter((z) => z.mail.unread).length;
+  const heute = zeilen.filter((z) => z.mail.receivedAt >= heuteStart).length;
+  const gescheitert = zeilen.filter((z) => z.kontext.einordnung === "fehlgeschlagen").length;
+  const eingeordnet = zeilen.filter((z) => z.sichtung.kategorie !== "sonstiges").length;
 
   const postfach = supportMailbox();
 
@@ -83,8 +119,8 @@ export default async function SupportPage() {
           )}
         </header>
 
-        {/* Die drei Zahlen fuer die Sichtung */}
-        <div className="mt-8 grid grid-cols-3 gap-px bg-hairline rounded-2xl overflow-hidden">
+        {/* Die vier Zahlen fuer die Sichtung */}
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-px bg-hairline rounded-2xl overflow-hidden">
           <Kennzahl label="Ungelesen" wert={String(ungelesen)} hervorgehoben={ungelesen > 0} />
           <Kennzahl label="Heute eingegangen" wert={String(heute)} />
           <Kennzahl
@@ -93,29 +129,49 @@ export default async function SupportPage() {
             zusatz={gescheitert > 0 ? "zuerst beantworten" : undefined}
             hervorgehoben={gescheitert > 0}
           />
+          <Kennzahl
+            label="Eingeordnet"
+            wert={String(eingeordnet)}
+            zusatz={
+              zeilen.length > 0
+                ? `von ${zeilen.length}, der Rest steht unter Sonstiges`
+                : undefined
+            }
+          />
         </div>
 
         <section className="mt-5 rounded-2xl border border-hairline p-5 md:p-6">
           <h2 className="font-display text-xl text-bone">Posteingang</h2>
           <p className="font-body text-xs text-muted mt-1.5 mb-5 leading-relaxed max-w-2xl">
-            Neueste zuerst. Die Einordnung daneben kommt aus den Zahlungen: was wir über den
-            Absender wissen, bevor jemand sucht.
+            Neueste zuerst. Die Kategorie kommt aus Stichwörtern in Betreff und Vorschau, die
+            Einordnung daneben aus den Zahlungen. Unter jeder Mail liegt ein Antwortvorschlag
+            zum Einfügen.
           </p>
 
-          {post.mails.length === 0 ? (
+          <KategorieFilter aktiv={filter} zaehler={zaehler} gesamt={zeilen.length} />
+
+          {zeilen.length === 0 ? (
             <p className="font-body text-sm text-muted">Der Posteingang ist leer.</p>
+          ) : sichtbar.length === 0 ? (
+            <p className="font-body text-sm text-muted">
+              Keine Mail in dieser Kategorie.{" "}
+              <a href="/intern/support?kat=alle" className="text-tangerine hover:underline underline-offset-4">
+                Alle zeigen
+              </a>
+            </p>
           ) : (
             <div className="divide-y divide-hairline/50">
-              {post.mails.map((m) => (
-                <MailZeile key={m.id} mail={m} kontext={kontexte.get(m.id)} />
+              {sichtbar.map((z) => (
+                <MailZeile key={z.mail.id} zeile={z} />
               ))}
             </div>
           )}
         </section>
 
         <p className="mt-10 font-body text-xs text-muted/70 leading-relaxed">
-          Nur lesend. Beantwortet wird in Outlook, der Link an jeder Mail öffnet sie dort. Mails
-          kommen frisch aus dem Postfach, die Käufe dahinter sind höchstens zwei Minuten alt.
+          Nur lesend. Der Antwortvorschlag ist ein Entwurf zum Gegenlesen und Einfügen, gesendet
+          wird in Outlook oder im Mailprogramm. Mails kommen frisch aus dem Postfach, die Käufe
+          dahinter sind höchstens zwei Minuten alt.
         </p>
       </div>
     </main>
@@ -144,6 +200,44 @@ function Kennzahl({
   );
 }
 
+/**
+ * Filter als schlichte GET-Links, kein Zustand im Browser: Die Adresse ist
+ * der Filter, laesst sich weitergeben und ueberlebt das Neuladen.
+ */
+function KategorieFilter({
+  aktiv,
+  zaehler,
+  gesamt,
+}: {
+  aktiv: Kategorie | "alle";
+  zaehler: Array<{ key: Kategorie; label: string; anzahl: number }>;
+  gesamt: number;
+}) {
+  const eintraege: Array<{ key: Kategorie | "alle"; label: string; anzahl: number }> = [
+    { key: "alle", label: "Alle", anzahl: gesamt },
+    ...zaehler,
+  ];
+
+  return (
+    <nav aria-label="Kategorie" className="mb-5 flex gap-2 flex-wrap">
+      {eintraege.map((e) => (
+        <a
+          key={e.key}
+          href={`/intern/support?kat=${e.key}`}
+          aria-current={e.key === aktiv ? "page" : undefined}
+          className={`rounded-full px-3 py-1.5 font-body text-xs font-bold uppercase tracking-wider transition-colors ${
+            e.key === aktiv
+              ? "bg-bone text-licorice"
+              : "border border-hairline text-muted hover:text-bone hover:border-tangerine/50"
+          }`}
+        >
+          {e.label} <span className="tabular-nums font-normal">{e.anzahl}</span>
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 const EINORDNUNG_STIL: Record<string, string> = {
   bezahlt: "border-tangerine/50 text-tangerine",
   erstattet: "border-hibiscus/50 text-hibiscus",
@@ -157,7 +251,9 @@ const EINORDNUNG_TEXT: Record<string, string> = {
   fehlgeschlagen: "Zahlung gescheitert",
 };
 
-function MailZeile({ mail, kontext }: { mail: SupportMail; kontext?: KaufKontext }) {
+function MailZeile({ zeile }: { zeile: Zeile }) {
+  const { mail, kontext, sichtung, entwurf } = zeile;
+
   const zeit = new Intl.DateTimeFormat("de-DE", {
     timeZone: "Europe/Berlin",
     day: "2-digit",
@@ -166,7 +262,7 @@ function MailZeile({ mail, kontext }: { mail: SupportMail; kontext?: KaufKontext
     minute: "2-digit",
   });
 
-  const einordnung = kontext?.einordnung ?? "kein Kauf";
+  const einordnung = kontext.einordnung;
 
   return (
     <div className="py-4 flex gap-4">
@@ -186,6 +282,18 @@ function MailZeile({ mail, kontext }: { mail: SupportMail; kontext?: KaufKontext
             {mail.from.name && <span className="text-muted"> · {mail.from.email}</span>}
           </p>
           <div className="flex items-center gap-3 shrink-0">
+            {/* Kategorie gedaempft, Kaufkontext farbig: Der Kauf ist die
+                harte Information, die Kategorie eine Vermutung aus Woertern. */}
+            <span
+              className="rounded-full border border-hairline px-2.5 py-0.5 font-body text-[11px] font-bold uppercase tracking-wider whitespace-nowrap text-muted"
+              title={
+                sichtung.treffer.length > 0
+                  ? `Stichwörter: ${sichtung.treffer.join(", ")}`
+                  : "Kein Stichwort erkannt"
+              }
+            >
+              {KATEGORIE_LABEL[sichtung.kategorie]}
+            </span>
             <span
               className={`rounded-full border px-2.5 py-0.5 font-body text-[11px] font-bold uppercase tracking-wider whitespace-nowrap ${EINORDNUNG_STIL[einordnung]}`}
             >
@@ -205,6 +313,7 @@ function MailZeile({ mail, kontext }: { mail: SupportMail; kontext?: KaufKontext
         </p>
 
         <KontextZeile kontext={kontext} email={mail.from.email} webLink={mail.webLink} />
+        <AntwortBlock entwurf={entwurf} email={mail.from.email} />
       </div>
     </div>
   );
@@ -277,5 +386,43 @@ function KontextZeile({
         </a>
       </span>
     </div>
+  );
+}
+
+/**
+ * Der Antwortentwurf, zugeklappt, damit die Liste ueberschaubar bleibt.
+ * Der mailto-Link fuellt Empfaenger, Betreff und Text vor; Kopieren ist fuer
+ * alle, die im offenen Outlook-Tab antworten.
+ */
+function AntwortBlock({ entwurf, email }: { entwurf: Antwort; email: string }) {
+  // Zeilenumbrueche als CRLF: Einige Mailprogramme verschlucken ein nacktes
+  // LF im mailto-Body, und dann steht der Entwurf als ein Absatz da.
+  const mailto =
+    `mailto:${email}` +
+    `?subject=${encodeURIComponent(entwurf.betreff)}` +
+    `&body=${encodeURIComponent(entwurf.text.replace(/\n/g, "\r\n"))}`;
+
+  return (
+    <details className="mt-3">
+      <summary className="cursor-pointer inline-flex items-baseline gap-2 font-body text-xs text-tangerine hover:underline underline-offset-4">
+        Antwortvorschlag
+        {entwurf.locale === "en" && <span className="text-muted no-underline">auf Englisch</span>}
+      </summary>
+      <div className="mt-3 rounded-xl border border-hairline bg-surface p-4 md:p-5">
+        <p className="font-body text-xs text-muted mb-3">
+          Betreff: <span className="text-bone/85">{entwurf.betreff}</span>
+        </p>
+        <pre className="whitespace-pre-wrap font-body text-sm text-bone/90 leading-relaxed">
+          {entwurf.text}
+        </pre>
+        <div className="mt-4 flex items-baseline gap-4 flex-wrap font-body text-xs">
+          <a href={mailto} className="text-tangerine hover:underline underline-offset-4">
+            In Mailprogramm öffnen
+          </a>
+          <Kopieren text={entwurf.text} />
+          <span className="text-muted">Entwurf, vor dem Senden gegenlesen.</span>
+        </div>
+      </div>
+    </details>
   );
 }
