@@ -31,6 +31,8 @@
 import { berlinWallClockToTimestamp as berlinWallClock } from "@/lib/time/berlin";
 import type { Channel, PriceTier, ProductKey } from "@/lib/tickets/types";
 
+import { einordnen, type Bereich } from "./zuordnung";
+
 /* ── Eingangsformat ─────────────────────────────────────────────────── */
 
 /** Was wir aus einer Stripe-Zahlung brauchen, mehr nicht. */
@@ -45,6 +47,15 @@ export interface Sale {
   paid: boolean;
   refundedCents: number;
   metadata: Record<string, string | undefined>;
+
+  /**
+   * Freitext der Zahlung: Beschreibung und Kontoauszugstext, zusammengefuegt.
+   *
+   * Das Stripe-Konto ist geteilt, und solange der Shop keine Metadaten
+   * mitschickt, ist dieser Text neben dem Betrag der einzige Hinweis darauf,
+   * ob eine Zahlung ueberhaupt zu ON ICE gehoert. Siehe zuordnung.ts.
+   */
+  description?: string;
 
   /* Fuer die Suche nach einem einzelnen Kauf. Personenbezogene Daten, die
      ausschliesslich im internen Bereich angezeigt werden und nirgends
@@ -189,6 +200,71 @@ export function buildReport(sales: Sale[], from: number, to: number): Report {
 /** Filtert auf einen Zeitraum, Grenzen in Sekunden, `to` ausschliessend. */
 export function inRange(sales: Sale[], from: number, to: number): Sale[] {
   return sales.filter((s) => s.created >= from && s.created < to);
+}
+
+/* ── Bereiche ───────────────────────────────────────────────────────── */
+
+export interface OnIceFilter {
+  /** Zahlungen, die zu ON ICE gehoeren, bezahlte wie gescheiterte. */
+  onice: Sale[];
+  /**
+   * Was nicht ON ICE ist und deshalb aus dem Dashboard herausfaellt. Zahlen
+   * nur ueber bezahlte Zahlungen, damit sie zum Netto oben passen.
+   */
+  ausgeblendet: {
+    count: number;
+    netCents: number;
+    /** Bezahlte ausgeblendete Zahlungen je Bereich, etwa { catering: 3 }. */
+    bereiche: Partial<Record<Bereich, number>>;
+  };
+  /** Bezahlte ON ICE Kaeufe, die nur am Betrag oder Text erkannt wurden. */
+  vermutet: number;
+  /** Anteil davon an allen bezahlten ON ICE Kaeufen, 0 bis 1. */
+  vermutetAnteil: number;
+}
+
+/**
+ * Trennt ON ICE vom uebrigen Geschaeft auf dem geteilten Stripe-Konto.
+ *
+ * Die Trennung ist eine Zerlegung, kein Filter, der etwas verschwinden
+ * laesst: Bezahlte ON ICE Kaeufe plus ausgeblendete Zahlungen ergeben genau
+ * den Gesamtbestand, in Anzahl wie in Netto. Was ausgeblendet wird, steht mit
+ * Zahl und Betrag auf der Seite, damit niemand im Zweifel ist, ob das
+ * Dashboard etwas unterschlaegt.
+ *
+ * Gescheiterte ON ICE Zahlungen bleiben in `onice`, denn ein Sprung bei den
+ * gescheiterten Zahlungen ist eines der Signale, fuer die es die Seite gibt.
+ */
+export function filterOnIce(sales: Sale[]): OnIceFilter {
+  const onice: Sale[] = [];
+  const bereiche: Partial<Record<Bereich, number>> = {};
+  let count = 0;
+  let netCents = 0;
+  let vermutet = 0;
+  let oniceBezahlt = 0;
+
+  for (const s of sales) {
+    const z = einordnen(s);
+    if (z.bereich === "onice") {
+      onice.push(s);
+      if (s.paid) {
+        oniceBezahlt += 1;
+        if (z.vermutet) vermutet += 1;
+      }
+      continue;
+    }
+    if (!s.paid) continue;
+    count += 1;
+    netCents += netOf(s);
+    bereiche[z.bereich] = (bereiche[z.bereich] ?? 0) + 1;
+  }
+
+  return {
+    onice,
+    ausgeblendet: { count, netCents, bereiche },
+    vermutet,
+    vermutetAnteil: oniceBezahlt ? vermutet / oniceBezahlt : 0,
+  };
 }
 
 /* ── Kontingente ────────────────────────────────────────────────────── */

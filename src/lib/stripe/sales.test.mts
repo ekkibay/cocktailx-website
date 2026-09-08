@@ -78,6 +78,15 @@ describe("Verkaeufe laden", () => {
     assert.equal(a, b);
   });
 
+  it("teilt einen laufenden Abruf zwischen gleichzeitigen Aufrufern", async () => {
+    // Zwei Reiter kurz nacheinander duerfen nicht doppelt gegen Stripe laufen.
+    stub([charge()]);
+    const [a, b] = await Promise.all([loadSales(1_600_000_000), loadSales(1_600_000_000)]);
+    assert.equal(a, b);
+    // Zwoelf Zeitscheiben, je eine Seite: genau ein Satz Anfragen, nicht zwei.
+    assert.equal(aufrufe, 12);
+  });
+
   it("laedt nach dem Leeren des Zwischenspeichers neu", async () => {
     stub([charge()]);
     await loadSales(1_600_000_000);
@@ -112,5 +121,24 @@ describe("Verkaeufe laden", () => {
     stub([charge({ paid: true, status: "failed" })]);
     const r = await loadSales(1_600_000_000);
     assert.equal(r.sales[0].paid, false);
+  });
+
+  it("fuegt Beschreibung und Kontoauszugstext zusammen, Doppeltes nur einmal", async () => {
+    stub([
+      charge({
+        description: "ON ICE Pass",
+        statement_descriptor: "COCKTAIL X",
+        calculated_statement_descriptor: "COCKTAIL X",
+        payment_intent: { id: "pi_1", description: "ON ICE Pass" },
+      }),
+    ]);
+    const r = await loadSales(1_600_000_000);
+    assert.equal(r.sales[0].description, "ON ICE Pass | COCKTAIL X");
+  });
+
+  it("laesst die Beschreibung weg, wenn Stripe nichts fuehrt", async () => {
+    stub([charge({ description: null, statement_descriptor: null, calculated_statement_descriptor: null })]);
+    const r = await loadSales(1_600_000_000);
+    assert.equal(r.sales[0].description, undefined);
   });
 });

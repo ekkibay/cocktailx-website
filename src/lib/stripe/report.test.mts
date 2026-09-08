@@ -12,11 +12,13 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
+import { demoSales } from "./demo.ts";
 import {
   berlinDayStart,
   buildReport,
   dailySeries,
   euro,
+  filterOnIce,
   findSales,
   inRange,
   kanalLabel,
@@ -192,6 +194,65 @@ describe("Zerlegung", () => {
 
   it("die gescheiterte Zahlung steckt in keinem der Eimer", () => {
     assert.equal(r.netCents, 3900 + 11700 + 2500 + 3900 + 2000);
+  });
+});
+
+/* ── Nur ON ICE ─────────────────────────────────────────────────────── */
+
+describe("Nur ON ICE", () => {
+  /*
+   * Das Stripe-Konto ist geteilt. Die Trennung muss eine Zerlegung sein:
+   * ON ICE plus ausgeblendet ergibt den Gesamtbestand, in Anzahl wie in
+   * Netto. Sonst verschwindet Geld still, und das ist der eine Fehler, den
+   * ein Verkaufsdashboard nicht machen darf.
+   */
+  const gemischt = [
+    kauf({ metadata: { product: "single", channel: "public" }, amountCents: 3900 }),
+    kauf({ metadata: {}, amountCents: 4900 }),
+    kauf({ metadata: {}, amountCents: 4900, description: "WWW.COCKTAIL-X.COM" }),
+    kauf({ metadata: {}, amountCents: 3400 }),
+    kauf({ metadata: { source: "catering" }, amountCents: 184_000, refundedCents: 4000 }),
+    kauf({ metadata: {}, amountCents: 3900, paid: false }),
+    kauf({ metadata: {}, amountCents: 99_900, paid: false }),
+  ];
+  const f = filterOnIce(gemischt);
+
+  it("zerlegt restlos: ON ICE plus ausgeblendet ergibt den Gesamtbestand", () => {
+    const alle = buildReport(gemischt, 0, 0);
+    const onice = buildReport(f.onice, 0, 0);
+    assert.equal(onice.count + f.ausgeblendet.count, alle.count);
+    assert.equal(onice.netCents + f.ausgeblendet.netCents, alle.netCents);
+  });
+
+  it("behaelt gescheiterte ON ICE Zahlungen und laesst fremde gescheiterte weg", () => {
+    assert.equal(buildReport(f.onice, 0, 0).failedCount, 1);
+    // Ausgeblendet zaehlt nur Bezahltes, damit die Zahl zum Netto passt.
+    assert.equal(f.ausgeblendet.count, 2);
+  });
+
+  it("zaehlt das Ausgeblendete je Bereich und netto", () => {
+    assert.deepEqual(f.ausgeblendet.bereiche, { sonstiges: 1, catering: 1 });
+    assert.equal(f.ausgeblendet.netCents, 3400 + 180_000);
+  });
+
+  it("weist aus, wie viele ON ICE Kaeufe nur vermutet sind", () => {
+    assert.equal(f.vermutet, 2);
+    assert.equal(f.vermutetAnteil, 2 / 3);
+  });
+
+  it("kommt mit einer leeren Liste zurecht", () => {
+    const leer = filterOnIce([]);
+    assert.deepEqual(leer.onice, []);
+    assert.equal(leer.ausgeblendet.count, 0);
+    assert.equal(leer.vermutetAnteil, 0);
+  });
+
+  it("die Demodaten zeigen beide Faelle: vermutete Paesse und Ausgeblendetes", () => {
+    // Wer die Seite ohne Stripe-Zugang einrichtet, soll die Hinweise sehen.
+    const d = filterOnIce(demoSales(1_790_000_000 - 400 * 86400, 1_790_000_000));
+    assert.equal(d.ausgeblendet.count, 2);
+    assert.deepEqual(d.ausgeblendet.bereiche, { catering: 1, sonstiges: 1 });
+    assert.equal(d.vermutet, 6);
   });
 });
 

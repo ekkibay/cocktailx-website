@@ -24,7 +24,13 @@ interface StripeCharge {
   status: string;
   refunded: boolean;
   metadata?: Record<string, string>;
-  payment_intent?: string | { id: string; metadata?: Record<string, string> } | null;
+  payment_intent?:
+    | string
+    | { id: string; metadata?: Record<string, string>; description?: string | null }
+    | null;
+  description?: string | null;
+  statement_descriptor?: string | null;
+  calculated_statement_descriptor?: string | null;
   billing_details?: { email?: string | null; name?: string | null };
   receipt_email?: string | null;
   receipt_url?: string | null;
@@ -43,6 +49,24 @@ export interface SalesResult {
   vollstaendig: boolean;
 }
 
+/**
+ * Freitext einer Zahlung, aus allen Stellen, an denen Stripe ihn fuehrt.
+ *
+ * Beschreibung der Zahlung, Beschreibung des PaymentIntents und der Text fuer
+ * den Kontoauszug. Was der Shop wo hinterlegt, haengt von seiner Anbindung
+ * ab, deshalb alles lesen. Doppelte Teile nur einmal, denn die Beschreibung
+ * der Zahlung ist oft eine Kopie der des PaymentIntents.
+ */
+function beschreibung(c: StripeCharge): string | undefined {
+  const pi = c.payment_intent && typeof c.payment_intent === "object" ? c.payment_intent : null;
+  const teile: string[] = [];
+  for (const t of [c.description, pi?.description, c.statement_descriptor, c.calculated_statement_descriptor]) {
+    const s = t?.trim();
+    if (s && !teile.includes(s)) teile.push(s);
+  }
+  return teile.length ? teile.join(" | ") : undefined;
+}
+
 function toSale(c: StripeCharge): Sale {
   const piMeta =
     c.payment_intent && typeof c.payment_intent === "object" ? (c.payment_intent.metadata ?? {}) : {};
@@ -57,6 +81,7 @@ function toSale(c: StripeCharge): Sale {
     // tragen und trotzdem nicht erfolgreich sein.
     paid: c.paid && c.status === "succeeded",
     metadata: { ...piMeta, ...(c.metadata ?? {}) },
+    description: beschreibung(c),
     // billing_details zuerst: Die Adresse aus dem Checkout ist die, an die
     // der Beleg ging. receipt_email ist oft leer, wenn Stripe den Beleg ueber
     // den Kunden statt ueber die Zahlung verschickt.
@@ -76,9 +101,15 @@ function toSale(c: StripeCharge): Sale {
 const CACHE_DAUER_MS = 120_000;
 let cache: { von: number; um: number; ergebnis: SalesResult } | null = null;
 
+/* Ein laufender Abruf wird geteilt. Verkauf, Support und Kunden laden
+   dieselbe Historie; oeffnet jemand zwei Reiter kurz nacheinander, liefe
+   sonst alles doppelt gegen Stripe, und genau das hat die Drossel ausgeloest. */
+let laufend: { von: number; promise: Promise<SalesResult> } | null = null;
+
 /** Fuer Tests, damit jeder Fall mit leerem Speicher beginnt. */
 export function salesCacheLeeren(): void {
   cache = null;
+  laufend = null;
 }
 
 /**
@@ -95,6 +126,16 @@ export async function loadSales(fromSeconds: number): Promise<SalesResult> {
     return cache.ergebnis;
   }
 
+  if (laufend && laufend.von === fromSeconds) return laufend.promise;
+
+  const promise = frischLaden(fromSeconds).finally(() => {
+    if (laufend && laufend.promise === promise) laufend = null;
+  });
+  laufend = { von: fromSeconds, promise };
+  return promise;
+}
+
+async function frischLaden(fromSeconds: number): Promise<SalesResult> {
   try {
     // Bis kurz in die Zukunft, damit eine Zahlung aus dieser Sekunde nicht
     // an der oberen Grenze haengenbleibt.

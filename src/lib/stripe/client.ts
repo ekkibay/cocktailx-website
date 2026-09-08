@@ -82,9 +82,14 @@ async function request<T>(path: string, params: Record<string, unknown> = {}): P
     return await einVersuch<T>(url, key);
   } catch (err) {
     // Ein abgelehnter Schluessel oder eine kaputte Anfrage bleiben abgelehnt,
-    // da bringt Wiederholen nichts. Zeitueberschreitung, Netz und 5xx schon.
-    if (err instanceof StripeError && err.status > 0 && err.status < 500) throw err;
-    await new Promise((r) => setTimeout(r, 500));
+    // da bringt Wiederholen nichts. Zeitueberschreitung, Netz, 5xx und die
+    // Drosselung (429) schon. Die Drosselung kam im Betrieb tatsaechlich vor:
+    // Drei Seiten luden gleichzeitig kalt, jede mit zwoelf Scheiben, und
+    // Stripe hat abgewinkt. Ohne Wiederholung faellt dann eine ganze Seite
+    // auf Demodaten zurueck, obwohl nur eine Anfrage zu frueh kam.
+    const gedrosselt = err instanceof StripeError && err.status === 429;
+    if (err instanceof StripeError && err.status > 0 && err.status < 500 && !gedrosselt) throw err;
+    await new Promise((r) => setTimeout(r, gedrosselt ? 2000 : 500));
     return einVersuch<T>(url, key);
   }
 }
@@ -172,6 +177,26 @@ export async function stripeList<T extends { id: string }>(
  * Grenzen: created >= von, created < bis, Scheiben lueckenlos und ohne
  * Ueberlappung, sonst fehlen Zahlungen oder zaehlen doppelt.
  */
+/** Wie viele Scheiben hoechstens gleichzeitig bei Stripe anfragen. */
+export const GLEICHZEITIG = 6;
+
+/**
+ * Fuehrt Aufgaben mit begrenzter Gleichzeitigkeit aus und liefert die
+ * Ergebnisse in Eingabereihenfolge.
+ */
+export async function begrenzt<T>(aufgaben: (() => Promise<T>)[], gleichzeitig: number): Promise<T[]> {
+  const ergebnisse: T[] = new Array(aufgaben.length);
+  let naechste = 0;
+  const arbeiter = Array.from({ length: Math.max(1, Math.min(gleichzeitig, aufgaben.length)) }, async () => {
+    while (naechste < aufgaben.length) {
+      const i = naechste++;
+      ergebnisse[i] = await aufgaben[i]();
+    }
+  });
+  await Promise.all(arbeiter);
+  return ergebnisse;
+}
+
 export async function stripeListZeitraum<T extends { id: string; created: number }>(
   path: string,
   vonSek: number,
@@ -194,8 +219,13 @@ export async function stripeListZeitraum<T extends { id: string; created: number
     vorher = grenze;
   }
 
-  const teile = await Promise.all(
-    bereiche.map(([gte, lt]) => stripeList<T>(path, { ...params, created: { gte, lt } }, maxProScheibe)),
+  // Nicht alle Scheiben auf einmal: Stripe drosselt ab einer Handvoll
+  // gleichzeitiger schwerer Abfragen, und mehrere Seiten der Plattform laden
+  // dieselbe Historie. Sechs parallel ist gemessen schnell genug und blieb
+  // unter der Drossel.
+  const teile = await begrenzt(
+    bereiche.map(([gte, lt]) => () => stripeList<T>(path, { ...params, created: { gte, lt } }, maxProScheibe)),
+    GLEICHZEITIG,
   );
 
   return {

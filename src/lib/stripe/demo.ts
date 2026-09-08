@@ -7,8 +7,9 @@
  *
  * Die Zahlen sind bewusst so gewaehlt, dass die unangenehmen Faelle sichtbar
  * werden: Kaeufe ohne Metadaten, eine Rueckerstattung, ein fast volles
- * Kontingent. Ein Demodatensatz, in dem alles glatt laeuft, versteckt genau
- * die Zustaende, fuer die man ein Dashboard baut.
+ * Kontingent, zwei Zahlungen aus dem uebrigen Geschaeft auf dem geteilten
+ * Konto. Ein Demodatensatz, in dem alles glatt laeuft, versteckt genau die
+ * Zustaende, fuer die man ein Dashboard baut.
  *
  * Die Betraege sind frei erfunden und ausdruecklich NICHT die echten. Der
  * Preis der Code-Fenster steht nirgends im Repository, auch nicht als
@@ -127,7 +128,9 @@ export function demoSales(fromSeconds: number, jetzt: number = Math.floor(Date.n
   if (sales.length) sales[0] = { ...sales[0], refundedCents: sales[0].amountCents };
 
   // Kaeufe ohne Metadaten. Genau die entstehen, wenn der Shop die Felder
-  // nicht mitschickt, und genau die will man im Dashboard bemerken.
+  // nicht mitschickt, und genau die will man im Dashboard bemerken. Als
+  // Beschreibung nur der Haendlername vom Kontoauszug, so wie sie im echten
+  // Konto ankommen: Das Dashboard erkennt sie dann allein am Betrag.
   for (let i = 0; i < 6; i++) {
     sales.push({
       ...kaeufer(100 + i),
@@ -138,8 +141,35 @@ export function demoSales(fromSeconds: number, jetzt: number = Math.floor(Date.n
       created: jetzt - Math.floor(spanne * zufall()),
       paid: true,
       metadata: {},
+      description: "WWW.COCKTAIL-X.COM",
     });
   }
+
+  /* Zwei Zahlungen, die nicht ON ICE sind. Das Stripe-Konto ist geteilt, und
+     genau so sehen die Zahlungen aus, die das Dashboard ausblenden und mit
+     Zahl und Betrag benennen muss. Ohne Adresse: Eine Rechnung per
+     Ueberweisung hat keine, und die Demomails sollen keinen Catering-Kunden
+     nach seiner Route fragen lassen. */
+  sales.push({
+    id: "demo_catering",
+    amountCents: 184_000,
+    refundedCents: 0,
+    currency: "eur",
+    created: jetzt - 2 * 86400 - 3600,
+    paid: true,
+    metadata: { source: "catering" },
+    description: "Rechnung 2026-041 Catering Firmenfeier | WWW.COCKTAIL-X.COM",
+  });
+  sales.push({
+    id: "demo_sonstiges",
+    amountCents: 3400,
+    refundedCents: 0,
+    currency: "eur",
+    created: jetzt - 12 * 86400,
+    paid: true,
+    metadata: {},
+    description: "WWW.COCKTAIL-X.COM",
+  });
 
   // Eine gescheiterte Zahlung, die nicht mitzaehlen darf.
   // Eine gescheiterte Zahlung mit Namen: Genau danach wird gesucht, wenn

@@ -13,7 +13,7 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
 
-import { StripeError, hasStripe, stripeList, stripeListZeitraum, toQuery } from "./client.ts";
+import { GLEICHZEITIG, StripeError, begrenzt, hasStripe, stripeList, stripeListZeitraum, toQuery } from "./client.ts";
 
 /* ── Abfrageformat ──────────────────────────────────────────────────── */
 
@@ -190,6 +190,38 @@ describe("Listenabruf", () => {
         return true;
       },
     );
+  });
+
+  it("wiederholt nach einer Drosselung (429) einmal", async () => {
+    // Genau so ist eine ganze Seite auf Demodaten gefallen, obwohl nur eine
+    // Anfrage zu frueh kam.
+    let n = 0;
+    globalThis.fetch = (async () => {
+      n++;
+      if (n === 1) {
+        return { ok: false, status: 429, json: async () => ({ error: { message: "Request rate limit exceeded" } }) } as Response;
+      }
+      return { ok: true, status: 200, json: async () => seite(["a"], false) } as Response;
+    }) as typeof fetch;
+    const out = await stripeList<{ id: string }>("/charges");
+    assert.deepEqual(out.items.map((c) => c.id), ["a"]);
+    assert.equal(n, 2);
+  });
+
+  it("laesst hoechstens GLEICHZEITIG Aufgaben parallel laufen", async () => {
+    let offen = 0;
+    let spitze = 0;
+    const aufgabe = (i: number) => async () => {
+      offen++;
+      spitze = Math.max(spitze, offen);
+      await new Promise((r) => setTimeout(r, 5));
+      offen--;
+      return i;
+    };
+    const out = await begrenzt(Array.from({ length: 12 }, (_, i) => aufgabe(i)), GLEICHZEITIG);
+    assert.deepEqual(out, Array.from({ length: 12 }, (_, i) => i));
+    assert.ok(spitze <= GLEICHZEITIG, "Spitze " + spitze);
+    assert.ok(spitze > 1, "es lief gar nichts parallel");
   });
 
   it("verlangt einen Schluessel, bevor es ueberhaupt losgeht", async () => {

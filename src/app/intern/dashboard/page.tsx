@@ -17,6 +17,7 @@ import {
   buildReport,
   dailySeries,
   euro,
+  filterOnIce,
   findSales,
   inRange,
   kanalLabel,
@@ -25,6 +26,7 @@ import {
   quotaUsage,
   statusOf,
   type Bucket,
+  type OnIceFilter,
   type Sale,
 } from "@/lib/stripe/report";
 
@@ -57,9 +59,10 @@ const HISTORIE_TAGE = 400;
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: { z?: string; q?: string };
+  searchParams: { z?: string; q?: string; alle?: string };
 }) {
   const zeitraum = ZEITRAEUME.find((z) => z.key === searchParams.z) ?? ZEITRAEUME[1];
+  const alle = searchParams.alle === "1";
 
   const jetzt = new Date();
   const jetztSek = Math.floor(jetzt.getTime() / 1000);
@@ -78,21 +81,38 @@ export default async function DashboardPage({
   const historieVon = berlinDayStart(jetzt, -(HISTORIE_TAGE - 1));
   const { sales, demo, error, vollstaendig } = await loadSales(historieVon);
 
-  const bericht = buildReport(inRange(sales, von, jetztSek + 1), von, jetztSek);
-  const gesamt = buildReport(sales, historieVon, jetztSek);
-  const heute = buildReport(inRange(sales, berlinDayStart(jetzt), jetztSek + 1), 0, 0);
+  /* Das Stripe-Konto ist geteilt: Catering, anderes Geschaeft und ON ICE
+     laufen ueber dasselbe Konto. Voreinstellung ist deshalb "nur ON ICE",
+     und was herausfaellt, steht mit Zahl und Betrag ueber den Kennzahlen.
+     Mit alle=1 zaehlt die Seite das ganze Konto. */
+  const sichtbar = alle ? sales : filterOnIce(sales).onice;
 
+  const bericht = buildReport(inRange(sichtbar, von, jetztSek + 1), von, jetztSek);
+  const gesamt = buildReport(sichtbar, historieVon, jetztSek);
+  const heute = buildReport(inRange(sichtbar, berlinDayStart(jetzt), jetztSek + 1), 0, 0);
+
+  /* Fuer die Hinweise ueber den Kennzahlen: Was liegt im gewaehlten Zeitraum
+     ausserhalb von ON ICE, und wie viele ON ICE Kaeufe sind nur am Betrag
+     erkannt. Die Warnung zu fehlenden Metadaten richtet sich an den Shop und
+     wird deshalb immer auf ON ICE gerechnet. In der Ansicht des ganzen
+     Kontos wuerde sie sonst Catering-Rechnungen vorwerfen, keinen Kanal zu
+     tragen. */
+  const bereiche = filterOnIce(inRange(sales, von, jetztSek + 1));
+  const onIceBericht = alle ? buildReport(bereiche.onice, von, jetztSek) : bericht;
+
+  // Die Suche geht ueber alle Zahlungen des Kontos: Wer nach einem Namen
+  // sucht, will den Kauf finden, auch wenn die Zuordnung danebenlag.
   const suchbegriff = (searchParams.q ?? "").trim();
   const treffer = suchbegriff ? findSales(sales, suchbegriff) : [];
 
-  const reihe = dailySeries(sales, jetzt, HISTORIE_TAGE);
+  const reihe = dailySeries(sichtbar, jetzt, HISTORIE_TAGE);
   const tagLabel = new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", day: "2-digit", month: "2-digit" });
   const tempo = pace(reihe, zeitraum.tage, jetzt.getTime(), FULL_PRICE_STARTS_AT);
 
   const tier = currentTier(jetzt.getTime());
   const tageBisUmstellung = Math.ceil((FULL_PRICE_STARTS_AT - jetzt.getTime()) / 86_400_000);
 
-  const kontingente = quotaUsage(sales, [
+  const kontingente = quotaUsage(sichtbar, [
     { id: "student-2026", label: "Studierende", quota: STUDENT_QUOTA },
     { id: "crm-newsletter-2026", label: "CRM und Newsletter", quota: null },
     { id: "drop-halloween", label: "Drop Halloween", quota: 150 },
@@ -110,16 +130,25 @@ export default async function DashboardPage({
         <Kopf demo={demo} fehler={error} />
 
         <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <Zeitwahl aktiv={zeitraum.key} suche={suchbegriff} />
-          <Suche zeitraum={zeitraum.key} wert={suchbegriff} />
+          <Zeitwahl aktiv={zeitraum.key} alle={alle} suche={suchbegriff} />
+          <Suche zeitraum={zeitraum.key} alle={alle} wert={suchbegriff} />
         </div>
 
-        {suchbegriff && <Treffer sales={treffer} begriff={suchbegriff} />}
+        {suchbegriff && (
+          <Treffer sales={treffer} begriff={suchbegriff} zurueck={adresse({ z: zeitraum.key, alle })} />
+        )}
+
+        <Bereiche
+          alle={alle}
+          ausgeblendet={bereiche.ausgeblendet}
+          vermutet={bereiche.vermutet}
+          wechsel={adresse({ z: zeitraum.key, alle: !alle, q: suchbegriff })}
+        />
 
         {/* Die vier Zahlen, die man morgens sehen will */}
         <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-px bg-hairline rounded-2xl overflow-hidden">
           <Kennzahl
-            label="Pässe verkauft"
+            label={alle ? "Zahlungen" : "Pässe verkauft"}
             wert={String(bericht.count)}
             zusatz={trendText(tempo.trend) ?? zeitraum.zusatz}
           />
@@ -135,7 +164,7 @@ export default async function DashboardPage({
 
         {!vollstaendig && <Unvollstaendig />}
 
-        {bericht.untaggedShare > 0 && <Warnung anteil={bericht.untaggedShare} />}
+        {onIceBericht.untaggedShare > 0 && <Warnung anteil={onIceBericht.untaggedShare} />}
 
         {bericht.failedCount > 0 && (
           <Gescheitert anzahl={bericht.failedCount} betrag={bericht.failedCents} />
@@ -196,7 +225,7 @@ export default async function DashboardPage({
         )}
 
         <Abschnitt titel="Zuletzt" hinweis="Die letzten zwölf bezahlten Käufe.">
-          <Liste sales={sales.filter((s) => s.paid).slice(0, 12)} />
+          <Liste sales={sichtbar.filter((s) => s.paid).slice(0, 12)} />
         </Abschnitt>
 
         <Abschnitt
@@ -251,15 +280,25 @@ function Kopf({ demo, fehler }: { demo: boolean; fehler?: string }) {
   );
 }
 
-function Zeitwahl({ aktiv, suche }: { aktiv: string; suche: string }) {
-  const ziel = (key: string) => `?z=${key}${suche ? `&q=${encodeURIComponent(suche)}` : ""}`;
+/**
+ * Baut die Adresse so, dass Zeitraum, Ansicht und Suche zusammen erhalten
+ * bleiben. Jeder Link auf der Seite geht hier durch, sonst faellt bei einem
+ * Klick auf den Zeitraum still die Ansicht auf "nur ON ICE" zurueck.
+ */
+function adresse(p: { z: string; alle: boolean; q?: string }): string {
+  const teile = [`z=${p.z}`];
+  if (p.alle) teile.push("alle=1");
+  if (p.q) teile.push(`q=${encodeURIComponent(p.q)}`);
+  return `?${teile.join("&")}`;
+}
 
+function Zeitwahl({ aktiv, alle, suche }: { aktiv: string; alle: boolean; suche: string }) {
   return (
     <nav className="flex gap-2">
       {ZEITRAEUME.map((z) => (
         <a
           key={z.key}
-          href={ziel(z.key)}
+          href={adresse({ z: z.key, alle, q: suche })}
           className={`rounded-full px-4 py-2 font-body text-xs font-bold uppercase tracking-wider transition-colors ${
             z.key === aktiv
               ? "bg-tangerine text-licorice"
@@ -291,6 +330,85 @@ function Kennzahl({
       {zusatz && <p className="font-body text-xs text-muted mt-2 leading-snug">{zusatz}</p>}
     </div>
   );
+}
+
+/**
+ * Was ausserhalb von ON ICE liegt, und was nur vermutet ist.
+ *
+ * Leise, als Saetze statt als Kasten: Das ist keine Stoerung, sondern die
+ * Erklaerung, warum die Zahlen unten kleiner sind als in Stripe. Dastehen
+ * muss es trotzdem, sonst vergleicht jemand beide Summen und traut keiner
+ * von beiden mehr.
+ */
+function Bereiche({
+  alle,
+  ausgeblendet,
+  vermutet,
+  wechsel,
+}: {
+  alle: boolean;
+  ausgeblendet: OnIceFilter["ausgeblendet"];
+  vermutet: number;
+  wechsel: string;
+}) {
+  const link = (text: string) => (
+    <a href={wechsel} className="text-tangerine hover:underline underline-offset-4">
+      {text}
+    </a>
+  );
+  const zeilen: React.ReactNode[] = [];
+
+  if (alle) {
+    zeilen.push(
+      <p key="alle">
+        Ansicht des ganzen Stripe-Kontos.{" "}
+        {ausgeblendet.count > 0
+          ? `${zahlungen(ausgeblendet.count)} (${euro(ausgeblendet.netCents)}) ${
+              ausgeblendet.count === 1 ? "gehört" : "gehören"
+            } nicht zu ON ICE und ${ausgeblendet.count === 1 ? "zählt" : "zählen"} hier mit.`
+          : "Im Zeitraum liegt nichts außerhalb von ON ICE."}{" "}
+        {link("Nur ON ICE anzeigen")}
+      </p>,
+    );
+  } else if (ausgeblendet.count > 0) {
+    zeilen.push(
+      <p key="ausgeblendet">
+        {zahlungen(ausgeblendet.count)} außerhalb ON ICE ausgeblendet ({euro(ausgeblendet.netCents)}),{" "}
+        {herkunft(ausgeblendet.bereiche)}. {link("Alle anzeigen")}
+      </p>,
+    );
+  }
+
+  if (vermutet > 0) {
+    zeilen.push(
+      <p key="vermutet">
+        {vermutet === 1 ? "Ein Kauf ist" : `${vermutet} Käufe sind`} nur am Betrag erkannt, weil der
+        Shop keine Produktangabe mitschickt.
+      </p>,
+    );
+  }
+
+  if (zeilen.length === 0) return null;
+  return <div className="mt-8 space-y-1.5 font-body text-sm text-muted leading-relaxed">{zeilen}</div>;
+}
+
+function zahlungen(n: number): string {
+  return n === 1 ? "Eine Zahlung" : `${n} Zahlungen`;
+}
+
+/**
+ * Woher die ausgeblendeten Zahlungen vermutlich stammen.
+ *
+ * "Vermutlich Catering" nur, wenn die Erkennung das auch hergibt. Solange
+ * der Shop und die Rechnungen keine Angaben mitschicken, weiss die Seite
+ * nur, dass die Betraege zu keinem Pass passen, und sagt genau das.
+ */
+function herkunft(bereiche: OnIceFilter["ausgeblendet"]["bereiche"]): string {
+  const catering = bereiche.catering ?? 0;
+  const sonstiges = bereiche.sonstiges ?? 0;
+  if (catering > 0 && sonstiges === 0) return "als Catering erkannt";
+  if (catering > 0) return `${catering} davon als Catering erkannt, der Rest anderes Geschäft`;
+  return "vermutlich Catering oder anderes Geschäft";
 }
 
 function Warnung({ anteil }: { anteil: number }) {
@@ -505,11 +623,12 @@ function Tempo({ tempo, tage }: { tempo: ReturnType<typeof pace>; tage: number }
  * einen Ticketkommentar kopieren, was bei einem Supportfall haeufiger
  * vorkommt, als man denkt.
  */
-function Suche({ zeitraum, wert }: { zeitraum: string; wert: string }) {
+function Suche({ zeitraum, alle, wert }: { zeitraum: string; alle: boolean; wert: string }) {
   return (
     <form method="get" className="flex gap-2 md:w-[26rem]">
       {/* Sonst faellt die Ansicht bei jeder Suche auf die Voreinstellung zurueck. */}
       <input type="hidden" name="z" value={zeitraum} />
+      {alle && <input type="hidden" name="alle" value="1" />}
       <input
         type="search"
         name="q"
@@ -542,7 +661,7 @@ const STATUSFARBE: Record<ReturnType<typeof statusOf>, string> = {
  * Supportfall ist "ich habe nichts bekommen", und die Antwort steht damit
  * vollstaendig auf dieser Seite, statt in Stripe.
  */
-function Treffer({ sales, begriff }: { sales: Sale[]; begriff: string }) {
+function Treffer({ sales, begriff, zurueck }: { sales: Sale[]; begriff: string; zurueck: string }) {
   const zeit = new Intl.DateTimeFormat("de-DE", {
     timeZone: "Europe/Berlin",
     day: "2-digit",
@@ -560,7 +679,7 @@ function Treffer({ sales, begriff }: { sales: Sale[]; begriff: string }) {
             ? "Nichts gefunden"
             : `${sales.length} Treffer`}
         </h2>
-        <a href="?" className="font-body text-xs text-muted hover:text-bone underline underline-offset-4">
+        <a href={zurueck} className="font-body text-xs text-muted hover:text-bone underline underline-offset-4">
           Suche zurücksetzen
         </a>
       </div>
