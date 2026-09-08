@@ -1,0 +1,57 @@
+# Pruefungen fuer jeden Push auf main und jeden Pull Request.
+#
+# Deployen tut das hier nicht, das macht Vercel selbst aus main. Der Lauf ist
+# die Sicherung davor: Ein kaputter Typ, ein Lint-Fehler oder ein roter Test
+# soll hier auffallen und nicht erst im Build-Log von Vercel.
+# Lokal dasselbe ohne den Build: npm run check
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Ein neuer Push auf denselben Branch bricht den laufenden Durchlauf ab.
+# Der prueft einen Stand, den es so nicht mehr gibt.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      # Kein Telemetrie-Hinweis von Next und nichts, was aus dem Runner sendet.
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v5
+
+      # Node-Version aus .nvmrc, damit hier dieselbe laeuft wie lokal.
+      # scripts/ts-alias.mjs braucht module.registerHooks, also Node ab 22.15.
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # npm ci statt npm install: nimmt genau die package-lock.json und bricht
+      # ab, wenn sie nicht zu package.json passt.
+      - run: npm ci
+
+      # Typen zuerst, weil das am schnellsten die meisten Fehler findet.
+      - run: npx tsc --noEmit
+
+      # ESLint ueber next lint, die Regeln stehen in .eslintrc.json.
+      - run: npm run lint
+
+      # Der eingebaute Testrunner von Node, ohne Testabhaengigkeit.
+      # Was ein Test an Env braucht, setzt er sich selbst.
+      - run: npm test
+
+      # Produktionsbuild ohne ein einziges Geheimnis. Mailgun, Stripe und
+      # Graph bauen ihre Clients erst beim Aufruf, die gitignorierten
+      # Kostendateien laden optional. Braucht der Build doch etwas, soll es
+      # hier auffallen und nicht erst auf Vercel.
+      - run: npm run build
