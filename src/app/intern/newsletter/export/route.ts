@@ -12,7 +12,7 @@
 import { toCsv } from "@/lib/stripe/csv";
 import { loadMitglieder } from "@/lib/newsletter/mitglieder";
 
-import { internErlaubt } from "../../gate";
+import { zugriff } from "../../gate";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +28,7 @@ const DATUM = new Intl.DateTimeFormat("de-DE", {
 });
 
 export async function GET() {
-  if (!internErlaubt()) return new Response("Nicht gefunden", { status: 404 });
+  if (zugriff() !== "ok") return new Response("Nicht gefunden", { status: 404 });
 
   const { mitglieder, demo } = await loadMitglieder();
 

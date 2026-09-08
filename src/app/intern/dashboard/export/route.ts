@@ -14,7 +14,7 @@ import { csvBetrag, toCsv } from "@/lib/stripe/csv";
 import { berlinDayStart, kanalLabel, produktLabel, statusOf } from "@/lib/stripe/report";
 import { loadSales } from "@/lib/stripe/sales";
 
-import { internErlaubt } from "../../gate";
+import { zugriff } from "../../gate";
 
 export const dynamic = "force-dynamic";
 
@@ -53,7 +53,7 @@ const UHRZEIT = new Intl.DateTimeFormat("de-DE", {
 const STUFE: Record<string, string> = { early: "Early Bird", full: "Regulär", regular: "Regulär" };
 
 export async function GET(request: Request) {
-  if (!internErlaubt()) {
+  if (zugriff() !== "ok") {
     return new Response("Nicht gefunden", { status: 404 });
   }
 
