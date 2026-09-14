@@ -61,10 +61,6 @@ const ROW_A: Motiv[] = [
 
 const ROW_B: Motiv[] = [
   {
-    src: "/images/onice/set-coupe.jpg",
-    alt: { de: "Coupe mit Schaumkrone auf Marmor", en: "A coupe with a foam crown on marble" },
-  },
-  {
     src: "/images/onice/onice-bar-pour.jpg",
     alt: { de: "Drink wird am Tresen übergeben", en: "A drink handed over at the bar" },
   },

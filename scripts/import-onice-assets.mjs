@@ -130,7 +130,6 @@ const SRC_OPENING = path.join(ROOT, "Bilder", "adriancamo_grandopening_250429");
    passThrough statt grade: Das kraeftige Grading ist fuer dunkle Barszenen
    gebaut und kippt Hauttoene ins Rote. */
 const FOUNDERS = [
-  { file: "L1005015_CocktailXKempinski_adriancamo.jpg", dest: "onice-founders.jpg", width: 1600, cropTop: 0.19 },
   // Gruenderseite: dieselbe Szene mit dem grossen Lachen als Aufmacher,
   // Ekki am Mikrofon eng geschnitten (ohne den Mann im hellen Anzug), und
   // Vincent als Ausschnitt aus dem Gruenderfoto, damit beide Portraets aus
@@ -263,7 +262,7 @@ async function passThrough({ file, dest, width, cropTop = 0, cropBottom = 0, cro
 }
 
 // Aufruf mit Zielname verarbeitet nur diesen einen Eintrag:
-//   node scripts/import-onice-assets.mjs onice-founders.jpg
+//   node scripts/import-onice-assets.mjs onice-founder-ekki.jpg
 const NUR = process.argv[2];
 const dran = (p) => !NUR || p.dest === NUR;
 

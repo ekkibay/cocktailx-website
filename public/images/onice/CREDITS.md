@@ -35,7 +35,6 @@ Johannes Ritter Media, Cocktail X Festival, Day 1 und Abschlussabend.
 
 | Datei | Quelle | Credit |
 |---|---|---|
-| onice-founders.jpg | L1005015_CocktailXKempinski_adriancamo.jpg | adrian.camo |
 | onice-founders-laugh.jpg | L1005020_CocktailXKempinski_adriancamo.jpg | adrian.camo |
 | onice-founder-ekki.jpg | L1004922_CocktailXKempinski_adriancamo.jpg | adrian.camo |
 | onice-founder-vincent.jpg | L1005015_CocktailXKempinski_adriancamo.jpg (Ausschnitt rechts) | adrian.camo |
