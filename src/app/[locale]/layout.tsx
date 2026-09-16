@@ -10,6 +10,7 @@ import MetaPixel from "@/components/MetaPixel";
 import CookieConsent from "@/components/ui/CookieConsent";
 import "../globals.css";
 
+
 export const metadata: Metadata = {
   // Gilt fuer jede Seite, die keinen eigenen Titel setzt: Browser-Tab,
   // Suchergebnis und Social-Vorschau. Stand vorher noch auf dem Sommerfestival
