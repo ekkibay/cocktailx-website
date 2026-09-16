@@ -28,6 +28,7 @@ import {
   EVENT,
   FULL_FROM_LABEL,
   FULL_FROM_LABEL_EN,
+  SIGNATURE_DRINK_PRICE,
   SUMMER_PROOF,
   TIERS,
   currentTier,
@@ -87,8 +88,8 @@ const COPY = {
     },
     body: [
       {
-        de: "Du kaufst einen Pass, öffnest die App und ziehst los. In jeder teilnehmenden Bar bekommst du einen Signature Drink, den es nur in diesen zwölf Nächten gibt. Danach entscheidest du: noch einen hier, oder weiter zur nächsten.",
-        en: "You buy a pass, open the app and set off. In every participating bar you get a signature drink that exists only in these twelve nights. Then it is your call: another one here, or on to the next bar.",
+        de: `Du kaufst einen Pass, öffnest die App und ziehst los. In jeder teilnehmenden Bar wartet ein Signature Drink, den es nur in diesen zwölf Nächten gibt, für ${SIGNATURE_DRINK_PRICE} € an der Bar. Danach entscheidest du: noch einen hier, oder weiter zur nächsten.`,
+        en: `You buy a pass, open the app and set off. In every participating bar a signature drink is waiting that exists only in these twelve nights, for ${SIGNATURE_DRINK_PRICE} € at the bar. Then it is your call: another one here, or on to the next bar.`,
       },
       {
         de: "Kein Programm, das du abarbeiten musst, und keine feste Route. Die App schlägt dir Wege vor, den Abend baust du selbst. Die meisten kommen zu zweit und gehen mit fünf Leuten weiter, die sie an der Bar daneben getroffen haben.",
@@ -154,8 +155,8 @@ const COPY = {
         en: `All ${EVENT.nights} nights, every bar`,
       },
       {
-        de: "In jeder Bar ein Signature Drink inklusive",
-        en: "A signature drink included in every bar",
+        de: `In jeder Bar den Signature Drink für ${SIGNATURE_DRINK_PRICE} € freischalten`,
+        en: `Unlock the signature drink in every bar for ${SIGNATURE_DRINK_PRICE} €`,
       },
       {
         de: "Die App ist dein Ticket, nichts abzuholen",
@@ -167,6 +168,13 @@ const COPY = {
     fullFrom: {
       de: `Ab ${FULL_FROM_LABEL} gilt der reguläre Preis von ${TIERS.full.price} €. `,
       en: `From ${FULL_FROM_LABEL_EN} the regular price of ${TIERS.full.price} € applies. `,
+    },
+    /* Der Signature Drink ist nicht im Pass enthalten. Das muss direkt am
+       Preis stehen und nicht nur in der FAQ, sonst liest sich "Ein Preis,
+       alle Bars" wie ein All-inclusive. */
+    drinks: {
+      de: `Signature Drinks kosten ${SIGNATURE_DRINK_PRICE} € an der Bar und sind nicht im Pass enthalten. `,
+      en: `Signature drinks cost ${SIGNATURE_DRINK_PRICE} € at the bar and are not included in the pass. `,
     },
     /* Preisangabenverordnung. Steht immer, in beiden Sprachen. */
     vat: { de: "Alle Preise inkl. MwSt.", en: "All prices include VAT." },
@@ -644,6 +652,7 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                   verordnung. */}
               <p className="font-body text-sm text-muted">
                 {tier === "early" && pick(COPY.pass.fullFrom, locale)}
+                {pick(COPY.pass.drinks, locale)}
                 {pick(COPY.pass.vat, locale)}
               </p>
             </div>

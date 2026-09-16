@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { CORPORATE_SIZES, EVENT, TIERS, corporateMailto, currentTier } from "@/config/pricing";
+import { CORPORATE_SIZES, EVENT, SIGNATURE_DRINK_PRICE, TIERS, corporateMailto, currentTier } from "@/config/pricing";
 import { asLocale, pick, type Bilingual } from "@/i18n/bilingual";
 
 /*
@@ -22,8 +22,11 @@ const HEAD = {
   titleLead: { de: "Ein Abend,", en: "An evening" },
   titleRest: { de: "den keiner organisieren muss.", en: "nobody has to organise." },
   intro: {
-    de: "Ihr bekommt Pässe fürs Team, eine Rechnung auf die Firma und danach einen Abend, an dem niemand eine Location suchen, Tische reservieren oder Getränke abrechnen muss.",
-    en: "You get passes for the team, one invoice to the company and then a night where nobody has to find a venue, sort out tables or settle up for drinks.",
+    /* Vorher hiess es hier "oder Getraenke abrechnen muss". Das klang, als
+       liefen die Drinks ueber die Sammelrechnung. Tun sie nicht: Der Signature
+       Drink wird an der Bar bezahlt, von jeder Person selbst. */
+    de: `Ihr bekommt Pässe fürs Team, eine Rechnung auf die Firma und danach einen Abend, an dem niemand eine Location suchen oder Tische reservieren muss. Die Signature Drinks zahlt jeder selbst an der Bar, ${SIGNATURE_DRINK_PRICE} € pro Drink.`,
+    en: `You get passes for the team, one invoice to the company and then a night where nobody has to find a venue or sort out tables. Signature drinks are paid at the bar, ${SIGNATURE_DRINK_PRICE} € each.`,
   },
 };
 

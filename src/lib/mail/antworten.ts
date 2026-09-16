@@ -13,9 +13,11 @@
  * automatisch mitzieht.
  *
  * Sprachregeln fuer alle Vorlagen: Du-Form, keine Gedankenstriche, kein
- * Preis unter der oeffentlichen Untergrenze, keine Barnamen, keine
+ * Passpreis unter der oeffentlichen Untergrenze, keine Barnamen, keine
  * Reservierungszusagen, zu den Weihnachtsmaerkten nur "in Laufweite der
- * Maerkte, nach Marktschluss".
+ * Maerkte, nach Marktschluss". Der Signature Drink kostet an der Bar
+ * SIGNATURE_DRINK_PRICE und ist nicht im Pass enthalten; das ist der einzige
+ * Betrag unter der Untergrenze, der in einer Vorlage stehen darf.
  */
 
 import {
@@ -28,6 +30,7 @@ import {
   EARLY_UNTIL_LABEL,
   EARLY_UNTIL_LABEL_EN,
   EVENT,
+  SIGNATURE_DRINK_PRICE,
   TIERS,
   currentTier,
 } from "@/config/pricing";
@@ -213,25 +216,25 @@ const VORLAGEN: Record<Variante, Record<Locale, Vorlage>> = {
     de: () => [
       `danke für deine Nachricht. Dein Pass für ${EVENT.name} ist bei uns bezahlt hinterlegt, alles gut.`,
       "Die Bestätigung ging an diese Adresse raus. Falls du sie nicht findest, schau bitte einmal in den Spam-Ordner. Sonst schicken wir sie dir gern noch einmal, sag einfach kurz Bescheid.",
-      `Die App ist dein Pass und läuft im Browser, du musst nichts installieren. Nach dem Login liegt dein Pass dort, in der Bar scannst du den QR-Code. Der Pass gilt an allen ${EVENT.nights} Nächten vom ${EVENT.dateLabel} in ${EVENT.city}. Reservieren musst du nichts, und eine Route legst du auch nicht vorab fest: Die App schlägt dir Trails vor, wechseln kannst du jederzeit.`,
+      `Die App ist dein Pass und läuft im Browser, du musst nichts installieren. Nach dem Login liegt dein Pass dort, in der Bar scannst du den QR-Code und bestellst den Signature Drink für ${SIGNATURE_DRINK_PRICE} €. Der Pass gilt an allen ${EVENT.nights} Nächten vom ${EVENT.dateLabel} in ${EVENT.city}. Reservieren musst du nichts, und eine Route legst du auch nicht vorab fest: Die App schlägt dir Trails vor, wechseln kannst du jederzeit.`,
     ],
     en: () => [
       `thanks for your message. Your pass for ${EVENT.name} is paid and stored with us, all good.`,
       "The confirmation went to this address. If you cannot find it, please check your spam folder. Otherwise we are happy to send it again, just let us know.",
-      `The app is your pass and runs in the browser, there is nothing to install. After signing in your pass is waiting there, and at the bar you scan the QR code. The pass is valid on all ${EVENT.nights} nights from ${EVENT.dateLabelEn} in ${EVENT.cityEn}. You do not need to book anything, and you do not pick a route in advance either: the app suggests trails, and you can switch whenever you like.`,
+      `The app is your pass and runs in the browser, there is nothing to install. After signing in your pass is waiting there, and at the bar you scan the QR code and order the signature drink for ${SIGNATURE_DRINK_PRICE} €. The pass is valid on all ${EVENT.nights} nights from ${EVENT.dateLabelEn} in ${EVENT.cityEn}. You do not need to book anything, and you do not pick a route in advance either: the app suggests trails, and you can switch whenever you like.`,
     ],
   },
 
   "ticket-keinKauf": {
     de: (d) => [
       "danke für deine Nachricht und schön, dass du dabei sein willst.",
-      `Unter dieser Mailadresse finden wir noch keinen Kauf. Den Pass für ${EVENT.name} bekommst du hier: ${CHECKOUT.single}. ${preissatz(d)} Der Pass gilt an allen ${EVENT.nights} Nächten vom ${EVENT.dateLabel} in ${EVENT.city}, in jeder teilnehmenden Bar schaltest du einen Signature Drink frei.`,
+      `Unter dieser Mailadresse finden wir noch keinen Kauf. Den Pass für ${EVENT.name} bekommst du hier: ${CHECKOUT.single}. ${preissatz(d)} Der Pass gilt an allen ${EVENT.nights} Nächten vom ${EVENT.dateLabel} in ${EVENT.city}, in jeder teilnehmenden Bar schaltest du den Signature Drink für ${SIGNATURE_DRINK_PRICE} € frei, bezahlt wird er direkt an der Bar.`,
       `Außerdem gibt es den Crew Pass mit ${CREW_SIZE} Pässen zum Preis von ${CREW_PAID} und Double Season mit ON ICE plus Sommerfestival 2027 für ${DOUBLE_SEASON_PRICE} €. Jeder Pass gilt für eine Person.`,
       "Nach dem Kauf kommt die Bestätigung per Mail, und die App ist dein Pass, ganz ohne Installation. Falls du über eine andere Adresse gekauft hast, schreib uns kurz, dann suchen wir den Kauf.",
     ],
     en: (d) => [
       "thanks for your message, great that you want to join.",
-      `We cannot find a purchase under this email address yet. You can get your pass for ${EVENT.name} here: ${CHECKOUT.single}. ${preissatz(d)} The pass is valid on all ${EVENT.nights} nights from ${EVENT.dateLabelEn} in ${EVENT.cityEn}, and in every participating bar you unlock one signature drink.`,
+      `We cannot find a purchase under this email address yet. You can get your pass for ${EVENT.name} here: ${CHECKOUT.single}. ${preissatz(d)} The pass is valid on all ${EVENT.nights} nights from ${EVENT.dateLabelEn} in ${EVENT.cityEn}, and in every participating bar you unlock the signature drink for ${SIGNATURE_DRINK_PRICE} €, paid directly at the bar.`,
       `There is also the Crew Pass with ${CREW_SIZE} passes for the price of ${CREW_PAID}, and Double Season with ON ICE plus the summer festival 2027 for ${DOUBLE_SEASON_PRICE} €. Every pass is valid for one person.`,
       "After the purchase the confirmation arrives by email, and the app is your pass, nothing to install. If you bought with a different address, drop us a line and we will find the purchase.",
     ],

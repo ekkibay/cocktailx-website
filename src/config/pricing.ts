@@ -137,6 +137,16 @@ export const DOUBLE_SEASON_LIMIT = 300;
 /** Fester Preis von Double Season. Bundle und FAQ zeigen beide hierhin. */
 export const DOUBLE_SEASON_PRICE = 79;
 
+/**
+ * Festivalpreis des Signature Drinks, bezahlt an der Bar.
+ *
+ * Der Drink ist NICHT im Pass enthalten. Der Pass schaltet ihn frei, bezahlt
+ * wird er vor Ort. Die Seite hat ihn eine Zeit lang als "inklusive" und
+ * "du zahlst nichts nach" ausgewiesen, das war falsch. Jede Stelle, die den
+ * Drink erwaehnt, nennt diesen Preis und zieht ihn von hier.
+ */
+export const SIGNATURE_DRINK_PRICE = 6;
+
 /** Staffeln fuer /corporate. Preis ist immer der regulaere Tarif, keine Rabatte. */
 export const CORPORATE_SIZES = [10, 25, 50] as const;
 

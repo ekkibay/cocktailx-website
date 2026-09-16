@@ -22,6 +22,11 @@ Genau drei Produkte sind öffentlich sichtbar. Mehr nicht.
 
 Alle Beträge inklusive Mehrwertsteuer.
 
+**Der Signature Drink ist nicht im Pass enthalten.** Er kostet an der Bar
+6 € (`SIGNATURE_DRINK_PRICE` in `src/config/pricing.ts`) und wird dort
+bezahlt, der Pass schaltet ihn nur frei. Kein Text im Shop darf ihn als
+inklusive ausweisen.
+
 **49 € ist der öffentliche Referenzpreis.** Er wird öffentlich nie
 unterboten. **39 € ist die öffentliche Untergrenze.** Kein kleinerer Betrag
 erscheint im sichtbaren Shop, auch nicht in Meta-Tags, Sitemaps oder

@@ -5,7 +5,7 @@ import { useLocale } from "next-intl";
 import BlurText from "@/components/ui/BlurText";
 import CheckoutButton from "@/components/onice/CheckoutButton";
 import { useReveal } from "@/hooks/useReveal";
-import { CHECKOUT, EVENT, currentPrice } from "@/config/pricing";
+import { CHECKOUT, EVENT, SIGNATURE_DRINK_PRICE, currentPrice } from "@/config/pricing";
 
 /* ── Farben im Telefon-Mockup ───────────────────────────────────────────
    Die Mockup-Flächen sind Inline-Styles, dort greift keine Tailwind-Klasse.
@@ -56,8 +56,8 @@ const steps = [
     // Vorher "exklusive Preise gewinnen". Ein Gewinnversprechen ohne
     // Teilnahmebedingungen, das es so nicht gibt.
     desc: {
-      de: "In jeder Bar einen Signature Drink freischalten.",
-      en: "Unlock one signature drink in every bar.",
+      de: `In jeder Bar den Signature Drink für ${SIGNATURE_DRINK_PRICE} € freischalten.`,
+      en: `Unlock the signature drink in every bar for ${SIGNATURE_DRINK_PRICE} €.`,
     },
   },
 ];
@@ -104,19 +104,20 @@ const features = [
     ),
     // Vorher "Belohnungen & Preise", zweites Gewinnversprechen. Was drin ist,
     // ist der Signature Drink.
-    title: { de: "Signature Drink je Bar", en: "One signature drink per bar" },
+    title: { de: "Signature Drink je Bar", en: "A signature drink in every bar" },
   },
 ];
 
 /* Platzhalter für die Bar-Liste im Mockup. Bis das Re-Signing durch ist und
    BARS in src/config/onice.ts gefüllt ist, steht hier kein Name und keine
    Beschreibung, die sich auf genau ein Haus zurückführen lässt. Vorher
-   standen drei echte Bars im Klartext im Markup. Rechts steht nie ein Preis,
-   der Signature Drink ist im Pass enthalten. */
+   standen drei echte Bars im Klartext im Markup. Rechts steht der Festivalpreis
+   des Signature Drinks: Der ist nicht im Pass enthalten, sondern wird an der
+   Bar bezahlt, und genau das soll die Beispielansicht zeigen. */
 const mockBars = [
-  { name: { de: "Bar im Glockenbachviertel", en: "Bar in Glockenbach" }, tag: "Signature Drink" },
-  { name: { de: "Hotelbar in der Altstadt", en: "Hotel bar in the old town" }, tag: "Signature Drink" },
-  { name: { de: "Bar in der Maxvorstadt", en: "Bar in Maxvorstadt" }, tag: "Signature Drink" },
+  { name: { de: "Bar im Glockenbachviertel", en: "Bar in Glockenbach" }, tag: `${SIGNATURE_DRINK_PRICE} €` },
+  { name: { de: "Hotelbar in der Altstadt", en: "Hotel bar in the old town" }, tag: `${SIGNATURE_DRINK_PRICE} €` },
+  { name: { de: "Bar in der Maxvorstadt", en: "Bar in Maxvorstadt" }, tag: `${SIGNATURE_DRINK_PRICE} €` },
 ];
 
 export default function AppPage() {

@@ -10,7 +10,13 @@
  */
 
 import type { Bilingual } from "@/i18n/bilingual";
-import { CONTACT_EMAIL, DOUBLE_SEASON_LIMIT, DOUBLE_SEASON_PRICE, EVENT } from "./pricing";
+import {
+  CONTACT_EMAIL,
+  DOUBLE_SEASON_LIMIT,
+  DOUBLE_SEASON_PRICE,
+  EVENT,
+  SIGNATURE_DRINK_PRICE,
+} from "./pricing";
 
 /* ── Chapters ───────────────────────────────────────────────────────── */
 
@@ -201,8 +207,8 @@ export const HOW_IT_WORKS: HowItWorksStep[] = [
     step: "04",
     title: { de: "Signature Drink freischalten", en: "Unlock the signature drink" },
     text: {
-      de: "Jede Bar hat einen eigenen Drink für ON ICE. Einen pro Bar, so oft du Bars besuchst.",
-      en: "Every bar has its own drink for ON ICE. One per bar, as often as you visit bars.",
+      de: `Jede Bar hat einen eigenen Drink für ON ICE. Du bestellst ihn an der Bar für ${SIGNATURE_DRINK_PRICE} €, so oft du willst.`,
+      en: `Every bar has its own drink for ON ICE. You order it at the bar for ${SIGNATURE_DRINK_PRICE} €, as often as you like.`,
     },
   },
 ];
@@ -214,7 +220,12 @@ export const HOW_IT_WORKS: HowItWorksStep[] = [
    Zwei Zusagen sind hier bewusst nicht mehr drin: kostenloses Wasser, das
    wir nicht anbieten und nirgends zusichern koennen, und die Pflicht jeder
    Bar zu einer alkoholfreien Variante. Die Bars koennen eine anbieten,
-   muessen aber nicht. Bitte nicht wieder als Tatsache formulieren.            */
+   muessen aber nicht. Bitte nicht wieder als Tatsache formulieren.
+
+   Und der Signature Drink ist nicht im Pass enthalten. Er kostet an der Bar
+   SIGNATURE_DRINK_PRICE aus pricing.ts, der Pass schaltet ihn nur frei.
+   "Inklusive" und "du zahlst nichts nach" standen hier schon einmal und
+   waren falsch.                                                              */
 
 export interface FaqItem {
   q: Bilingual;
@@ -225,15 +236,15 @@ export const FAQ: FaqItem[] = [
   {
     q: { de: "Was bekomme ich für den Pass?", en: "What do I get for the pass?" },
     a: {
-      de: `Zugang zu allen teilnehmenden Bars über die gesamten ${EVENT.nights} Nächte. In jeder Bar schaltest du einen Signature Drink frei, der eigens für ON ICE entwickelt wurde. Der Drink ist im Pass enthalten, du zahlst an der Bar nichts nach.`,
-      en: `Access to every participating bar across all ${EVENT.nights} nights. In each bar you unlock a signature drink created specifically for ON ICE. The drink is included in the pass, you pay nothing extra at the bar.`,
+      de: `Zugang zu allen teilnehmenden Bars über die gesamten ${EVENT.nights} Nächte. In jeder Bar schaltest du einen Signature Drink frei, der eigens für ON ICE entwickelt wurde. Der Drink selbst ist nicht im Pass enthalten, du zahlst ihn an der Bar zum Festivalpreis von ${SIGNATURE_DRINK_PRICE} €.`,
+      en: `Access to every participating bar across all ${EVENT.nights} nights. In each bar you unlock a signature drink created specifically for ON ICE. The drink itself is not included in the pass, you pay ${SIGNATURE_DRINK_PRICE} € for it at the bar, the festival price.`,
     },
   },
   {
     q: { de: "Wie funktioniert das mit der App?", en: "How does the app work?" },
     a: {
-      de: "Die App ist dein Pass. Nach dem Kauf öffnest du sie und meldest dich an, dein Pass liegt dort hinterlegt. In der Bar scannst du den QR-Code, das Team schaltet deinen Drink frei. Du brauchst nichts auszudrucken und nichts abzuholen.",
-      en: "The app is your pass. After buying you open it and sign in, your pass is waiting there. At the bar you scan the QR code and the team unlocks your drink. Nothing to print, nothing to collect.",
+      de: "Die App ist dein Pass. Nach dem Kauf öffnest du sie und meldest dich an, dein Pass liegt dort hinterlegt. In der Bar scannst du den QR-Code, das Team schaltet deinen Drink frei und du bezahlst ihn direkt dort. Du brauchst nichts auszudrucken und nichts abzuholen.",
+      en: "The app is your pass. After buying you open it and sign in, your pass is waiting there. At the bar you scan the QR code, the team unlocks your drink and you pay for it right there. Nothing to print, nothing to collect.",
     },
   },
   {

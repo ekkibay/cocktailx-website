@@ -5,7 +5,7 @@ import { useLocale } from "next-intl";
 import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { hasConsent, loadPixel, trackEvent } from "@/lib/meta-pixel";
-import { BUNDLES, CONTACT_EMAIL, EVENT, TIERS, currentPrice } from "@/config/pricing";
+import { BUNDLES, CONTACT_EMAIL, EVENT, SIGNATURE_DRINK_PRICE, TIERS, currentPrice } from "@/config/pricing";
 
 /* ── Plausible Kaufwerte ──────────────────────────────────────────────
    Der Shop haengt value und order_id als reine Query-Parameter an den
@@ -147,8 +147,8 @@ export default function DankePage() {
 
   const shareText =
     locale === "de"
-      ? `Ich hab mir gerade meinen Pass für COCKTAIL X ON ICE '26 geholt. ${EVENT.nights} Nächte, ${EVENT.barsLabel} Bars in München, in jeder Bar ein Signature Drink. ${dateRange}. Der Pass kostet ${price} €. Komm mit: https://www.cocktail-x.com?utm_source=whatsapp&utm_medium=share&utm_campaign=onice26`
-      : `I just got my pass for COCKTAIL X ON ICE '26. ${EVENT.nights} nights, ${EVENT.barsLabel} bars in Munich, one signature drink in every bar. November 17 to 28. The pass is ${price} €. Join me: https://www.cocktail-x.com/en?utm_source=whatsapp&utm_medium=share&utm_campaign=onice26`;
+      ? `Ich hab mir gerade meinen Pass für COCKTAIL X ON ICE '26 geholt. ${EVENT.nights} Nächte, ${EVENT.barsLabel} Bars in München, in jeder Bar ein Signature Drink für ${SIGNATURE_DRINK_PRICE} €. ${dateRange}. Der Pass kostet ${price} €. Komm mit: https://www.cocktail-x.com?utm_source=whatsapp&utm_medium=share&utm_campaign=onice26`
+      : `I just got my pass for COCKTAIL X ON ICE '26. ${EVENT.nights} nights, ${EVENT.barsLabel} bars in Munich, one signature drink in every bar for ${SIGNATURE_DRINK_PRICE} €. November 17 to 28. The pass is ${price} €. Join me: https://www.cocktail-x.com/en?utm_source=whatsapp&utm_medium=share&utm_campaign=onice26`;
 
   return (
     <main className="section-padding pt-32 md:pt-40 min-h-screen relative flex items-center justify-center">

@@ -18,6 +18,7 @@ import {
   EARLY_UNTIL_LABEL_EN,
   EVENT,
   FULL_PRICE_STARTS_AT,
+  SIGNATURE_DRINK_PRICE,
   TIERS,
 } from "@/config/pricing";
 import type { Locale } from "@/i18n/bilingual";
@@ -80,9 +81,11 @@ function pruefeRegeln(text: string, wo: string) {
   assert.ok(!STRICH.test(text), `${wo}: Gedankenstrich`);
   assert.ok(!SIE.test(text), `${wo}: Sie-Form`);
   assert.ok(!text.includes("Sie "), `${wo}: "Sie "`);
+  /* Der Signature Drink ist kein Passpreis: Er kostet an der Bar weniger als
+     die Untergrenze und darf als einziger Betrag darunter genannt werden. */
   for (const m of Array.from(text.matchAll(PREIS))) {
     const wert = Number(m[1].replace(",", "."));
-    assert.ok(wert >= TIERS.early.price, `${wo}: Preis "${m[0]}" unter der Untergrenze`);
+    assert.ok(wert >= TIERS.early.price || wert === SIGNATURE_DRINK_PRICE, `${wo}: Preis "${m[0]}" unter der Untergrenze`);
   }
 }
 
