@@ -19,8 +19,8 @@ src/data/*.internal.json
 public/images/007 CX 2026/
 public/images/2025/
 
-# Original JPG/PNG bar images (webp versions committed)
-public/images/bars/*.jpg
+# Bar-Originale liegen im Repo, damit sie von jedem Rechner erreichbar sind.
+# public/images/bars/*.jpg
 public/images/testimonials/*.jpg
 
 # Claude config
@@ -45,5 +45,5 @@ Bilder/
 **/johannesritter*/
 **/goran_*/
 **/evoilamedia_*/
-# Arbeitsdateien Key Visual
-CI/
+# Arbeitsdateien Key Visual liegen im Repo (seit 12.10.2026, Wunsch Vincent).
+# CI/
