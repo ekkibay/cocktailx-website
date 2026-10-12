@@ -882,21 +882,38 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
               als Text: fuer Screenreader, fuer die Suche und weil manche Logos
               klein oder verspielt sind. */}
           <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-x-3 gap-y-6">
-            {BARS.map((bar) => (
-              <li key={bar.name}>
-                <div className="aspect-square rounded-xl bg-surface ring-1 ring-hairline overflow-hidden relative">
-                  <Image
-                    src={bar.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 180px, (min-width: 640px) 25vw, 50vw"
-                    className="object-cover"
-                  />
-                </div>
-                <p className="font-body text-sm font-bold text-bone leading-snug mt-2.5">{bar.name}</p>
-                <p className="font-body text-xs text-muted mt-0.5">{bar.viertel}</p>
-              </li>
-            ))}
+            {BARS.map((bar) => {
+              const kachel = (
+                <>
+                  <div className="aspect-square rounded-xl bg-surface ring-1 ring-hairline overflow-hidden relative">
+                    <Image
+                      src={bar.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 180px, (min-width: 640px) 25vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <p className="font-body text-sm font-bold text-bone leading-snug mt-2.5 group-hover:text-tangerine transition-colors">
+                    {bar.name}
+                  </p>
+                  <p className="font-body text-xs text-muted mt-0.5">{bar.viertel}</p>
+                </>
+              );
+              /* Hat die Bar eine Adresse im Netz, ist die ganze Kachel der Link.
+                 Neuer Tab, damit niemand die Kaufstrecke verliert. */
+              return (
+                <li key={bar.name}>
+                  {bar.website ? (
+                    <a href={bar.website} target="_blank" rel="noopener noreferrer" className="group block">
+                      {kachel}
+                    </a>
+                  ) : (
+                    kachel
+                  )}
+                </li>
+              );
+            })}
             {Array.from({ length: BAR_SILHOUETTES }).map((_, i) => (
               <li
                 key={`platzhalter-${i}`}

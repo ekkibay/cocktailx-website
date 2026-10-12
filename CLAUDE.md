@@ -57,7 +57,7 @@ Vice and Soul.
 
 ## Offene Punkte
 
-- Schreibweise "Simsalbim Bar" (Liste) oder "Sim Salabim" (Logo)?
+- Schreibweise geklaert: Die Bar nennt sich "Simsalabim" (Instagram @simsalabimbar).
 - "Komm zu zweit, geh zu fünft weiter" steht auf der Startseite doppelt
   (Kurz erklärt und Community-Banner). Vorschlag: nur im Banner behalten.
 - Preiserhöhung von Datum auf Stückzahl umstellen: Vincent will "noch N

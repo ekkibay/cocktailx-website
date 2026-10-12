@@ -164,30 +164,31 @@ export interface Bar {
   image: string;
   /** Verweist auf Trail.key, sobald die Trails stehen. */
   trail?: string;
-  instagram?: string;
+  /** Eigene Website der Bar. Hat sie keine, steht hier der Instagram-Link. */
+  website?: string;
 }
 
 export const BARS: Bar[] = [
-  { name: "Heir Beverage House", viertel: "Schwanthalerhöhe", image: "/images/bars/heir-beverage-house.png" },
+  { name: "Heir Beverage House", viertel: "Schwanthalerhöhe", image: "/images/bars/heir-beverage-house.png", website: "https://heir-beverage.com/" },
   { name: "Little Lehel Österreichische Weinbar & Café", viertel: "Lehel", image: "/images/bars/little-lehel.png" },
-  { name: "BODEGUITA Bar", viertel: "Schwabing", image: "/images/bars/bodeguita-bar.png" },
-  { name: "Curtain Call", viertel: "Glockenbachviertel", image: "/images/bars/curtain-call.png" },
-  { name: "Mi Casa", viertel: "Altstadt", image: "/images/bars/mi-casa.png" },
-  { name: "Simsalbim Bar", viertel: "Altstadt", image: "/images/bars/simsalbim-bar.png" },
-  { name: "Havana Club", viertel: "Altstadt", image: "/images/bars/havana-club.png" },
-  { name: "Gorilla Bar", viertel: "Neuhausen", image: "/images/bars/gorilla-bar.png" },
-  { name: "Nice Dining", viertel: "Werksviertel", image: "/images/bars/nice-dining.png" },
-  { name: "Guatemuc", viertel: "Werksviertel", image: "/images/bars/guatemuc.png" },
-  { name: "Florio Bar", viertel: "Maxvorstadt", image: "/images/bars/florio-bar.png" },
-  { name: "Cole & Porter", viertel: "Altstadt", image: "/images/bars/cole-porter.png" },
-  { name: "Suzy B. Bar", viertel: "Maxvorstadt", image: "/images/bars/suzy-b.png" },
-  { name: "Fitzroy", viertel: "Werksviertel", image: "/images/bars/fitzroy.png" },
+  { name: "BODEGUITA Bar", viertel: "Schwabing", image: "/images/bars/bodeguita-bar.png", website: "https://www.bodeguita.bar/" },
+  { name: "Curtain Call", viertel: "Glockenbachviertel", image: "/images/bars/curtain-call.png", website: "https://www.curtaincall.bar/" },
+  { name: "Mi Casa", viertel: "Altstadt", image: "/images/bars/mi-casa.png", website: "https://www.mi-casa-restaurant.de/" },
+  { name: "Simsalabim Bar", viertel: "Altstadt", image: "/images/bars/simsalbim-bar.png", website: "https://www.instagram.com/simsalabimbar/" },
+  { name: "Havana Club", viertel: "Altstadt", image: "/images/bars/havana-club.png", website: "https://havanaclub-muenchen.de/" },
+  { name: "Gorilla Bar", viertel: "Neuhausen", image: "/images/bars/gorilla-bar.png", website: "https://gorilla-bar.com/" },
+  { name: "Nice Dining", viertel: "Werksviertel", image: "/images/bars/nice-dining.png", website: "https://nicedining.de/" },
+  { name: "Guatemuc", viertel: "Werksviertel", image: "/images/bars/guatemuc.png", website: "https://www.guatemuc.de/" },
+  { name: "Florio Bar", viertel: "Maxvorstadt", image: "/images/bars/florio-bar.png", website: "https://www.roccofortehotels.com/hotels-and-resorts/the-charles-hotel/dining/florio/florio-bar/" },
+  { name: "Cole & Porter", viertel: "Altstadt", image: "/images/bars/cole-porter.png", website: "https://www.coleandporter.de/" },
+  { name: "Suzy B. Bar", viertel: "Maxvorstadt", image: "/images/bars/suzy-b.png", website: "https://www.jameshuntbar.com/eventlocation/maxvorstadt-schwabing-muenchen" },
+  { name: "Fitzroy", viertel: "Werksviertel", image: "/images/bars/fitzroy.png", website: "https://fitzroy-munich.de/" },
   { name: "Hedgehog", viertel: "Glockenbachviertel", image: "/images/bars/heug-eaug.png" },
-  { name: "Monchalant Bar, Vinothèque et Cuisinerie", viertel: "Haidhausen", image: "/images/bars/monchalant.png" },
-  { name: "Hotel Lux", viertel: "Altstadt", image: "/images/bars/hotel-lux.png" },
-  { name: "westhub / cloud6", viertel: "Schwanthalerhöhe", image: "/images/bars/cloud-6.png" },
-  { name: "Bolzanino", viertel: "Schwabing", image: "/images/bars/bolzanino.png" },
-  { name: "Daintree Pinsa Bar", viertel: "Maxvorstadt", image: "/images/bars/daintree-pinsa-bar.png" },
+  { name: "Monchalant Bar, Vinothèque et Cuisinerie", viertel: "Haidhausen", image: "/images/bars/monchalant.png", website: "https://monchalant.de/" },
+  { name: "Hotel Lux", viertel: "Altstadt", image: "/images/bars/hotel-lux.png", website: "https://hotel-lux-muenchen.de/" },
+  { name: "westhub / cloud6", viertel: "Schwanthalerhöhe", image: "/images/bars/cloud-6.png", website: "https://www.cloud6-munich.com/" },
+  { name: "Bolzanino", viertel: "Schwabing", image: "/images/bars/bolzanino.png", website: "https://www.bolzanino.com/" },
+  { name: "Daintree Pinsa Bar", viertel: "Maxvorstadt", image: "/images/bars/daintree-pinsa-bar.png", website: "https://www.daintree.de/muenchen/home" },
 ];
 
 /** Schimmernde Platzhalter hinter den veroeffentlichten Bars: Es kommen noch
