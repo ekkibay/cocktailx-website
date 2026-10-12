@@ -18,7 +18,7 @@ import {
   StaggerItem,
   WordReveal,
 } from "@/components/ui/Motion";
-import { BAR_SILHOUETTES, CHAPTERS, FAQ, HOW_IT_WORKS, TRAILS, TRAILS_BADGE } from "@/config/onice";
+import { BARS, BAR_SILHOUETTES, CHAPTERS, FAQ, HOW_IT_WORKS, TRAILS, TRAILS_BADGE } from "@/config/onice";
 import { NewsletterForm } from "@/components/onice/NewsletterForm";
 import {
   BUNDLES,
@@ -91,9 +91,12 @@ const COPY = {
         de: `Du kaufst einen Pass, öffnest die App und ziehst los. In jeder teilnehmenden Bar wartet ein Signature Drink, den es nur in diesen zwölf Nächten gibt, für ${SIGNATURE_DRINK_PRICE} € an der Bar. Danach entscheidest du: noch einen hier, oder weiter zur nächsten.`,
         en: `You buy a pass, open the app and set off. In every participating bar a signature drink is waiting that exists only in these twelve nights, for ${SIGNATURE_DRINK_PRICE} € at the bar. Then it is your call: another one here, or on to the next bar.`,
       },
+      /* Der Satz hiess "Die meisten kommen zu zweit und gehen mit fuenf Leuten
+         weiter". Das war eine Behauptung ueber andere Gaeste und keine
+         Einladung. Jetzt direkt an den Leser gerichtet. */
       {
-        de: "Kein Programm, das du abarbeiten musst, und keine feste Route. Die App schlägt dir Wege vor, den Abend baust du selbst. Die meisten kommen zu zweit und gehen mit fünf Leuten weiter, die sie an der Bar daneben getroffen haben.",
-        en: "No programme to work through and no fixed route. The app suggests ways to go, the evening is yours to build. Most people turn up as a pair and move on as a group of five they met at the bar next to them.",
+        de: "Kein Programm, das du abarbeiten musst, und keine feste Route. Die App schlägt dir Wege vor, den Abend baust du selbst. Komm zu zweit, geh zu fünft weiter.",
+        en: "No programme to work through and no fixed route. The app suggests ways to go, the evening is yours to build. Come as two, move on as five.",
       },
     ],
   },
@@ -102,6 +105,33 @@ const COPY = {
     guests: { de: "Gäste im Sommer", en: "Guests last summer" },
     bars: { de: "Bars im Sommer", en: "Bars last summer" },
     press: { de: "Gesehen in", en: "Seen in" },
+  },
+
+  /* Warum es das Festival gibt. Stand vorher nur auf der Gruenderseite, die
+     kaum jemand aufruft, waehrend die Startseite ausschliesslich das Produkt
+     erklaerte. Der Absatz bleibt kurz und belegt: Entstehung in der Pandemie,
+     die Bar als Buehne, der einheitliche Drinkpreis als Zugang. Keine Zahl
+     ueber fremde Barpreise, das waere eine Preisaussage ueber Dritte. */
+  story: {
+    eyebrow: { de: "Warum es uns gibt", en: "Why we exist" },
+    heading: {
+      de: "Münchens Barkultur verdient eine Bühne.",
+      en: "Munich's bar scene deserves a stage.",
+    },
+    body: [
+      {
+        de: "Cocktail X ist in der Pandemie entstanden, als die Bars geschlossen waren und eine ganze Szene ohne Publikum dastand. Aus der Idee wurde das größte Bar-Festival Deutschlands. Es gibt kein Gelände und keine Bühne: Die Stadt ist das Festival, und jede teilnehmende Bar ist eine Station.",
+        en: "Cocktail X started during the pandemic, when the bars were shut and an entire scene stood there without an audience. The idea grew into Germany's largest bar festival. There is no site and no stage: the city is the festival, and every participating bar is a stop on it.",
+      },
+      {
+        de: `Uns geht es um die Menschen dahinter. Um Bartender, die zeigen, was in einem Glas steckt, und um Gäste, die verstehen, warum. Deshalb kostet der Signature Drink in jeder Bar dasselbe, ${SIGNATURE_DRINK_PRICE} €: Der Preis soll niemanden davon abhalten, eine Bar auszuprobieren, die er sonst nie betreten hätte.`,
+        en: `We care about the people behind it. About bartenders who show what goes into a glass, and guests who understand why. That is why the signature drink costs the same in every bar, ${SIGNATURE_DRINK_PRICE} €: the price should never be the reason someone skips a bar they would otherwise never walk into.`,
+      },
+    ],
+    /* Zitat von Ekkehard Bay, so auch in der Presse zum Sommerfestival. */
+    quote: { de: "Echte Menschen, echte Begegnungen.", en: "Real people, real encounters." },
+    quoteSource: { de: "Ekkehard Bay, Co-Gründer", en: "Ekkehard Bay, co-founder" },
+    link: { de: "Die ganze Geschichte", en: "The whole story" },
   },
 
   how: {
@@ -133,14 +163,23 @@ const COPY = {
     },
   },
 
+  /* Das Bildbanner traegt jetzt die Community und nicht mehr nur Stimmung.
+     Der Wortlaut folgt dem freigegebenen Kanal-Text zu ON ICE, damit Post und
+     Seite dasselbe versprechen. Was die App kann, steht hier bewusst als
+     Aufzaehlung: sehen, teilen, folgen. Keine Reservierung, kein Matching. */
   banner: {
+    eyebrow: { de: "Community", en: "Community" },
     heading: {
-      de: "Zwölf Nächte, in denen du deine Stadt neu kennenlernst.",
-      en: "Twelve nights to get to know your city again.",
+      de: "Du bist nie allein unterwegs.",
+      en: "You are never out on your own.",
     },
     body: {
-      de: "Losziehen mit den Leuten, die du magst, und mit denen, die du an der Bar daneben triffst. Jede Bar bringt ihren eigenen Drink, du bringst die Runde mit.",
-      en: "Head out with the people you like, and with the ones you meet at the bar next to you. Every bar brings its own drink, you bring the round.",
+      de: "In der App siehst du, wer gerade wo anstößt. Teile Bilder und Gedanken, folge anderen und entdecke über die Community neue Leute und neue Bars.",
+      en: "In the app you see who is raising a glass where. Share pictures and thoughts, follow other people, and find new faces and new bars through the community.",
+    },
+    kicker: {
+      de: "Komm zu zweit, geh zu fünft weiter.",
+      en: "Come as two, move on as five.",
     },
   },
 
@@ -194,20 +233,21 @@ const COPY = {
 
   bars: {
     eyebrow: { de: "Bars", en: "Bars" },
-    /* Oeffentlich nur "40+", keine genaue Zahl und keine Namen, solange die
-       Vereinbarungen nicht unterschrieben sind. */
+    /* Gesamtzahl bleibt "40+". Genannt wird nur, wer unterschrieben hat,
+       die Zahl der genannten zieht aus BARS. Kein "jeden Tag eine": Das
+       Tempo haengt an den Unterschriften, nicht an einem Redaktionsplan. */
     heading: { de: `${EVENT.barsLabel} Bars.`, en: `${EVENT.barsLabel} bars.` },
     headingAccent: {
-      de: `Die erste am ${EVENT.barsRevealLabel}.`,
-      en: `The first on ${EVENT.barsRevealLabelEn}.`,
+      de: `Die ersten ${BARS.length} stehen.`,
+      en: `The first ${BARS.length} are in.`,
     },
     body: {
-      de: `Von der großen Hotelbar bis zum Kellerlokal, das nur die Nachbarschaft kennt, verteilt über die ganze Stadt. Ab dem ${EVENT.barsRevealLabel} geben wir jeden Tag eine neue bekannt, bis alle stehen.`,
-      en: `From the grand hotel bar to the basement place only the neighbourhood knows, spread across the whole city. From ${EVENT.barsRevealLabelEn} we announce a new one every day until they are all in.`,
+      de: "Von der großen Hotelbar bis zum Kellerlokal, das nur die Nachbarschaft kennt, verteilt über die ganze Stadt. Weitere geben wir laufend bekannt, bis alle stehen.",
+      en: "From the grand hotel bar to the basement place only the neighbourhood knows, spread across the whole city. We announce more as they sign, until they are all in.",
     },
     silhouettes: {
-      de: `Die ersten Namen ab ${EVENT.barsRevealLabel}, danach kommt täglich eine dazu.`,
-      en: `First names from ${EVENT.barsRevealLabelEn}, then one more every day.`,
+      de: "Weitere Bars folgen.",
+      en: "More bars to come.",
     },
   },
 
@@ -448,6 +488,47 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         </StaggerGroup>
       </section>
 
+      {/* ══ Warum es uns gibt ══
+          Steht direkt hinter den Zahlen aus dem Sommer: erst der Beleg, dass
+          es das Festival wirklich gibt, dann wofuer. Bewusst ohne Bild, die
+          Strecke hat davor und danach genug davon, und der Absatz soll sich
+          wie ein Einschub lesen und nicht wie ein weiteres Kapitel. */}
+      <section className="border-b border-hairline">
+        <div className="max-w-6xl mx-auto px-5 py-16 md:py-20 grid lg:grid-cols-12 gap-8 lg:gap-14">
+          <div className="lg:col-span-4">
+            <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
+              {pick(COPY.story.eyebrow, locale)}
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl leading-[1.05] text-bone">
+              {pick(COPY.story.heading, locale)}
+            </h2>
+          </div>
+          <div className="lg:col-span-8">
+            <Reveal>
+              <div className="space-y-4 font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-2xl">
+                {pickAll([...COPY.story.body], locale).map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+              <figure className="mt-8 border-l-2 border-tangerine pl-5">
+                <blockquote className="font-display text-xl md:text-2xl text-bone leading-snug">
+                  {pick(COPY.story.quote, locale)}
+                </blockquote>
+                <figcaption className="font-body text-xs uppercase tracking-wider text-muted mt-2">
+                  {pick(COPY.story.quoteSource, locale)}
+                </figcaption>
+              </figure>
+              <Link
+                href={`/${locale}/about/founder`}
+                className="inline-block mt-7 font-body text-xs font-bold uppercase tracking-wider text-tangerine hover:text-bone transition-colors"
+              >
+                {pick(COPY.story.link, locale)}
+              </Link>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* ══ So funktioniert's ══ */}
       <section className="max-w-6xl mx-auto px-5 py-20 md:py-28">
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-5">
@@ -588,9 +669,10 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         </div>
       </section>
 
-      {/* ══ Bildbanner ══
-          Bricht die Textstrecke auf und traegt die Haltung: gemeinsam
-          losziehen, Stadt erkunden, Leute kennenlernen. */}
+      {/* ══ Community ══
+          Bricht die Textstrecke auf und traegt den Community-Gedanken:
+          gemeinsam losziehen, Leute kennenlernen, in der App sehen, wer
+          gerade unterwegs ist. */}
       <section className="relative h-[65svh] min-h-[420px] overflow-hidden">
         <ParallaxImage
           src="/images/onice/onice-bar-clink.jpg"
@@ -602,11 +684,17 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
         <div className="absolute inset-0 bg-gradient-to-r from-licorice via-licorice/40 to-transparent" />
         <div className="relative h-full max-w-6xl mx-auto px-5 flex flex-col justify-end pb-14 md:pb-20">
           <Reveal>
+            <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-tangerine mb-4">
+              {pick(COPY.banner.eyebrow, locale)}
+            </p>
             <h2 className="font-display text-4xl md:text-6xl leading-[0.95] text-bone max-w-2xl mb-4">
               {pick(COPY.banner.heading, locale)}
             </h2>
-            <p className="font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl">
+            <p className="font-body text-base md:text-lg text-bone/85 leading-relaxed max-w-xl mb-4">
               {pick(COPY.banner.body, locale)}
+            </p>
+            <p className="font-display text-xl md:text-2xl text-tangerine">
+              {pick(COPY.banner.kicker, locale)}
             </p>
           </Reveal>
         </div>
@@ -790,11 +878,29 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
             {pick(barsPlanNote(price), locale)}
           </p>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+          {/* Die Bilder tragen das Logo schon, darunter steht der Name trotzdem
+              als Text: fuer Screenreader, fuer die Suche und weil manche Logos
+              klein oder verspielt sind. */}
+          <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-x-3 gap-y-6">
+            {BARS.map((bar) => (
+              <li key={bar.name}>
+                <div className="aspect-square rounded-xl bg-surface ring-1 ring-hairline overflow-hidden relative">
+                  <Image
+                    src={bar.image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 180px, (min-width: 640px) 25vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
+                <p className="font-body text-sm font-bold text-bone leading-snug mt-2.5">{bar.name}</p>
+                <p className="font-body text-xs text-muted mt-0.5">{bar.viertel}</p>
+              </li>
+            ))}
             {Array.from({ length: BAR_SILHOUETTES }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-[4/3] rounded-xl bg-surface ring-1 ring-hairline overflow-hidden relative"
+              <li
+                key={`platzhalter-${i}`}
+                className="aspect-square rounded-xl bg-surface ring-1 ring-hairline overflow-hidden relative"
                 aria-hidden
               >
                 {/* Schimmer statt Fragezeichen: wirkt wie etwas, das gleich kommt,
@@ -803,15 +909,15 @@ export default function OnIcePage({ params }: { params: { locale: string } }) {
                   className="absolute inset-0 shimmer"
                   style={{ animationDelay: `${(i % 6) * 0.35}s` }}
                 />
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
           <p className="font-body text-sm text-muted mt-5">{pick(COPY.bars.silhouettes, locale)}</p>
 
           {/* Der Newsletter steht hier und nicht im Fuss: Direkt darueber
-              versprechen wir taegliche Ankuendigungen ab dem Stichtag, und
-              das ist der einzige Moment auf der Seite, in dem jemand von
-              selbst wissen will, wie er das mitbekommt. */}
+              steht, dass weitere Bars folgen, und das ist der einzige Moment
+              auf der Seite, in dem jemand von selbst wissen will, wie er das
+              mitbekommt. */}
           <div className="mt-12">
             <NewsletterForm locale={locale} />
           </div>

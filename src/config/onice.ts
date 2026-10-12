@@ -150,25 +150,49 @@ export const TRAILS_BADGE: Bilingual = {
 };
 
 /* ── Bars ───────────────────────────────────────────────────────────────
-   Solange das Re-Signing laeuft, gibt es weder Namen noch genaue Zahlen,
-   nur "40+". Die Struktur steht aber schon, damit ab dem Reveal taeglich
-   Kacheln nachgeladen werden koennen, ohne dass Code angefasst wird.        */
+   Hier steht nur, wer fuer ON ICE unterschrieben hat. Die Liste waechst
+   schrittweise, oeffentlich bleibt die Gesamtzahl bei "40+".
+
+   Bilder und Viertel stammen aus dem Sommer-Material (Branch
+   summer-26-archive). Die Namen folgen der Teilnehmerliste fuer ON ICE,
+   nicht dem alten Datensatz, der einige Bars verkuerzt fuehrte.            */
 
 export interface Bar {
-  /** Sichtbar ab Reveal. */
   name: string;
   viertel: string;
-  /** Verweist auf Trail.key */
-  trail: string;
+  /** Quadratisch, schwarzweiss, Logo bereits im Bild. */
   image: string;
-  instagram: string;
+  /** Verweist auf Trail.key, sobald die Trails stehen. */
+  trail?: string;
+  instagram?: string;
 }
 
-/** Bleibt leer bis zum Reveal. Danach hier befuellen oder aus einer Quelle laden. */
-export const BARS: Bar[] = [];
+export const BARS: Bar[] = [
+  { name: "Heir Beverage House", viertel: "Schwanthalerhöhe", image: "/images/bars/heir-beverage-house.png" },
+  { name: "Little Lehel Österreichische Weinbar & Café", viertel: "Lehel", image: "/images/bars/little-lehel.png" },
+  { name: "BODEGUITA Bar", viertel: "Schwabing", image: "/images/bars/bodeguita-bar.png" },
+  { name: "Curtain Call", viertel: "Glockenbachviertel", image: "/images/bars/curtain-call.png" },
+  { name: "Mi Casa", viertel: "Altstadt", image: "/images/bars/mi-casa.png" },
+  { name: "Simsalbim Bar", viertel: "Altstadt", image: "/images/bars/simsalbim-bar.png" },
+  { name: "Havana Club", viertel: "Altstadt", image: "/images/bars/havana-club.png" },
+  { name: "Gorilla Bar", viertel: "Neuhausen", image: "/images/bars/gorilla-bar.png" },
+  { name: "Nice Dining", viertel: "Werksviertel", image: "/images/bars/nice-dining.png" },
+  { name: "Guatemuc", viertel: "Werksviertel", image: "/images/bars/guatemuc.png" },
+  { name: "Florio Bar", viertel: "Maxvorstadt", image: "/images/bars/florio-bar.png" },
+  { name: "Cole & Porter", viertel: "Altstadt", image: "/images/bars/cole-porter.png" },
+  { name: "Suzy B. Bar", viertel: "Maxvorstadt", image: "/images/bars/suzy-b.png" },
+  { name: "Fitzroy", viertel: "Werksviertel", image: "/images/bars/fitzroy.png" },
+  { name: "Hedgehog", viertel: "Glockenbachviertel", image: "/images/bars/heug-eaug.png" },
+  { name: "Monchalant Bar, Vinothèque et Cuisinerie", viertel: "Haidhausen", image: "/images/bars/monchalant.png" },
+  { name: "Hotel Lux", viertel: "Altstadt", image: "/images/bars/hotel-lux.png" },
+  { name: "westhub / cloud6", viertel: "Schwanthalerhöhe", image: "/images/bars/cloud-6.png" },
+  { name: "Bolzanino", viertel: "Schwabing", image: "/images/bars/bolzanino.png" },
+  { name: "Daintree Pinsa Bar", viertel: "Maxvorstadt", image: "/images/bars/daintree-pinsa-bar.png" },
+];
 
-/** Anzahl Silhouetten im Platzhalter-Raster vor dem Reveal. */
-export const BAR_SILHOUETTES = 12;
+/** Schimmernde Platzhalter hinter den veroeffentlichten Bars: Es kommen noch
+    welche. Vier, damit das Raster bei 2, 4 und 6 Spalten aufgeht. */
+export const BAR_SILHOUETTES = 4;
 
 /* ── So funktioniert's ──────────────────────────────────────────────── */
 
@@ -285,8 +309,8 @@ export const FAQ: FaqItem[] = [
   {
     q: { de: "Wann werden die Bars bekannt gegeben?", en: "When are the bars announced?" },
     a: {
-      de: `Ab dem ${EVENT.barsRevealLabel}. Danach kommen laufend weitere dazu, bis alle ${EVENT.barsLabel} Bars stehen. Wir veröffentlichen keine Namen, solange die Vereinbarungen nicht unterschrieben sind.`,
-      en: `From ${EVENT.barsRevealLabelEn}. After that more follow continuously until all ${EVENT.barsLabel} bars are set. We publish no names until the agreements are signed.`,
+      de: `Die ersten ${BARS.length} stehen fest, du findest sie oben im Abschnitt „Bars“. Weitere kommen laufend dazu, bis alle ${EVENT.barsLabel} Bars stehen. Einen Namen veröffentlichen wir erst, wenn die Vereinbarung unterschrieben ist.`,
+      en: `The first ${BARS.length} are confirmed, you will find them in the “Bars” section above. More follow continuously until all ${EVENT.barsLabel} bars are set. We only publish a name once the agreement is signed.`,
     },
   },
   {

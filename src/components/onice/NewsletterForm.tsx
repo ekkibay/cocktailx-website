@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { EVENT } from "@/config/pricing";
 import { pick, type Bilingual, type Locale } from "@/i18n/bilingual";
 
 /**
@@ -23,8 +22,8 @@ type Zustand = "bereit" | "sendet" | "mailRaus" | "tippfehler" | "fehler";
 const COPY = {
   titel: { de: "Erfahre es zuerst.", en: "Hear it first." },
   text: {
-    de: `Ab dem ${EVENT.barsRevealLabel} geben wir jeden Tag eine Bar bekannt. Wir schreiben dir, sobald eine neue dazukommt, und sonst nicht.`,
-    en: `From ${EVENT.barsRevealLabelEn} we announce one bar a day. We write when a new one joins, and otherwise we leave you alone.`,
+    de: "Wir geben laufend neue Bars bekannt. Wir schreiben dir, sobald eine dazukommt, und sonst nicht.",
+    en: "We keep announcing new bars. We write when one joins, and otherwise we leave you alone.",
   },
   platzhalter: { de: "deine@adresse.de", en: "your@address.com" },
   knopf: { de: "Eintragen", en: "Sign up" },

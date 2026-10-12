@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { CONTACT_EMAIL, EVENT } from "@/config/pricing";
+import { CONTACT_EMAIL } from "@/config/pricing";
 import { asLocale, pick, type Bilingual, type Locale } from "@/i18n/bilingual";
 import { eintragen } from "@/lib/newsletter/store";
 import { newsletterSecret, tokenPruefen, type TokenFehler } from "@/lib/newsletter/token";
@@ -34,8 +34,8 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
 const COPY = {
   okTitel: { de: "Du bist dabei.", en: "You are in." },
   okText: {
-    de: `Deine Adresse ist bestätigt. Ab dem ${EVENT.barsRevealLabel} schreiben wir dir, sobald eine neue Bar dazukommt. Abmelden kannst du dich in jeder Mail mit einem Klick.`,
-    en: `Your address is confirmed. From ${EVENT.barsRevealLabelEn} we will write whenever a new bar joins. You can unsubscribe from any mail with one click.`,
+    de: "Deine Adresse ist bestätigt. Ab jetzt schreiben wir dir, sobald eine neue Bar dazukommt. Abmelden kannst du dich in jeder Mail mit einem Klick.",
+    en: "Your address is confirmed. From now on we will write whenever a new bar joins. You can unsubscribe from any mail with one click.",
   },
   abgelaufenTitel: { de: "Der Link ist abgelaufen.", en: "That link has expired." },
   abgelaufenText: {

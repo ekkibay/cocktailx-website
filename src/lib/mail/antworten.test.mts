@@ -214,9 +214,9 @@ describe("Antworten: Inhalt der Vorlagen", () => {
     assert.ok(entwurf("gruppe", "en").text.includes("/en/corporate"));
   });
 
-  it("Partner nennt das Reveal-Datum und keine Zusage", () => {
-    assert.ok(entwurf("partner", "de").text.includes(EVENT.barsRevealLabel));
-    assert.ok(entwurf("partner", "en").text.includes(EVENT.barsRevealLabelEn));
+  it("Partner verweist auf das laufende Line-up und gibt keine Zusage", () => {
+    assert.ok(entwurf("partner", "de").text.includes("erst, wenn die Vereinbarungen unterschrieben sind"));
+    assert.ok(entwurf("partner", "en").text.includes("before the agreements are signed"));
   });
 
   it("Sonstiges nennt Veranstaltung und Eckdaten", () => {

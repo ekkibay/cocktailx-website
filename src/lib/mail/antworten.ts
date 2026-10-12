@@ -300,12 +300,12 @@ const VORLAGEN: Record<Variante, Record<Locale, Vorlage>> = {
     de: () => [
       `danke für deine Nachricht und das Interesse an ${EVENT.name}.`,
       "Wir freuen uns über jede Bar und jeden Partner, der ON ICE mitgestalten will. Damit wir dich richtig einordnen können, schick uns gern kurz: wer ihr seid, wo ihr seid und was du dir vorstellst. Wir melden uns dann persönlich bei dir.",
-      `Das Line-up veröffentlichen wir schrittweise ab dem ${EVENT.barsRevealLabel}. Namen nennen wir erst, wenn die Vereinbarungen unterschrieben sind.`,
+      "Das Line-up veröffentlichen wir schrittweise, die ersten Bars stehen schon auf unserer Website. Namen nennen wir erst, wenn die Vereinbarungen unterschrieben sind.",
     ],
     en: () => [
       `thanks for your message and your interest in ${EVENT.name}.`,
       "We are happy about every bar and every partner who wants to shape ON ICE with us. So we can place your request properly, please send us a few lines: who you are, where you are, and what you have in mind. We will then get back to you personally.",
-      `We publish the line-up step by step from ${EVENT.barsRevealLabelEn}. We do not name anyone before the agreements are signed.`,
+      "We publish the line-up step by step, and the first bars are already on our website. We do not name anyone before the agreements are signed.",
     ],
   },
 

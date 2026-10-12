@@ -8,6 +8,7 @@ import {
   SUMMER_PROOF,
   TIERS,
 } from "@/config/pricing";
+import { BARS } from "@/config/onice";
 import { asLocale, pick, type Bilingual, type Locale } from "@/i18n/bilingual";
 
 /**
@@ -59,8 +60,8 @@ const FACTS: { label: Bilingual; value: Bilingual }[] = [
   {
     label: { de: "Teilnehmende Bars", en: "Participating bars" },
     value: {
-      de: `${EVENT.barsLabel}, Bekanntgabe ab ${EVENT.barsRevealLabel}`,
-      en: `${EVENT.barsLabel}, announced from ${EVENT.barsRevealLabelEn}`,
+      de: `${EVENT.barsLabel}, die ersten ${BARS.length} sind veröffentlicht`,
+      en: `${EVENT.barsLabel}, the first ${BARS.length} announced`,
     },
   },
   {
@@ -120,8 +121,8 @@ const COPY = {
   factsTitle: { de: "Eckdaten", en: "Key facts" },
   kitTitle: { de: "Pressemappe", en: "Press kit" },
   kitLead: {
-    de: `Die Mappe mit Bildmaterial, Logos und Hintergrundtexten wird derzeit zusammengestellt und steht ab dem Bar-Reveal am ${EVENT.barsRevealLabel} zum Download bereit. Bis dahin schicken wir dir alles auf Anfrage direkt zu.`,
-    en: `The kit with images, logos and background texts is being put together and will be ready to download from the bar reveal on ${EVENT.barsRevealLabelEn}. Until then we send you everything directly on request.`,
+    de: "Die Mappe mit Bildmaterial, Logos und Hintergrundtexten wird derzeit zusammengestellt. Bis sie zum Download bereitsteht, schicken wir dir alles auf Anfrage direkt zu.",
+    en: "The kit with images, logos and background texts is being put together. Until it is ready to download, we send you everything directly on request.",
   },
   kitListTitle: { de: "Bis zum Download verfügbar", en: "Available on request until then" },
   contactTitle: { de: "Kontakt", en: "Contact" },
@@ -136,8 +137,8 @@ const COPY = {
      Sprachen dasselbe sein: eine Bitte, keine Auflage, und mit dem Grund
      dahinter. Ohne den Grund liest sie sich wie eine Bedingung. */
   embargo: {
-    de: `Bitte keine Bar-Namen vor dem ${EVENT.barsRevealLabel} veröffentlichen. Die Vereinbarungen laufen noch, und wir wollen keinem Partner vorgreifen.`,
-    en: `Please hold back any bar names until ${EVENT.barsRevealLabelEn}. The agreements are still running, and we would rather not get ahead of any partner.`,
+    de: "Bitte nur die Bars nennen, die wir selbst schon veröffentlicht haben. Mit den übrigen laufen die Vereinbarungen noch, und wir wollen keinem Partner vorgreifen.",
+    en: "Please only name the bars we have already announced ourselves. Agreements with the others are still running, and we would rather not get ahead of any partner.",
   },
   back: { de: "Zurück zu ON ICE", en: "Back to ON ICE" },
 } satisfies Record<string, Bilingual>;
